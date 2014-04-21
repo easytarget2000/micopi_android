@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");-->
+<!--you may not use this file except in compliance with the License.-->
+<!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software-->
+<!--distributed under the License is distributed on an "AS IS" BASIS,-->
+<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
+<!--See the License for the specific language governing permissions and-->
+<!--limitations under the License.-->
+
+<!--FRENCH-->
+
+<resources>
+
+    <string name="app_name">Micopi</string>
+    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
+    <string name="no_contact_selected">Personne n\'a été sélectionné</string>
+    <string name="introduction_text">
+        Après le choix du contact,
+        la photo produit sera présenté avant de l\'assigner à la personne désigné.
+    </string>
+    <string name="image_description">Image calculée</string>
+    <string name="contact_button_label">Choisir un contact</string>
+    <string name="save_button_label">Enregistrer l\'image</string>
+    <string name="assign_button_label">Attribuez à ce contact</string>
+    <string name="overwrite_dialog">Voulez-vous assigner cette image à %s?</string>
+    <string name="report_button_label">Rapport d\'erreur</string>
+    <string name="success_applying_image">%s a obtenu une nouvelle photo de profil.</string>
+    <string name="success_saving_image">L\'image enregistré comme %s.</string>
+    <string name="error_generating">Erreur de générer la photo.</string>
+    <string name="error_retrieving">Erreur de désigner les fichiers de contact.</string>
+    <string name="error_saving">Erreur d\'enregistrer la photo</string>
+    <string name="error_assign">Erreur d\'assigner la photo.</string>
+
+    <string name="retry_button_label">Essayez à nouveau</string>
+
+</resources>

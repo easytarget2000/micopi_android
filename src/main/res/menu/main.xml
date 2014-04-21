@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_assign"
+        android:icon="@drawable/ic_action_navigation_accept"
+        android:title="@string/assign_button_label"
+        android:showAsAction="ifRoom|withText"/>
+
+    <item android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_action_search"
+        android:title="@string/contact_button_label"
+        android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_retry"
+        android:icon="@drawable/ic_action_navigation_refresh"
+        android:title="@string/retry_button_label"
+        android:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_save"
+        android:icon="@drawable/ic_action_content_save"
+        android:title="@string/save_button_label"
+        android:showAsAction="never" />
+
+</menu>

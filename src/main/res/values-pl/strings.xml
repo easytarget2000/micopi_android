@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");-->
+<!--you may not use this file except in compliance with the License.-->
+<!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software-->
+<!--distributed under the License is distributed on an "AS IS" BASIS,-->
+<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
+<!--See the License for the specific language governing permissions and-->
+<!--limitations under the License.-->
+
+<resources>
+
+    <string name="app_name">Micopi</string>
+    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
+    <string name="introduction_text"></string>
+    <string name="no_contact_selected">No contact selected</string>
+    <string name="image_description">Obliczony obraz</string>
+    <string name="contact_button_label">Wybierz kontakt</string>
+    <string name="save_button_label">Zapisz obraz jako plik</string>
+    <string name="assign_button_label">Przydziel obraz do kontaktu</string>
+    <string name="overwrite_dialog">Przydzielić obraz do kontaktu %s?</string>
+    <string name="report_button_label">Raport</string>
+    <string name="success_applying_image">%s dostał/a nowy obraz w profilu.</string>
+    <string name="success_saving_image">Obraz zapisany jako %s.</string>
+    <string name="error_generating">Błąd przy generowaniu obrazu.</string>
+    <string name="error_retrieving">Błąd w przywołaniu danych kontaktowych.</string>
+    <string name="error_saving">Błąd przy zapisywaniu obrazu.</string>
+    <string name="error_assign">Błąd w przydzielaniu obrazu.</string>
+
+</resources>

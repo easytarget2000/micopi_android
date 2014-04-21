@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");-->
+<!--you may not use this file except in compliance with the License.-->
+<!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software-->
+<!--distributed under the License is distributed on an "AS IS" BASIS,-->
+<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
+<!--See the License for the specific language governing permissions and-->
+<!--limitations under the License.-->
+
+<resources>
+
+    <string name="introduction_text">
+        Nachdem Du einen Kontakt ausgewählt hast,
+        wird das generierte Bild angezeigt, bevor Du es der Person zuweisen kannst.
+    </string>
+    <string name="no_contact_selected">Kein Kontakt ausgewählt</string>
+    <string name="image_description">Errechnetes Kontaktbild</string>
+    <string name="contact_button_label">Einen Kontakt auswählen</string>
+    <string name="save_button_label">Bild als Datei abspeichern</string>
+    <string name="assign_button_label">Bild zuweisen</string>
+    <string name="overwrite_dialog">Möchten Sie %s dieses Bild zuweisen?</string>
+    <string name="report_button_label">Bericht</string>
+    <string name="success_applying_image">%s hat ein neues Profilbild.</string>
+    <string name="success_saving_image">Das Bild wurde als %s gespeichert.</string>
+    <string name="error_generating">Ein Fehler trat beim Generieren des Bildes auf.</string>
+    <string name="error_retrieving">Ein Fehler trat beim Abrufen der Kontaktdaten auf.</string>
+    <string name="error_saving">
+        Ein Fehler trat beim Speichern des Bildes auf.
+        Bitte stellen Sie sicher, dass Ihre Speicherkarte nicht gesperrt ist.</string>
+    <string name="error_assign">Ein Fehler trat beim Zuweisen des Bildes auf.</string>
+
+    <string name="retry_button_label">Neu generieren</string>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");-->
+<!--you may not use this file except in compliance with the License.-->
+<!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software-->
+<!--distributed under the License is distributed on an "AS IS" BASIS,-->
+<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
+<!--See the License for the specific language governing permissions and-->
+<!--limitations under the License.-->
+
+<resources>
+
+    <string name="introduction_text">
+        Tras seleccionar un nombre de la lista,
+        se generará la imagen para que pueda aplicarla al contacto.</string>
+    <string name="no_contact_selected">Fue seleccionado nadie</string>
+    <string name="image_description">Imagen generada</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="contact_button_label">Seleccionar un contacto</string>
+    <string name="save_button_label">Guardar imagen en archivo</string>
+    <string name="assign_button_label">Aplicar imagen</string>
+    <string name="overwrite_dialog">¿Desea asignar a %s esta imagen?</string>
+    <string name="report_button_label">Reportar</string>
+    <string name="success_applying_image">%s tiene ahora una nueva imagen de contacto.</string>
+    <string name="success_saving_image">La imagen se guardó con el nombre %s</string>
+    <string name="error_generating">Ocurrió un error al generar la imagen.</string>
+    <string name="error_retrieving">Ocurrió un error obteniendo los datos de contacto.</string>
+    <string name="error_saving">Ocurrió un error guardando la imagen.</string>
+    <string name="error_assign">Ocurrió un error mientras se asignaba la imagen al contacto.</string>
+    <string name="error_folder">El directorio de Micopi no pudo crearse.</string>
+
+</resources>
