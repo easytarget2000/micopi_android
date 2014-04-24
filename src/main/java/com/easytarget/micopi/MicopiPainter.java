@@ -26,6 +26,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.os.Build;
+import android.util.FloatMath;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,9 @@ import java.util.ArrayList;
  * Created by Michel on 23.01.14.
  */
 public class MicopiPainter {
+    // TODO: Is this accurate enough for the task or should I use (float) Math.PI?
+    private static final float pi = 3.14159f;
+
     /**
      * Draws a circular gradient from the given color to a lighter one.
      * @param baseColor    Base color to draw with
@@ -78,9 +83,15 @@ public class MicopiPainter {
      * @param fTriangleA    Length of the base side of the triangle
      * @param canvas    Canvas to draw on
      */
-    public static void paintMicopiPolygon( ArrayList<Vertex> polygon, char cAlphaFactor,
-                                           int iAlphaFactor2, boolean isFilled, int iIteration,
-                                           float fTriangleA, Canvas canvas ) {
+    public static void paintMicopiPolygon(
+            ArrayList<Vertex> polygon,
+            char cAlphaFactor,
+            int iAlphaFactor2,
+            boolean isFilled,
+            int iIteration,
+            float fTriangleA,
+            Canvas canvas
+    ) {
         Paint paint = new Paint( Color.WHITE );
         Path path = new Path();
         boolean isFirstVertex = true;       // path.isEmpty() does not seem to become false in API10
@@ -145,24 +156,33 @@ public class MicopiPainter {
      * Draws two circles on top of each other. The second one is larger than the first one.
      * The first one is more visible though because it has the combined alpha values of both.
      *
-     * @param currentCircle     Current circle number
-     * @param numberOfCircles   Total number of circles to draw
+     * @param currentNum     Current circle number
+     * @param numOfShapes   Total number of circles to draw
      * @param centerX   X-coordinate of circle center
      * @param centerY   Y-coordinate of circle center
      * @param radiusFactor      Will be multiplied with generated radius
      * @param widthChar Character that determines the width of the lines
      * @param canvas    Canvas to draw on
      */
-    public static void paintMicopiCircle( int currentCircle, int numberOfCircles, int addColor,
-                                          float centerX, float centerY, float radiusFactor,
-                                          char widthChar, float imageSize, Canvas canvas ) {
+    public static void paintMicopiCircle(
+            boolean paintPolygon,
+            int numOfEdges,
+            int currentNum,
+            int numOfShapes,
+            int addColor,
+            float centerX,
+            float centerY,
+            float radiusFactor,
+            char widthChar,
+            float imageSize,
+            Canvas canvas
+    ) {
 
-        float strokeWidth  = ( imageSize * (float) widthChar * .0015f );
-        float circleRadius = radiusFactor *
-                ( strokeWidth + ( strokeWidth * currentCircle ) + ( strokeWidth * currentCircle ) );
+        float strokeWidth  = (imageSize * (float) widthChar * .0015f);
+        float innerRadius = radiusFactor *
+                ( strokeWidth + (strokeWidth * currentNum) + (strokeWidth * currentNum) );
 
-        if ( currentCircle > 2 )
-            circleRadius -= strokeWidth;
+        if (currentNum > 2) innerRadius -= strokeWidth;
 
         // Configure paint
         Paint paint = new Paint();
@@ -170,27 +190,62 @@ public class MicopiPainter {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
 
-        switch( widthChar % 3 ) {
+        switch(widthChar % 4) {
             case 0:
-                paint.setColor( addColor );
+                paint.setColor(addColor);
                 break;
             case 1:
-                paint.setColor( Color.WHITE );
+                paint.setColor(Color.BLACK);
+                break;
+            case 2:
+                paint.setColor(Color.WHITE);
                 break;
             default:
                 paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
-                paint.setColor( Color.RED );
+                paint.setColor(Color.RED);
         }
 
-        paint.setAlpha((int)
-                (60 * ((double) (currentCircle + 1) / (double) numberOfCircles)));
+        int alpha = (int) (60 * ((double) (currentNum + 1) / (double) numOfShapes));
+        paint.setAlpha(alpha);
 
-        // Draw one circle.
-        canvas.drawCircle(centerX, centerY, circleRadius, paint);
+        //Calculate the polygon values if needed.
+        float edgeLength = 0f;   // Distance between two vertices.
+        float deltaAlpha = 0f;   // The inner angle that will be added to the current path angle
+        if (paintPolygon) {
+            edgeLength = innerRadius * 2f * FloatMath.sin(pi/numOfEdges);
+            float n = (float) numOfEdges;
+            deltaAlpha = ((n-2f)/n) * pi;
+            Log.d("Drawing Polygon", numOfEdges + ", " + edgeLength + ", " + deltaAlpha);
+        }
 
-        // Draw another one.
-        circleRadius -= strokeWidth *.32f;
-        canvas.drawCircle( centerX, centerY, circleRadius, paint );
+        // Draw two shapes of the same kind.
+        for (int i = 0; i < 2; i++) {
+            if (!paintPolygon) {
+                canvas.drawCircle(centerX, centerY, innerRadius, paint);
+            } else {
+                Path polygonPath = new Path();
+                float pathAlpha = 0f;
+
+                // Estimate a lower left corner of the polygon from the center coordinates.
+                float x = centerX - innerRadius;
+                float y = centerY + innerRadius;
+                polygonPath.moveTo(x,y);
+
+                for (int j = 0; j < numOfEdges; j++) {
+                    x +=  FloatMath.cos(pathAlpha) * edgeLength;
+                    y -=  FloatMath.sin(pathAlpha) * edgeLength;
+                    polygonPath.lineTo(x,y);
+                    pathAlpha += deltaAlpha;
+                }
+
+                polygonPath.close();
+                canvas.drawPath(polygonPath, paint);
+            }
+
+            // Draw the second shape differently.
+            innerRadius -= strokeWidth * .32f;
+        }
+
     }
 
     /**
@@ -234,7 +289,9 @@ public class MicopiPainter {
         paint.setAntiAlias( true );
         if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ) {
             paint.setXfermode( new PorterDuffXfermode( PorterDuff.Mode.ADD ) );
-        } else paintAlpha *= 4;
+        } else {
+            paintAlpha *= 4;
+        }
 
         if ( factorChar3 % 3 == 0) paint.setColor( Color.RED );
         else paint.setColor(Color.WHITE );

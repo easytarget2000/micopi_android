@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class MicopiGeneratorMD5 {
     //private static final float CONTACT_ICON_SIZE = 1080f;
     private float mImageSize = 1080f;
-    private String mMd5String, mContactName;
+    private String mMd5String, mContactName, mContactFirstName;
     private Bitmap mGeneratedBitmap = null;
     private Canvas mCanvas;
     private float mCenterX, mCenterY;
@@ -66,21 +66,38 @@ public class MicopiGeneratorMD5 {
         );
 
         mCanvas = new Canvas( mGeneratedBitmap );
+    }
 
-        if ( md5String.charAt( 8 ) % 3 == 0 ) {
-            generateOldModeImage();
-        } else {
-            generateCircleScape();
-        }
+    public Bitmap generateBitmap() {
 
-        // Count the number of spaces/words in the contact's name.
+//        if ( mMd5String.charAt( 8 ) % 3 == 0 ) {
+//            generateOldModeImage();
+//        } else {
+//            generateCircleScape();
+//        }
+
+        // Count the number of spaces/words in the contact's name
         int iNumberOfWords = 1;
-        for ( int i = 0; i < mContactName.length(); i++  ) {
-            if ( mContactName.charAt(i) == ' ' ) iNumberOfWords++;
+        for (int i = 0; i < mContactName.length(); i++  ) {
+            if (mContactName.charAt(i) == ' ' ) {
+                iNumberOfWords++;
+                // Store the first part of the name seperately.
+                if (mContactFirstName == null && i > 0) {
+                    mContactFirstName = mContactName.substring( 0, i);
+                }
+            }
         }
+        if (mContactFirstName == null) mContactFirstName = mContactName;
 
-        // A name with three or more words is more likely to get the circles.
-        // The higher the number the less likely circles are.
+        /*
+        Most of the painting is done here:
+        */
+        generateCircleScape();
+
+        /*
+        A name with three or more words is more likely to get the circles.
+        The higher the number the less likely circles are.
+        */
         int circleProbFactor = 4;
         if ( iNumberOfWords > 2 ) circleProbFactor = 2;
 
@@ -88,7 +105,7 @@ public class MicopiGeneratorMD5 {
             case 0:     // Paint circles depending on the number of words.
                 for ( int i = 0; i < iNumberOfWords; i++ )
                     MicopiPainter.paintMicopiCircle(
-                            i, iNumberOfWords, Color.WHITE, mCenterX, mCenterY, 1.6f,
+                            false, 0, i, iNumberOfWords, Color.WHITE, mCenterX, mCenterY, 1.6f,
                             mMd5String.charAt(11), mImageSize, mCanvas
                     );
                 break;
@@ -99,9 +116,7 @@ public class MicopiGeneratorMD5 {
                 );
         }
 
-    }
 
-    public Bitmap getGeneratedBitmap() {
         return mGeneratedBitmap;
     }
 
@@ -165,30 +180,40 @@ public class MicopiGeneratorMD5 {
     }
 
     private void generateCircleScape() {
-        float x = mImageSize * .5f;
-        float y = mImageSize * .5f;
 
         // Starting with Android 3.0, the images should have a white background.
-        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mCanvas.drawColor( Color.WHITE );
         }
 
-        int loopLength = mContactName.length() * 4;
-        int md5Length = mMd5String.length();
-        int md5Pos = 0;
-        float circleWidth = 0.1f;
-        int circleColor = generateColor(
-                mMd5String.charAt( 5 ), mMd5String.charAt( 6 ), mMd5String.charAt( 7 ), 10);
+        /*
+        About half of images drawn with this method will use polygons instead of circles.
+        The length of the first name determines the number of vertices.
+         */
+        boolean paintPolygon = false;
+        int numOfEdges = mContactFirstName.length();
+        if ( mMd5String.charAt(14) % 2 == 0 && numOfEdges > 2 ) paintPolygon = true;
 
-        for (  int i = 0; i < loopLength; i++ ) {
+        // Draw all the shapes.
+        int numberOfShapes  = mContactName.length() * 4;
+        int md5Length       = mMd5String.length();
+        int md5Pos          = 0;
+        float shapeWidth    = 0.1f;
+        int shapeColor      = generateColor(
+                mMd5String.charAt(5), mMd5String.charAt(6), mMd5String.charAt(7), 10);
+
+        float x = mImageSize * .5f;
+        float y = mImageSize * .5f;
+        for (int i = 0; i < numberOfShapes; i++) {
             char md5Char = ' ';
 
             // Do the operation for the x- and y-coordinate.
-            for ( int axis = 0; axis < 2; axis++ ) {
+            for (int axis = 0; axis < 2; axis++ ) {
                 // Make sure we do not jump out of the MD5 String.
-                if ( md5Pos >= md5Length ) md5Pos = 0;
+                if (md5Pos >= md5Length) md5Pos = 0;
 
-                md5Char = mMd5String.charAt( md5Pos );
+                // Move the coordinates around.
+                md5Char = mMd5String.charAt(md5Pos);
                 if ( md5Char % 2 == 0 ) {
                     if ( axis == 0 ) x += md5Char;
                     else y += md5Char;
@@ -200,10 +225,23 @@ public class MicopiGeneratorMD5 {
                 md5Pos++;
             }
 
-            // The new coordinates have been generated.
+            paintPolygon = true;
+
+            // The new coordinates have been generated. Paint something.
             MicopiPainter.paintMicopiCircle(
-                    1, 1, circleColor, x, y, circleWidth, md5Char, mImageSize, mCanvas);
-            circleWidth += .05f;
+                    paintPolygon,
+                    numOfEdges,
+                    1,
+                    1,
+                    shapeColor,
+                    x,
+                    y,
+                    shapeWidth,
+                    md5Char,
+                    mImageSize,
+                    mCanvas
+            );
+            shapeWidth += .05f;
         }
     }
 

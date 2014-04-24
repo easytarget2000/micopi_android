@@ -223,9 +223,9 @@ public class MainActivity extends Activity {
 
             if( mContact != null ) {
 
-                return new MicopiGeneratorMD5(
-                        mContact.getName(), mContact.getMD5EncryptedString()
-                ).getGeneratedBitmap();
+                MicopiGeneratorMD5 mgen;
+                mgen = new MicopiGeneratorMD5(mContact.getName(), mContact.getMD5EncryptedString());
+                return mgen.generateBitmap();
 
             } else {
                 return null;
