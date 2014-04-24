@@ -225,8 +225,6 @@ public class MicopiGeneratorMD5 {
                 md5Pos++;
             }
 
-            paintPolygon = true;
-
             // The new coordinates have been generated. Paint something.
             MicopiPainter.paintMicopiCircle(
                     paintPolygon,

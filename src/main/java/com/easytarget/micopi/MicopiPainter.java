@@ -215,7 +215,6 @@ public class MicopiPainter {
             edgeLength = innerRadius * 2f * FloatMath.sin(pi/numOfEdges);
             float n = (float) numOfEdges;
             deltaAlpha = ((n-2f)/n) * pi;
-            Log.d("Drawing Polygon", numOfEdges + ", " + edgeLength + ", " + deltaAlpha);
         }
 
         // Draw two shapes of the same kind.
