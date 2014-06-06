@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.easytarget.micopi;
 
 import android.content.ContentUris;
@@ -24,32 +23,45 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * a
+ * This class queries and stores contact data from a given intent.
  *
  * Created by Michel on 03.02.14.
- *
  */
 public class Contact {
+    private final static String DEBUG_TAG = "Contact";
+
     private Context mContext;
     private Uri mContactUri = null;
-    private String mContactName = "";
+    private String[] mNameParts;
+    private String mFullName = "";
     private String mPhoneNumber = "555";
     private String mEmailAddress = "NE";
     private String mBirthday = "NB";
     private String mTimesContacted = "0";
     private int mRetryFactor = 0;
+    private boolean mMd5IsNew = true;
+    private String mMd5String = "000000000000000000000000000";
 
-    public Contact( Context c, Intent data ) {
+    /**
+     * Constructor Method
+     *
+     * @param c Context
+     * @param data Data from people list (device contacts)
+     */
+    public Contact(Context c, Intent data) {
         this.mContext = c;
+        this.mMd5IsNew = true;
         String contactId, query;
         int iContactNameIdx, iContactPhoneNumberIdx, iContactTimesContactedIdx, iContactEmailIdx;
         Cursor contactCursor;
@@ -81,7 +93,7 @@ public class Contact {
             iContactTimesContactedIdx = contactCursor.getColumnIndex(
                     ContactsContract.CommonDataKinds.Phone.TIMES_CONTACTED
             );
-            mContactName = contactCursor.getString( iContactNameIdx );
+            mFullName = contactCursor.getString( iContactNameIdx );
             mPhoneNumber = contactCursor.getString( iContactPhoneNumberIdx );
             mTimesContacted = contactCursor.getString(
                     iContactTimesContactedIdx
@@ -103,13 +115,13 @@ public class Contact {
 
                 // Attempt to move the cursor to the first entry of the query cursor.
                 if( contactCursor.moveToFirst() )
-                    mContactName = contactCursor.getString( iContactNameIdx );
+                    mFullName = contactCursor.getString( iContactNameIdx );
             }
             else return;
 
         }
 
-        /**
+        /*
          * E-Mail Address
          */
         contactCursor = mContext.getContentResolver().query(
@@ -127,7 +139,7 @@ public class Contact {
             }
         }
 
-        /**
+        /*
          * Birthday
          */
         String mColumns[] = {
@@ -150,8 +162,8 @@ public class Contact {
                 ContactsContract.Contacts.DISPLAY_NAME
         );
 
-        if ( contactCursor != null ) {
-            if ( contactCursor.moveToNext() ) {
+        if (contactCursor != null) {
+            if (contactCursor.moveToNext()) {
                 mBirthday = contactCursor.getString(
                         contactCursor.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Event.START_DATE
@@ -160,43 +172,92 @@ public class Contact {
             }
         }
 
-        // END - QUERIES
+        // Split the name into its parts.
+        mNameParts = mFullName.split(" ");
 
-        /**
-         * Combine all queried data.
-         */
-
-
+        // If the splitting didn't result in anything, just use the full name as one name part.
+        if (mNameParts.length == 0) {
+            mNameParts = new String[1];
+            mNameParts[0] = mFullName;
+        }
     }
 
-    public String getName() {
-        return mContactName;
+    /**
+     *
+     * @param partNumber Array index
+     * @return A part of the contact's name
+     */
+    public String getNamePart(int partNumber) {
+        if (mNameParts == null) return "";
+
+        if (partNumber > mNameParts.length) return mNameParts[partNumber];
+        else return "";
+    }
+
+    /**
+     *
+     * @return The number of all words/name parts in the contact's name
+     */
+    public int getNumberOfNameParts() {
+        if (mNameParts == null) return 0;
+        else return mNameParts.length;
+    }
+
+    /**
+     * @return The name string of this contact instance.
+     */
+    public String getFullName() {
+        return mFullName;
     }
 
     /**
      * @return The MD5 encoded value as a String.
      */
     public String getMD5EncryptedString() {
-        String combinedData = mContactName + mEmailAddress + mPhoneNumber
+        // If no other contact attribute changed, don't re-calculate the MD5 value.
+        if (!mMd5IsNew) return mMd5String;
+
+        String combinedString = mFullName + mEmailAddress + mPhoneNumber
                 + mBirthday + mTimesContacted + mRetryFactor;
 
-        Log.d("combinedData:", combinedData);
+        Log.d(DEBUG_TAG, "Generating new MD5 from " + combinedString);
 
         try {
-            // Initialise and perform MD5 encyption.
-            MessageDigest dEnc = MessageDigest.getInstance( "MD5" );
-            dEnc.update( combinedData.getBytes(), 0, combinedData.length() );
+            // Initialise and perform MD5 encryption.
+            MessageDigest dEnc = MessageDigest.getInstance("MD5");
+            byte[] combinedBytes;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+                combinedBytes = combinedString.getBytes(Charset.forName("ISO-8859-1"));
+            } else {
+                //TODO: Actually populate the bytes in older API levels.
+                combinedBytes = new byte[combinedString.length()];
+            }
+            dEnc.update(combinedBytes, 0, combinedString.length());
+
+//            for (byte b : combinedBytes) {
+//                Log.d(DEBUG_TAG, "Byte: " + (char) b);
+//            }
+
             // Convert to String.
-            return new BigInteger( 1, dEnc.digest() ).toString( 16 ) ;
+            String MD5EncString = new BigInteger(1, dEnc.digest()).toString( 16 );
+
+            if (MD5EncString.length() >= 32) mMd5String = MD5EncString;
+            else mMd5String = MD5EncString + mFullName;
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return null;
         }
 
+        // Now the new MD5 value is returned, so it is no longer new.
+        mMd5IsNew = false;
+        return mMd5String;
     }
 
     /**
      * Finds the contact's image entry and replaces it with the generated data.
+     *
+     * @param generatedBitmap This will be the new contact image.
+     * @return TRUE if assignment was successful.
      */
     public boolean assignImage( Bitmap generatedBitmap ) {
         Uri rawContactUri = null;
@@ -271,7 +332,11 @@ public class Contact {
         return true;
     }
 
+    /**
+     * Alter the retry factor, so the next MD5 string will change significantly.
+     */
     public void modifyRetryFactor() {
-        mRetryFactor ++;
+        mMd5IsNew = true;
+        mRetryFactor++;
     }
 }

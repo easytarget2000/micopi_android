@@ -17,16 +17,16 @@
 package com.easytarget.micopi;
 
 /**
+ * Simple class storing a 2D point.
+ *
  * Created by Michel on 19.01.14.
  */
 public class Vertex {
+    public float x = 0;
+    public float y = 0;
 
-    public float publicX = 0;
-    public float publicY = 0;
-
-    public Vertex( float x, float y ) {
-        publicX = x;
-        publicY = y;
+    public Vertex(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
-
 }

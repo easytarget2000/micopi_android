@@ -16,6 +16,7 @@
 
 package com.easytarget.micopi;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -25,10 +26,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.FloatMath;
-import android.util.Log;
 
+import java.io.CharArrayReader;
 import java.util.ArrayList;
 
 /**
@@ -48,8 +50,8 @@ public class MicopiPainter {
      * @param currentLoop    Current drawing loop
      * @param canvas    Canvas to draw on
      */
-    public static void paintCanvasGradient( int baseColor, char xChar, char yChar,
-                                            float imageSize, int currentLoop, Canvas canvas ) {
+    public static void paintCanvasGradient(int baseColor, char xChar, char yChar,
+                                           float imageSize, int currentLoop, Canvas canvas) {
         Paint paint = new Paint();
         float fXPos = imageSize - ( (float) xChar * 3f );
         float fYPos = imageSize - ( (float) yChar * 3.5f );
@@ -142,9 +144,9 @@ public class MicopiPainter {
 
         for ( Vertex v : polygon ) {
             if ( isFirstVertex ) {
-                path.moveTo( v.publicX, v.publicY );
+                path.moveTo( v.x, v.y);
                 isFirstVertex = false;
-            } else path.lineTo( v.publicX, v.publicY);
+            } else path.lineTo( v.x, v.y);
         }
 
         path.close();
@@ -179,7 +181,7 @@ public class MicopiPainter {
     ) {
 
         float strokeWidth  = (imageSize * (float) widthChar * .0015f);
-        float innerRadius = radiusFactor *
+        float innerRadius = radiusFactor * 2f *
                 ( strokeWidth + (strokeWidth * currentNum) + (strokeWidth * currentNum) );
 
         if (currentNum > 2) innerRadius -= strokeWidth;
@@ -333,6 +335,26 @@ public class MicopiPainter {
 
         }
 
+    }
+
+    public static void paintChars(Canvas canvas, char[] chars, int color) {
+        int count = chars.length;
+        if (count == 0) return;
+        else if (count > 4) count = 4;
+
+        float textSize = canvas.getHeight() * .5f;
+        float x = canvas.getWidth() * .5f;
+        float y = canvas.getHeight() * .5f + textSize * .333f;
+
+        Paint paint = new Paint();
+        paint.setColor(color);
+        paint.setTextSize(textSize);
+        paint.setTypeface(Typeface.create("normal", Typeface.NORMAL));
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setAntiAlias(true);
+        paint.setAlpha(192);
+
+        canvas.drawText(chars, 0, count, x, y, paint);
     }
 
 //    public static void paintMicopiLines( char[] contactName, char widthChar, Canvas canvas ) {

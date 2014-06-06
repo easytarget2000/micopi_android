@@ -22,6 +22,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * First activity to be displayed after launch.
+ */
 public class WelcomeActivity extends Activity {
 
     @Override

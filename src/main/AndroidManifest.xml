@@ -16,8 +16,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.easytarget.micopi"
-    android:versionCode="6"
-    android:versionName="1.8">
+    android:versionCode="8"
+    android:versionName="1.9">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />

@@ -38,7 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- *
+ * Activity that displays the generated image and all the options.
  */
 public class MainActivity extends Activity {
     private Context mContext = this;
@@ -51,17 +51,17 @@ public class MainActivity extends Activity {
     private Bitmap mGeneratedBitmap = null;         // Stores the generated image
     private boolean mGuiIsLocked = false;           // Keeps the user from performing input
 
-    protected void onCreate( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Prepare GUI.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
-        mNameTextView = (TextView) findViewById( R.id.nameTextView );
-        mDescriptionTextView = (TextView) findViewById( R.id.descriptionTextView );
-        mSeparatorView = (TextView) findViewById( R.id.separator );
-        mSeparatorView2 = (TextView) findViewById( R.id.separator2 );
-        mIconImageView = (ImageView) findViewById( R.id.iconImageView );
+        mNameTextView           = (TextView) findViewById(R.id.nameTextView);
+        mDescriptionTextView    = (TextView) findViewById(R.id.descriptionTextView);
+        mSeparatorView          = (TextView) findViewById(R.id.separator);
+        mSeparatorView2         = (TextView) findViewById(R.id.separator2);
+        mIconImageView          = (ImageView) findViewById(R.id.iconImageView);
         changeGui( false );
 
 //         // Ad-Banner:
@@ -95,8 +95,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if( !mGuiIsLocked ) {
+        if(!mGuiIsLocked) {
             // Handle presses on the action bar items.
             switch (item.getItemId()) {
                 case R.id.action_assign:
@@ -123,6 +122,7 @@ public class MainActivity extends Activity {
     /**
      * Locks / unlocks the GUI through boolean field and
      * hides / shows the progress bar.
+     *
      * @param isBusy Will be applied to mGuiIsLocked field
      */
     private void changeGui( boolean isBusy ) {
@@ -151,6 +151,7 @@ public class MainActivity extends Activity {
 
     /**
      * Method called by contact picker when a person was chosen.
+     *
      * @param reqCode Request code (1 when coming from contact picker)
      * @param resultCode Result code
      * @param data Contact data
@@ -193,18 +194,14 @@ public class MainActivity extends Activity {
         builder.setMessage(
                 String.format(
                         getResources().getString(R.string.overwrite_dialog),
-                        mContact.getName())
+                        mContact.getFullName())
         );
         builder.setNegativeButton( android.R.string.no, dialogClickListener );
         builder.setPositiveButton( android.R.string.yes, dialogClickListener );
         builder.show();
     }
 
-    /**
-     * Threads that could block the GUI
-     *
-     *
-     */
+    //Threads that could block the GUI
 
     /**
      * Constructs a contact from the given Intent data.
@@ -222,11 +219,8 @@ public class MainActivity extends Activity {
         protected Bitmap doInBackground( Void... params ) {
 
             if( mContact != null ) {
-
-                MicopiGeneratorMD5 mgen;
-                mgen = new MicopiGeneratorMD5(mContact.getName(), mContact.getMD5EncryptedString());
+                MicopiGeneratorMD5 mgen = new MicopiGeneratorMD5(mContact);
                 return mgen.generateBitmap();
-
             } else {
                 return null;
             }
@@ -247,7 +241,7 @@ public class MainActivity extends Activity {
                 mIconImageView.setImageDrawable(generatedDrawable);
 
                 // Show the GUI.
-                mNameTextView.setText( mContact.getName() );
+                mNameTextView.setText( mContact.getFullName() );
                 mNameTextView.setVisibility( View.VISIBLE );
                 mDescriptionTextView.setVisibility(View.VISIBLE);
                 mSeparatorView.setVisibility(View.VISIBLE);
@@ -293,7 +287,7 @@ public class MainActivity extends Activity {
                 Toast.makeText( getApplicationContext(),
                         String.format(
                                 getResources().getString(R.string.success_applying_image),
-                                mContact.getName() ),
+                                mContact.getFullName() ),
                         Toast.LENGTH_LONG
                 ).show();
             } else if( !didSuccessfully && getApplicationContext() != null ) {
@@ -321,7 +315,7 @@ public class MainActivity extends Activity {
         @Override
         protected String doInBackground(Void... params) {
             if( mGeneratedBitmap != null && mContact != null ) {
-                return mUtilities.saveContactImageFile( mGeneratedBitmap, mContact.getName(),
+                return mUtilities.saveContactImageFile( mGeneratedBitmap, mContact.getFullName(),
                         mContact.getMD5EncryptedString().charAt( 0 ) );
             } else return "";
         }
@@ -347,7 +341,5 @@ public class MainActivity extends Activity {
                 ).show();
             }
         }
-
     }
-
 }

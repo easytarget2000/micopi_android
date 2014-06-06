@@ -34,40 +34,41 @@ import java.util.ArrayList;
  * Created by Michel on 14.01.14.
  */
 public class MicopiGeneratorMD5 {
-    //private static final float CONTACT_ICON_SIZE = 1080f;
-    private float mImageSize = 1080f;
-    private String mMd5String, mContactName, mContactFirstName;
+    private int mImageSize = 1080;
+    private Contact mContact;
     private Bitmap mGeneratedBitmap = null;
     private Canvas mCanvas;
     private float mCenterX, mCenterY;
 
     /**
-     * Constructor method
-     * @param contactName    Name of the contact
-     * @param md5String    Encrypted contact data
+     *
+     * @param contact Micopi contact object that is used to generate the picture
      */
-    public MicopiGeneratorMD5( String contactName, String md5String ) {
-
-        Log.d("MicopiGeneratorMD5,Constructor", contactName + " " + md5String);
+    public MicopiGeneratorMD5(Contact contact) {
+        Log.d("MicopiGeneratorMD5,Constructor",
+                contact.getFullName() + " " + contact.getMD5EncryptedString());
 
         // Assign the instance variables.
-        mContactName = contactName;
-        if ( md5String.length() > 32 ) this.mMd5String = md5String;
-        else this.mMd5String = md5String + contactName;
+        mContact = contact;
 
         // Older Android versions probably run on slower devices with a lower resolution.
-        if ( Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ) mImageSize = 720f;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) mImageSize = 720;
 
         // Set up the bitmap and the canvas.
         mGeneratedBitmap = Bitmap.createBitmap(
-                (int) mImageSize,
-                (int) mImageSize,
+                mImageSize,
+                mImageSize,
                 Bitmap.Config.RGB_565
         );
 
-        mCanvas = new Canvas( mGeneratedBitmap );
+        mCanvas = new Canvas(mGeneratedBitmap);
     }
 
+    /**
+     * Generate the entire image.
+     *
+     * @return The completed, generated image as a bitmap to be used by the GUI and contact handler.
+     */
     public Bitmap generateBitmap() {
 
 //        if ( mMd5String.charAt( 8 ) % 3 == 0 ) {
@@ -76,52 +77,78 @@ public class MicopiGeneratorMD5 {
 //            generateCircleScape();
 //        }
 
-        // Count the number of spaces/words in the contact's name
-        int iNumberOfWords = 1;
-        for (int i = 0; i < mContactName.length(); i++  ) {
-            if (mContactName.charAt(i) == ' ' ) {
-                iNumberOfWords++;
-                // Store the first part of the name seperately.
-                if (mContactFirstName == null && i > 0) {
-                    mContactFirstName = mContactName.substring( 0, i);
-                }
-            }
+        // Starting with Android 3.0, the images should have a white background.
+        int backgroundColor;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            backgroundColor = Color.WHITE;
+        } else {
+            backgroundColor = Color.BLACK;
         }
-        if (mContactFirstName == null) mContactFirstName = mContactName;
+        mCanvas.drawColor(backgroundColor);
 
         /*
         Most of the painting is done here:
         */
-        generateCircleScape();
+        this.generateCircleScape();
+        //MicopiTerrain terrain = new MicopiTerrain(6, .5f);
+        //terrain.drawMap(mImageSize, mImageSize, mCanvas);
 
         /*
         A name with three or more words is more likely to get the circles.
         The higher the number the less likely circles are.
         */
         int circleProbFactor = 4;
-        if ( iNumberOfWords > 2 ) circleProbFactor = 2;
+        if (mContact.getNumberOfNameParts() > 2) circleProbFactor = 2;
 
-        switch ( mMd5String.charAt( 20 ) % circleProbFactor ) {
+        String md5String = mContact.getMD5EncryptedString();
+        int numberOfWords = mContact.getNumberOfNameParts();
+        switch (md5String.charAt(20) % circleProbFactor ) {
             case 0:     // Paint circles depending on the number of words.
-                for ( int i = 0; i < iNumberOfWords; i++ )
+                for ( int i = 0; i < numberOfWords; i++ )
                     MicopiPainter.paintMicopiCircle(
-                            false, 0, i, iNumberOfWords, Color.WHITE, mCenterX, mCenterY, 1.6f,
-                            mMd5String.charAt(11), mImageSize, mCanvas
+                            false,
+                            0,
+                            i,
+                            numberOfWords,
+                            Color.WHITE,
+                            mCenterX,
+                            mCenterY,
+                            1.6f,
+                            md5String.charAt(11),
+                            mImageSize,
+                            mCanvas
                     );
                 break;
             default:    // Paint that flower.
+                md5String = mContact.getMD5EncryptedString();
                 MicopiPainter.paintMicopiBeams(
-                        mMd5String.charAt(17), mMd5String.charAt(12), mMd5String.charAt(13),
-                        mMd5String.charAt(5), mCenterX, mCenterY, mImageSize, mCanvas
+                        md5String.charAt(17),
+                        md5String.charAt(12),
+                        md5String.charAt(13),
+                        md5String.charAt(5),
+                        mCenterX,
+                        mCenterY,
+                        mImageSize,
+                        mCanvas
                 );
         }
 
+        // Write the initial(s).
+        char[] initials = {mContact.getFullName().charAt(0)};
+        MicopiPainter.paintChars(mCanvas, initials, backgroundColor);
+
+//        int pixelSize = md5String.charAt(14) % 12;
+//        Log.d("Pixelation size", "" + pixelSize);
+//        if (pixelSize > 6) {
+//            this.pixelate(pixelSize * 4);
+//        }
 
         return mGeneratedBitmap;
     }
 
     /**
      * Generates a color, based on the given input parameters.
+     *
      * @param cFirstChar    First character of the contact's name
      * @param cFactor1  MD5 Character
      * @param cFactor2  MD5 Character
@@ -140,67 +167,64 @@ public class MicopiGeneratorMD5 {
         return iGeneratedColor;
     }
 
+    /**
+     * CURRENTLY UNUSED
+     */
     private void generateOldModeImage() {
 
         // The polygon density is determined by the length of the name and at least 6.
         int polygonDensity = 6;
-        if ( mContactName.length() > 6 ) polygonDensity = (int) ( mContactName.length() * .7 );
+        String contactName = mContact.getFullName();
+        if (contactName.length() > 6 ) polygonDensity = (int) (contactName.length() * .7);
 
         // Set the center coordinates of the geometric figures.
-        mCenterX = ( mImageSize * (float) mMd5String.charAt( 2 ) * .008f );
-        mCenterY = ( mImageSize * (float) mMd5String.charAt( 3 ) * .008f );
+        String md5String = mContact.getMD5EncryptedString();
+        mCenterX = (mImageSize * (float) md5String.charAt( 2 ) * .008f);
+        mCenterY = (mImageSize * (float) md5String.charAt( 3 ) * .008f);
 
         /**
          *  Paint two images on top of each other.
          */
-        for ( int i = 0; i < 2; i++ ) {
+        for (int i = 0; i < 2; i++) {
 
-            if ( i == 1 ) mMd5String += mContactName;
+            if ( i == 1 ) md5String += contactName;
             polygonDensity += i * 2;
 
             // Generate a base color.
             int iBaseColor = generateColor(
-                    mContactName.charAt( 0 ),
-                    mMd5String.charAt( 10 ),
-                    mMd5String.charAt( 28 ),
+                    contactName.charAt( 0 ),
+                    md5String.charAt( 10 ),
+                    md5String.charAt( 28 ),
                     2
             );
 
-            MicopiPainter.paintCanvasGradient( iBaseColor, mMd5String.charAt( 23 ),
-                    mMd5String.charAt( 22 ), mImageSize, i, mCanvas );
+            MicopiPainter.paintCanvasGradient( iBaseColor, md5String.charAt( 23 ),
+                    md5String.charAt( 22 ), mImageSize, i, mCanvas );
             generatePolygonMesh( i, polygonDensity );
         }
-
-        /**
-         * Decide on circles or beams and paint them.
-         */
-//        Log.d( "charAt20 % 4", "" + strMd5.charAt( 20 ) % circleProbFactor );
-
-
     }
 
+    /**
+     * Fills the image with a lot of colourful circles.
+     */
     private void generateCircleScape() {
-
-        // Starting with Android 3.0, the images should have a white background.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mCanvas.drawColor( Color.WHITE );
-        }
 
         /*
         About half of images drawn with this method will use polygons instead of circles.
         The length of the first name determines the number of vertices.
          */
         boolean paintPolygon = false;
-        int numOfEdges = mContactFirstName.length();
-        if ( mMd5String.charAt(14) % 2 == 0 && numOfEdges > 2 ) paintPolygon = true;
+        int numOfEdges = mContact.getNamePart(0).length();
+        String md5String = mContact.getMD5EncryptedString();
+        if (md5String.charAt(14) % 2 == 0 && numOfEdges > 2 ) paintPolygon = true;
 
         // Draw all the shapes.
-        int numberOfShapes  = mContactName.length() * 4;
-        int md5Length       = mMd5String.length();
+        int numberOfShapes  = mContact.getFullName().length() * 4;
+        int md5Length       = md5String.length();
         int md5Pos          = 0;
         float shapeWidth    = 0.1f;
         int shapeColor      = generateColor(
-                mMd5String.charAt(5), mMd5String.charAt(6), mMd5String.charAt(7), 10);
+                md5String.charAt(5), md5String.charAt(6), md5String.charAt(7), 10);
 
         float x = mImageSize * .5f;
         float y = mImageSize * .5f;
@@ -213,7 +237,7 @@ public class MicopiGeneratorMD5 {
                 if (md5Pos >= md5Length) md5Pos = 0;
 
                 // Move the coordinates around.
-                md5Char = mMd5String.charAt(md5Pos);
+                md5Char = md5String.charAt(md5Pos);
                 if ( md5Char % 2 == 0 ) {
                     if ( axis == 0 ) x += md5Char;
                     else y += md5Char;
@@ -246,16 +270,18 @@ public class MicopiGeneratorMD5 {
     /**
      * Creates a bunch of vertices, turns them into polygons and
      * uses MicopiPainter to draw them.
+     *
      * @param iIteration    Amount of times this method has been called
      */
-    private void generatePolygonMesh( int iIteration, int polygonDensity ) {
-        if ( mMd5String == null ) return;
+    private void generatePolygonMesh(int iIteration, int polygonDensity) {
+        String md5String = mContact.getMD5EncryptedString();
+        if (md5String == null) return;
 
         // Vertex variables:
         ArrayList<Vertex> allVerticesList = new ArrayList<Vertex>();
-        float fTriangleH    = ( mImageSize / (float) polygonDensity);
-        float fTriangleA    = ( fTriangleH * 2f ) / FloatMath.sqrt( 3f );
-        float fOffset       = ( mMd5String.charAt( 1 ) * iIteration * .2f );
+        float fTriangleH    = (mImageSize / (float) polygonDensity);
+        float fTriangleA    = (fTriangleH * 2f) / FloatMath.sqrt(3f);
+        float fOffset       = (md5String.charAt(1) * iIteration * .2f);
         float fXCurrent, fYCurrent;
         boolean isEvenColumn = true;    // Used for VERTEX and POLYGON columns
         int iOddColumn;                 // Odd VERTEX columns have one vertex more at the bottom.
@@ -305,7 +331,7 @@ public class MicopiGeneratorMD5 {
         isEvenColumn = true; // Even or odd POLYGON column?
 
         // Decide if this mesh will be filled polygon faces or grid-lines.
-        boolean isFilledMesh = ( mMd5String.charAt( 11 ) % 5 != 0 );
+        boolean isFilledMesh = ( md5String.charAt( 11 ) % 5 != 0 );
 
         /**
          * Draw the POLYGONS using the vertices list.
@@ -321,7 +347,7 @@ public class MicopiGeneratorMD5 {
                 iAlphaFactor += 25;
                 iMD5Char += 2;
             }
-            if ( iMD5Char >= mMd5String.length() ) iMD5Char = 0;
+            if ( iMD5Char >= md5String.length() ) iMD5Char = 0;
 
             // Move the path to the first vertex of this polygon.
             ArrayList<Vertex> polygon = new ArrayList<Vertex>();
@@ -348,7 +374,7 @@ public class MicopiGeneratorMD5 {
             polygon.add( allVerticesList.get( iNextPolVertex ) );
 
             // Three vertices were added to this polygon. Paint it.
-            MicopiPainter.paintMicopiPolygon( polygon, mMd5String.charAt( iMD5Char ), iAlphaFactor,
+            MicopiPainter.paintMicopiPolygon( polygon, md5String.charAt( iMD5Char ), iAlphaFactor,
                     isFilledMesh, iIteration, fTriangleA, mCanvas);
 
             // Check if a column could be finished.
@@ -392,8 +418,8 @@ public class MicopiGeneratorMD5 {
 
         for ( int i = 0; i < iListLimit; i++ ) {
             v = verticesMesh.get( i );
-            fXCurrent = v.publicX;
-            fYCurrent = v.publicY;
+            fXCurrent = v.x;
+            fYCurrent = v.y;
 
             // Calculate the distance of this vertex to the generated center point.
             // sqrt( x-distance^2 + y-distance^2 )
@@ -402,11 +428,11 @@ public class MicopiGeneratorMD5 {
             fCenterDistance = FloatMath.sqrt( fCenterDistance );
             fCenterDistance = fDistanceFactor / fCenterDistance;
 
-            if ( fXCurrent - fXCenter < 0 ) v.publicX -= fCenterDistance;
-            else v.publicX += fCenterDistance;
+            if ( fXCurrent - fXCenter < 0 ) v.x -= fCenterDistance;
+            else v.x += fCenterDistance;
 
-            if ( fYCurrent - fYCenter < 0 ) v.publicY -= fCenterDistance;
-            else v.publicY += fCenterDistance;
+            if ( fYCurrent - fYCenter < 0 ) v.y -= fCenterDistance;
+            else v.y += fCenterDistance;
 
             verticesMesh.set(i, v);
         }
@@ -414,4 +440,31 @@ public class MicopiGeneratorMD5 {
         return  verticesMesh;
     }
 
+
+    /**
+     * Takes the generated image and applies a pixelation effect.
+     *
+     * CURRENTLY UNUSED
+     *
+     * @param pixelSize Size of the pixelated squares
+     */
+    public void pixelate(int pixelSize) {
+        if (mGeneratedBitmap == null) return;
+
+        // Step through the image pixels in the given pixelSize interval.
+        for(int y = 0; y < mImageSize; y += pixelSize) {
+            for(int x = 0; x < mImageSize; x += pixelSize) {
+
+                // Get the value of the top-left pixel of this pixelation square.
+                int pixel = mGeneratedBitmap.getPixel(x, y);
+
+                // Paste the pixel onto the surrounding pixelSize by pixelSize neighbours.
+                for(int yd = y; (yd < y + pixelSize) && (yd < mImageSize); yd++) {
+                    for(int xd = x; (xd < x + pixelSize) && (xd < mImageSize); xd++) {
+                        mGeneratedBitmap.setPixel(xd, yd, pixel);
+                    }
+                }
+            }
+        }
+    }
 }
