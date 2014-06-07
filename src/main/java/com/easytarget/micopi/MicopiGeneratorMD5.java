@@ -186,7 +186,6 @@ public class MicopiGeneratorMD5 {
          *  Paint two images on top of each other.
          */
         for (int i = 0; i < 2; i++) {
-
             if ( i == 1 ) md5String += contactName;
             polygonDensity += i * 2;
 
@@ -208,7 +207,6 @@ public class MicopiGeneratorMD5 {
      * Fills the image with a lot of colourful circles.
      */
     private void generateCircleScape() {
-
         /*
         About half of images drawn with this method will use polygons instead of circles.
         The length of the first name determines the number of vertices.
@@ -216,7 +214,7 @@ public class MicopiGeneratorMD5 {
         boolean paintPolygon = false;
         int numOfEdges = mContact.getNamePart(0).length();
         String md5String = mContact.getMD5EncryptedString();
-        if (md5String.charAt(14) % 2 == 0 && numOfEdges > 2 ) paintPolygon = true;
+        if (md5String.charAt(14) % 2 == 0 && numOfEdges > 2) paintPolygon = true;
 
         // Draw all the shapes.
         int numberOfShapes  = mContact.getFullName().length() * 4;

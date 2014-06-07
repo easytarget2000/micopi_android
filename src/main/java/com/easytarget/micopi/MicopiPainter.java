@@ -151,7 +151,6 @@ public class MicopiPainter {
 
         path.close();
         canvas.drawPath( path, paint );
-
     }
 
     /**
@@ -332,9 +331,7 @@ public class MicopiPainter {
                     lineStartX = centerX;
                     lineStartY = centerY;
             }
-
         }
-
     }
 
     public static void paintChars(Canvas canvas, char[] chars, int color) {
@@ -352,7 +349,7 @@ public class MicopiPainter {
         paint.setTypeface(Typeface.create("normal", Typeface.NORMAL));
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);
-        paint.setAlpha(192);
+        paint.setAlpha(224);
 
         canvas.drawText(chars, 0, count, x, y, paint);
     }

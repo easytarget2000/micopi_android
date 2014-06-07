@@ -188,10 +188,18 @@ public class Contact {
      * @return A part of the contact's name
      */
     public String getNamePart(int partNumber) {
-        if (mNameParts == null) return "";
+        if (mNameParts == null) {
+            Log.e(DEBUG_TAG, "ERROR: Array of name parts is null.");
+            return "";
+        }
 
-        if (partNumber > mNameParts.length) return mNameParts[partNumber];
-        else return "";
+        if (partNumber < mNameParts.length) {
+            Log.d(DEBUG_TAG, "Returning name part " + partNumber + " " + mNameParts[partNumber]);
+            return mNameParts[partNumber];
+        } else {
+            Log.e(DEBUG_TAG, "ERROR: Name does not contain part number " + partNumber + ".");
+            return "";
+        }
     }
 
     /**
@@ -220,7 +228,6 @@ public class Contact {
         String combinedString = mFullName + mEmailAddress + mPhoneNumber
                 + mBirthday + mTimesContacted + mRetryFactor;
 
-        Log.d(DEBUG_TAG, "Generating new MD5 from " + combinedString);
 
         try {
             // Initialise and perform MD5 encryption.
@@ -229,20 +236,22 @@ public class Contact {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
                 combinedBytes = combinedString.getBytes(Charset.forName("ISO-8859-1"));
             } else {
-                //TODO: Actually populate the bytes in older API levels.
-                combinedBytes = new byte[combinedString.length()];
+                //TODO: Issue: This getBytes stops at special characters.
+                combinedString = combinedString.replaceAll("[^\\x00-\\x7F]", "_");
+                combinedBytes = combinedString.getBytes();
             }
-            dEnc.update(combinedBytes, 0, combinedString.length());
+            Log.d(DEBUG_TAG, "Generating new MD5 from " + combinedString);
 
 //            for (byte b : combinedBytes) {
 //                Log.d(DEBUG_TAG, "Byte: " + (char) b);
 //            }
 
-            // Convert to String.
-            String MD5EncString = new BigInteger(1, dEnc.digest()).toString( 16 );
+            // MD5-Encryption:
+            dEnc.update(combinedBytes, 0, combinedString.length());
+            String md5EncString = new BigInteger(1, dEnc.digest()).toString( 16 );
 
-            if (MD5EncString.length() >= 32) mMd5String = MD5EncString;
-            else mMd5String = MD5EncString + mFullName;
+            if (md5EncString.length() >= 32) mMd5String = md5EncString;
+            else mMd5String = md5EncString + mFullName;
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
