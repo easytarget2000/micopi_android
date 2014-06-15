@@ -59,7 +59,7 @@ public class MicopiGeneratorMD5 {
                 mImageSize,
                 mImageSize,
                 Bitmap.Config.RGB_565
-        );
+      );
 
         mCanvas = new Canvas(mGeneratedBitmap);
     }
@@ -71,7 +71,7 @@ public class MicopiGeneratorMD5 {
      */
     public Bitmap generateBitmap() {
 
-//        if ( mMd5String.charAt( 8 ) % 3 == 0 ) {
+//        if (mMd5String.charAt(8) % 3 == 0) {
 //            generateOldModeImage();
 //        } else {
 //            generateCircleScape();
@@ -102,9 +102,9 @@ public class MicopiGeneratorMD5 {
 
         String md5String = mContact.getMD5EncryptedString();
         int numberOfWords = mContact.getNumberOfNameParts();
-        switch (md5String.charAt(20) % circleProbFactor ) {
+        switch (md5String.charAt(20) % circleProbFactor) {
             case 0:     // Paint circles depending on the number of words.
-                for ( int i = 0; i < numberOfWords; i++ )
+                for (int i = 0; i < numberOfWords; i++)
                     MicopiPainter.paintMicopiCircle(
                             false,
                             0,
@@ -117,7 +117,7 @@ public class MicopiGeneratorMD5 {
                             md5String.charAt(11),
                             mImageSize,
                             mCanvas
-                    );
+                  );
                 break;
             default:    // Paint that flower.
                 md5String = mContact.getMD5EncryptedString();
@@ -130,7 +130,7 @@ public class MicopiGeneratorMD5 {
                         mCenterY,
                         mImageSize,
                         mCanvas
-                );
+              );
         }
 
         // Write the initial(s).
@@ -153,13 +153,14 @@ public class MicopiGeneratorMD5 {
      * @param cFactor1  MD5 Character
      * @param cFactor2  MD5 Character
      * @param iNumberOfWords    Number of Words in the contact's name
+     *
      * @return  Color with alpha=255
      */
     private static int generateColor(char cFirstChar, char cFactor1,
                                      char cFactor2, int iNumberOfWords) {
 
         int iGeneratedColor = Color.DKGRAY;
-        if ( cFirstChar % 2 == 0 ) iGeneratedColor = Color.YELLOW;
+        if (cFirstChar % 2 == 0) iGeneratedColor = Color.YELLOW;
 
         iGeneratedColor *= cFirstChar * -cFactor1 * iNumberOfWords * cFactor2;
         iGeneratedColor |= 0xff000000;
@@ -175,31 +176,31 @@ public class MicopiGeneratorMD5 {
         // The polygon density is determined by the length of the name and at least 6.
         int polygonDensity = 6;
         String contactName = mContact.getFullName();
-        if (contactName.length() > 6 ) polygonDensity = (int) (contactName.length() * .7);
+        if (contactName.length() > 6) polygonDensity = (int) (contactName.length() * .7);
 
         // Set the center coordinates of the geometric figures.
         String md5String = mContact.getMD5EncryptedString();
-        mCenterX = (mImageSize * (float) md5String.charAt( 2 ) * .008f);
-        mCenterY = (mImageSize * (float) md5String.charAt( 3 ) * .008f);
+        mCenterX = (mImageSize * (float) md5String.charAt(2) * .008f);
+        mCenterY = (mImageSize * (float) md5String.charAt(3) * .008f);
 
         /**
          *  Paint two images on top of each other.
          */
         for (int i = 0; i < 2; i++) {
-            if ( i == 1 ) md5String += contactName;
+            if (i == 1) md5String += contactName;
             polygonDensity += i * 2;
 
             // Generate a base color.
             int iBaseColor = generateColor(
-                    contactName.charAt( 0 ),
-                    md5String.charAt( 10 ),
-                    md5String.charAt( 28 ),
+                    contactName.charAt(0),
+                    md5String.charAt(10),
+                    md5String.charAt(28),
                     2
-            );
+          );
 
-            MicopiPainter.paintCanvasGradient( iBaseColor, md5String.charAt( 23 ),
-                    md5String.charAt( 22 ), mImageSize, i, mCanvas );
-            generatePolygonMesh( i, polygonDensity );
+            MicopiPainter.paintCanvasGradient(iBaseColor, md5String.charAt(23),
+                    md5String.charAt(22), mImageSize, i, mCanvas);
+            generatePolygonMesh(i, polygonDensity);
         }
     }
 
@@ -208,13 +209,13 @@ public class MicopiGeneratorMD5 {
      */
     private void generateCircleScape() {
         /*
-        About half of images drawn with this method will use polygons instead of circles.
-        The length of the first name determines the number of vertices.
+         If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
+         there is a 3/4 chance that polygons will be painted instead of circles.
          */
         boolean paintPolygon = false;
         int numOfEdges = mContact.getNamePart(0).length();
         String md5String = mContact.getMD5EncryptedString();
-        if (md5String.charAt(14) % 2 == 0 && numOfEdges > 2) paintPolygon = true;
+        if (md5String.charAt(14) % 4 != 0 && numOfEdges > 2 && numOfEdges < 7) paintPolygon = true;
 
         // Draw all the shapes.
         int numberOfShapes  = mContact.getFullName().length() * 4;
@@ -224,25 +225,25 @@ public class MicopiGeneratorMD5 {
         int shapeColor      = generateColor(
                 md5String.charAt(5), md5String.charAt(6), md5String.charAt(7), 10);
 
-        float x = mImageSize * .5f;
-        float y = mImageSize * .5f;
+        float x = mImageSize * .7f;
+        float y = mImageSize * .3f;
         for (int i = 0; i < numberOfShapes; i++) {
             char md5Char = ' ';
 
             // Do the operation for the x- and y-coordinate.
-            for (int axis = 0; axis < 2; axis++ ) {
+            for (int axis = 0; axis < 2; axis++) {
                 // Make sure we do not jump out of the MD5 String.
                 if (md5Pos >= md5Length) md5Pos = 0;
 
                 // Move the coordinates around.
                 md5Char = md5String.charAt(md5Pos);
-                if ( md5Char % 2 == 0 ) {
-                    if ( axis == 0 ) x += md5Char;
-                    else y += md5Char;
+                if (md5Char % 2 == 0) {
+                    if (axis == 0) x += md5Char;
+                    else y -= md5Char;
                 }
                 else {
-                    if ( axis == 0 ) x -= md5Char;
-                    else y-= md5Char;
+                    if (axis == 0) x -= md5Char;
+                    else y += md5Char;
                 }
                 md5Pos++;
             }
@@ -288,23 +289,23 @@ public class MicopiGeneratorMD5 {
          * Set up the entire vertex mesh.
          */
         polygonDensity += iIteration * 2;
-        for ( int x = 0; x <= polygonDensity; x++ ) {
-            fXCurrent = ( fTriangleH * x ) - fOffset;
+        for (int x = 0; x <= polygonDensity; x++) {
+            fXCurrent = (fTriangleH * x) - fOffset;
 
-            if ( isEvenColumn )  iOddColumn = 0;
+            if (isEvenColumn)  iOddColumn = 0;
             else    iOddColumn = 1;
 
-            for ( int y = 0; y < polygonDensity + iOddColumn; y++ ) {
+            for (int y = 0; y < polygonDensity + iOddColumn; y++) {
                 //Vertex v = new Vertex();
 
                 fYCurrent = fTriangleA * y;
-                if ( !isEvenColumn ) fYCurrent -= fTriangleA * .5f;
+                if (!isEvenColumn) fYCurrent -= fTriangleA * .5f;
 
                 fYCurrent -= fOffset;
 
                 //v.publicX = fXCurrent;
                 //v.publicY = fYCurrent;
-                allVerticesList.add( new Vertex( fXCurrent, fYCurrent ) );
+                allVerticesList.add(new Vertex(fXCurrent, fYCurrent));
             }
 
             isEvenColumn = !isEvenColumn;
@@ -313,7 +314,7 @@ public class MicopiGeneratorMD5 {
         /**
          * Reshape the mesh.
          */
-        allVerticesList = modifyVerticesMesh( allVerticesList, mCenterX, mCenterY);
+        allVerticesList = modifyVerticesMesh(allVerticesList, mCenterX, mCenterY);
 
         /**
          * Variable preparation for POLYGONS:
@@ -329,15 +330,15 @@ public class MicopiGeneratorMD5 {
         isEvenColumn = true; // Even or odd POLYGON column?
 
         // Decide if this mesh will be filled polygon faces or grid-lines.
-        boolean isFilledMesh = ( md5String.charAt( 11 ) % 5 != 0 );
+        boolean isFilledMesh = (md5String.charAt(11) % 5 != 0);
 
         /**
          * Draw the POLYGONS using the vertices list.
          */
-        while ( iFirstPolVertex < iVertexLimit  ) {
+        while (iFirstPolVertex < iVertexLimit) {
             // Generate seemingly random alpha values.
             iAlphaFactor++;
-            if ( isLeftArrow ) {
+            if (isLeftArrow) {
                 iAlphaFactor -= 30;
                 iMD5Char++;
             }
@@ -345,45 +346,45 @@ public class MicopiGeneratorMD5 {
                 iAlphaFactor += 25;
                 iMD5Char += 2;
             }
-            if ( iMD5Char >= md5String.length() ) iMD5Char = 0;
+            if (iMD5Char >= md5String.length()) iMD5Char = 0;
 
             // Move the path to the first vertex of this polygon.
             ArrayList<Vertex> polygon = new ArrayList<Vertex>();
-            polygon.add( allVerticesList.get( iFirstPolVertex ) );
+            polygon.add(allVerticesList.get(iFirstPolVertex));
 
             // Find the second vertex of this polygon.
-            if ( isEvenColumn )
-                if ( isLeftArrow ) iNextPolVertex = iFirstPolVertex + polygonDensity;
+            if (isEvenColumn)
+                if (isLeftArrow) iNextPolVertex = iFirstPolVertex + polygonDensity;
                 else iNextPolVertex = iFirstPolVertex + 1;
             else
-                if ( isLeftArrow ) iNextPolVertex = iFirstPolVertex + 1;
+                if (isLeftArrow) iNextPolVertex = iFirstPolVertex + 1;
                 else iNextPolVertex = iFirstPolVertex - polygonDensity - 1;
 
-            if ( iNextPolVertex >= iVertexLimit ) break;
-            polygon.add( allVerticesList.get( iNextPolVertex ) );
+            if (iNextPolVertex >= iVertexLimit) break;
+            polygon.add(allVerticesList.get(iNextPolVertex));
 
             // Find the third vertex of this polygon.
-            if ( isEvenColumn )
+            if (isEvenColumn)
                 iNextPolVertex = iFirstPolVertex + polygonDensity + 1;
             else
                 iNextPolVertex = iFirstPolVertex - polygonDensity;
 
-            if ( iNextPolVertex >= iVertexLimit ) break;
-            polygon.add( allVerticesList.get( iNextPolVertex ) );
+            if (iNextPolVertex >= iVertexLimit) break;
+            polygon.add(allVerticesList.get(iNextPolVertex));
 
             // Three vertices were added to this polygon. Paint it.
-            MicopiPainter.paintMicopiPolygon( polygon, md5String.charAt( iMD5Char ), iAlphaFactor,
+            MicopiPainter.paintMicopiPolygon(polygon, md5String.charAt(iMD5Char), iAlphaFactor,
                     isFilledMesh, iIteration, fTriangleA, mCanvas);
 
             // Check if a column could be finished.
             // TODO: Improve this programming style.
-            if ( iFirstPolVertex == iFirstColVertex + polygonDensity - 1 ) {
+            if (iFirstPolVertex == iFirstColVertex + polygonDensity - 1) {
                  // Check if a left pointing arrow in an odd column was found...
-                if ( isEvenColumn && isLeftArrow ) {
+                if (isEvenColumn && isLeftArrow) {
                     isEvenColumn = false;
                     iFirstPolVertex += polygonDensity + 1;
                     iFirstColVertex = iFirstPolVertex + 1;
-                } else if ( !isEvenColumn && !isLeftArrow ) { // or a right pointing one in an even col.
+                } else if (!isEvenColumn && !isLeftArrow) { // or a right pointing one in an even col.
                     isEvenColumn = true;
                     iFirstPolVertex = iFirstColVertex - 1;
                 }
@@ -395,7 +396,7 @@ public class MicopiGeneratorMD5 {
 
             // The starting vertex changes on left-pointing triangles in even columns
             // and on right-pointing triangles in odd columns.
-            if ( isEvenColumn == isLeftArrow ) iFirstPolVertex++;
+            if (isEvenColumn == isLeftArrow) iFirstPolVertex++;
 
         }
     }
@@ -407,29 +408,29 @@ public class MicopiGeneratorMD5 {
      * @param fYCenter  Y-coordinate of the center of the bulge
      * @return  Modified list of vertices
      */
-    private ArrayList<Vertex> modifyVerticesMesh( ArrayList<Vertex> verticesMesh,
-                                                         float fXCenter, float fYCenter ) {
+    private ArrayList<Vertex> modifyVerticesMesh(ArrayList<Vertex> verticesMesh,
+                                                         float fXCenter, float fYCenter) {
         int iListLimit = verticesMesh.size();
         float fDistanceFactor =  1.5f * mImageSize;
         float fCenterDistance, fXCurrent, fYCurrent;
         Vertex v;
 
-        for ( int i = 0; i < iListLimit; i++ ) {
-            v = verticesMesh.get( i );
+        for (int i = 0; i < iListLimit; i++) {
+            v = verticesMesh.get(i);
             fXCurrent = v.x;
             fYCurrent = v.y;
 
             // Calculate the distance of this vertex to the generated center point.
-            // sqrt( x-distance^2 + y-distance^2 )
-            fCenterDistance = ( fXCurrent - fXCenter ) * ( fXCurrent - fXCenter ) +
-                    ( fYCurrent - fYCenter ) * ( fYCurrent - fYCenter );
-            fCenterDistance = FloatMath.sqrt( fCenterDistance );
+            // sqrt(x-distance^2 + y-distance^2)
+            fCenterDistance = (fXCurrent - fXCenter) * (fXCurrent - fXCenter) +
+                    (fYCurrent - fYCenter) * (fYCurrent - fYCenter);
+            fCenterDistance = FloatMath.sqrt(fCenterDistance);
             fCenterDistance = fDistanceFactor / fCenterDistance;
 
-            if ( fXCurrent - fXCenter < 0 ) v.x -= fCenterDistance;
+            if (fXCurrent - fXCenter < 0) v.x -= fCenterDistance;
             else v.x += fCenterDistance;
 
-            if ( fYCurrent - fYCenter < 0 ) v.y -= fCenterDistance;
+            if (fYCurrent - fYCenter < 0) v.y -= fCenterDistance;
             else v.y += fCenterDistance;
 
             verticesMesh.set(i, v);

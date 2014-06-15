@@ -43,7 +43,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     private Context mContext = this;
     private static final int PICK_CONTACT = 1;      // Return code of contact picker
-    private MicopiUtil mUtilities = new MicopiUtil( this );    // Utility class
+    private MicopiUtil mUtilities = new MicopiUtil(this);    // Utility class
     private TextView mNameTextView, mDescriptionTextView, mSeparatorView, mSeparatorView2;
     private ImageView mIconImageView;
     private Contact mContact;
@@ -62,20 +62,20 @@ public class MainActivity extends Activity {
         mSeparatorView          = (TextView) findViewById(R.id.separator);
         mSeparatorView2         = (TextView) findViewById(R.id.separator2);
         mIconImageView          = (ImageView) findViewById(R.id.iconImageView);
-        changeGui( false );
+        changeGui(false);
 
 //         // Ad-Banner:
-//        adView = (AdView) findViewById( R.id.adView );
-//        adView.loadAd( new AdRequest.Builder().build() );
+//        adView = (AdView) findViewById(R.id.adView);
+//        adView.loadAd(new AdRequest.Builder().build());
 
-        if( mIsFirstContactPicker || mContact == null || mGeneratedBitmap == null )
+        if(mIsFirstContactPicker || mContact == null || mGeneratedBitmap == null)
             pickContact();
 
     }
 
     @Override
     public void onBackPressed() {
-        if( !mGuiIsLocked ) pickContact();
+        if(!mGuiIsLocked) pickContact();
         else finish();
     }
 
@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onSearchRequested() {
-        if( !mGuiIsLocked ) pickContact();
+        if(!mGuiIsLocked) pickContact();
 
         return true;
     }
@@ -125,11 +125,11 @@ public class MainActivity extends Activity {
      *
      * @param isBusy Will be applied to mGuiIsLocked field
      */
-    private void changeGui( boolean isBusy ) {
+    private void changeGui(boolean isBusy) {
         mGuiIsLocked = isBusy;
-        ProgressBar mLoadingCircle = (ProgressBar) findViewById( R.id.progressBar );
-        if( isBusy ) mLoadingCircle.setVisibility( View.VISIBLE );
-        else mLoadingCircle.setVisibility( View.GONE );
+        ProgressBar mLoadingCircle = (ProgressBar) findViewById(R.id.progressBar);
+        if(isBusy) mLoadingCircle.setVisibility(View.VISIBLE);
+        else mLoadingCircle.setVisibility(View.GONE);
     }
 
     /**
@@ -137,16 +137,15 @@ public class MainActivity extends Activity {
      * onActivityResult will be called when returning to MainActivity.
      */
     public void pickContact() {
-
-        if( mIsFirstContactPicker ) {
-            mNameTextView.setVisibility( View.GONE );
+        if(mIsFirstContactPicker) {
+            mNameTextView.setVisibility(View.GONE);
             mDescriptionTextView.setVisibility(View.GONE);
             mSeparatorView.setVisibility(View.GONE);
             mSeparatorView2.setVisibility(View.GONE);
         }
 
-        Intent intent = new Intent( Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI );
-        startActivityForResult( intent, PICK_CONTACT );
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, PICK_CONTACT);
     }
 
     /**
@@ -157,20 +156,20 @@ public class MainActivity extends Activity {
      * @param data Contact data
      */
     @Override
-    public void onActivityResult( int reqCode, int resultCode, Intent data ) {
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
 
         // Close the app if the back button was pressed on first contact picker.
-        if( mIsFirstContactPicker && resultCode != RESULT_OK ) finish();
+        if(mIsFirstContactPicker && resultCode != RESULT_OK) finish();
 
         // Check if the activity result is ok and check the request code.
         // The latter should be 1 indicating a picked contact.
-        if( resultCode == RESULT_OK && reqCode == PICK_CONTACT ) {
-            mContact = new Contact( mContext, data );
+        if(resultCode == RESULT_OK && reqCode == PICK_CONTACT) {
+            mContact = new Contact(mContext, data);
             new generateImageTask().execute();
             mIsFirstContactPicker = false;
         }
 
-        super.onActivityResult( reqCode, resultCode, data );
+        super.onActivityResult(reqCode, resultCode, data);
 
     }
 
@@ -182,22 +181,22 @@ public class MainActivity extends Activity {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 
             @Override
-            public void onClick( DialogInterface dialog, int iButton ) {
-                if( iButton == DialogInterface.BUTTON_POSITIVE ) {
+            public void onClick(DialogInterface dialog, int iButton) {
+                if(iButton == DialogInterface.BUTTON_POSITIVE) {
                     new AssignContactImageTask().execute();
                 }
 
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder( this );
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(
                 String.format(
                         getResources().getString(R.string.overwrite_dialog),
                         mContact.getFullName())
-        );
-        builder.setNegativeButton( android.R.string.no, dialogClickListener );
-        builder.setPositiveButton( android.R.string.yes, dialogClickListener );
+       );
+        builder.setNegativeButton(android.R.string.no, dialogClickListener);
+        builder.setPositiveButton(android.R.string.yes, dialogClickListener);
         builder.show();
     }
 
@@ -212,13 +211,20 @@ public class MainActivity extends Activity {
         protected void onPreExecute() {
             changeGui(true);
             mIconImageView.setImageDrawable(getResources().getDrawable(R.drawable.micopi_logo));
+
+            // Show the GUI.
+            mNameTextView.setText(mContact.getFullName());
+            mNameTextView.setVisibility(View.VISIBLE);
+            mDescriptionTextView.setVisibility(View.VISIBLE);
+            mSeparatorView.setVisibility(View.VISIBLE);
+            mSeparatorView2.setVisibility(View.VISIBLE);
         }
 
         // Attempt to query the contact from the DB and
         // if the contact object contains a name, generate a bitmap.
-        protected Bitmap doInBackground( Void... params ) {
+        protected Bitmap doInBackground(Void... params) {
 
-            if( mContact != null ) {
+            if(mContact != null) {
                 MicopiGeneratorMD5 mgen = new MicopiGeneratorMD5(mContact);
                 return mgen.generateBitmap();
             } else {
@@ -228,34 +234,27 @@ public class MainActivity extends Activity {
 
         // If a complete bitmap was generated, display it,
         // otherwise the Contact could not be generated and
-        protected void onPostExecute( Bitmap generatedBitmap ) {
-            changeGui( false );
+        protected void onPostExecute(Bitmap generatedBitmap) {
+            changeGui(false);
 
             // If a new bitmap was generated, store it in the field,
             // display it and show the contact name.
-            if( generatedBitmap != null ) {
+            if(generatedBitmap != null) {
                 mGeneratedBitmap = generatedBitmap;
 
                 Drawable generatedDrawable = new BitmapDrawable(
-                        getResources(), generatedBitmap );
+                        getResources(), generatedBitmap);
                 mIconImageView.setImageDrawable(generatedDrawable);
 
-                // Show the GUI.
-                mNameTextView.setText( mContact.getFullName() );
-                mNameTextView.setVisibility( View.VISIBLE );
-                mDescriptionTextView.setVisibility(View.VISIBLE);
-                mSeparatorView.setVisibility(View.VISIBLE);
-                mSeparatorView2.setVisibility(View.VISIBLE);
-
             } else {
-                Log.e( "ConstructContactAndGenerateImageTask", "generatedBitmap is null." );
-                mNameTextView.setText( R.string.no_contact_selected );
-                if( getApplicationContext() != null ) {
+                Log.e("ConstructContactAndGenerateImageTask", "generatedBitmap is null.");
+                mNameTextView.setText(R.string.no_contact_selected);
+                if(getApplicationContext() != null) {
                     Toast.makeText(
                             getApplicationContext(),
-                            getResources().getString( R.string.error_generating ),
+                            getResources().getString(R.string.error_generating),
                             Toast.LENGTH_LONG
-                    ).show();
+                   ).show();
                }
             }
         }
@@ -268,37 +267,37 @@ public class MainActivity extends Activity {
     private class AssignContactImageTask extends AsyncTask< Void, Void, Boolean > {
 
         protected void onPreExecute() {
-            changeGui( true );
+            changeGui(true);
         }
 
         /** The system calls this to perform work in a worker thread and
          * delivers it the parameters given to AsyncTask.execute() */
         @Override
-        protected Boolean doInBackground( Void... params ) {
-            return mGeneratedBitmap != null && mContact.assignImage( mGeneratedBitmap );
+        protected Boolean doInBackground(Void... params) {
+            return mGeneratedBitmap != null && mContact.assignImage(mGeneratedBitmap);
         }
 
         /** The system calls this to perform work in the UI thread and delivers
          * the result from doInBackground() */
-        protected void onPostExecute( Boolean didSuccessfully ) {
-            changeGui( false );
+        protected void onPostExecute(Boolean didSuccessfully) {
+            changeGui(false);
 
-            if( didSuccessfully && getApplicationContext() != null ) {
-                Toast.makeText( getApplicationContext(),
+            if(didSuccessfully && getApplicationContext() != null) {
+                Toast.makeText(getApplicationContext(),
                         String.format(
                                 getResources().getString(R.string.success_applying_image),
-                                mContact.getFullName() ),
+                                mContact.getFullName()),
                         Toast.LENGTH_LONG
-                ).show();
-            } else if( !didSuccessfully && getApplicationContext() != null ) {
+               ).show();
+            } else if(!didSuccessfully && getApplicationContext() != null) {
                 Toast.makeText(
                         getApplicationContext(),
-                        getResources().getString( R.string.error_assign ),
+                        getResources().getString(R.string.error_assign),
                         Toast.LENGTH_LONG
-                ).show();
+               ).show();
             } else {
-                Log.e( "AssignContactImageTask",
-                        "Could not assign the image AND applicationContext is null." );
+                Log.e("AssignContactImageTask",
+                        "Could not assign the image AND applicationContext is null.");
             }
         }
     }
@@ -309,36 +308,36 @@ public class MainActivity extends Activity {
     private class SaveImageTask extends AsyncTask< Void, Void, String > {
 
         protected void onPreExecute() {
-            changeGui( true );
+            changeGui(true);
         }
 
         @Override
         protected String doInBackground(Void... params) {
-            if( mGeneratedBitmap != null && mContact != null ) {
-                return mUtilities.saveContactImageFile( mGeneratedBitmap, mContact.getFullName(),
-                        mContact.getMD5EncryptedString().charAt( 0 ) );
+            if(mGeneratedBitmap != null && mContact != null) {
+                return mUtilities.saveContactImageFile(mGeneratedBitmap, mContact.getFullName(),
+                        mContact.getMD5EncryptedString().charAt(0));
             } else return "";
         }
 
-        protected void onPostExecute( String fileName ) {
-            changeGui( false );
+        protected void onPostExecute(String fileName) {
+            changeGui(false);
 
-            if( fileName.length() > 1 ) {
+            if(fileName.length() > 1) {
                 Toast.makeText(
                         mContext,
                         String.format(
-                                getResources().getString( R.string.success_saving_image ),
-                                fileName ),
+                                getResources().getString(R.string.success_saving_image),
+                                fileName),
                         Toast.LENGTH_LONG
-                ).show();
+               ).show();
             } else {
                 Toast.makeText(
                         mContext,
                         String.format(
-                                getResources().getString( R.string.error_saving ),
-                                fileName ),
+                                getResources().getString(R.string.error_saving),
+                                fileName),
                         Toast.LENGTH_LONG
-                ).show();
+               ).show();
             }
         }
     }

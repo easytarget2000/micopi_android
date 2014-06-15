@@ -35,7 +35,7 @@ public class WelcomeActivity extends Activity {
         // The welcome activity doesn't need to have the logo twice and
         // the wide action bar moves the vertical center quite a bit.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ) {
-            if( getActionBar() != null ) getActionBar().hide();
+            if(getActionBar() != null) getActionBar().hide();
         }
 
     }
