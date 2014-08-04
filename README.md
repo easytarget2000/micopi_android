@@ -14,3 +14,7 @@ All files use the Apache License Version 2.0 (see http://www.apache.org/licenses
 The app is currently in a stable release state and available for free for all Android devices running version 2.0.1 or higher (API 6). An iOS version is planned. 
 
 As long as you give me credit, feel free to modify my code or use my algorithms for your needs.
+
+=======
+Development of an iOS port has just started. See https://github.com/easytargetmixel/micopi_ios
+
