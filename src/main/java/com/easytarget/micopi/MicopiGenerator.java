@@ -33,7 +33,7 @@ import java.util.ArrayList;
  *
  * Created by Michel on 14.01.14.
  */
-public class MicopiGeneratorMD5 {
+public class MicopiGenerator {
     private int mImageSize = 1080;
     private Contact mContact;
     private Bitmap mGeneratedBitmap = null;
@@ -44,8 +44,8 @@ public class MicopiGeneratorMD5 {
      *
      * @param contact Micopi contact object that is used to generate the picture
      */
-    public MicopiGeneratorMD5(Contact contact) {
-        Log.d("MicopiGeneratorMD5,Constructor",
+    public MicopiGenerator(Contact contact) {
+        Log.d("MicopiGenerator,Constructor",
                 contact.getFullName() + " " + contact.getMD5EncryptedString());
 
         // Assign the instance variables.
@@ -70,12 +70,6 @@ public class MicopiGeneratorMD5 {
      * @return The completed, generated image as a bitmap to be used by the GUI and contact handler.
      */
     public Bitmap generateBitmap() {
-
-//        if (mMd5String.charAt(8) % 3 == 0) {
-//            generateOldModeImage();
-//        } else {
-//            generateCircleScape();
-//        }
 
         // Starting with Android 3.0, the images should have a white background.
         int backgroundColor;
@@ -117,7 +111,7 @@ public class MicopiGeneratorMD5 {
                             md5String.charAt(11),
                             mImageSize,
                             mCanvas
-                  );
+                    );
                 break;
             default:    // Paint that flower.
                 md5String = mContact.getMD5EncryptedString();
@@ -130,7 +124,7 @@ public class MicopiGeneratorMD5 {
                         mCenterY,
                         mImageSize,
                         mCanvas
-              );
+                );
         }
 
         // Write the initial(s).
@@ -168,41 +162,41 @@ public class MicopiGeneratorMD5 {
         return iGeneratedColor;
     }
 
-    /**
-     * CURRENTLY UNUSED
-     */
-    private void generateOldModeImage() {
-
-        // The polygon density is determined by the length of the name and at least 6.
-        int polygonDensity = 6;
-        String contactName = mContact.getFullName();
-        if (contactName.length() > 6) polygonDensity = (int) (contactName.length() * .7);
-
-        // Set the center coordinates of the geometric figures.
-        String md5String = mContact.getMD5EncryptedString();
-        mCenterX = (mImageSize * (float) md5String.charAt(2) * .008f);
-        mCenterY = (mImageSize * (float) md5String.charAt(3) * .008f);
-
-        /**
-         *  Paint two images on top of each other.
-         */
-        for (int i = 0; i < 2; i++) {
-            if (i == 1) md5String += contactName;
-            polygonDensity += i * 2;
-
-            // Generate a base color.
-            int iBaseColor = generateColor(
-                    contactName.charAt(0),
-                    md5String.charAt(10),
-                    md5String.charAt(28),
-                    2
-          );
-
-            MicopiPainter.paintCanvasGradient(iBaseColor, md5String.charAt(23),
-                    md5String.charAt(22), mImageSize, i, mCanvas);
-            generatePolygonMesh(i, polygonDensity);
-        }
-    }
+//    /**
+//     * CURRENTLY UNUSED
+//     */
+//    private void generateOldModeImage() {
+//
+//        // The polygon density is determined by the length of the name and at least 6.
+//        int polygonDensity = 6;
+//        String contactName = mContact.getFullName();
+//        if (contactName.length() > 6) polygonDensity = (int) (contactName.length() * .7);
+//
+//        // Set the center coordinates of the geometric figures.
+//        String md5String = mContact.getMD5EncryptedString();
+//        mCenterX = (mImageSize * (float) md5String.charAt(2) * .008f);
+//        mCenterY = (mImageSize * (float) md5String.charAt(3) * .008f);
+//
+//        /**
+//         *  Paint two images on top of each other.
+//         */
+//        for (int i = 0; i < 2; i++) {
+//            if (i == 1) md5String += contactName;
+//            polygonDensity += i * 2;
+//
+//            // Generate a base color.
+//            int iBaseColor = generateColor(
+//                    contactName.charAt(0),
+//                    md5String.charAt(10),
+//                    md5String.charAt(28),
+//                    2
+//          );
+//
+//            MicopiPainter.paintCanvasGradient(iBaseColor, md5String.charAt(23),
+//                    md5String.charAt(22), mImageSize, i, mCanvas);
+//            generatePolygonMesh(i, polygonDensity);
+//        }
+//    }
 
     /**
      * Fills the image with a lot of colourful circles.

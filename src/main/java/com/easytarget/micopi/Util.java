@@ -18,6 +18,7 @@ package com.easytarget.micopi;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -31,12 +32,12 @@ import java.io.FileOutputStream;
  *
  * Created by Michel on 19.01.14.
  */
-public class MicopiUtil implements MediaScannerConnection.MediaScannerConnectionClient {
+public class Util implements MediaScannerConnection.MediaScannerConnectionClient {
     private Context mContext;
     private MediaScannerConnection mConn;
     private String mFileName;
 
-    public MicopiUtil( Context context ) {
+    public Util(Context context) {
         mContext = context;
     }
 
@@ -63,11 +64,59 @@ public class MicopiUtil implements MediaScannerConnection.MediaScannerConnection
 //    }
 
     /**
+     *
+     * @param bitmap
+     * @return
+     */
+    public static int getAverageColor(Bitmap bitmap) {
+        if (bitmap == null) {
+            Log.e("getAverageColor()", "ERROR: No bitmap generated to get average colour from.");
+            return Color.BLACK;
+        }
+
+        int redBucket = 0;
+        int greenBucket = 0;
+        int blueBucket = 0;
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int c = bitmap.getPixel(x, y);
+
+                redBucket += Color.red(c);
+                greenBucket += Color.green(c);
+                blueBucket += Color.blue(c);
+            }
+        }
+
+        int pixelCount = width * height;
+
+        return Color.rgb(
+                redBucket / pixelCount,
+                greenBucket / pixelCount,
+                blueBucket / pixelCount
+        );
+    }
+
+    /**
+     *
+     * @param color
+     * @return
+     */
+    public static int getDarkenedColor(int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 0.8f;
+        return Color.HSVToColor(hsv);
+    }
+
+    /**
      * Saves the generated image to a file.
      */
-    public String saveContactImageFile( Bitmap generatedBitmap,
-                                      String strPickedName, char cMd5 ) {
-        String strFileName = strPickedName.replace( ' ', '_' ) + "-" + cMd5 + ".png";
+    public String saveContactImageFile(Bitmap bitmap, String name, char md5Char) {
+        String strFileName = name.replace( ' ', '_' ) + "-" + md5Char + ".png";
 
         // Files will be stored in the /sdcard/micopi dir.
         File micopiFolder = new File( Environment.getExternalStorageDirectory() + "/micopi/" );
@@ -80,7 +129,7 @@ public class MicopiUtil implements MediaScannerConnection.MediaScannerConnection
 
         try {
             fileOutStream = new FileOutputStream( file );
-            generatedBitmap.compress( Bitmap.CompressFormat.PNG, 90, fileOutStream );
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutStream);
             fileOutStream.close();
             performMediaScan( file );
         } catch ( Exception e ) {
@@ -95,19 +144,27 @@ public class MicopiUtil implements MediaScannerConnection.MediaScannerConnection
      * Makes the saved picture appear in Android's gallery.
      * @param file  Scan this file for media content
      */
-    private void performMediaScan( File file ) {
+    private void performMediaScan(File file) {
         this.mFileName = file.getAbsolutePath();
         mConn = new MediaScannerConnection( mContext, this );
         mConn.connect();
     }
+
+    /**
+     *
+     */
     @Override
     public void onMediaScannerConnected() {
         mConn.scanFile(mFileName, null );
     }
 
+    /**
+     *
+     * @param path
+     * @param uri
+     */
     @Override
-    public void onScanCompleted( String path, Uri uri ) {
+    public void onScanCompleted(String path, Uri uri) {
         mConn.disconnect();
     }
-
 }

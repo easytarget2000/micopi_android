@@ -24,14 +24,17 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,7 +46,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     private Context mContext = this;
     private static final int PICK_CONTACT = 1;      // Return code of contact picker
-    private MicopiUtil mUtilities = new MicopiUtil(this);    // Utility class
+    private Util mUtilities = new Util(this);    // Utility class
     private TextView mNameTextView, mDescriptionTextView, mSeparatorView, mSeparatorView2;
     private ImageView mIconImageView;
     private Contact mContact;
@@ -218,6 +221,31 @@ public class MainActivity extends Activity {
             mDescriptionTextView.setVisibility(View.VISIBLE);
             mSeparatorView.setVisibility(View.VISIBLE);
             mSeparatorView2.setVisibility(View.VISIBLE);
+
+            /*
+            Android Version >= Lollipop:
+            Reset the status bar & action bar colours.
+            */
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                int primaryColor = getResources().getColor(R.color.primary);
+
+                try {
+                    getActionBar().setBackgroundDrawable(new ColorDrawable(primaryColor));
+                } catch (NullPointerException e) {
+                    Log.e("MainActivity:generateImageTask()", e.toString());
+                }
+
+                Log.d(
+                        "MainActivity:generateImageTask()",
+                        "Changing status bar & action bar colour."
+                );
+                // Get the window through a reference to the activity.
+                Activity parent = (Activity) mContext;
+                Window window = parent.getWindow();
+                // Set the status bar colour of this window.
+                int statusColor = getResources().getColor(R.color.primary_dark);
+                window.setStatusBarColor(statusColor);
+            }
         }
 
         // Attempt to query the contact from the DB and
@@ -225,20 +253,21 @@ public class MainActivity extends Activity {
         protected Bitmap doInBackground(Void... params) {
 
             if(mContact != null) {
-                MicopiGeneratorMD5 mgen = new MicopiGeneratorMD5(mContact);
+                MicopiGenerator mgen = new MicopiGenerator(mContact);
                 return mgen.generateBitmap();
             } else {
                 return null;
             }
         }
 
-        // If a complete bitmap was generated, display it,
-        // otherwise the Contact could not be generated and
+        // If a complete bitmap was generated, display it.
         protected void onPostExecute(Bitmap generatedBitmap) {
             changeGui(false);
 
-            // If a new bitmap was generated, store it in the field,
-            // display it and show the contact name.
+            /*
+            If a new bitmap was generated, store it in the field,
+            display it and show the contact name.
+             */
             if(generatedBitmap != null) {
                 mGeneratedBitmap = generatedBitmap;
 
@@ -246,6 +275,34 @@ public class MainActivity extends Activity {
                         getResources(), generatedBitmap);
                 mIconImageView.setImageDrawable(generatedDrawable);
 
+                /*
+                Android Version >= Lollipop:
+                Set the action bar colour to the average colour of the generated image and
+                the status bar colour accordingly.
+                Also, apply a shadow?
+                 */
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    int averageColor = Util.getAverageColor(mGeneratedBitmap);
+
+                    try {
+                        getActionBar().setBackgroundDrawable(new ColorDrawable(averageColor));
+                    } catch (NullPointerException e) {
+                        Log.e("MainActivity:generateImageTask()", e.toString());
+                    }
+
+                    Log.d(
+                            "MainActivity:generateImageTask()",
+                            "Changing status bar & action bar colour."
+                    );
+                    // Get the window through a reference to the activity.
+                    Activity parent = (Activity) mContext;
+                    Window window = parent.getWindow();
+                    // Set the status bar colour of this window.
+                    int statusColor = Util.getDarkenedColor(averageColor);
+                    window.setStatusBarColor(statusColor);
+
+                    mIconImageView.setZ(4f);
+                }
             } else {
                 Log.e("ConstructContactAndGenerateImageTask", "generatedBitmap is null.");
                 mNameTextView.setText(R.string.no_contact_selected);
