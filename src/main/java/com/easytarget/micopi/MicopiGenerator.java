@@ -71,13 +71,7 @@ public class MicopiGenerator {
      */
     public Bitmap generateBitmap() {
 
-        // Starting with Android 3.0, the images should have a white background.
-        int backgroundColor;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            backgroundColor = Color.WHITE;
-        } else {
-            backgroundColor = Color.BLACK;
-        }
+        int backgroundColor = Color.WHITE;
         mCanvas.drawColor(backgroundColor);
 
         /*
@@ -130,12 +124,6 @@ public class MicopiGenerator {
         // Write the initial(s).
         char[] initials = {mContact.getFullName().charAt(0)};
         MicopiPainter.paintChars(mCanvas, initials, backgroundColor);
-
-//        int pixelSize = md5String.charAt(14) % 12;
-//        Log.d("Pixelation size", "" + pixelSize);
-//        if (pixelSize > 6) {
-//            this.pixelate(pixelSize * 4);
-//        }
 
         return mGeneratedBitmap;
     }

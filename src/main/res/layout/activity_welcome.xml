@@ -3,7 +3,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.easytarget.micopi.WelcomeActivity">
+    tools:context="com.easytarget.micopi.WelcomeActivity"
+    android:background="@color/primary">
 
     <RelativeLayout
         android:id="@+id/welcomeLayout"
@@ -12,16 +13,17 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin">
 
-
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/contact_button_label"
             android:id="@+id/firstButton"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:onClick="startMainActivity" />
+            android:onClick="startMainActivity"
+            android:background="@android:color/white"
+            android:textColor="@color/primary"
+            android:layout_height="48dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -30,18 +32,11 @@
             android:text="@string/introduction_text"
             android:id="@+id/textView"
             android:layout_below="@+id/firstButton"
+            android:layout_marginTop="12dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textColor="#ff33b5e5" />
+            android:textColor="@android:color/white"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/micopi_logo"
-            android:layout_above="@+id/firstButton" />
     </RelativeLayout>
 
 </RelativeLayout>

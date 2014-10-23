@@ -34,14 +34,6 @@
             android:layout_centerHorizontal="true"
             android:textColor="#ff33b5e5" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/micopi_logo"
-            android:layout_above="@+id/firstButton" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -30,6 +30,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,11 +44,11 @@ import android.widget.Toast;
 /**
  * Activity that displays the generated image and all the options.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
     private Context mContext = this;
     private static final int PICK_CONTACT = 1;      // Return code of contact picker
     private Util mUtilities = new Util(this);    // Utility class
-    private TextView mNameTextView, mDescriptionTextView, mSeparatorView, mSeparatorView2;
+    private TextView mNameTextView, mDescriptionTextView, mSeparatorView;
     private ImageView mIconImageView;
     private Contact mContact;
     private boolean mIsFirstContactPicker = true;   // Will be set to false after first contact
@@ -62,10 +63,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mNameTextView           = (TextView) findViewById(R.id.nameTextView);
         mDescriptionTextView    = (TextView) findViewById(R.id.descriptionTextView);
-        mSeparatorView          = (TextView) findViewById(R.id.separator);
-        mSeparatorView2         = (TextView) findViewById(R.id.separator2);
         mIconImageView          = (ImageView) findViewById(R.id.iconImageView);
-        changeGui(false);
+        setGuiIsBusy(false);
 
 //         // Ad-Banner:
 //        adView = (AdView) findViewById(R.id.adView);
@@ -128,7 +127,7 @@ public class MainActivity extends Activity {
      *
      * @param isBusy Will be applied to mGuiIsLocked field
      */
-    private void changeGui(boolean isBusy) {
+    private void setGuiIsBusy(boolean isBusy) {
         mGuiIsLocked = isBusy;
         ProgressBar mLoadingCircle = (ProgressBar) findViewById(R.id.progressBar);
         if(isBusy) mLoadingCircle.setVisibility(View.VISIBLE);
@@ -143,8 +142,6 @@ public class MainActivity extends Activity {
         if(mIsFirstContactPicker) {
             mNameTextView.setVisibility(View.GONE);
             mDescriptionTextView.setVisibility(View.GONE);
-            mSeparatorView.setVisibility(View.GONE);
-            mSeparatorView2.setVisibility(View.GONE);
         }
 
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
@@ -173,7 +170,6 @@ public class MainActivity extends Activity {
         }
 
         super.onActivityResult(reqCode, resultCode, data);
-
     }
 
 
@@ -212,40 +208,19 @@ public class MainActivity extends Activity {
 
         // Show a blank GUI while generating an image.
         protected void onPreExecute() {
-            changeGui(true);
-            mIconImageView.setImageDrawable(getResources().getDrawable(R.drawable.micopi_logo));
+            setGuiIsBusy(true);
+            mIconImageView.setImageDrawable(null);
 
-            // Show the GUI.
+            // Show ONLY the name in the text area.
             mNameTextView.setText(mContact.getFullName());
             mNameTextView.setVisibility(View.VISIBLE);
-            mDescriptionTextView.setVisibility(View.VISIBLE);
-            mSeparatorView.setVisibility(View.VISIBLE);
-            mSeparatorView2.setVisibility(View.VISIBLE);
+            mDescriptionTextView.setVisibility(View.GONE);
+            //mSeparatorView.setVisibility(View.GONE);
+            //mSeparatorView2.setVisibility(View.GONE);
 
-            /*
-            Android Version >= Lollipop:
-            Reset the status bar & action bar colours.
-            */
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int primaryColor = getResources().getColor(R.color.primary);
-
-                try {
-                    getActionBar().setBackgroundDrawable(new ColorDrawable(primaryColor));
-                } catch (NullPointerException e) {
-                    Log.e("MainActivity:generateImageTask()", e.toString());
-                }
-
-                Log.d(
-                        "MainActivity:generateImageTask()",
-                        "Changing status bar & action bar colour."
-                );
-                // Get the window through a reference to the activity.
-                Activity parent = (Activity) mContext;
-                Window window = parent.getWindow();
-                // Set the status bar colour of this window.
-                int statusColor = getResources().getColor(R.color.primary_dark);
-                window.setStatusBarColor(statusColor);
-            }
+            // Reset the activity colours.
+            int defaultColor = getResources().getColor(R.color.primary);
+            setColor(defaultColor);
         }
 
         // Attempt to query the contact from the DB and
@@ -262,7 +237,7 @@ public class MainActivity extends Activity {
 
         // If a complete bitmap was generated, display it.
         protected void onPostExecute(Bitmap generatedBitmap) {
-            changeGui(false);
+            setGuiIsBusy(false);
 
             /*
             If a new bitmap was generated, store it in the field,
@@ -275,34 +250,13 @@ public class MainActivity extends Activity {
                         getResources(), generatedBitmap);
                 mIconImageView.setImageDrawable(generatedDrawable);
 
-                /*
-                Android Version >= Lollipop:
-                Set the action bar colour to the average colour of the generated image and
-                the status bar colour accordingly.
-                Also, apply a shadow?
-                 */
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    int averageColor = Util.getAverageColor(mGeneratedBitmap);
+                // Show the rest of the text area (description and separator line).
+                mDescriptionTextView.setVisibility(View.VISIBLE);
+                //mSeparatorView.setVisibility(View.VISIBLE);
+                //mSeparatorView2.setVisibility(View.VISIBLE);
 
-                    try {
-                        getActionBar().setBackgroundDrawable(new ColorDrawable(averageColor));
-                    } catch (NullPointerException e) {
-                        Log.e("MainActivity:generateImageTask()", e.toString());
-                    }
-
-                    Log.d(
-                            "MainActivity:generateImageTask()",
-                            "Changing status bar & action bar colour."
-                    );
-                    // Get the window through a reference to the activity.
-                    Activity parent = (Activity) mContext;
-                    Window window = parent.getWindow();
-                    // Set the status bar colour of this window.
-                    int statusColor = Util.getDarkenedColor(averageColor);
-                    window.setStatusBarColor(statusColor);
-
-                    mIconImageView.setZ(4f);
-                }
+                // Change the app colour to the average colour of the generated image.
+                setColor(Util.getAverageColor(mGeneratedBitmap));
             } else {
                 Log.e("ConstructContactAndGenerateImageTask", "generatedBitmap is null.");
                 mNameTextView.setText(R.string.no_contact_selected);
@@ -324,7 +278,7 @@ public class MainActivity extends Activity {
     private class AssignContactImageTask extends AsyncTask< Void, Void, Boolean > {
 
         protected void onPreExecute() {
-            changeGui(true);
+            setGuiIsBusy(true);
         }
 
         /** The system calls this to perform work in a worker thread and
@@ -337,7 +291,7 @@ public class MainActivity extends Activity {
         /** The system calls this to perform work in the UI thread and delivers
          * the result from doInBackground() */
         protected void onPostExecute(Boolean didSuccessfully) {
-            changeGui(false);
+            setGuiIsBusy(false);
 
             if(didSuccessfully && getApplicationContext() != null) {
                 Toast.makeText(getApplicationContext(),
@@ -365,7 +319,7 @@ public class MainActivity extends Activity {
     private class SaveImageTask extends AsyncTask< Void, Void, String > {
 
         protected void onPreExecute() {
-            changeGui(true);
+            setGuiIsBusy(true);
         }
 
         @Override
@@ -377,7 +331,7 @@ public class MainActivity extends Activity {
         }
 
         protected void onPostExecute(String fileName) {
-            changeGui(false);
+            setGuiIsBusy(false);
 
             if(fileName.length() > 1) {
                 Toast.makeText(
@@ -396,6 +350,47 @@ public class MainActivity extends Activity {
                         Toast.LENGTH_LONG
                ).show();
             }
+        }
+    }
+
+    /**
+     *
+     * @param color
+     */
+    private void setColor(int color) {
+        View mainView = findViewById(R.id.rootView);
+        mainView.setBackgroundColor(color);
+
+        /*
+        Set the action bar colour to the average colour of the generated image and
+        the status bar colour for Android Version >= 5.0 accordingly.
+        */
+        try {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
+//                getActionBar().setBackgroundDrawable(new ColorDrawable(color));
+//            } else {
+//                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
+//            }
+
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
+        } catch (NullPointerException nullError) {
+            Log.e("MainActivity:generateImageTask()", nullError.toString());
+        } catch (NoSuchMethodError methodError) {
+            Log.e("MainActivity:generateImageTask()", methodError.toString());
+        }
+
+        Log.d(
+                "MainActivity:generateImageTask()",
+                "Changing status bar & action bar colour."
+        );
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Get the window through a reference to the activity.
+            Activity parent = (Activity) mContext;
+            Window window = parent.getWindow();
+            // Set the status bar colour of this window.
+            int statusColor = Util.getDarkenedColor(color);
+            window.setStatusBarColor(statusColor);
         }
     }
 }

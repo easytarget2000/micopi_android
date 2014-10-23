@@ -1,7 +1,10 @@
+
+
 buildscript {
     repositories {
         mavenCentral()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:0.12.+'
     }
@@ -14,11 +17,16 @@ repositories {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.0.1"
+    buildToolsVersion "21.0.2"
 
     defaultConfig {
-        minSdkVersion 6
+        minSdkVersion 7
         targetSdkVersion 21
     }
 }
+
+dependencies {
+    compile "com.android.support:appcompat-v7:21.0.+"
+}
+
 
