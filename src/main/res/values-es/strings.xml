@@ -16,6 +16,8 @@
 
 <resources>
 
+    <string name="app_name">Micopi</string>
+    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
     <string name="introduction_text">
         Tras seleccionar un nombre de la lista,
         se generará la imagen para que pueda aplicarla al contacto.</string>
@@ -34,7 +36,6 @@
     <string name="error_saving">Ocurrió un error guardando la imagen.</string>
     <string name="error_assign">Ocurrió un error mientras se asignaba la imagen al contacto.</string>
     <string name="error_folder">El directorio de Micopi no pudo crearse.</string>
-
     <string name="retry_button_label">Intenta de nuevo</string>
 
 </resources>

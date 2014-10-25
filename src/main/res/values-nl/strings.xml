@@ -16,9 +16,12 @@
 
 <resources>
 
+    <string name="app_name">Micopi</string>
+    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
     <string name="introduction_text">
         De gegenereerde Afbeelding wordt getoond na het toewijzen van een contact.
     </string>
+    <string name="no_contact_selected">Kies een contact</string>
     <string name="image_description">Gegenereerde contact afbeelding</string>
     <string name="contact_button_label">Kies een contact</string>
     <string name="save_button_label">Afbeelding opslaan</string>
@@ -35,5 +38,7 @@
         Controleer de gegevens en probeer het nog een keer.</string>
     <string name="error_assign">
         Er is een fout opgetreden tijdens het toewijzen van de afbeelding aan het contact.</string>
+    <string name="report_button_label">Report</string>
+    <string name="retry_button_label">Retry</string>
 
 </resources>

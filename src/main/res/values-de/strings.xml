@@ -16,6 +16,8 @@
 
 <resources>
 
+    <string name="app_name">Micopi</string>
+    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
     <string name="introduction_text">
         Nachdem Du einen Kontakt ausgewählt hast,
         wird das generierte Bild angezeigt, bevor Du es der Person zuweisen kannst.

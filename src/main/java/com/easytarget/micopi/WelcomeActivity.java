@@ -20,24 +20,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
 /**
  * First activity to be displayed after launch.
  */
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        // The welcome activity doesn't need to have the logo twice and
-        // the wide action bar moves the vertical center quite a bit.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ) {
-            if(getActionBar() != null) getActionBar().hide();
-        }
-
+        // The welcome activity doesn't need to have an action bar.
+        if(getSupportActionBar() != null) getSupportActionBar().hide();
     }
 
     public void startMainActivity( @SuppressWarnings("unused") View view ) {

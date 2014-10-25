@@ -32,5 +32,6 @@
     <string name="error_retrieving">Błąd w przywołaniu danych kontaktowych.</string>
     <string name="error_saving">Błąd przy zapisywaniu obrazu.</string>
     <string name="error_assign">Błąd w przydzielaniu obrazu.</string>
+    <string name="retry_button_label">Retry</string>
 
 </resources>
