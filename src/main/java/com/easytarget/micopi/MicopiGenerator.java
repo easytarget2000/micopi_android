@@ -71,13 +71,18 @@ public class MicopiGenerator {
      */
     public Bitmap generateBitmap() {
 
-        int backgroundColor = Color.WHITE;
+        if (mContact == null) {
+            Log.e("MicopiGenerator: generateBitmap()", "ERROR: No Contact was given.");
+            return null;
+        }
+
+        int backgroundColor = ColorCollection.getColorForChar(mContact.getFullName().charAt(0));
         mCanvas.drawColor(backgroundColor);
 
         /*
         Most of the painting is done here:
         */
-        this.generateCircleScape();
+        generateCircleScape();
         //MicopiTerrain terrain = new MicopiTerrain(6, .5f);
         //terrain.drawMap(mImageSize, mImageSize, mCanvas);
 
@@ -123,7 +128,7 @@ public class MicopiGenerator {
 
         // Write the initial(s).
         char[] initials = {mContact.getFullName().charAt(0)};
-        MicopiPainter.paintChars(mCanvas, initials, backgroundColor);
+        MicopiPainter.paintChars(mCanvas, initials, Color.WHITE);
 
         return mGeneratedBitmap;
     }

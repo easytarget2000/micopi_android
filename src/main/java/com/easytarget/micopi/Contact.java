@@ -24,6 +24,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
 
@@ -38,7 +40,7 @@ import java.security.NoSuchAlgorithmException;
  *
  * Created by Michel on 03.02.14.
  */
-public class Contact {
+public class Contact implements Parcelable{
     private final static String DEBUG_TAG = "Contact";
 
     private Context mContext;
@@ -172,8 +174,17 @@ public class Contact {
             }
         }
 
-        // Split the name into its parts.
+        splitFullName();
+    }
+
+    /**
+     * Splits a full name into its parts.
+     * "George Costanza" -> {"George", "Costanza"}
+     */
+    private void splitFullName() {
+        if (mFullName == null) return;
         mNameParts = mFullName.split(" ");
+
 
         // If the splitting didn't result in anything, just use the full name as one name part.
         if (mNameParts.length == 0) {
@@ -181,6 +192,58 @@ public class Contact {
             mNameParts[0] = mFullName;
         }
     }
+
+    /*
+    PARCELABLE INTERFACE IMPLEMENTATION
+     */
+
+    private static final String TRUE_STRING = "TRUE";
+
+    public Contact(Parcel in){
+        String[] data = new String[9];
+
+        in.readStringArray(data);
+        mContactUri = Uri.parse(data[0]);
+        mFullName = data[1];
+        mPhoneNumber = data[2];
+        mEmailAddress = data[3];
+        mBirthday = data[4];
+        mTimesContacted = data[5];
+        mRetryFactor = Integer.parseInt(data[6]);
+        mMd5IsNew = (data[7] == TRUE_STRING);
+        mMd5String = data[8];
+    }
+
+    //TODO: Figure out useful usage of describeContents & flags.
+
+    @Override
+    public int describeContents(){
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        String md5IsNewString = "FALSE";
+        if (mMd5IsNew) md5IsNewString = TRUE_STRING;
+
+        String[] dataStrings = new String[] {
+                mContactUri.toString(),
+                mFullName,
+                mPhoneNumber,
+                mEmailAddress,
+                mBirthday,
+                mTimesContacted,
+                mRetryFactor + "",
+                md5IsNewString,
+                mMd5String
+        };
+
+        dest.writeStringArray(dataStrings);
+    }
+
+    /*
+    GETTER / SETTER
+     */
 
     /**
      *

@@ -360,7 +360,7 @@ public class MicopiPainter {
         if (count == 0) return;
         else if (count > 4) count = 4;
 
-        float textSize = canvas.getHeight() * .5f;
+        float textSize = canvas.getHeight() * .6f;
         float x = canvas.getWidth() * .5f;
         float y = canvas.getHeight() * .5f + textSize * CHAR_Y_OFFSET;
 

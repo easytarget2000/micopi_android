@@ -23,7 +23,7 @@
         se generará la imagen para que pueda aplicarla al contacto.</string>
     <string name="no_contact_selected">Fue seleccionado nadie</string>
     <string name="image_description">Imagen generada</string>
-    <string name="action_settings">Ajustes</string>
+    <!--<string name="action_settings">Ajustes</string>-->
     <string name="contact_button_label">Seleccionar un contacto</string>
     <string name="save_button_label">Guardar imagen en archivo</string>
     <string name="assign_button_label">Aplicar imagen</string>
@@ -35,7 +35,7 @@
     <string name="error_retrieving">Ocurrió un error obteniendo los datos de contacto.</string>
     <string name="error_saving">Ocurrió un error guardando la imagen.</string>
     <string name="error_assign">Ocurrió un error mientras se asignaba la imagen al contacto.</string>
-    <string name="error_folder">El directorio de Micopi no pudo crearse.</string>
+    <!--<string name="error_folder">El directorio de Micopi no pudo crearse.</string>-->
     <string name="retry_button_label">Intenta de nuevo</string>
 
 </resources>

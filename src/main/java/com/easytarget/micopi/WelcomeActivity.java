@@ -22,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.Window;
 
 /**
  * First activity to be displayed after launch.
@@ -35,6 +36,13 @@ public class WelcomeActivity extends ActionBarActivity {
 
         // The welcome activity doesn't need to have an action bar.
         if(getSupportActionBar() != null) getSupportActionBar().hide();
+
+        // Set the status bar colour of this window on Android >= 5.0.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = this.getWindow();
+            int statusBarColor = getResources().getColor(R.color.primary_dark);
+            window.setStatusBarColor(statusBarColor);
+        }
     }
 
     public void startMainActivity( @SuppressWarnings("unused") View view ) {

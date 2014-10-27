@@ -21,7 +21,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -41,44 +40,85 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 /**
  * Activity that displays the generated image and all the options.
  */
 public class MainActivity extends ActionBarActivity {
+    private static final String STORED_CONTACT      = "storedContact";
+    private static final String STORED_IMAGE        = "storedImage";
+    private static final String STORED_PICKED       = "storedPicked";
+
     private Context mContext = this;
     private static final int PICK_CONTACT = 1;      // Return code of contact picker
-    private Util mUtilities = new Util(this);    // Utility class
-    private TextView mNameTextView, mDescriptionTextView, mSeparatorView;
+    private TextView mNameTextView, mDescriptionTextView;
     private ImageView mIconImageView;
     private Contact mContact;
-    private boolean mIsFirstContactPicker = true;   // Will be set to false after first contact
-    private Bitmap mGeneratedBitmap = null;         // Stores the generated image
-    private boolean mGuiIsLocked = false;           // Keeps the user from performing input
+    private boolean mHasPickedContact   = false;        // Will be set to false after first contact
+    private Bitmap mGeneratedBitmap     = null;         // Generated image
+    private boolean mGuiIsLocked        = false;        // Keeps the user from performing input
+    private Date backButtonDate         = new Date(0);   // Last time the back button was pressed
 
     protected void onCreate(Bundle savedInstanceState) {
+        Log.w("MainActivity: onCreate()", "ONCREATE");
         super.onCreate(savedInstanceState);
 
-        // Prepare GUI.
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
+
         mNameTextView           = (TextView) findViewById(R.id.nameTextView);
         mDescriptionTextView    = (TextView) findViewById(R.id.descriptionTextView);
         mIconImageView          = (ImageView) findViewById(R.id.iconImageView);
-        setGuiIsBusy(false);
 
-//         // Ad-Banner:
-//        adView = (AdView) findViewById(R.id.adView);
-//        adView.loadAd(new AdRequest.Builder().build());
+        // Check whether we're recreating a previously destroyed instance
+        if (savedInstanceState != null) {
+            Log.d("MainActivity", "onRestoreInstanceState()");
+            // Always call the superclass so it can restore the view hierarchy
+            super.onRestoreInstanceState(savedInstanceState);
 
-        if(mIsFirstContactPicker || mContact == null || mGeneratedBitmap == null)
+            // Restore state members from saved instance
+            mGeneratedBitmap = savedInstanceState.getParcelable(STORED_IMAGE);
+            mContact = savedInstanceState.getParcelable(STORED_CONTACT);
+            mHasPickedContact = savedInstanceState.getBoolean(STORED_PICKED);
+
+            if (mHasPickedContact && mContact != null && mGeneratedBitmap != null) {
+                Log.d("Restoring generated bitmap", mGeneratedBitmap.getHeight() + "");
+                Log.d("Restoring contact object", mContact.getFullName());
+                showContactData();
+            }
+        }
+
+        if(!mHasPickedContact) {
+            Log.d("MainActivity: onCreate()", "No contact picked yet.");
             pickContact();
+        }
 
+        //TODO: Apply colours.
+    }
+
+    private void showContactData() {
+        Drawable generatedDrawable = new BitmapDrawable(
+                getResources(), mGeneratedBitmap);
+        mIconImageView.setImageDrawable(generatedDrawable);
+
+        // Populate and show the text views.
+        mNameTextView.setText(mContact.getFullName());
+        mNameTextView.setVisibility(View.VISIBLE);
+        mDescriptionTextView.setVisibility(View.VISIBLE);
+
+        // Change the app colour to the average colour of the generated image.
+        setColor(ColorUtilities.getAverageColor(mGeneratedBitmap));
     }
 
     @Override
     public void onBackPressed() {
+        Log.d(
+                "MainActivity: onBackPressed()",
+                backButtonDate.getTime() - System.currentTimeMillis() + ""
+        );
+
+        backButtonDate.setTime(System.currentTimeMillis());
         if(!mGuiIsLocked) pickContact();
-        else finish();
     }
 
     @Override
@@ -91,7 +131,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onSearchRequested() {
         if(!mGuiIsLocked) pickContact();
-
         return true;
     }
 
@@ -121,6 +160,17 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelable(STORED_IMAGE, mGeneratedBitmap);
+        savedInstanceState.putParcelable(STORED_CONTACT, mContact);
+        savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d("MainActivity", "onSaveInstanceState()");
+    }
+
     /**
      * Locks / unlocks the GUI through boolean field and
      * hides / shows the progress bar.
@@ -139,7 +189,7 @@ public class MainActivity extends ActionBarActivity {
      * onActivityResult will be called when returning to MainActivity.
      */
     public void pickContact() {
-        if(mIsFirstContactPicker) {
+        if(mHasPickedContact) {
             mNameTextView.setVisibility(View.GONE);
             mDescriptionTextView.setVisibility(View.GONE);
         }
@@ -159,14 +209,14 @@ public class MainActivity extends ActionBarActivity {
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
 
         // Close the app if the back button was pressed on first contact picker.
-        if(mIsFirstContactPicker && resultCode != RESULT_OK) finish();
+        if(mHasPickedContact && resultCode != RESULT_OK) finish();
 
         // Check if the activity result is ok and check the request code.
         // The latter should be 1 indicating a picked contact.
         if(resultCode == RESULT_OK && reqCode == PICK_CONTACT) {
+            mHasPickedContact = true;
             mContact = new Contact(mContext, data);
             new generateImageTask().execute();
-            mIsFirstContactPicker = false;
         }
 
         super.onActivityResult(reqCode, resultCode, data);
@@ -211,12 +261,9 @@ public class MainActivity extends ActionBarActivity {
             setGuiIsBusy(true);
             mIconImageView.setImageDrawable(null);
 
-            // Show ONLY the name in the text area.
-            mNameTextView.setText(mContact.getFullName());
-            mNameTextView.setVisibility(View.VISIBLE);
+            // Hide all text views.
+            mNameTextView.setVisibility(View.GONE);
             mDescriptionTextView.setVisibility(View.GONE);
-            //mSeparatorView.setVisibility(View.GONE);
-            //mSeparatorView2.setVisibility(View.GONE);
 
             // Reset the activity colours.
             int defaultColor = getResources().getColor(R.color.primary);
@@ -245,18 +292,7 @@ public class MainActivity extends ActionBarActivity {
              */
             if(generatedBitmap != null) {
                 mGeneratedBitmap = generatedBitmap;
-
-                Drawable generatedDrawable = new BitmapDrawable(
-                        getResources(), generatedBitmap);
-                mIconImageView.setImageDrawable(generatedDrawable);
-
-                // Show the rest of the text area (description and separator line).
-                mDescriptionTextView.setVisibility(View.VISIBLE);
-                //mSeparatorView.setVisibility(View.VISIBLE);
-                //mSeparatorView2.setVisibility(View.VISIBLE);
-
-                // Change the app colour to the average colour of the generated image.
-                setColor(Util.getAverageColor(mGeneratedBitmap));
+                showContactData();
             } else {
                 Log.e("ConstructContactAndGenerateImageTask", "generatedBitmap is null.");
                 mNameTextView.setText(R.string.no_contact_selected);
@@ -324,10 +360,19 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected String doInBackground(Void... params) {
+            String fileName = "";
+
             if(mGeneratedBitmap != null && mContact != null) {
-                return mUtilities.saveContactImageFile(mGeneratedBitmap, mContact.getFullName(),
-                        mContact.getMD5EncryptedString().charAt(0));
-            } else return "";
+                MediaFileHandler fileHandler = new MediaFileHandler();
+                fileName = fileHandler.saveContactImageFile(
+                        mContext,
+                        mGeneratedBitmap,
+                        mContact.getFullName(),
+                        mContact.getMD5EncryptedString().charAt(0)
+                );
+            }
+
+            return fileName;
         }
 
         protected void onPostExecute(String fileName) {
@@ -359,19 +404,17 @@ public class MainActivity extends ActionBarActivity {
      */
     private void setColor(int color) {
         View mainView = findViewById(R.id.rootView);
-        mainView.setBackgroundColor(color);
+        if (mainView == null) {
+            Log.e("MainActivity:setColor()", "WARNING: Did not find root view.");
+        } else {
+            mainView.setBackgroundColor(color);
+        }
 
         /*
         Set the action bar colour to the average colour of the generated image and
         the status bar colour for Android Version >= 5.0 accordingly.
         */
         try {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ){
-//                getActionBar().setBackgroundDrawable(new ColorDrawable(color));
-//            } else {
-//                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
-//            }
-
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
         } catch (NullPointerException nullError) {
             Log.e("MainActivity:generateImageTask()", nullError.toString());
@@ -389,7 +432,7 @@ public class MainActivity extends ActionBarActivity {
             Activity parent = (Activity) mContext;
             Window window = parent.getWindow();
             // Set the status bar colour of this window.
-            int statusColor = Util.getDarkenedColor(color);
+            int statusColor = ColorUtilities.getDarkenedColor(color);
             window.setStatusBarColor(statusColor);
         }
     }
