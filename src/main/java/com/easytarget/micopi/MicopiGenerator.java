@@ -75,8 +75,9 @@ public class MicopiGenerator {
 
         String md5String = contact.getMD5EncryptedString();
         int numberOfWords = contact.getNumberOfNameParts();
-        float centerX = imageSize * 0.5f;
-        float centerY = imageSize * 0.5f;
+        float centerX = imageSize * (md5String.charAt(9) / 128f);
+        float centerY = imageSize * (md5String.charAt(3) / 128f);
+        Log.d("Geometric Addition Center", centerX + " " + centerY);
 
         switch (md5String.charAt(20) % circleProbFactor) {
             case 0:     // Paint circles depending on the number of words.
@@ -126,13 +127,13 @@ public class MicopiGenerator {
      * @return  Color with alpha=255
      */
     private static int generateColor(char firstLetter, char char1, char char2, int numOfWords) {
-        int iGeneratedColor = Color.DKGRAY;
-        if (firstLetter % 2 == 0) iGeneratedColor = Color.YELLOW;
+        int generatedColor = Color.DKGRAY;
+        if (firstLetter % 2 == 0) generatedColor = ColorCollection.palette[4];
 
-        iGeneratedColor *= firstLetter * -char1 * numOfWords * char2;
-        iGeneratedColor |= 0xff000000;
+        generatedColor *= firstLetter * -char1 * numOfWords * char2;
+        generatedColor |= 0xff000000;
 
-        return iGeneratedColor;
+        return generatedColor;
     }
 
     /**
@@ -154,7 +155,7 @@ public class MicopiGenerator {
         int md5Pos          = 0;
         float shapeWidth    = 0.1f;
         int shapeColor      = generateColor(
-                md5String.charAt(5), md5String.charAt(6), md5String.charAt(7), 10);
+                md5String.charAt(2), md5String.charAt(6), md5String.charAt(7), 10);
 
         float x = canvas.getWidth() * 0.7f;
         float y = canvas.getHeight() * 0.3f;

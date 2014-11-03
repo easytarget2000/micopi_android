@@ -28,6 +28,7 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.FloatMath;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -161,6 +162,8 @@ public class MicopiPainter {
         canvas.drawPath(path, paint);
     }
 
+    private static final String DEBUG_TAG_CIRCLE = "Painting Circle";
+
     /**
      * Draws two circles on top of each other. The second one is larger than the first one.
      * The first one is more visible though because it has the combined alpha values of both.
@@ -197,22 +200,15 @@ public class MicopiPainter {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
 
-        switch(widthChar % 4) {
-            case 0:
-                paint.setColor(addColor);
-                break;
-            case 1:
-                paint.setColor(Color.BLACK);
-                break;
-            case 2:
-                paint.setColor(Color.WHITE);
-                break;
-            default:
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
-                paint.setColor(Color.RED);
+        final int numOfColors = ColorCollection.palette.length;
+        if (widthChar < numOfColors) {
+            widthChar += numOfColors;
         }
 
-        int alpha = (int) (60 * ((double) (currentNum + 1) / (double) numOfShapes));
+        final int colorIndex = widthChar % numOfColors;
+        paint.setColor(ColorCollection.palette[colorIndex]);
+
+        final int alpha = (int) (60 * ((double) (currentNum + 1) / (double) numOfShapes));
         paint.setAlpha(alpha);
 
         //Calculate the polygon values if needed.
@@ -254,7 +250,7 @@ public class MicopiPainter {
 
     }
 
-    private static final int BEAMS_ALPHA = 25;
+    private static final int BEAMS_ALPHA = 15;
 
     /**
      * Draws beams in a vortex-/flower-like manner.
@@ -305,8 +301,13 @@ public class MicopiPainter {
             paintAlpha *= 4;
         }
 
-        if (factorChar3 % 3 == 0) paint.setColor(Color.RED);
-        else paint.setColor(Color.WHITE);
+        // Pick a colour.
+        final int numOfColors = ColorCollection.palette.length;
+        if (factorChar3 < numOfColors) {
+            factorChar3 += numOfColors;
+        }
+        final int colorIndex = factorChar3 % numOfColors;
+        paint.setColor(ColorCollection.palette[colorIndex]);
 
         if (factorChar3 % 2 == 0)  paint.setStrokeWidth(8f);
         else paint.setStrokeWidth(24f);
@@ -373,30 +374,4 @@ public class MicopiPainter {
 
         canvas.drawText(chars, 0, count, x, y, paint);
     }
-
-//    public static void paintMicopiLines(char[] contactName, char widthChar, Canvas canvas) {
-//        Paint paint = new Paint();
-//        float distUnit = (CONTACT_ICON_SIZE / contactName.length) * .75f;
-//        float centerX = CONTACT_ICON_SIZE * .5f;
-//        float lineY = distUnit * .5f;
-//        float lineEndX;
-//
-//        paint.setColor(Color.WHITE);
-//        paint.setAntiAlias(true);
-//        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
-//        paint.setAlpha(50);
-//        paint.setStrokeWidth(distUnit);
-//
-//
-//        for (char currentChar : contactName) {
-//
-//            if (currentChar > 47) {
-//                lineEndX = centerX + ((currentChar - 96) * 20);
-//                canvas.drawLine(centerX, lineY, lineEndX, lineY, paint);
-//            }
-//            lineY += distUnit;
-//
-//
-//        }
-//    }
 }

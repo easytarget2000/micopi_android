@@ -17,8 +17,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
     tools:context=".MainActivity"
+    android:background="@color/primary"
     android:id="@+id/rootView">
 
     <ImageView
@@ -47,7 +47,10 @@
         android:id="@+id/descriptionTextView"
         android:layout_below="@+id/iconImageView"
         android:layout_alignLeft="@id/iconImageView"
-        android:layout_alignStart="@id/iconImageView"/>
+        android:layout_alignStart="@id/iconImageView"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,9 +59,11 @@
         android:textColor="@android:color/white"
         android:text="@string/no_contact_selected"
         android:id="@+id/nameTextView"
+        android:layout_alignLeft="@id/descriptionTextView"
+        android:layout_alignStart="@id/descriptionTextView"
         android:layout_below="@+id/descriptionTextView"
-        android:layout_alignLeft="@id/iconImageView"
-        android:layout_alignStart="@id/iconImageView"/>
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
 
 </RelativeLayout>
 

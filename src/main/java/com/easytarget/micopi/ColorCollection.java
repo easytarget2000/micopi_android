@@ -26,6 +26,7 @@ import android.util.Log;
 public class ColorCollection {
 
     public static int palette[] = {
+            0xFF000000,
             0xFFE51C23,
             0xFFE91E63,
             0xFF9C27B0,
@@ -33,6 +34,8 @@ public class ColorCollection {
             0xFF3f51B5,
             0xFF5677fC,
             0xFF03A9f4,
+            0xFF777777,
+            0xFFAAAAAA,
             0xFF00BCd4,
             0xFF009688,
             0xFF259B24,
