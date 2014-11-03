@@ -94,13 +94,13 @@ public class MicopiPainter {
      * @param canvas    Canvas to draw on
      */
     public static void paintMicopiPolygon(
+            Canvas canvas,
             ArrayList<Vertex> polygon,
             char cAlphaFactor,
             int iAlphaFactor2,
             boolean isFilled,
             int iIteration,
-            float fTriangleA,
-            Canvas canvas
+            float fTriangleA
    ) {
         Paint paint = new Paint(Color.WHITE);
         Path path = new Path();
@@ -174,6 +174,7 @@ public class MicopiPainter {
      * @param canvas    Canvas to draw on
      */
     public static void paintMicopiCircle(
+            Canvas canvas,
             boolean paintPolygon,
             int numOfEdges,
             int currentNum,
@@ -182,11 +183,9 @@ public class MicopiPainter {
             float centerX,
             float centerY,
             float radiusFactor,
-            char widthChar,
-            float imageSize,
-            Canvas canvas
+            char widthChar
    ) {
-        float strokeWidth  = (imageSize * (float) widthChar * .002f);
+        float strokeWidth  = (canvas.getWidth() * (float) widthChar * .002f);
         float innerRadius = radiusFactor * 2f *
                 (strokeWidth + (strokeWidth * currentNum) + (strokeWidth * currentNum));
 

@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +31,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,9 +48,11 @@ import java.util.Date;
  * Activity that displays the generated image and all the options.
  */
 public class MainActivity extends ActionBarActivity {
+    // Keys for instance saving and restoration:
     private static final String STORED_CONTACT      = "storedContact";
     private static final String STORED_IMAGE        = "storedImage";
     private static final String STORED_PICKED       = "storedPicked";
+    private static final String STORED_WIDTH        = "storedWidth";
 
     private Context mContext = this;
     private static final int PICK_CONTACT = 1;      // Return code of contact picker
@@ -58,7 +62,8 @@ public class MainActivity extends ActionBarActivity {
     private boolean mHasPickedContact   = false;        // Will be set to false after first contact
     private Bitmap mGeneratedBitmap     = null;         // Generated image
     private boolean mGuiIsLocked        = false;        // Keeps the user from performing input
-    private Date backButtonDate         = new Date(0);   // Last time the back button was pressed
+    private Date backButtonDate         = new Date(0);  // Last time the back button was pressed
+    private int mScreenWidthInPixels    = -1;           // Horizontal resolution of portrait mode
 
     protected void onCreate(Bundle savedInstanceState) {
         Log.w("MainActivity: onCreate()", "ONCREATE");
@@ -77,9 +82,10 @@ public class MainActivity extends ActionBarActivity {
             super.onRestoreInstanceState(savedInstanceState);
 
             // Restore state members from saved instance
-            mGeneratedBitmap = savedInstanceState.getParcelable(STORED_IMAGE);
-            mContact = savedInstanceState.getParcelable(STORED_CONTACT);
-            mHasPickedContact = savedInstanceState.getBoolean(STORED_PICKED);
+            mGeneratedBitmap        = savedInstanceState.getParcelable(STORED_IMAGE);
+            mContact                = savedInstanceState.getParcelable(STORED_CONTACT);
+            mHasPickedContact       = savedInstanceState.getBoolean(STORED_PICKED);
+            mScreenWidthInPixels    = savedInstanceState.getInt(STORED_WIDTH);
 
             if (mHasPickedContact && mContact != null && mGeneratedBitmap != null) {
                 Log.d("Restoring generated bitmap", mGeneratedBitmap.getHeight() + "");
@@ -112,13 +118,12 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Log.d(
-                "MainActivity: onBackPressed()",
-                backButtonDate.getTime() - System.currentTimeMillis() + ""
-        );
-
-        backButtonDate.setTime(System.currentTimeMillis());
-        if(!mGuiIsLocked) pickContact();
+        if (backButtonDate.getTime() - System.currentTimeMillis() <= 4000) {
+            finish();
+        } else {
+            backButtonDate.setTime(System.currentTimeMillis());
+            if(!mGuiIsLocked) pickContact();
+        }
     }
 
     @Override
@@ -165,6 +170,7 @@ public class MainActivity extends ActionBarActivity {
         savedInstanceState.putParcelable(STORED_IMAGE, mGeneratedBitmap);
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
         savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
+        savedInstanceState.putInt(STORED_WIDTH, mScreenWidthInPixels);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -189,11 +195,6 @@ public class MainActivity extends ActionBarActivity {
      * onActivityResult will be called when returning to MainActivity.
      */
     public void pickContact() {
-        if(mHasPickedContact) {
-            mNameTextView.setVisibility(View.GONE);
-            mDescriptionTextView.setVisibility(View.GONE);
-        }
-
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, PICK_CONTACT);
     }
@@ -209,7 +210,7 @@ public class MainActivity extends ActionBarActivity {
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
 
         // Close the app if the back button was pressed on first contact picker.
-        if(mHasPickedContact && resultCode != RESULT_OK) finish();
+        if(!mHasPickedContact && resultCode != RESULT_OK) finish();
 
         // Check if the activity result is ok and check the request code.
         // The latter should be 1 indicating a picked contact.
@@ -275,8 +276,27 @@ public class MainActivity extends ActionBarActivity {
         protected Bitmap doInBackground(Void... params) {
 
             if(mContact != null) {
-                MicopiGenerator mgen = new MicopiGenerator(mContact);
-                return mgen.generateBitmap();
+                // Calculate the horizontal pixels.
+                if (mScreenWidthInPixels == -1) {
+                    // Only bother checking the resolution for Android >= 3.0.
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        Configuration config = getResources().getConfiguration();
+                        DisplayMetrics dm = getResources().getDisplayMetrics();
+
+                        // Store the height value as screen width, if in landscape mode.
+                        if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                            mScreenWidthInPixels = (int) (config.screenWidthDp * dm.density);
+                        } else {
+                            mScreenWidthInPixels = (int) (config.screenHeightDp * dm.density);
+                        }
+                    } else {
+                        // On old android versions, a generic, small screen resolution is assumed.
+                        mScreenWidthInPixels = 480;
+                    }
+                }
+                Log.d("Screen Width in Pixels", mScreenWidthInPixels + "");
+
+                return MicopiGenerator.generateBitmap(mContact, mScreenWidthInPixels);
             } else {
                 return null;
             }

@@ -6,15 +6,15 @@
         android:title="@string/assign_button_label"
         micopi:showAsAction="ifRoom|withText"/>
 
+    <item android:id="@+id/action_retry"
+        android:icon="@drawable/ic_autorenew_white_36dp"
+        android:title="@string/retry_button_label"
+        micopi:showAsAction="ifRoom|withText"/>
+
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_search_white_36dp"
         android:title="@string/contact_button_label"
         micopi:showAsAction="ifRoom" />
-
-    <item android:id="@+id/action_retry"
-        android:icon="@drawable/ic_autorenew_white_36dp"
-        android:title="@string/retry_button_label"
-        micopi:showAsAction="ifRoom"/>
 
     <item android:id="@+id/action_save"
         android:icon="@drawable/ic_save_white_36dp"
