@@ -24,6 +24,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RadialGradient;
+import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -162,75 +163,90 @@ public class MicopiPainter {
         canvas.drawPath(path, paint);
     }
 
-    private static final String DEBUG_TAG_CIRCLE = "Painting Circle";
+    /**
+     * Shape definition: full circle, stroked
+     */
+    public static final int MODE_CIRCLE = 0;
 
     /**
-     * Draws two circles on top of each other. The second one is larger than the first one.
-     * The first one is more visible though because it has the combined alpha values of both.
-     *
-     * @param currentNum     Current circle number
-     * @param numOfShapes   Total number of circles to draw
-     * @param centerX   X-coordinate of circle center
-     * @param centerY   Y-coordinate of circle center
-     * @param radiusFactor      Will be multiplied with generated radius
-     * @param widthChar Character that determines the width of the lines
-     * @param canvas    Canvas to draw on
+     * Shape definition: full circle, filled
      */
-    public static void paintMicopiCircle(
+    public static final int MODE_CIRCLE_FILLED = 10;
+
+    /**
+     * Shape definition: circle arc, stroked
+     */
+    public static final int MODE_ARC = 1;
+
+    /**
+     * Shape definition: circle arc, filled
+     */
+    public static final int MODE_ARC_FILLED = 11;
+
+    /**
+     * Shape definition: polygon approximating a circle, stroked
+     */
+    public static final int MODE_POLYGON = 3;
+
+    /**
+     * Shape definition: polygon approximating a circle, filled
+     */
+    public static final int MODE_POLYGON_FILLED = 13;
+
+    public static void paintDoubleShape(
             Canvas canvas,
-            boolean paintPolygon,
+            int paintMode,
+            int color,
+            int alpha,
+            float strokeWidth,
             int numOfEdges,
-            int currentNum,
-            int numOfShapes,
-            int addColor,
+            float startAngle,
+            float endAngle,
             float centerX,
             float centerY,
-            float radiusFactor,
-            char widthChar
-   ) {
-        float strokeWidth  = (canvas.getWidth() * (float) widthChar * .002f);
-        float innerRadius = radiusFactor * 2f *
-                (strokeWidth + (strokeWidth * currentNum) + (strokeWidth * currentNum));
+            float radius
+    ) {
 
-        if (currentNum > 2) innerRadius -= strokeWidth;
-
-        // Configure paint
+        // Configure paint:
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(color);
+        paint.setAlpha(alpha);
         paint.setStrokeWidth(strokeWidth);
 
-        final int numOfColors = ColorCollection.palette.length;
-        if (widthChar < numOfColors) {
-            widthChar += numOfColors;
-        }
-
-        final int colorIndex = widthChar % numOfColors;
-        paint.setColor(ColorCollection.palette[colorIndex]);
-
-        final int alpha = (int) (60 * ((double) (currentNum + 1) / (double) numOfShapes));
-        paint.setAlpha(alpha);
+        // All filled mode int have a value >= 10.
+        if (paintMode >= MODE_CIRCLE_FILLED) paint.setStyle(Paint.Style.FILL);
+        else paint.setStyle(Paint.Style.STROKE);
 
         //Calculate the polygon values if needed.
         float edgeLength = 0f;   // Distance between two vertices.
         float deltaAngle = 0f;   // The inner angle that will be added to the current path angle
-        if (paintPolygon) {
-            edgeLength = innerRadius * 2f * FloatMath.sin(pi/numOfEdges);
+        if (paintMode == MODE_POLYGON) {
+            edgeLength = radius * 2f * FloatMath.sin(pi / numOfEdges);
             float n = (float) numOfEdges;
             deltaAngle = ((n-2f)/n) * pi;
         }
 
         // Draw two shapes of the same kind.
         for (int i = 0; i < 2; i++) {
-            if (!paintPolygon) {
-                canvas.drawCircle(centerX, centerY, innerRadius, paint);
-            } else {
+            if (paintMode == MODE_ARC || paintMode == MODE_ARC_FILLED) {
+                final RectF oval = new RectF();
+                oval.set(
+                        centerX - radius,
+                        centerY - radius,
+                        centerX + radius,
+                        centerY + radius
+                );
+                Path arcPath = new Path();
+                arcPath.arcTo(oval, startAngle, endAngle, true);
+
+            } else if (paintMode == MODE_POLYGON || paintMode == MODE_POLYGON_FILLED) {
                 Path polygonPath = new Path();
                 float pathAngle = 0f;
 
                 // Estimate a lower left corner of the polygon from the center coordinates.
-                float x = centerX - innerRadius * .75f;
-                float y = centerY + innerRadius * .75f;
+                float x = centerX - radius * 0.5f;
+                float y = centerY + radius * 0.6f;
                 polygonPath.moveTo(x,y);
 
                 for (int j = 0; j < numOfEdges; j++) {
@@ -242,80 +258,67 @@ public class MicopiPainter {
 
                 polygonPath.close();
                 canvas.drawPath(polygonPath, paint);
+            } else {
+                canvas.drawCircle(centerX, centerY, radius, paint);
             }
 
             // Draw the second shape differently.
-            innerRadius -= strokeWidth * .32f;
+            radius -= strokeWidth * 0.5f;
+            paint.setAlpha((int) (alpha * 0.75f));
         }
-
     }
 
-    private static final int BEAMS_ALPHA = 15;
+    public static final int BEAM_SPIRAL = 0;
 
-    /**
-     * Draws beams in a vortex-/flower-like manner.
-     *
-     * @param factorChar1    MD5 character that determines the density of the beams
-     * @param factorChar2     MD5 character that determines the length of the beams
-     * @param factorChar4      MD5 character that determines the angle of the beams
-     *
-     * @param canvas    Canvas to draw on
-     */
+    public static final int BEAM_SOLAR = 1;
+
+    public static final int BEAM_STAR = 2;
+
+    public static final int BEAM_WHIRL = 3;
+
     public static void paintMicopiBeams(
-            char factorChar1,
-            char factorChar2,
-            char factorChar3,
-            char factorChar4,
+            Canvas canvas,
+            int color,
+            int alpha,
+            int paintMode,
             float centerX,
             float centerY,
-            float imageSize,
-            Canvas canvas
+            int density,
+            float lineLength,
+            float angle,
+            boolean largeDeltaAngle,
+            boolean wideStrokes
     ) {
-        // Define how to paint.
-        // P_n = 25%
-        int paintStyle  = 0;    // Should only be 0, 1, 2 or 3
-        if (factorChar1 % 2 == 0) {
-            if (factorChar4 % 2 == 0) paintStyle = 1;     // 1 :Solar Beams
-            else paintStyle = 2;        // 2: Star
-        } else {
-            if (factorChar2 % 2 == 0) paintStyle = 3;    // 3: Whirl
-        }   // 0: Spiral
+
+        Log.d("Painting Beams", paintMode + " Alpha: " + alpha);
 
         // Calculate the lengths and angles.
-        float lengthUnit    = (imageSize / 200f);
-        float lineLength    = ((float) factorChar2 * .6f) * lengthUnit;
-        double angle        = ((float) factorChar4 * .15f) * lengthUnit;
+//        float lineLength    =  * lengthUnit;
+//        double angle        = ((float) factorChar4 * 0.15f) * lengthUnit;
+
+        final float lengthUnit = (canvas.getWidth() / 200f);
+        lineLength *= lengthUnit;
+        angle *= lengthUnit;
 
         // Define how the angle should change after every line.
-        double deltaAngle;
-        if (factorChar3 % 3 != 0) deltaAngle = (double) (10f * lengthUnit);
-        else deltaAngle = (double) lengthUnit;
+        float deltaAngle;
+        if (largeDeltaAngle) deltaAngle = 10f * lengthUnit;
+        else deltaAngle = lengthUnit;
 
-        // Configure paint
+        // Configure paint:
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        char paintAlpha  = BEAMS_ALPHA;
+        paint.setColor(color);
+        paint.setAlpha(alpha);
+        paint.setStyle(Paint.Style.STROKE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
-        } else {
-            paintAlpha *= 4;
         }
 
-        // Pick a colour.
-        final int numOfColors = ColorCollection.palette.length;
-        if (factorChar3 < numOfColors) {
-            factorChar3 += numOfColors;
-        }
-        final int colorIndex = factorChar3 % numOfColors;
-        paint.setColor(ColorCollection.palette[colorIndex]);
-
-        if (factorChar3 % 2 == 0)  paint.setStrokeWidth(8f);
-        else paint.setStrokeWidth(24f);
-
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setAlpha(paintAlpha);
-
-        int density = factorChar1 * 3;
+        // Set wide or thin strokes.
+        if (wideStrokes)  paint.setStrokeWidth(24f);
+        else paint.setStrokeWidth(8f);
         float lineStartX = centerX;
         float lineStartY = centerY;
         float lineEndX, lineEndY;
@@ -329,16 +332,16 @@ public class MicopiPainter {
             angle += deltaAngle;
             lineLength += lengthUnit;
 
-            switch (paintStyle) {
-                case 0:
+            switch (paintMode) {
+                case BEAM_SPIRAL:
                     lineStartX = lineEndX;
                     lineStartY = lineEndY;
                     break;
-                case 1:
+                case BEAM_SOLAR:
                     lineStartX = centerX;
                     lineStartY = centerY;
                     break;
-                case 2:
+                case BEAM_STAR:
                     lineStartX = lineEndX;
                     lineStartY = lineEndY;
                     angle--;

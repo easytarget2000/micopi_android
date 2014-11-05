@@ -10,8 +10,9 @@
         android:id="@+id/welcomeLayout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp">
+        android:layout_marginLeft="@dimen/activity_large_margin"
+        android:layout_marginStart="@dimen/activity_large_margin"
+        android:layout_marginRight="@dimen/activity_large_margin">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
             android:id="@+id/imageView"
             android:layout_above="@+id/firstButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:src="@drawable/micopi_logo" />
 
         <Button
@@ -32,17 +33,16 @@
             android:onClick="startMainActivity"
             android:background="@android:color/white"
             android:textColor="@color/primary"
-            android:layout_height="64dp"
+            android:layout_height="@dimen/activity_large_margin"
             android:textSize="24sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/introduction_text"
             android:id="@+id/textView"
             android:layout_below="@+id/firstButton"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="@android:color/white"/>

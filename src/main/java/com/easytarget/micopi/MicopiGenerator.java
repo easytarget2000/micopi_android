@@ -19,10 +19,7 @@ package com.easytarget.micopi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.util.FloatMath;
 import android.util.Log;
-
-import java.util.ArrayList;
 
 /**
  * Functional class containing the methods to generate a seemingly random image
@@ -58,7 +55,7 @@ public class MicopiGenerator {
 
         Canvas canvas = new Canvas(generatedBitmap);
 
-        int backgroundColor = ColorCollection.getColorForChar(contact.getFullName().charAt(0));
+        final int backgroundColor = ColorCollection.getColorForChar(contact.getFullName().charAt(0));
         canvas.drawColor(backgroundColor);
 
         /*
@@ -74,38 +71,48 @@ public class MicopiGenerator {
         if (contact.getNumberOfNameParts() > 2) circleProbFactor = 2;
 
         String md5String = contact.getMD5EncryptedString();
-        int numberOfWords = contact.getNumberOfNameParts();
-        float centerX = imageSize * (md5String.charAt(9) / 128f);
-        float centerY = imageSize * (md5String.charAt(3) / 128f);
+        final int numberOfWords = contact.getNumberOfNameParts();
+        final float centerX = imageSize * (md5String.charAt(9) / 128f);
+        final float centerY = imageSize * (md5String.charAt(3) / 128f);
+        final float offset  = md5String.charAt(18) * 2f;
+        final float radiusFactor = imageSize * 0.4f;
         Log.d("Geometric Addition Center", centerX + " " + centerY);
 
         switch (md5String.charAt(20) % circleProbFactor) {
             case 0:     // Paint circles depending on the number of words.
-                for (int i = 0; i < numberOfWords; i++)
-                    MicopiPainter.paintMicopiCircle(
+                for (int i = 0; i < numberOfWords; i++) {
+                    int alpha = (int) (((i + 1f) / numberOfWords) * 150f);
+
+                    MicopiPainter.paintDoubleShape(
                             canvas,
-                            false,
-                            0,
-                            i,
-                            numberOfWords,
+                            MicopiPainter.MODE_CIRCLE,
                             Color.WHITE,
-                            centerX,
-                            centerY,
-                            1.6f,
-                            md5String.charAt(11)
+                            alpha,
+                            ((numberOfWords / (i + 1)) * 64), // Stroke Width
+                            0,                              // No edges
+                            0f,                             // No arc start angle
+                            0f,                             // No arc end angle
+                            centerX + (i * offset),
+                            centerY - (i * offset),
+                            ((numberOfWords / (i + 1f)) * radiusFactor)
                     );
+                    Log.d("Word Circles", alpha + "");
+                }
                 break;
             default:    // Paint that flower.
                 md5String = contact.getMD5EncryptedString();
                 MicopiPainter.paintMicopiBeams(
-                        md5String.charAt(17),
-                        md5String.charAt(12),
-                        md5String.charAt(13),
-                        md5String.charAt(5),
+                        canvas,
+                        backgroundColor,
+                        md5String.charAt(17) / 3,           // Alpha
+                        md5String.charAt(12) % 4,       // Paint Mode
                         centerX,
                         centerY,
-                        imageSize,
-                        canvas
+                        md5String.charAt(13) * 3,       // Density
+                        md5String.charAt(5) * 0.6f,     // Line Length
+                        md5String.charAt(14) * 0.15f,   // Angle
+                        md5String.charAt(20) % 2 == 0,  // Large Delta Angle
+                        md5String.charAt(21) % 2 == 0   // Wide Strokes
                 );
         }
 
@@ -117,48 +124,47 @@ public class MicopiGenerator {
     }
 
     /**
-     * Generates a color, based on the given input parameters.
-     *
-     * @param firstLetter    First character of the contact's name
-     * @param char1  MD5 Character
-     * @param char2  MD5 Character
-     * @param numOfWords    Number of Words in the contact's name
-     *
-     * @return  Color with alpha=255
-     */
-    private static int generateColor(char firstLetter, char char1, char char2, int numOfWords) {
-        int generatedColor = Color.DKGRAY;
-        if (firstLetter % 2 == 0) generatedColor = ColorCollection.palette[4];
-
-        generatedColor *= firstLetter * -char1 * numOfWords * char2;
-        generatedColor |= 0xff000000;
-
-        return generatedColor;
-    }
-
-    /**
-     * Fills the image with a lot of colourful circles.
+     * Fills a canvas with a lot of colourful circles or polygons
+     * Uses MicopiPainter
      */
     private static void generateCircleScape(Canvas canvas, Contact contact) {
-        /*
-         If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
-         there is a 3/4 chance that polygons will be painted instead of circles.
-         */
+        // If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
+        // there is a 3/4 chance that polygons will be painted instead of circles.
+        final int numOfEdges = contact.getNamePart(0).length();
+        final String md5String = contact.getMD5EncryptedString();
+        final int numberOfShapes  = contact.getFullName().length() * 4;
+
         boolean paintPolygon = false;
-        int numOfEdges = contact.getNamePart(0).length();
-        String md5String = contact.getMD5EncryptedString();
-        if (md5String.charAt(14) % 4 != 0 && numOfEdges > 2 && numOfEdges < 7) paintPolygon = true;
+        if (md5String.charAt(15) % 4 != 0 && numOfEdges > 2 && numOfEdges < 7) paintPolygon = true;
+
+        // These characters will be used for color generating:
+        final char colorChar1     = contact.getFullName().charAt(0);
+        final int lastNamePart    = contact.getNumberOfNameParts() - 1;
+        final char colorChar2     = contact.getNamePart(lastNamePart).charAt(0);
+
+        // Determine if the shapes will be painted filled or stroked.
+        boolean paintFilled = false;
+        if (md5String.charAt(0) % 2 == 0) paintFilled = true;
+
+        // Determine the alpha value to paint with.
+        int alpha  = md5String.charAt(6) * 2;
+        // Filled shapes have a smaller alpha value.
+        if (paintFilled) alpha *=2;
+        //Log.i("Circle Scape", "Alpha: " + alpha + " paintFilled: " + paintFilled);
+        // This was 0.1
+        float shapeWidth = (float) md5String.charAt(7);
+
+        // Determine if to paint occasional arcs or not.
+        boolean paintArc = true;
+        float endAngle = md5String.charAt(8) * 2;
+        if (md5String.charAt(1) % 2 == 0) paintArc = false;
 
         // Draw all the shapes.
-        int numberOfShapes  = contact.getFullName().length() * 4;
         int md5Length       = md5String.length();
         int md5Pos          = 0;
-        float shapeWidth    = 0.1f;
-        int shapeColor      = generateColor(
-                md5String.charAt(2), md5String.charAt(6), md5String.charAt(7), 10);
-
         float x = canvas.getWidth() * 0.7f;
         float y = canvas.getHeight() * 0.3f;
+
         for (int i = 0; i < numberOfShapes; i++) {
             char md5Char = ' ';
 
@@ -180,18 +186,24 @@ public class MicopiGenerator {
                 md5Pos++;
             }
 
+            int paintMode = MicopiPainter.MODE_CIRCLE;
+            if (paintArc && md5Char % 4 == 0) paintMode = MicopiPainter.MODE_ARC;
+            else if (paintPolygon) paintMode = MicopiPainter.MODE_POLYGON;
+            //if (paintFilled) paintMode += MicopiPainter.MODE_CIRCLE_FILLED;
+
             // The new coordinates have been generated. Paint something.
-            MicopiPainter.paintMicopiCircle(
+            MicopiPainter.paintDoubleShape(
                     canvas,
-                    paintPolygon,
+                    paintMode,
+                    ColorCollection.generateColor(colorChar1, colorChar2, md5Char, i + 1),
+                    alpha,
+                    shapeWidth,
                     numOfEdges,
-                    1,
-                    1,
-                    shapeColor,
+                    md5Char * 2,
+                    endAngle,
                     x,
                     y,
-                    shapeWidth,
-                    md5Char
+                    i * md5String.charAt(2)         // Radius
             );
             shapeWidth += .05f;
         }

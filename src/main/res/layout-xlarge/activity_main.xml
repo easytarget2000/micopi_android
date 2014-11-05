@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/image_description"
         android:textColor="@android:color/white"
         android:id="@+id/descriptionTextView"
@@ -63,7 +63,8 @@
         android:layout_alignStart="@id/descriptionTextView"
         android:layout_below="@+id/descriptionTextView"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:textSize="@dimen/text_xlarge"/>
 
 </RelativeLayout>
 

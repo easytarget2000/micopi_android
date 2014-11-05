@@ -16,6 +16,7 @@
 
 package com.easytarget.micopi;
 
+import android.graphics.Color;
 import android.util.Log;
 
 /**
@@ -26,17 +27,17 @@ import android.util.Log;
 public class ColorCollection {
 
     public static int palette[] = {
-            0xFF000000,
+            0xFF3f51B5,
             0xFFE51C23,
             0xFFE91E63,
             0xFF9C27B0,
             0xFF673AB7,
-            0xFF3f51B5,
+            0xFF607D8B,
             0xFF5677fC,
             0xFF03A9f4,
             0xFF777777,
             0xFFAAAAAA,
-            0xFF00BCd4,
+            0xFF00BCD4,
             0xFF009688,
             0xFF259B24,
             0xFF8BC34A,
@@ -47,7 +48,7 @@ public class ColorCollection {
             0xFFff5722,
             0xFF795548,
             0xFF9E9E9E,
-            0xFF607D8B,
+            0xFF000000,
             0xFFFFFFFF
     };
 
@@ -62,8 +63,27 @@ public class ColorCollection {
             index %= palette.length;
         }
 
-        Log.d("ColorCollection: getColorForChar()", "Index: " + index + " Color: " + palette[index]);
         return palette[index];
+    }
+    /**
+     * Generates a color, based on the given input parameters.
+     *
+     * @param cFirstChar    First character of the contact's name
+     * @param cFactor1  MD5 Character
+     * @param cFactor2  MD5 Character
+     * @param iNumberOfWords    Number of Words in the contact's name
+     *
+     * @return  Color with alpha=255
+     */
+    public static int generateColor(char c1, char c2, char c3, int factor) {
+
+        int iGeneratedColor = Color.DKGRAY;
+        if (c1 % 2 == 0) iGeneratedColor = getColorForChar(c2);
+
+        iGeneratedColor *= c1 * -c2 * factor * c3;
+        iGeneratedColor |= 0xff000000;
+
+        return iGeneratedColor;
     }
 
 

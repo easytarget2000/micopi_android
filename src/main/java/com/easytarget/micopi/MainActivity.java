@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -42,6 +43,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 /**
@@ -62,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
     private boolean mHasPickedContact   = false;        // Will be set to false after first contact
     private Bitmap mGeneratedBitmap     = null;         // Generated image
     private boolean mGuiIsLocked        = false;        // Keeps the user from performing input
-    private Date backButtonDate         = new Date(0);  // Last time the back button was pressed
+    private Date backButtonDate;  // Last time the back button was pressed
     private int mScreenWidthInPixels    = -1;           // Horizontal resolution of portrait mode
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,11 @@ public class MainActivity extends ActionBarActivity {
             super.onRestoreInstanceState(savedInstanceState);
 
             // Restore state members from saved instance
-            mGeneratedBitmap        = savedInstanceState.getParcelable(STORED_IMAGE);
+            byte[] imageBytes = savedInstanceState.getByteArray(STORED_IMAGE);
+            if (imageBytes != null) {
+                Log.d("MainActivity", "Restoring bitmap.");
+                mGeneratedBitmap        = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            }
             mContact                = savedInstanceState.getParcelable(STORED_CONTACT);
             mHasPickedContact       = savedInstanceState.getBoolean(STORED_PICKED);
             mScreenWidthInPixels    = savedInstanceState.getInt(STORED_WIDTH);
@@ -118,12 +124,14 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        if (backButtonDate.getTime() - System.currentTimeMillis() <= 4000) {
+        if (backButtonDate == null) {
+            backButtonDate = new Date();
+        } else if (backButtonDate.getTime() - System.currentTimeMillis() <= 4000) {
             finish();
-        } else {
-            backButtonDate.setTime(System.currentTimeMillis());
-            if(!mGuiIsLocked) pickContact();
         }
+
+        backButtonDate.setTime(System.currentTimeMillis());
+        if(!mGuiIsLocked) pickContact();
     }
 
     @Override
@@ -167,7 +175,15 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelable(STORED_IMAGE, mGeneratedBitmap);
+        if (mGeneratedBitmap != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            mGeneratedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] bytes = stream.toByteArray();
+            savedInstanceState.putByteArray(STORED_IMAGE, bytes);
+        } else {
+            savedInstanceState.putByteArray(STORED_IMAGE, null);
+        }
+
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
         savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
         savedInstanceState.putInt(STORED_WIDTH, mScreenWidthInPixels);
