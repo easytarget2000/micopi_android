@@ -35,8 +35,6 @@ public class ColorCollection {
             0xFF607D8B,
             0xFF5677fC,
             0xFF03A9f4,
-            0xFF777777,
-            0xFFAAAAAA,
             0xFF00BCD4,
             0xFF009688,
             0xFF259B24,
@@ -47,23 +45,23 @@ public class ColorCollection {
             0xFFff9800,
             0xFFff5722,
             0xFF795548,
-            0xFF9E9E9E,
-            0xFF000000,
-            0xFFFFFFFF
     };
 
     public static int getColorForChar(char c) {
-        int index = palette.length - 1;
 
-        if (c >= 'A' && c <= 'Z') {
-            index = c - 'A';
-            index %= palette.length;
-        } else if (c >= 'a' && c <= 'z') {
-            index = c - 'a';
-            index %= palette.length;
+        // Capital and lower case letters get the same colours.
+        // If the given character is between lower case a and z,
+        // subtract the index difference to the upper case characters.
+        if (c >= 'a' && c <= 'z') {
+            c -= 32;
         }
 
-        return palette[index];
+        final int index = c % (palette.length - 1);
+
+        int color = palette[index];
+        //Log.d("getColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
+
+        return color;
     }
     /**
      * Generates a color, based on the given input parameters.

@@ -51,4 +51,8 @@ public class WelcomeActivity extends ActionBarActivity {
         startActivity( intent );
     }
 
+    public void startCrawl( @SuppressWarnings("unused") View view) {
+
+    }
+
 }

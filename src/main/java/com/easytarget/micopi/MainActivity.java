@@ -224,13 +224,13 @@ public class MainActivity extends ActionBarActivity {
      */
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
-
         // Close the app if the back button was pressed on first contact picker.
         if(!mHasPickedContact && resultCode != RESULT_OK) finish();
 
         // Check if the activity result is ok and check the request code.
         // The latter should be 1 indicating a picked contact.
         if(resultCode == RESULT_OK && reqCode == PICK_CONTACT) {
+            backButtonDate = null;
             mHasPickedContact = true;
             mContact = new Contact(mContext, data);
             new generateImageTask().execute();

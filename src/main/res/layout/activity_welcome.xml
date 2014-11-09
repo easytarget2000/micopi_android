@@ -41,10 +41,23 @@
             android:text="@string/introduction_text"
             android:id="@+id/textView"
             android:layout_below="@+id/firstButton"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:textColor="@android:color/white"/>
+
+        <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:text="@string/crawl_button_label"-->
+        <!--android:id="@+id/crawlButton"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:onClick="startCrawl"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:textColor="@color/primary"-->
+        <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+        <!--android:layout_below="@+id/textView"-->
+        <!--android:layout_height="48dp" />-->
 
     </RelativeLayout>
 

@@ -222,7 +222,7 @@ public class MicopiPainter {
         float edgeLength = 0f;   // Distance between two vertices.
         float deltaAngle = 0f;   // The inner angle that will be added to the current path angle
         if (paintMode == MODE_POLYGON) {
-            edgeLength = radius * 2f * FloatMath.sin(pi / numOfEdges);
+            edgeLength = radius * 3f * FloatMath.sin(pi / numOfEdges);
             float n = (float) numOfEdges;
             deltaAngle = ((n-2f)/n) * pi;
         }
