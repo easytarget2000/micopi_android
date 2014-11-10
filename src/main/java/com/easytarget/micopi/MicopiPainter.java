@@ -17,22 +17,15 @@
 package com.easytarget.micopi;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.FloatMath;
-import android.util.Log;
-
-import java.util.ArrayList;
 
 /**
  * Utility class containing the actual paint methods for generating a contact picture.
@@ -40,129 +33,6 @@ import java.util.ArrayList;
  * Created by Michel on 23.01.14.
  */
 public class MicopiPainter {
-    // TODO: Is this accurate enough for the task or should I use (float) Math.PI?
-    private static final float pi = 3.14159f;
-
-    /**
-     * Draws a circular gradient from the given color to a lighter one.
-     * @param baseColor    Base color to draw with
-     * @param xChar  MD5 character that determines the center's x-position
-     * @param yChar  MD5 character that determines the cetner's y-position
-     * @param currentLoop    Current drawing loop
-     * @param canvas    Canvas to draw on
-     */
-    public static void paintCanvasGradient(
-            int baseColor,
-            char xChar,
-            char yChar,
-            float imageSize,
-            int currentLoop,
-            Canvas canvas
-    ) {
-        // Calculate the starting point and radius.
-        float fXPos = imageSize - ((float) xChar * 3f);
-        float fYPos = imageSize - ((float) yChar * 3.5f);
-        int iRadius = (int) (imageSize * 1.5);
-
-        // Set up the gradient.
-        RadialGradient gradient = new RadialGradient(
-                fXPos,
-                fYPos,
-                iRadius,
-                baseColor,
-                baseColor + 0x00222222,
-                Shader.TileMode.MIRROR);
-
-        // Configure paint.
-        Paint paint = new Paint();
-        paint.setDither(true);
-        paint.setShader(gradient);
-
-        // Adjust the transparency and radius if this is the second loop.
-        if (currentLoop == 1) {
-            iRadius *= 2;
-            paint.setAlpha(150);
-        }
-
-        canvas.drawCircle(fXPos, fYPos, iRadius, paint);
-    }
-
-    /**
-     *
-     * @param polygon   List of (three) vertices.
-     * @param cAlphaFactor  MD5 character that determines the alpha value of this triangle
-     * @param isFilled  MD5 character that determines the
-     * @param iIteration    Iteration factor that determines the alpha value of this triangle
-     * @param fTriangleA    Length of the base side of the triangle
-     * @param canvas    Canvas to draw on
-     */
-    public static void paintMicopiPolygon(
-            Canvas canvas,
-            ArrayList<Vertex> polygon,
-            char cAlphaFactor,
-            int iAlphaFactor2,
-            boolean isFilled,
-            int iIteration,
-            float fTriangleA
-   ) {
-        Paint paint = new Paint(Color.WHITE);
-        Path path = new Path();
-        boolean isFirstVertex = true;       // path.isEmpty() does not seem to become false in API10
-        int iAlpha = cAlphaFactor + iAlphaFactor2;
-        int shaderColor1, shaderColor2;
-
-        iAlpha /= iIteration + 1;
-
-        // No extreme alpha values are allowed.
-        while (iAlpha > 80)
-            iAlpha -= cAlphaFactor;
-        while (iAlpha < 30)
-            iAlpha += cAlphaFactor;
-
-        if (cAlphaFactor % 2 == 0) {
-            shaderColor1 = 0xAA555555;
-            shaderColor2 = 0x77EEEEEE;
-        } else {
-            shaderColor1 = 0x99443344;
-            shaderColor2 = 0x77FFFF99;
-        }
-
-        // Paint one transparent white triangle to alter the base color.
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
-
-        paint.setDither(true);
-        paint.setShader(new LinearGradient(
-                0,
-                0,
-                0,
-                fTriangleA,
-                shaderColor1,
-                shaderColor2,
-                Shader.TileMode.CLAMP)
-       );
-
-        // Some pictures have filled triangles, others just lines.
-        if (isFilled) {
-            paint.setStyle(Paint.Style.FILL);
-        } else {
-            paint.setStrokeWidth((float) cAlphaFactor *.07f);
-            //paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
-            paint.setStyle(Paint.Style.STROKE);
-//            iAlpha /= 2;
-        }
-        paint.setAlpha(iAlpha);
-        path.reset();
-
-        for (Vertex v : polygon) {
-            if (isFirstVertex) {
-                path.moveTo(v.x, v.y);
-                isFirstVertex = false;
-            } else path.lineTo(v.x, v.y);
-        }
-
-        path.close();
-        canvas.drawPath(path, paint);
-    }
 
     /**
      * Shape definition: full circle, stroked
@@ -194,7 +64,7 @@ public class MicopiPainter {
      */
     public static final int MODE_POLYGON_FILLED = 13;
 
-    public static final float PI_DOUBLED_FLOAT = 2f * (float) Math.PI;
+    public static final float TWO_PI = 2f * (float) Math.PI;
 
     /**
      * Paints two shapes on top of each other with slightly different alpha,
@@ -202,8 +72,7 @@ public class MicopiPainter {
      *
      * @param canvas Canvas to draw on
      * @param paintMode Determines the shape to draw
-     * @param xfermode Paint PorterDuffMode
-     * @param color Paint colour
+     * @param color Paint color
      * @param alpha Paint alpha value
      * @param strokeWidth Paint stroke width
      * @param numOfEdges Number of polygon edges
@@ -216,7 +85,6 @@ public class MicopiPainter {
     public static void paintDoubleShape(
             Canvas canvas,
             int paintMode,
-            PorterDuffXfermode xfermode,
             int color,
             int alpha,
             float strokeWidth,
@@ -234,20 +102,9 @@ public class MicopiPainter {
         paint.setAlpha(alpha);
         paint.setStrokeWidth(strokeWidth);
 
-        if (xfermode != null) paint.setXfermode(xfermode);
-
         // All filled mode int have a value >= 10.
         if (paintMode >= MODE_CIRCLE_FILLED) paint.setStyle(Paint.Style.FILL);
         else paint.setStyle(Paint.Style.STROKE);
-
-        //Calculate the polygon values if needed.
-        float edgeLength = 0f;   // Distance between two vertices.
-        float deltaAngle = 0f;   // The inner angle that will be added to the current path angle
-        if (paintMode == MODE_POLYGON) {
-            edgeLength = radius * 3f * FloatMath.sin(pi / numOfEdges);
-            float n = (float) numOfEdges;
-            deltaAngle = ((n-2f)/n) * pi;
-        }
 
         // Draw two shapes of the same kind.
         for (int i = 0; i < 2; i++) {
@@ -277,7 +134,7 @@ public class MicopiPainter {
                     boolean isFirstEdge = true;
 
                     for (i = 1; i <= numOfEdges; i++) {
-                        final float angle = PI_DOUBLED_FLOAT * i / numOfEdges;
+                        final float angle = TWO_PI * i / numOfEdges;
                         final float x = centerX + radius * FloatMath.cos(angle);
                         final float y = centerY + radius * FloatMath.sin(angle);
 
@@ -302,14 +159,41 @@ public class MicopiPainter {
         }
     }
 
+    /**
+     * paintMicopiBeams() Paint Mode "Spiral"
+     */
     public static final int BEAM_SPIRAL = 0;
 
+    /**
+     * paintMicopiBeams() Paint Mode "Solar"
+     */
     public static final int BEAM_SOLAR = 1;
 
+    /**
+     * paintMicopiBeams() Paint Mode "Star"
+     */
     public static final int BEAM_STAR = 2;
 
+    /**
+     * paintMicopiBeams() Paint Mode "Whirl"
+     */
     public static final int BEAM_WHIRL = 3;
 
+    /**
+     * Paints many lines in beam-like ways
+     *
+     * @param canvas Canvas to draw on
+     * @param color Paint color
+     * @param alpha Paint alpha value
+     * @param paintMode Determines the shape to draw
+     * @param centerX X coordinate of the centre of the shape
+     * @param centerY Y coordinate of the centre of the shape
+     * @param density Density of the beams
+     * @param lineLength Length of the beams
+     * @param angle Angle between single beams
+     * @param largeDeltaAngle Angle between beam groups
+     * @param wideStrokes Wide beam groups
+     */
     public static void paintMicopiBeams(
             Canvas canvas,
             int color,
@@ -323,13 +207,6 @@ public class MicopiPainter {
             boolean largeDeltaAngle,
             boolean wideStrokes
     ) {
-
-        Log.d("Painting Beams", paintMode + " Alpha: " + alpha);
-
-        // Calculate the lengths and angles.
-//        float lineLength    =  * lengthUnit;
-//        double angle        = ((float) factorChar4 * 0.15f) * lengthUnit;
-
         final float lengthUnit = (canvas.getWidth() / 200f);
         lineLength *= lengthUnit;
         angle *= lengthUnit;
@@ -389,6 +266,83 @@ public class MicopiPainter {
         }
     }
 
+    private static float PI_STEP_SIZE = (float) Math.PI / 50f;
+
+    public static void paintSpyro(
+            Canvas canvas,
+            int color1,
+            int color2,
+            int color3,
+            int alpha,
+            float point1Relative,
+            float point2Relative,
+            float point3Relative,
+            int revolutions
+    ) {
+        final float fImageSize = canvas.getWidth();
+        final float fImageSizeHalf = fImageSize * 0.5f;
+        float fInnerRadius  = fImageSizeHalf * 0.5f;
+        float fOuterRadius  = (fInnerRadius * 0.5f) + 1;
+        float fRadiusSum    = fInnerRadius + fOuterRadius;
+
+        final float point1 = point1Relative * (fImageSize - fRadiusSum);
+        final float point2 = point2Relative * (fImageSize - fRadiusSum);
+        final float point3 = point3Relative * (fImageSize - fRadiusSum);
+
+        Path point1Path = new Path();
+        Path point2Path = new Path();
+        Path point3Path = new Path();
+        boolean moveTo = true;
+
+        float t = 0f;
+        float x, y, x2, y2, x3, y3;
+        do {
+            x = (float) (fRadiusSum * FloatMath.cos(t) +
+                    point1 * Math.cos(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+            y = (float) (fRadiusSum * FloatMath.sin(t) +
+                    point1 * Math.sin(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+            x2 = (float) (fRadiusSum * FloatMath.cos(t) +
+                    point2 * Math.cos(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+            y2 = (float) (fRadiusSum * FloatMath.sin(t) +
+                    point2 * Math.sin(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+            x3 = (float) (fRadiusSum * FloatMath.cos(t) +
+                    point3 * Math.cos(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+            y3 = (float) (fRadiusSum * FloatMath.sin(t) +
+                    point3 * Math.sin(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+
+            if (moveTo) {
+                point1Path.moveTo(x, y);
+                point2Path.moveTo(x2, y2);
+                point3Path.moveTo(x3, y3);
+                moveTo = false;
+            } else {
+                point1Path.lineTo(x, y);
+                point2Path.lineTo(x2, y2);
+                point3Path.lineTo(x3, y3);
+            }
+            t += PI_STEP_SIZE;
+        } while (t < TWO_PI * revolutions);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        paint.setFilterBitmap(true);
+
+        // draw the first path
+        paint.setColor(color1);
+        paint.setAlpha(alpha);
+        canvas.drawPath(point1Path, paint);
+        // draw the second path
+        paint.setColor(color2);
+        paint.setAlpha(alpha);
+        canvas.drawPath(point2Path, paint);
+        // draw the third path
+        paint.setColor(color3);
+        paint.setAlpha(alpha);
+        paint.setStrokeWidth(2f);
+        canvas.drawPath(point3Path, paint);
+    }
+
     /**
      * Alpha value of character that will be drawn on top of the picture
      */
@@ -398,7 +352,7 @@ public class MicopiPainter {
      * Paints letters on top of the centre of a canvas - GMail style
      * @param canvas Canvas to draw on
      * @param chars Characters to draw
-     * @param color Paint colour
+     * @param color Paint color
      */
     public static void paintChars(Canvas canvas, char[] chars, int color) {
         int count = chars.length;
@@ -440,10 +394,17 @@ public class MicopiPainter {
     }
 
     /**
-     * How much of the canvas the circle is going to occupy
+     * How much of the canvas the central circle is going to occupy
      */
     private static final float CIRCLE_SIZE = 0.8f;
 
+    /**
+     * Paints a circle in the middle of the image to enhance the visibility of the initial letter
+     *
+     * @param canvas Canvas to draw on
+     * @param color Paint color
+     * @param alpha Paint alpha value
+     */
     public static void paintCentralCircle(Canvas canvas, int color, int alpha) {
         Paint paint = new Paint();
         paint.setAntiAlias(true);
@@ -455,6 +416,4 @@ public class MicopiPainter {
 
         canvas.drawCircle(imageCenter, imageCenter, radius, paint);
     }
-
-
 }

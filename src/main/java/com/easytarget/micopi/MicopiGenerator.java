@@ -19,7 +19,6 @@ package com.easytarget.micopi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuffXfermode;
 import android.util.Log;
 
 /**
@@ -33,6 +32,9 @@ public class MicopiGenerator {
 
     /**
      * Generate the entire image.
+     *
+     * @param contact Data from this Contact object will be used to generate the shapes and colors
+     * @param screenWidthInPixels Width of device screen in pixels; height in landscape mode
      * @return The completed, generated image as a bitmap to be used by the GUI and contact handler.
      */
     public static Bitmap generateBitmap(Contact contact, int screenWidthInPixels) {
@@ -54,10 +56,12 @@ public class MicopiGenerator {
                 Bitmap.Config.ARGB_8888
         );
 
+        // Set up a new canvas
+        // and fill the background with the color for this contact's first letter.
         Canvas canvas = new Canvas(generatedBitmap);
-
-        final int backgroundColor = ColorCollection.getCandyColorForChar(contact.getFullName().charAt(0));
-        canvas.drawColor(backgroundColor);
+        final char fFirstChar = contact.getFullName().charAt(0);
+        final int fBackgroundColor = ColorCollection.getCandyColorForChar(fFirstChar);
+        canvas.drawColor(fBackgroundColor);
 
         // The contact's current MD5 encoded string will be referenced a lot.
         final String md5String = contact.getMD5EncryptedString();
@@ -66,8 +70,33 @@ public class MicopiGenerator {
         MAIN PATTERN
         */
 
-        if (md5String.charAt(20) % 3 == 0) generateCircleMatrix(canvas, contact);
-        else generateWanderingShapes(canvas, contact);
+        switch (md5String.charAt(20) % 2) {
+            case 1:
+                generateWanderingShapes(canvas, contact);
+                break;
+//            case 2:
+//                final int fColor3 = ColorCollection.generateColor(
+//                        fFirstChar,
+//                        md5String.charAt(0),
+//                        md5String.charAt(12),
+//                        contact.getFullName().length()
+//                );
+//                MicopiPainter.paintSpyro(
+//                        canvas,
+//                        Color.WHITE,
+//                        ColorCollection.getCandyColorForChar(md5String.charAt(28)),
+//                        fColor3,
+//                        255 - md5String.charAt(18),
+//                        (0.5f - (float) fFirstChar / 255f),
+//                        (0.5f - (float) md5String.charAt(25) / 255f),
+//                        (0.5f - (float) md5String.charAt(26) / 255f),
+//                        Math.max(5, md5String.charAt(27) >> 2)
+//                );
+//                break;
+            default:
+                generateCircleMatrix(canvas, contact);
+                break;
+        }
 
         /*
         ADDITIONAL SHAPES
@@ -88,7 +117,6 @@ public class MicopiGenerator {
                     MicopiPainter.paintDoubleShape(
                             canvas,
                             MicopiPainter.MODE_CIRCLE,
-                            null,                               // XFermode
                             Color.WHITE,
                             alpha,
                             ((numberOfWords / (i + 1f)) * 80f), // Stroke Width
@@ -103,15 +131,22 @@ public class MicopiGenerator {
                 }
                 break;
             case 1:
-
+                MicopiPainter.paintSpyro(
+                        canvas,
+                        Color.WHITE,
+                        Color.YELLOW,
+                        Color.BLACK,
+                        255 - (md5String.charAt(19) * 2),
+                        (0.3f - (float) fFirstChar / 255f),
+                        (0.3f - (float) md5String.charAt(25) / 255f),
+                        (0.3f - (float) md5String.charAt(26) / 255f),
+                        Math.max(5, md5String.charAt(27) >> 2)
+                );
                 break;
             case 2:
-
-                break;
-            default:    // Paint that flower.
                 MicopiPainter.paintMicopiBeams(
                         canvas,
-                        backgroundColor,
+                        fBackgroundColor,
                         md5String.charAt(17) / 5,       // Alpha
                         md5String.charAt(12) % 4,       // Paint Mode
                         centerX,
@@ -122,23 +157,23 @@ public class MicopiGenerator {
                         md5String.charAt(20) % 2 == 0,  // Large Delta Angle
                         md5String.charAt(21) % 2 == 0   // Wide Strokes
                 );
+                break;
         }
 
         /*
         INITIAL LETTER ON CIRCLE
          */
 
-        MicopiPainter.paintCentralCircle(canvas, backgroundColor, (255 - md5String.charAt(27) * 2));
-
-        char[] initials = {contact.getFullName().charAt(0)};
-        MicopiPainter.paintChars(canvas, initials, Color.WHITE);
+        MicopiPainter.paintCentralCircle(canvas, fBackgroundColor, (255 - md5String.charAt(27) * 2));
+        MicopiPainter.paintChars(canvas, new char[]{fFirstChar}, Color.WHITE);
 
         return generatedBitmap;
     }
 
     /**
-     * Fills a canvas with a lot of colourful circles or polygons
+     * Fills a canvas with a lot of colourful circles or polygon approximations of circles
      * Uses MicopiPainter
+     *
      * @param canvas Canvas to draw on
      * @param contact Data from this Contact object will be used to generate the shapes
      */
@@ -173,9 +208,6 @@ public class MicopiGenerator {
         boolean paintArc = true;
         final float endAngle = md5String.charAt(8) * 2;
         if (md5String.charAt(1) % 2 == 0) paintArc = false;
-
-        //final PorterDuffXfermode xfermode = PorterDuffGenerator.getXfermode(1);
-        final PorterDuffXfermode xfermode = null;
 
         // Draw all the shapes.
         final int md5Length  = md5String.length();
@@ -230,7 +262,6 @@ public class MicopiGenerator {
             MicopiPainter.paintDoubleShape(
                     canvas,
                     paintMode,
-                    xfermode,                   // Xfermode
                     ColorCollection.generateColor(colorChar1, colorChar2, md5Int, i + 1),
                     alpha,
                     shapeWidth,
@@ -245,8 +276,13 @@ public class MicopiGenerator {
         }
     }
 
-    private static final String DEBUG_TAG_ODD = "generateCircleMatrix()";
-
+    /**
+     * Fills the image with circles in a grid;
+     * The grid size is always "number of letters in the first name ^ 2".
+     *
+     * @param canvas Canvas to draw on
+     * @param contact Data from this Contact object will be used to generate the shapes and colors
+     */
     private static void generateCircleMatrix(Canvas canvas, Contact contact) {
         // Prepare painting values based on image size and contact data.
         final float fImageSize = canvas.getWidth();
@@ -276,19 +312,18 @@ public class MicopiGenerator {
                 else radius = fMd5Char * 3f;
 
                 MicopiPainter.paintDoubleShape(
-                    canvas,
-                    MicopiPainter.MODE_CIRCLE_FILLED,
-                    null,               // Xfermode
-                    color,
-                    200 - fMd5String.charAt(md5Pos) + fIndex,
-                    fStrokeWidth,        // Stroke width
-                    0,
-                    0f,
-                    0f,
-                    x * circleDistance,
-                    y * circleDistance,
-                    radius
-            );
+                        canvas,
+                        MicopiPainter.MODE_CIRCLE_FILLED,
+                        color,
+                        200 - fMd5String.charAt(md5Pos) + fIndex,
+                        fStrokeWidth,        // Stroke width
+                        0,
+                        0f,
+                        0f,
+                        x * circleDistance,
+                        y * circleDistance,
+                        radius
+                );
             }
         }
     }

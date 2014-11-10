@@ -427,7 +427,7 @@ public class Contact implements Parcelable{
 
         // Create a byte stream from the generated image.
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         final byte[] photo = outputStream.toByteArray();
 
         // Set the byte array as the raw contact's photo.

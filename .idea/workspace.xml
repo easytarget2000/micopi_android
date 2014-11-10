@@ -73,15 +73,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dce7e32-bcc4-441d-860c-769c76f3e0a1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/PorterDuffGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorCollection.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorCollection.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Contact.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Contact.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ContactCrawler.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ContactCrawler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiPainter.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiPainter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/WelcomeActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/WelcomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MicopiAndroidStudioProject.iws" />
@@ -105,36 +102,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MicopiGenerator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiGenerator.java">
+      <file leaf-file-name="MicopiPainter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiPainter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1255" max-vertical-offset="4515">
-              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2866" max-vertical-offset="6375">
+              <caret line="339" column="23" selection-start-line="339" selection-start-column="23" selection-end-line="339" selection-end-column="23" />
               <folding>
-                <element signature="e#0#11725#0" expanded="true" />
+                <element signature="e#0#13953#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MicopiPainter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiPainter.java">
+      <file leaf-file-name="Contact.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Contact.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4411" max-vertical-offset="6540">
-              <caret line="350" column="9" selection-start-line="350" selection-start-column="9" selection-end-line="350" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5626" max-vertical-offset="7245">
+              <caret line="429" column="28" selection-start-line="429" selection-start-column="28" selection-end-line="429" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ColorCollection.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorCollection.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21452145" vertical-offset="0" max-vertical-offset="1545">
-              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+            <state vertical-scroll-proportion="-6.595547" vertical-offset="3990" max-vertical-offset="6915">
+              <caret line="71" column="43" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#10034#10085#0" expanded="true" />
+                <element signature="e#13241#13269#0" expanded="true" />
+                <element signature="e#13443#13494#0" expanded="true" />
+                <element signature="e#14678#14735#0" expanded="true" />
+                <element signature="e#15043#15090#0" expanded="true" />
+                <element signature="e#16859#16914#0" expanded="true" />
+                <element signature="e#17184#17231#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -716,7 +719,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorUtillities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorUtilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MediaScanHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MediaFileHandler.java" />
         <option value="$PROJECT_DIR$/src/main/res/menu/main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MandelbubPainter.java" />
@@ -726,7 +728,6 @@
         <option value="$PROJECT_DIR$/src/main/res/layout-large-land/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-large/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-xlarge/activity_main.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
@@ -734,10 +735,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ContactCrawler.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/PorterDuffGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Contact.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorCollection.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiPainter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorCollection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Contact.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MediaFileHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -922,7 +925,7 @@
     <property name="last_opened_file_path" value="/Volumes/192.168.44.2/Users/Michel/Documents/android.jks" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="0377315b2518e9f1" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="43423531315030415750" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_6_API_21" />
@@ -1117,14 +1120,14 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32870865" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22523962" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32657418" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39487725" sideWeight="0.75878596" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39487725" sideWeight="0.75878596" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14749734" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18104367" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32657418" sideWeight="0.6751864" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1452,13 +1455,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MediaFileHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11386139" vertical-offset="156" max-vertical-offset="1065">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/WelcomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3960396" vertical-offset="0" max-vertical-offset="660">
@@ -1532,14 +1528,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../_Allgemeines/androidsdk/sources/android-21/android/graphics/Bitmap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5731" max-vertical-offset="23940">
-          <caret line="447" column="8" selection-start-line="447" selection-start-column="8" selection-end-line="447" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ContactCrawler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
@@ -1548,28 +1536,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.916512" vertical-offset="1712" max-vertical-offset="6465">
-          <caret line="225" column="76" selection-start-line="225" selection-start-column="76" selection-end-line="225" selection-end-column="76" />
-          <folding />
+        <state vertical-scroll-proportion="0.34653464" vertical-offset="0" max-vertical-offset="1545">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Contact.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.72541744" vertical-offset="6181" max-vertical-offset="7245">
-          <caret line="422" column="16" selection-start-line="422" selection-start-column="16" selection-end-line="422" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5626" max-vertical-offset="7245">
+          <caret line="429" column="28" selection-start-line="429" selection-start-column="28" selection-end-line="429" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1255" max-vertical-offset="4515">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+        <state vertical-scroll-proportion="2.2541745" vertical-offset="945" max-vertical-offset="5040">
+          <caret line="144" column="22" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
           <folding>
-            <element signature="e#0#11725#0" expanded="true" />
+            <element signature="e#0#13465#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
@@ -1577,18 +1567,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiPainter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4411" max-vertical-offset="6540">
-          <caret line="350" column="9" selection-start-line="350" selection-start-column="9" selection-end-line="350" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2866" max-vertical-offset="6375">
+          <caret line="339" column="23" selection-start-line="339" selection-start-column="23" selection-end-line="339" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#13953#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../_Allgemeines/androidsdk/sources/android-21/android/graphics/Bitmap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44341373" vertical-offset="13996" max-vertical-offset="23940">
+          <caret line="1002" column="19" selection-start-line="1002" selection-start-column="19" selection-end-line="1002" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ColorCollection.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MediaFileHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21452145" vertical-offset="0" max-vertical-offset="1545">
-          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.5009276" vertical-offset="0" max-vertical-offset="1065">
+          <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.595547" vertical-offset="3990" max-vertical-offset="6915">
+          <caret line="71" column="43" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#10034#10085#0" expanded="true" />
+            <element signature="e#13241#13269#0" expanded="true" />
+            <element signature="e#13443#13494#0" expanded="true" />
+            <element signature="e#14678#14735#0" expanded="true" />
+            <element signature="e#15043#15090#0" expanded="true" />
+            <element signature="e#16859#16914#0" expanded="true" />
+            <element signature="e#17184#17231#0" expanded="true" />
           </folding>
         </state>
       </provider>

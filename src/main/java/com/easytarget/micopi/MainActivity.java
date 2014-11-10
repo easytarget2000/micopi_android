@@ -51,10 +51,10 @@ import java.util.Date;
  */
 public class MainActivity extends ActionBarActivity {
     // Keys for instance saving and restoration:
-    private static final String STORED_CONTACT      = "storedContact";
-    private static final String STORED_IMAGE        = "storedImage";
-    private static final String STORED_PICKED       = "storedPicked";
-    private static final String STORED_WIDTH        = "storedWidth";
+    private static final String STORED_CONTACT  = "storedContact";
+    private static final String STORED_IMAGE    = "storedImage";
+    private static final String STORED_PICKED   = "storedPicked";
+    private static final String STORED_WIDTH    = "storedWidth";
 
     private Context mContext = this;
     private static final int PICK_CONTACT = 1;      // Return code of contact picker
@@ -64,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
     private boolean mHasPickedContact   = false;        // Will be set to false after first contact
     private Bitmap mGeneratedBitmap     = null;         // Generated image
     private boolean mGuiIsLocked        = false;        // Keeps the user from performing input
-    private Date backButtonDate;  // Last time the back button was pressed
+    private Date backButtonDate;    // Last time the back button was pressed
     private int mScreenWidthInPixels    = -1;           // Horizontal resolution of portrait mode
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,9 +271,12 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Constructs a contact from the given Intent data.
      */
-    private class generateImageTask extends AsyncTask< Void, Void, Bitmap > {
+    private class generateImageTask extends AsyncTask<Void, Void, Bitmap> {
 
-        // Show a blank GUI while generating an image.
+        /**
+         * Show a blank GUI while generating an image.
+         */
+        @Override
         protected void onPreExecute() {
             setGuiIsBusy(true);
             mIconImageView.setImageDrawable(null);
@@ -287,45 +290,49 @@ public class MainActivity extends ActionBarActivity {
             setColor(defaultColor);
         }
 
-        // Attempt to query the contact from the DB and
-        // if the contact object contains a name, generate a bitmap.
+        /**
+         * Attempt to query the contact from the DB and
+         * if the contact object contains a name, generate a bitmap.
+         */
+        @Override
         protected Bitmap doInBackground(Void... params) {
-
-            if(mContact != null) {
-                // Calculate the horizontal pixels.
-                if (mScreenWidthInPixels == -1) {
-                    // Only bother checking the resolution for Android >= 3.0.
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        Configuration config = getResources().getConfiguration();
-                        DisplayMetrics dm = getResources().getDisplayMetrics();
-
-                        // Store the height value as screen width, if in landscape mode.
-                        if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                            mScreenWidthInPixels = (int) (config.screenWidthDp * dm.density);
-                        } else {
-                            mScreenWidthInPixels = (int) (config.screenHeightDp * dm.density);
-                        }
-                    } else {
-                        // On old android versions, a generic, small screen resolution is assumed.
-                        mScreenWidthInPixels = 480;
-                    }
-                }
-                Log.d("Screen Width in Pixels", mScreenWidthInPixels + "");
-
-                return MicopiGenerator.generateBitmap(mContact, mScreenWidthInPixels);
-            } else {
+            if (mContact == null) {
+                Log.e("generateImageTask", "ERROR: Contact is null.");
                 return null;
             }
+
+            // Calculate the horizontal pixels.
+            if (mScreenWidthInPixels == -1) {
+                // Only bother checking the resolution for Android >= 3.0.
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    Configuration config = getResources().getConfiguration();
+                    DisplayMetrics dm = getResources().getDisplayMetrics();
+
+                    // Store the height value as screen width, if in landscape mode.
+                    if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        mScreenWidthInPixels = (int) (config.screenWidthDp * dm.density);
+                    } else {
+                        mScreenWidthInPixels = (int) (config.screenHeightDp * dm.density);
+                    }
+                } else {
+                    // On old android versions, a generic, small screen resolution is assumed.
+                    mScreenWidthInPixels = 480;
+                }
+            }
+            Log.d("Screen Width in Pixels", mScreenWidthInPixels + "");
+
+            return MicopiGenerator.generateBitmap(mContact, mScreenWidthInPixels);
         }
 
-        // If a complete bitmap was generated, display it.
+        /**
+         * If a complete bitmap was generated, display it.
+         * @param generatedBitmap Bitmap to display and store for future usage
+         */
+        @Override
         protected void onPostExecute(Bitmap generatedBitmap) {
-            setGuiIsBusy(false);
+            //If a new bitmap was generated, store it in the field,
+            //display it and show the contact name.
 
-            /*
-            If a new bitmap was generated, store it in the field,
-            display it and show the contact name.
-             */
             if(generatedBitmap != null) {
                 mGeneratedBitmap = generatedBitmap;
                 showContactData();
@@ -340,8 +347,8 @@ public class MainActivity extends ActionBarActivity {
                    ).show();
                }
             }
+            setGuiIsBusy(false);
         }
-
     }
 
     /**
@@ -349,6 +356,10 @@ public class MainActivity extends ActionBarActivity {
      */
     private class AssignContactImageTask extends AsyncTask< Void, Void, Boolean > {
 
+        /**
+         * Lock and hide the GUI.
+         */
+        @Override
         protected void onPreExecute() {
             setGuiIsBusy(true);
         }
@@ -362,8 +373,8 @@ public class MainActivity extends ActionBarActivity {
 
         /** The system calls this to perform work in the UI thread and delivers
          * the result from doInBackground() */
+        @Override
         protected void onPostExecute(Boolean didSuccessfully) {
-            setGuiIsBusy(false);
 
             if(didSuccessfully && getApplicationContext() != null) {
                 Toast.makeText(getApplicationContext(),
@@ -382,18 +393,30 @@ public class MainActivity extends ActionBarActivity {
                 Log.e("AssignContactImageTask",
                         "Could not assign the image AND applicationContext is null.");
             }
+
+            setGuiIsBusy(false);
         }
     }
 
     /**
-     * Save the image to a file.
+     * Save the generated image to a file on the device
      */
     private class SaveImageTask extends AsyncTask< Void, Void, String > {
 
+        /**
+         * Lock and hide the GUI.
+         */
+        @Override
         protected void onPreExecute() {
             setGuiIsBusy(true);
         }
 
+        /**
+         * Perform the actual file saving process
+         *
+         * @param params Unused
+         * @return Full name of the saved image file
+         */
         @Override
         protected String doInBackground(Void... params) {
             String fileName = "";
@@ -411,6 +434,12 @@ public class MainActivity extends ActionBarActivity {
             return fileName;
         }
 
+        /**
+         * Displays a toast after saving the image
+         *
+         * @param fileName Full name of the saved image file
+         */
+        @Override
         protected void onPostExecute(String fileName) {
             setGuiIsBusy(false);
 
@@ -435,8 +464,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /**
+     * Changes the color of the action bar and status bar
      *
-     * @param color
+     * @param color ARGB Color to apply
      */
     private void setColor(int color) {
         View mainView = findViewById(R.id.rootView);
