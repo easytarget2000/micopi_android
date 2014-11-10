@@ -33,68 +33,50 @@ public class MicopiGenerator {
     /**
      * Generate the entire image.
      *
-     * @param contact Data from this Contact object will be used to generate the shapes and colors
-     * @param screenWidthInPixels Width of device screen in pixels; height in landscape mode
+     * @param fContact Data from this Contact object will be used to generate the shapes and colors
+     * @param fScreenWidthInPixels Width of device screen in pixels; height in landscape mode
      * @return The completed, generated image as a bitmap to be used by the GUI and contact handler.
      */
-    public static Bitmap generateBitmap(Contact contact, int screenWidthInPixels) {
+    public static Bitmap generateBitmap(final Contact fContact, final int fScreenWidthInPixels) {
         // Determine the image side length, roughly depending on the screen width.
         // Old devices should not be unnecessarily strained,
         // but if the user takes these account pictures to another device,
         // they shouldn't look too horribly pixelated.
         int imageSize = 1080;
-        if (screenWidthInPixels <= 600) imageSize = 640;
-        else if (screenWidthInPixels < 1000) imageSize = 720;
-        else if (screenWidthInPixels >= 1200) imageSize = 1440;
+        if (fScreenWidthInPixels <= 600) imageSize = 640;
+        else if (fScreenWidthInPixels < 1000) imageSize = 720;
+        else if (fScreenWidthInPixels >= 1200) imageSize = 1440;
 
         Log.d("Image Size", imageSize + "");
 
         // Set up the bitmap and the canvas.
-        Bitmap generatedBitmap = Bitmap.createBitmap(
-                imageSize,
-                imageSize,
-                Bitmap.Config.ARGB_8888
-        );
+        final Bitmap fBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
 
         // Set up a new canvas
         // and fill the background with the color for this contact's first letter.
-        Canvas canvas = new Canvas(generatedBitmap);
-        final char fFirstChar = contact.getFullName().charAt(0);
+        final Canvas fCanvas = new Canvas(fBitmap);
+        final char fFirstChar = fContact.getFullName().charAt(0);
         final int fBackgroundColor = ColorCollection.getCandyColorForChar(fFirstChar);
-        canvas.drawColor(fBackgroundColor);
+        fCanvas.drawColor(fBackgroundColor);
 
         // The contact's current MD5 encoded string will be referenced a lot.
-        final String md5String = contact.getMD5EncryptedString();
+        final String fMd5String = fContact.getMD5EncryptedString();
 
         /*
         MAIN PATTERN
         */
 
-        switch (md5String.charAt(20) % 2) {
+//        generateSquareMatrix(fCanvas, fContact);
+
+        switch (fMd5String.charAt(20) % 3) {
             case 1:
-                generateWanderingShapes(canvas, contact);
+                generateWanderingShapes(fCanvas, fContact);
                 break;
-//            case 2:
-//                final int fColor3 = ColorCollection.generateColor(
-//                        fFirstChar,
-//                        md5String.charAt(0),
-//                        md5String.charAt(12),
-//                        contact.getFullName().length()
-//                );
-//                MicopiPainter.paintSpyro(
-//                        canvas,
-//                        Color.WHITE,
-//                        ColorCollection.getCandyColorForChar(md5String.charAt(28)),
-//                        fColor3,
-//                        255 - md5String.charAt(18),
-//                        (0.5f - (float) fFirstChar / 255f),
-//                        (0.5f - (float) md5String.charAt(25) / 255f),
-//                        (0.5f - (float) md5String.charAt(26) / 255f),
-//                        Math.max(5, md5String.charAt(27) >> 2)
-//                );
-//                break;
+            case 2:
+                generateSquareMatrix(fCanvas, fContact);
+                break;
             default:
-                generateCircleMatrix(canvas, contact);
+                generateCircleMatrix(fCanvas, fContact);
                 break;
         }
 
@@ -102,60 +84,60 @@ public class MicopiGenerator {
         ADDITIONAL SHAPES
          */
 
-        final int numberOfWords = contact.getNumberOfNameParts();
-        final float centerX = imageSize * (md5String.charAt(9) / 128f);
-        final float centerY = imageSize * (md5String.charAt(3) / 128f);
-        final float offset  = md5String.charAt(18) * 2f;
-        final float radiusFactor = imageSize * 0.4f;
-        Log.d("Geometric Addition Center", centerX + " " + centerY);
+        final int fNumOfWords = fContact.getNumberOfNameParts();
+        final float fCenterX = imageSize * (fMd5String.charAt(9) / 128f);
+        final float fCenterY = imageSize * (fMd5String.charAt(3) / 128f);
+        final float fOffset  = fMd5String.charAt(18) * 2f;
+        final float fRadiusFactor = imageSize * 0.4f;
+        Log.d("Geometric Addition Center", fCenterX + " " + fCenterY);
 
-        switch (md5String.charAt(20) % 4) {
+        switch (fMd5String.charAt(20) % 4) {
             case 0:     // Paint circles depending on the number of words.
-                for (int i = 0; i < numberOfWords; i++) {
-                    int alpha = (int) (((i + 1f) / numberOfWords) * 120f);
+                for (int i = 0; i < fNumOfWords; i++) {
+                    int alpha = (int) (((i + 1f) / fNumOfWords) * 120f);
 
                     MicopiPainter.paintDoubleShape(
-                            canvas,
+                            fCanvas,
                             MicopiPainter.MODE_CIRCLE,
                             Color.WHITE,
                             alpha,
-                            ((numberOfWords / (i + 1f)) * 80f), // Stroke Width
+                            ((fNumOfWords / (i + 1f)) * 80f), // Stroke Width
                             0,                              // No edges
                             0f,                             // No arc start angle
                             0f,                             // No arc end angle
-                            centerX + (i * offset),
-                            centerY - (i * offset),
-                            ((numberOfWords / (i + 1f)) * radiusFactor)
+                            fCenterX + (i * fOffset),
+                            fCenterY - (i * fOffset),
+                            ((fNumOfWords / (i + 1f)) * fRadiusFactor)
                     );
                     //Log.d("Word Circles", alpha + "");
                 }
                 break;
             case 1:
                 MicopiPainter.paintSpyro(
-                        canvas,
+                        fCanvas,
                         Color.WHITE,
                         Color.YELLOW,
                         Color.BLACK,
-                        255 - (md5String.charAt(19) * 2),
+                        255 - (fMd5String.charAt(19) * 2),
                         (0.3f - (float) fFirstChar / 255f),
-                        (0.3f - (float) md5String.charAt(25) / 255f),
-                        (0.3f - (float) md5String.charAt(26) / 255f),
-                        Math.max(5, md5String.charAt(27) >> 2)
+                        (0.3f - (float) fMd5String.charAt(25) / 255f),
+                        (0.3f - (float) fMd5String.charAt(26) / 255f),
+                        Math.max(5, fMd5String.charAt(27) >> 2)
                 );
                 break;
             case 2:
                 MicopiPainter.paintMicopiBeams(
-                        canvas,
+                        fCanvas,
                         fBackgroundColor,
-                        md5String.charAt(17) / 5,       // Alpha
-                        md5String.charAt(12) % 4,       // Paint Mode
-                        centerX,
-                        centerY,
-                        md5String.charAt(13) * 3,       // Density
-                        md5String.charAt(5) * 0.6f,     // Line Length
-                        md5String.charAt(14) * 0.15f,   // Angle
-                        md5String.charAt(20) % 2 == 0,  // Large Delta Angle
-                        md5String.charAt(21) % 2 == 0   // Wide Strokes
+                        fMd5String.charAt(17) / 5,       // Alpha
+                        fMd5String.charAt(12) % 4,       // Paint Mode
+                        fCenterX,
+                        fCenterY,
+                        fMd5String.charAt(13) * 3,       // Density
+                        fMd5String.charAt(5) * 0.6f,     // Line Length
+                        fMd5String.charAt(14) * 0.15f,   // Angle
+                        fMd5String.charAt(20) % 2 == 0,  // Large Delta Angle
+                        fMd5String.charAt(21) % 2 == 0   // Wide Strokes
                 );
                 break;
         }
@@ -164,10 +146,83 @@ public class MicopiGenerator {
         INITIAL LETTER ON CIRCLE
          */
 
-        MicopiPainter.paintCentralCircle(canvas, fBackgroundColor, (255 - md5String.charAt(27) * 2));
-        MicopiPainter.paintChars(canvas, new char[]{fFirstChar}, Color.WHITE);
+        MicopiPainter.paintCentralCircle(fCanvas, fBackgroundColor, (255 - fMd5String.charAt(27) * 2));
+        MicopiPainter.paintChars(fCanvas, new char[]{fFirstChar}, Color.WHITE);
 
-        return generatedBitmap;
+        return fBitmap;
+    }
+
+    private static void generateSquareMatrix(final Canvas fCanvas, final Contact fContact) {
+        final float fImageSizeDiv = fCanvas.getWidth() / 5f;
+
+        final String fMd5String = fContact.getMD5EncryptedString();
+        final int fMd5Length    = fMd5String.length();
+
+        //TODO: Distribute charAt indices.
+        final int fColor1 = ColorCollection.generateColor(
+                fContact.getFullName().charAt(0),
+                fMd5String.charAt(12),
+                fContact.getNumberOfNameParts(),
+                fMd5String.charAt(13)
+        );
+        final int fColor2 = Color.WHITE;
+        final int fColor3 = ColorCollection.getCandyColorForChar(fMd5String.charAt(14));
+
+        int md5Pos = 0;
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 3; x++) {
+                md5Pos++;
+                if (md5Pos >= fMd5Length) md5Pos = 0;
+                final char fMd5Char = fMd5String.charAt(md5Pos);
+
+
+                if (isOddParity(fMd5Char)) {
+                    MicopiPainter.paintSquare(
+                            fCanvas,
+                            true,
+                            fColor1,
+                            255,
+                            x,
+                            y,
+                            fImageSizeDiv
+                    );
+                    if (x == 0) {
+                        MicopiPainter.paintSquare(
+                                fCanvas,
+                                true,
+                                fColor2,
+                                200 - fMd5Char,
+                                4,
+                                y,
+                                fImageSizeDiv
+                        );
+                    }
+                    if (x == 1) {
+                        MicopiPainter.paintSquare(
+                                fCanvas,
+                                true,
+                                fColor3,
+                                200 - fMd5Char,
+                                3,
+                                y,
+                                fImageSizeDiv
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean isOddParity(final char c) {
+        int bb = c;
+        int bitCount = 0;
+        for (int i = 0; i < 8; i++, bb >>= 1) {
+            if ((bb & 1) != 0) {
+                bitCount++;
+            }
+        }
+
+        return (bitCount & 1) != 0;
     }
 
     /**

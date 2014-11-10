@@ -40,7 +40,6 @@ public class ColorCollection {
             0xFF5677fC,
             0xFF03A9f4,
             0xFF00BCD4,
-            0xFF009688,
             0xFF259B24,
             0xFFCDDC39,
             0xFF8BC34A,
@@ -57,7 +56,8 @@ public class ColorCollection {
     public static final int HARSH_PALETTE[] = {
             Color.WHITE,
             Color.RED,
-            Color.BLACK
+            Color.BLACK,
+            0xFF009688,
     };
 
     /**
