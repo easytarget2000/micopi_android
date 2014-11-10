@@ -45,7 +45,8 @@ public class Contact implements Parcelable{
     private final static String DEBUG_TAG = "Contact";
 
     private Context mContext;
-    private Uri mContactUri = null;
+    //private Uri mContactUri = null;
+    private String mContactId = "";
     private String[] mNameParts;
     private boolean mHasPhoto = false;
     private String mFullName = "";
@@ -55,140 +56,16 @@ public class Contact implements Parcelable{
     private String mTimesContacted = "0";
     private int mRetryFactor = 0;
     private boolean mMd5IsNew = true;
-    private String mMd5String = "000000000000000000000000000";
-
-//    /**
-//     * Constructor Method
-//     *
-//     * @param c Context
-//     * @param data Data from people list (device contacts)
-//     */
-//    public Contact(Context c, Intent data, String v) {
-//        this.mContext = c;
-//        this.mMd5IsNew = true;
-//        String contactId, query;
-//        Cursor contactCursor;
-//
-//        // The received data contains the URI of the chosen contact.
-//        mContactUri = data.getData();
-//        // The last part of the URI contains the contact's ID.
-//        if(mContactUri != null) contactId = mContactUri.getLastPathSegment();
-//        else return;
-//
-//        // Point the cursor at the DB query.
-//        contactCursor = mContext.getContentResolver().query(
-//                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-//                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?",
-//                new String[] { contactId },
-//                null
-//        );
-//
-//        if(contactCursor == null) return;
-//
-//        /*
-//        START CONTACT QUERY - PHONE NUMBER
-//         */
-//
-//        // Attempt to move the cursor to the first entry with a phone number.
-//        if(contactCursor.moveToFirst()) {
-//            // Get the indices of the name and phone number.
-//            final int displayNameIndex = contactCursor.getColumnIndex(
-//                    ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
-//            );
-//            final int phoneNumberIndex = contactCursor.getColumnIndex(
-//                    ContactsContract.CommonDataKinds.Phone.DATA
-//            );
-//            final int timesContactedIndex = contactCursor.getColumnIndex(
-//                    ContactsContract.CommonDataKinds.Phone.TIMES_CONTACTED
-//            );
-//            mFullName = contactCursor.getString(displayNameIndex);
-//            mPhoneNumber = contactCursor.getString(phoneNumberIndex);
-//            mTimesContacted = contactCursor.getString(timesContactedIndex);
-//        } else {
-//            // If the contact does not have a phone number,
-//            // perform a different query.
-//
-//            // Point the cursor at the DB query.
-//            contactCursor = mContext.getContentResolver().query(
-//                    mContactUri, null, null, null, null
-//            );
-//
-//            // Get the index of the display name.
-//            if(contactCursor != null) {
-//                final int displayNameIndex = contactCursor.getColumnIndex(
-//                        ContactsContract.Contacts.DISPLAY_NAME
-//                );
-//
-//                // Attempt to move the cursor to the first entry of the query cursor.
-//                if(contactCursor.moveToFirst())
-//                    mFullName = contactCursor.getString(displayNameIndex);
-//            }
-//            else return;
-//        }
-//
-//        /*
-//         E-MAIL ADDRESS & CURRENT PHOTO
-//         */
-//
-//        contactCursor = mContext.getContentResolver().query(
-//                ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
-//                ContactsContract.CommonDataKinds.Email.CONTACT_ID + "=?",
-//                new String[] { contactId },
-//                null
-//        );
-//
-//        if(contactCursor != null) {
-//            if(contactCursor.moveToFirst()) {
-//                final int emailIndex = contactCursor.getColumnIndex(
-//                        ContactsContract.CommonDataKinds.Email.DATA
-//                );
-//                final int photoIdIndex = contactCursor.getColumnIndex(
-//                        ContactsContract.CommonDataKinds.Photo.PHOTO_ID
-//                );
-//
-//                mEmailAddress = contactCursor.getString(emailIndex);
-//                final int photoId = contactCursor.getInt(photoIdIndex);
-//                Log.d("PhotoID", photoId + "");
-//            }
-//        }
-//
-//        /*
-//         BIRTHDAY
-//         */
-//
-//        final String birthdayCols[] = {
-//                ContactsContract.CommonDataKinds.Event.START_DATE,
-//                ContactsContract.CommonDataKinds.Event.TYPE,
-//                ContactsContract.CommonDataKinds.Event.MIMETYPE,
-//        };
-//
-//        query = ContactsContract.CommonDataKinds.Event.TYPE + "=" +
-//                ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY + " and "+
-//                ContactsContract.CommonDataKinds.Event.MIMETYPE + " = '" +
-//                ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE + "' and " +
-//                ContactsContract.Data.CONTACT_ID + " = " + contactId;
-//
-//        contactCursor = mContext.getContentResolver().query(
-//                ContactsContract.Data.CONTENT_URI,
-//                birthdayCols,
-//                query,
-//                null,
-//                ContactsContract.Contacts.DISPLAY_NAME
-//        );
-//
-//        if (contactCursor != null) {
-//            if (contactCursor.moveToNext()) {
-//                final int birthdayIndex = contactCursor.getColumnIndex(
-//                        ContactsContract.CommonDataKinds.Event.START_DATE
-//                );
-//                mBirthday = contactCursor.getString(birthdayIndex);
-//            }
-//        }
-//
-//        splitFullName();
-//    }
+    private String mMd5String = "000000000000000000000000001";
 
     private static final String DEBUG_TAG_QUERY = "Contact Query";
+
+    public Contact(Context context, Intent data) {
+        // The received data contains the URI of the chosen contact.
+        // The last part of the URI contains the contact's ID.
+        this(context, data.getData().getLastPathSegment());
+        //mContactUri = data.getData();
+    }
 
     /**
      * Constructor Method
@@ -196,18 +73,14 @@ public class Contact implements Parcelable{
      * @param c Context
      * @param data Data from people list (device contacts)
      */
-    public Contact(Context c, Intent data) {
-        mContext = c;
+    public Contact(Context context, String contactId) {
+        mContext = context;
         mMd5IsNew = true;
+        mContactId = contactId;
 
         /*
         CONTACTS DB QUERY
          */
-
-        // The received data contains the URI of the chosen contact.
-        mContactUri = data.getData();
-        // The last part of the URI contains the contact's ID.
-        final String contactId = mContactUri.getLastPathSegment();
 
         // Define which columns we want to query.
         final String[] contactsProjection = new String[]{
@@ -398,7 +271,8 @@ public class Contact implements Parcelable{
         String[] data = new String[9];
 
         in.readStringArray(data);
-        mContactUri = Uri.parse(data[0]);
+        //mContactUri = Uri.parse(data[0]);
+        mContactId = data[0];
         mFullName = data[1];
         mPhoneNumber = data[2];
         mEmailAddress = data[3];
@@ -425,7 +299,7 @@ public class Contact implements Parcelable{
         if (mHasPhoto) hasPhotoString = TRUE_STRING;
 
         String[] dataStrings = new String[] {
-                mContactUri.toString(),
+                mContactId,
                 mFullName,
                 mPhoneNumber,
                 mEmailAddress,
@@ -498,7 +372,6 @@ public class Contact implements Parcelable{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
                 combinedBytes = combinedString.getBytes(Charset.forName("ISO-8859-1"));
             } else {
-                //TODO: Issue: This getBytes stops at special characters.
                 combinedString = combinedString.replaceAll("[^\\x00-\\x7F]", "_");
                 combinedBytes = combinedString.getBytes();
             }
@@ -520,6 +393,8 @@ public class Contact implements Parcelable{
         return mMd5String;
     }
 
+    private static final String DEBUG_TAG_ASSIGN = "assignImage()";
+
     /**
      * Finds the contact's image entry and replaces it with the generated data.
      *
@@ -527,73 +402,102 @@ public class Contact implements Parcelable{
      * @return TRUE if assignment was successful.
      */
     public boolean assignImage( Bitmap generatedBitmap ) {
-        Uri rawContactUri = null;
-        int photoRow = -1;
-        int index;
 
-        Cursor rawContactCursor =  mContext.getContentResolver().query(
+        final Cursor rawContactCursor = mContext.getContentResolver().query(
                 ContactsContract.RawContacts.CONTENT_URI,
                 new String[]{ContactsContract.RawContacts._ID},
-                ContactsContract.RawContacts.CONTACT_ID + " = " + mContactUri.getLastPathSegment(),
+                ContactsContract.RawContacts.CONTACT_ID + " = " + mContactId,
                 null,
-                null);
+                null
+        );
 
-        if( rawContactCursor != null ) {
-            if( !rawContactCursor.isAfterLast() ) {
-                rawContactCursor.moveToFirst();
-                rawContactUri = ContactsContract.RawContacts.CONTENT_URI.buildUpon().appendPath(
-                        "" + rawContactCursor.getLong(0) ).build();
+        Uri rawContactUri = null;
+
+        if(rawContactCursor != null) {
+            if(rawContactCursor.moveToFirst()) {
+                final Uri contentUri = ContactsContract.RawContacts.CONTENT_URI;
+                final String rawPath = "" + rawContactCursor.getLong(0);
+                rawContactUri = contentUri.buildUpon().appendPath(rawPath).build();
             }
             rawContactCursor.close();
-        } else return false;
+        } else {
+            Log.e(DEBUG_TAG_ASSIGN, "ERROR: rawContactCursor is null.");
+            return false;
+        }
 
         // Create a byte stream from the generated image.
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        byte[] photo = outputStream.toByteArray();
+        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        final byte[] photo = outputStream.toByteArray();
 
         // Set the byte array as the raw contact's photo.
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
+        int photoRow = -1;
 
-        if( rawContactUri != null ) {
-            String strQuery = ContactsContract.Data.RAW_CONTACT_ID + " == " +
+        if(rawContactUri != null) {
+            Log.d(DEBUG_TAG_ASSIGN,
+                    "parseId(): " + ContentUris.parseId( rawContactUri )
+                            + " rawContactUri: " + rawContactUri.toString()
+                            + " contact ID: " + mContactId);
+
+            final String photoSelection = ContactsContract.Data.RAW_CONTACT_ID + " == " +
                     ContentUris.parseId( rawContactUri ) + " AND " +
                     ContactsContract.RawContacts.Data.MIMETYPE + "=='" +
                     ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'";
 
-            Cursor changePhotoCursor = mContext.getContentResolver().query(
+            final Cursor changePhotoCursor = mContext.getContentResolver().query(
                     ContactsContract.Data.CONTENT_URI,
                     null,
-                    strQuery,
+                    photoSelection,
                     null,
-                    null );
+                    null
+            );
 
-            if( changePhotoCursor != null ) {
-                index = changePhotoCursor.getColumnIndexOrThrow(ContactsContract.Data._ID);
-                if( changePhotoCursor.moveToFirst() )
-                    photoRow = changePhotoCursor.getInt( index );
+            if(changePhotoCursor != null) {
+                final int index = changePhotoCursor.getColumnIndex(ContactsContract.Data._ID);
+                if(index > 0 && changePhotoCursor.moveToFirst()) {
+                    photoRow = changePhotoCursor.getInt(index);
+                }
                 changePhotoCursor.close();
-            } else return false;
+            } else {
+                Log.e(DEBUG_TAG_ASSIGN, "ERROR: changePhotoCursor is null.");
+                return false;
+            }
 
-            values.put(ContactsContract.Data.RAW_CONTACT_ID,
-                    ContentUris.parseId(rawContactUri));
-            values.put(ContactsContract.Data.IS_SUPER_PRIMARY, 1);
-            values.put(ContactsContract.CommonDataKinds.Photo.PHOTO, photo);
-            values.put(ContactsContract.Data.MIMETYPE,
-                    ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE);
+            values.put(
+                    ContactsContract.Data.RAW_CONTACT_ID,
+                    ContentUris.parseId(rawContactUri)
+            );
+            values.put(
+                    ContactsContract.Data.IS_SUPER_PRIMARY,
+                    1
+            );
+            values.put(
+                    ContactsContract.CommonDataKinds.Photo.PHOTO,
+                    photo
+            );
+            values.put(
+                    ContactsContract.Data.MIMETYPE,
+                    ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE
+            );
+        } else {
+            Log.e(DEBUG_TAG_ASSIGN, "ERROR: rawContactUri is null.");
+            return false;
+        }
 
-        } else return false;
-
-
-        if( photoRow >= 0 ){
+        if(photoRow >= 0){
             mContext.getContentResolver().update(
                     ContactsContract.Data.CONTENT_URI,
                     values,
-                    ContactsContract.Data._ID + " = " + photoRow, null );
+                    ContactsContract.Data._ID + " = " + photoRow,
+                    null
+            );
         } else {
+            Log.i(DEBUG_TAG_ASSIGN, "INFO: photoRow: " + photoRow);
             mContext.getContentResolver().insert(
                     ContactsContract.Data.CONTENT_URI,
-                    values );
+                    values
+            );
         }
 
         return true;

@@ -19,8 +19,7 @@ package com.easytarget.micopi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.FloatMath;
+import android.graphics.PorterDuffXfermode;
 import android.util.Log;
 
 /**
@@ -52,45 +51,27 @@ public class MicopiGenerator {
         Bitmap generatedBitmap = Bitmap.createBitmap(
                 imageSize,
                 imageSize,
-                Bitmap.Config.RGB_565
+                Bitmap.Config.ARGB_8888
         );
 
         Canvas canvas = new Canvas(generatedBitmap);
 
-        final int backgroundColor = ColorCollection.getColorForChar(contact.getFullName().charAt(0));
+        final int backgroundColor = ColorCollection.getCandyColorForChar(contact.getFullName().charAt(0));
         canvas.drawColor(backgroundColor);
 
         // The contact's current MD5 encoded string will be referenced a lot.
         final String md5String = contact.getMD5EncryptedString();
 
-//        /*
-//        ROTATION
-//         */
-//
-//        final boolean doRotate = (md5String.charAt(26) % 3 == 0);
-//        float rotationSign = 1f;
-//        if (md5String.charAt(21) % 2 == 0) rotationSign = -1f;
-//
-//        final float rotationAngle = md5String.charAt(22) * 0.3f * rotationSign;
-//        if (doRotate) canvas.rotate(rotationAngle);
-
         /*
         MAIN PATTERN
         */
 
-        final boolean isOneWordName = (contact.getNumberOfNameParts() == 1);
-
-        if (isOneWordName || md5String.charAt(20) % 4 == 0) generateOddCircleMatrix(canvas, contact);
-        else generateCircleScape(canvas, contact);
+        if (md5String.charAt(20) % 3 == 0) generateCircleMatrix(canvas, contact);
+        else generateWanderingShapes(canvas, contact);
 
         /*
         ADDITIONAL SHAPES
          */
-
-        // A name with three or more words is more likely to get the circles.
-        // The higher the number the less likely circles are.
-        int circleProbFactor = 4;
-        if (contact.getNumberOfNameParts() > 2) circleProbFactor = 2;
 
         final int numberOfWords = contact.getNumberOfNameParts();
         final float centerX = imageSize * (md5String.charAt(9) / 128f);
@@ -99,7 +80,7 @@ public class MicopiGenerator {
         final float radiusFactor = imageSize * 0.4f;
         Log.d("Geometric Addition Center", centerX + " " + centerY);
 
-        switch (md5String.charAt(20) % circleProbFactor) {
+        switch (md5String.charAt(20) % 4) {
             case 0:     // Paint circles depending on the number of words.
                 for (int i = 0; i < numberOfWords; i++) {
                     int alpha = (int) (((i + 1f) / numberOfWords) * 120f);
@@ -107,6 +88,7 @@ public class MicopiGenerator {
                     MicopiPainter.paintDoubleShape(
                             canvas,
                             MicopiPainter.MODE_CIRCLE,
+                            null,                               // XFermode
                             Color.WHITE,
                             alpha,
                             ((numberOfWords / (i + 1f)) * 80f), // Stroke Width
@@ -120,11 +102,17 @@ public class MicopiGenerator {
                     //Log.d("Word Circles", alpha + "");
                 }
                 break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
             default:    // Paint that flower.
                 MicopiPainter.paintMicopiBeams(
                         canvas,
                         backgroundColor,
-                        md5String.charAt(17) / 4,           // Alpha
+                        md5String.charAt(17) / 5,       // Alpha
                         md5String.charAt(12) % 4,       // Paint Mode
                         centerX,
                         centerY,
@@ -137,11 +125,10 @@ public class MicopiGenerator {
         }
 
         /*
-        INITIAL LETTER
+        INITIAL LETTER ON CIRCLE
          */
 
-        // Rotate back first, if needed.
-//        if (doRotate) canvas.rotate(-rotationAngle);
+        MicopiPainter.paintCentralCircle(canvas, backgroundColor, (255 - md5String.charAt(27) * 2));
 
         char[] initials = {contact.getFullName().charAt(0)};
         MicopiPainter.paintChars(canvas, initials, Color.WHITE);
@@ -152,16 +139,18 @@ public class MicopiGenerator {
     /**
      * Fills a canvas with a lot of colourful circles or polygons
      * Uses MicopiPainter
+     * @param canvas Canvas to draw on
+     * @param contact Data from this Contact object will be used to generate the shapes
      */
-    private static void generateCircleScape(Canvas canvas, Contact contact) {
+    private static void generateWanderingShapes(Canvas canvas, Contact contact) {
         // If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
-        // there is a 3/4 chance that polygons will be painted instead of circles.
+        // there is a 2/3 chance that polygons will be painted instead of circles.
         final int numOfEdges = contact.getNamePart(0).length();
         final String md5String = contact.getMD5EncryptedString();
-        final int numberOfShapes  = contact.getFullName().length() * 4;
 
+        // Some pictures have polygon approximations instead of actual circles.
         boolean paintPolygon = false;
-        if (md5String.charAt(15) % 4 != 0 && numOfEdges > 2 && numOfEdges < 7) paintPolygon = true;
+        if (md5String.charAt(15) % 3 != 0 && numOfEdges > 2 && numOfEdges < 7) paintPolygon = true;
 
         // These characters will be used for color generating:
         final char colorChar1     = contact.getFullName().charAt(0);
@@ -175,45 +164,65 @@ public class MicopiGenerator {
         // Determine the alpha value to paint with.
         int alpha  = md5String.charAt(6) * 2;
         // Filled shapes have a smaller alpha value.
-        if (paintFilled) alpha *=2;
+        if (paintFilled) alpha /= 2;
         //Log.i("Circle Scape", "Alpha: " + alpha + " paintFilled: " + paintFilled);
         // This was 0.1
         float shapeWidth = (float) md5String.charAt(7) * 2f;
 
         // Determine if to paint occasional arcs or not.
         boolean paintArc = true;
-        float endAngle = md5String.charAt(8) * 2;
+        final float endAngle = md5String.charAt(8) * 2;
         if (md5String.charAt(1) % 2 == 0) paintArc = false;
 
+        //final PorterDuffXfermode xfermode = PorterDuffGenerator.getXfermode(1);
+        final PorterDuffXfermode xfermode = null;
+
         // Draw all the shapes.
-        int md5Length       = md5String.length();
-        int md5Pos          = 0;
-        float x = canvas.getWidth() * 0.7f;
-        float y = canvas.getHeight() * 0.3f;
+        final int md5Length  = md5String.length();
+        int md5Pos = 0;
+        float x = canvas.getWidth() * 0.5f;
+        float y = x;
+
+        // The amount of double shapes that will be painted; at least 10, no more than 25.
+        int numberOfShapes = contact.getFullName().length() * 4;
+        numberOfShapes = Math.min(numberOfShapes, 25);
+        while (numberOfShapes < 10) numberOfShapes *= 2;
+        Log.d("Number of Circle Scape shapes", contact.getFullName() + " " + numberOfShapes);
 
         for (int i = 0; i < numberOfShapes; i++) {
-            char md5Char = ' ';
+            // Get the next character from the MD5 String.
+            md5Pos++;
+            if (md5Pos >= md5Length) md5Pos = 0;
 
-            // Do the operation for the x- and y-coordinate.
-            for (int axis = 0; axis < 2; axis++) {
-                // Make sure we do not jump out of the MD5 String.
-                if (md5Pos >= md5Length) md5Pos = 0;
-
-                // Move the coordinates around.
-                md5Char = md5String.charAt(md5Pos);
-                if (md5Char % 2 == 0) {
-                    if (axis == 0) x += md5Char;
-                    else y -= md5Char;
-                }
-                else {
-                    if (axis == 0) x -= md5Char;
-                    else y += md5Char;
-                }
-                md5Pos++;
+            // Move the coordinates around.
+            final int md5Int = md5String.charAt(md5Pos) + i;
+            switch (md5Int % 6) {
+                case 0:
+                    x += md5Int;
+                    y += md5Int;
+                    break;
+                case 1:
+                    x -= md5Int;
+                    y -= md5Int;
+                    break;
+                case 2:
+                    x += md5Int * 2;
+                    break;
+                case 3:
+                    y += md5Int * 2;
+                    break;
+                case 4:
+                    x -= md5Int * 2;
+                    y -= md5Int;
+                    break;
+                default:
+                    x -= md5Int;
+                    y -= md5Int * 2;
+                    break;
             }
 
             int paintMode = MicopiPainter.MODE_CIRCLE;
-            if (paintArc && md5Char % 4 == 0) paintMode = MicopiPainter.MODE_ARC;
+            if (paintArc && md5Int % 2 == 0) paintMode = MicopiPainter.MODE_ARC;
             else if (paintPolygon) paintMode = MicopiPainter.MODE_POLYGON;
             //if (paintFilled) paintMode += MicopiPainter.MODE_CIRCLE_FILLED;
 
@@ -221,11 +230,12 @@ public class MicopiGenerator {
             MicopiPainter.paintDoubleShape(
                     canvas,
                     paintMode,
-                    ColorCollection.generateColor(colorChar1, colorChar2, md5Char, i + 1),
+                    xfermode,                   // Xfermode
+                    ColorCollection.generateColor(colorChar1, colorChar2, md5Int, i + 1),
                     alpha,
                     shapeWidth,
                     numOfEdges,
-                    md5Char * 2,            // Start Angle of Arc
+                    md5Int * 2,            // Start Angle of Arc
                     endAngle,
                     x,
                     y,
@@ -235,145 +245,51 @@ public class MicopiGenerator {
         }
     }
 
-    private static final String DEBUG_TAG_ODD = "generateOddCircleMatrix()";
+    private static final String DEBUG_TAG_ODD = "generateCircleMatrix()";
 
-    private static void generateOddCircleMatrix(Canvas canvas, Contact contact) {
-        final int numOfCircles  = contact.getNamePart(0).length();
+    private static void generateCircleMatrix(Canvas canvas, Contact contact) {
+        // Prepare painting values based on image size and contact data.
+        final float fImageSize = canvas.getWidth();
+        final String fMd5String = contact.getMD5EncryptedString();
+        final int fFirstNameLength = contact.getNamePart(0).length();
+        final float fStrokeWidth = fMd5String.charAt(19) * 2f;
+        final float circleDistance = (fImageSize / fFirstNameLength)
+                + (fImageSize / (fFirstNameLength * 2f));
 
-        // If the number of circles is even, draw a different mid-section.
-        final boolean isEvenNumbered = (numOfCircles % 2 == 0);
+        // Contact names with just one word will not get coloured circles.
+        final boolean fDoGenerateColor = contact.getNumberOfNameParts() > 1;
 
-        // Determine which one is the middle circle.
-        // For an even number of circles, there are two middle circles.
-        // This value determines the first one in a sequence of two middle circles.
-        int midCircle = (numOfCircles / 2);
-        if (isEvenNumbered) midCircle--;
+        int md5Pos = 0;
+        for (int y = 0; y < fFirstNameLength; y++) {
+            for (int x = 0; x < fFirstNameLength; x++) {
 
-        // To work with radii right away, divide the canvas size by half.
-        final float imageSizeHalf = canvas.getWidth() * 0.5f;
+                md5Pos++;
+                if (md5Pos >= fMd5String.length()) md5Pos = 0;
+                final char fMd5Char = fMd5String.charAt(md5Pos);
 
-        Log.d(DEBUG_TAG_ODD, "Num: " + numOfCircles + " Mid: " + midCircle);
+                int color = Color.WHITE;
+                if (fDoGenerateColor) color = ColorCollection.getCandyColorForChar(fMd5Char);
 
-        // Calculate the sum of the weights of each circle relative to each other.
-        float circleWeight = 1f;
-        float sumOfCircleWeights = 0f;
+                final int fIndex = y * fFirstNameLength + x;
+                float radius;
+                if ((fIndex & 1) == 0) radius = fMd5Char * 2f;
+                else radius = fMd5Char * 3f;
 
-        // Start with one,
-        // double the value up to the middle circle, then half the values again,
-        // add the new value to the old one.
-        for (int i = 0; i < numOfCircles; i++) {
-            sumOfCircleWeights += circleWeight;
-
-            //Log.d(DEBUG_TAG_ODD, i + " CW: " + circleWeight + " TotW: " + sumOfCircleWeights );
-            if (i < midCircle) circleWeight *= 2f;
-            else if (!isEvenNumbered && i == midCircle) circleWeight /= 2f;
-            else if (i > midCircle) circleWeight /= 2f;
-        }
-        // This results in the sum of circle "weights".
-        // Take the inverse of the entire weight and multiply it with the image radius.
-        final float smallestRadius = (1f / sumOfCircleWeights) * imageSizeHalf;
-        Log.d(DEBUG_TAG_ODD, "Image Size Half: " + imageSizeHalf + " Radius 1: " + smallestRadius);
-
-        /*
-        CALCULATE RADIUS SERIES
-         */
-
-        float[] radii = new float[numOfCircles];
-        float radius = smallestRadius;
-        for (int circleIndex = 0; circleIndex <= midCircle; circleIndex++) {
-            //Log.d(DEBUG_TAG_ODD, circleIndex + " " + radius + " " + (numOfCircles - circleIndex));
-            radii[circleIndex] = radius;
-
-            // Duplicate the middle circle for names with an even amount of characters. .oOOo.
-            if (circleIndex == midCircle) {
-                if (isEvenNumbered) {
-                    radii[circleIndex + 1] = radius;
-                    break;
-                }
-            } else {
-                // As long as we haven't reached a middle circle,
-                // write the current radius at the other side. .oOo.
-                radii[numOfCircles - (circleIndex + 1)] = radius;
-            }
-
-            // Double the radius for the next circle of the ascending circle sequence. .oO
-            radius *= 2;
-        }
-
-        /*
-        PAINT HORIZONTAL ROW OF CIRCLES
-         */
-
-        String md5String = contact.getMD5EncryptedString();
-
-        //final boolean useRadiusSweep = md5String.charAt(28) % 2 == 0;
-        float xPos = 0f;
-        float yPos = imageSizeHalf;
-
-        // Use a light alpha for the horizontal line of circles.
-        int alpha = 160 - md5String.charAt(6);
-        float strokeWidth = md5String.charAt(19) * 2f;
-
-        // Go through the radius succession and paint the circles.
-        for (float r : radii) {
-            xPos += r;
-            MicopiPainter.paintDoubleShape(
+                MicopiPainter.paintDoubleShape(
                     canvas,
-                    MicopiPainter.MODE_CIRCLE,
-                    Color.WHITE,
-                    alpha,
-                    strokeWidth,       // Stroke width
+                    MicopiPainter.MODE_CIRCLE_FILLED,
+                    null,               // Xfermode
+                    color,
+                    200 - fMd5String.charAt(md5Pos) + fIndex,
+                    fStrokeWidth,        // Stroke width
                     0,
                     0f,
                     0f,
-                    xPos,
-                    yPos,
+                    x * circleDistance,
+                    y * circleDistance,
                     radius
             );
-            xPos += r;
-        }
-
-        /*
-        PAINT VERTICAL ROW OF CIRCLES
-         */
-
-        // Paint the vertical row in the horizontal centre.
-        xPos = imageSizeHalf;
-        yPos = 0f;
-
-        // Use a generated color.
-        final int yColor = ColorCollection.generateColor(
-                md5String.charAt(23),
-                md5String.charAt(24),
-                md5String.charAt(25),
-                4
-        );
-
-        // Use a stronger alpha for the vertical row of circles.
-        alpha = 200 - md5String.charAt(6);
-
-        strokeWidth = md5String.charAt(28) * 1.5f;
-
-        // Go through the radius succession again and paint them from top to bottom.
-        for (float r : radii) {
-            yPos += r;
-            if (yPos != imageSizeHalf) {
-                MicopiPainter.paintDoubleShape(
-                        canvas,
-                        MicopiPainter.MODE_CIRCLE,
-                        yColor,
-                        alpha,
-                        strokeWidth,
-                        0,
-                        0f,
-                        0f,
-                        xPos,
-                        yPos,
-                        radius
-                );
             }
-            yPos += r;
         }
-
     }
 }

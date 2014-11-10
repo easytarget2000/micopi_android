@@ -22,11 +22,15 @@ import android.util.Log;
 /**
  * Created by michel on 27/10/14.
  *
- * Based on colour palette from google.com/design/spec/style/color.html
+ * Contains the color definitions and getter-generators that will be used by MicopiGenerator
+ *
  */
 public class ColorCollection {
 
-    public static int palette[] = {
+    /**
+     * Based on colour palette from google.com/design/spec/style/color.html
+     */
+    public static final int CANDY_PALETTE[] = {
             0xFF3f51B5,
             0xFFE51C23,
             0xFFE91E63,
@@ -38,8 +42,8 @@ public class ColorCollection {
             0xFF00BCD4,
             0xFF009688,
             0xFF259B24,
-            0xFF8BC34A,
             0xFFCDDC39,
+            0xFF8BC34A,
             0xFFffEB3B,
             0xFFffC107,
             0xFFff9800,
@@ -47,42 +51,61 @@ public class ColorCollection {
             0xFF795548,
     };
 
-    public static int getColorForChar(char c) {
+    /**
+     * Additional high-contrast colours and black & white
+     */
+    public static final int HARSH_PALETTE[] = {
+            Color.WHITE,
+            Color.RED,
+            Color.BLACK
+    };
 
-        // Capital and lower case letters get the same colours.
+    /**
+     * Goes through the candy palette c amount of times.
+     * Capital and lower case letters get the same colours.
+     *
+     * @param c ASCII integer value of this character will be used as array index
+     * @return Color from the candy palette
+     */
+    public static int getCandyColorForChar(char c) {
+
         // If the given character is between lower case a and z,
         // subtract the index difference to the upper case characters.
         if (c >= 'a' && c <= 'z') {
             c -= 32;
         }
 
-        final int index = c % (palette.length - 1);
+        final int index = c % (CANDY_PALETTE.length - 1);
 
-        int color = palette[index];
-        //Log.d("getColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
+        int color = CANDY_PALETTE[index];
+        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
 
         return color;
     }
+
     /**
-     * Generates a color, based on the given input parameters.
+     * Generate a color from the candy or harsh palette.
      *
-     * @param cFirstChar    First character of the contact's name
-     * @param cFactor1  MD5 Character
-     * @param cFactor2  MD5 Character
-     * @param iNumberOfWords    Number of Words in the contact's name
-     *
-     * @return  Color with alpha=255
+     * @param c1 ASCII integer value of this character will be used as factor 1
+     * @param c2 ASCII integer value of this character will be used as factor 2
+     * @param i1 Used as factor 3
+     * @param i2 Used as factor 4
+     * @return A color with alpha = 255, possibly with altered values
      */
-    public static int generateColor(char c1, char c2, char c3, int factor) {
+    public static int generateColor(char c1, char c2, int i1, int i2) {
+        int color;
 
-        int iGeneratedColor = Color.DKGRAY;
-        if (c1 % 2 == 0) iGeneratedColor = getColorForChar(c2);
+        if (i1 % 4 != 0) {
+            color = getCandyColorForChar(c2);
+        } else {
+            final int harshIndex = i2 % HARSH_PALETTE.length;
+            color = HARSH_PALETTE[harshIndex];
+        }
 
-        iGeneratedColor *= c1 * -c2 * factor * c3;
-        iGeneratedColor |= 0xff000000;
+        if (i2 % 2 == 0) {
+            color *= c1 * -c2 * i2 * i1;
+        }
 
-        return iGeneratedColor;
+        return color | 0xff000000;
     }
-
-
 }

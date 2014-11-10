@@ -52,7 +52,7 @@ public class WelcomeActivity extends ActionBarActivity {
     }
 
     public void startCrawl( @SuppressWarnings("unused") View view) {
-
+        ContactCrawler.crawl(this, false, false);
     }
 
 }

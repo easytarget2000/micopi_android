@@ -24,6 +24,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RadialGradient;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
@@ -193,9 +194,29 @@ public class MicopiPainter {
      */
     public static final int MODE_POLYGON_FILLED = 13;
 
+    public static final float PI_DOUBLED_FLOAT = 2f * (float) Math.PI;
+
+    /**
+     * Paints two shapes on top of each other with slightly different alpha,
+     * size and stroke width values.
+     *
+     * @param canvas Canvas to draw on
+     * @param paintMode Determines the shape to draw
+     * @param xfermode Paint PorterDuffMode
+     * @param color Paint colour
+     * @param alpha Paint alpha value
+     * @param strokeWidth Paint stroke width
+     * @param numOfEdges Number of polygon edges
+     * @param startAngle Start angle of an arc
+     * @param endAngle End angle of an arc
+     * @param centerX X coordinate of the centre of the shape
+     * @param centerY Y coordinate of the centre of the shape
+     * @param radius Also determines size of polygon approximations
+     */
     public static void paintDoubleShape(
             Canvas canvas,
             int paintMode,
+            PorterDuffXfermode xfermode,
             int color,
             int alpha,
             float strokeWidth,
@@ -206,13 +227,14 @@ public class MicopiPainter {
             float centerY,
             float radius
     ) {
-
         // Configure paint:
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(color);
         paint.setAlpha(alpha);
         paint.setStrokeWidth(strokeWidth);
+
+        if (xfermode != null) paint.setXfermode(xfermode);
 
         // All filled mode int have a value >= 10.
         if (paintMode >= MODE_CIRCLE_FILLED) paint.setStyle(Paint.Style.FILL);
@@ -241,23 +263,35 @@ public class MicopiPainter {
                 arcPath.arcTo(oval, startAngle, endAngle, true);
 
             } else if (paintMode == MODE_POLYGON || paintMode == MODE_POLYGON_FILLED) {
-                Path polygonPath = new Path();
-                float pathAngle = 0f;
+                if (numOfEdges == 4) {
+                    canvas.drawRect(
+                            centerX - radius * 0.5f,
+                            centerY - radius * 0.5f,
+                            centerX + radius * 0.5f,
+                            centerY + radius * 0.5f,
+                            paint
+                    );
+                } else {
+                    Path polygonPath = new Path();
+                    // Use Path.moveTo() for first vertex.
+                    boolean isFirstEdge = true;
 
-                // Estimate a lower left corner of the polygon from the center coordinates.
-                float x = centerX - radius * 0.5f;
-                float y = centerY + radius * 0.6f;
-                polygonPath.moveTo(x,y);
+                    for (i = 1; i <= numOfEdges; i++) {
+                        final float angle = PI_DOUBLED_FLOAT * i / numOfEdges;
+                        final float x = centerX + radius * FloatMath.cos(angle);
+                        final float y = centerY + radius * FloatMath.sin(angle);
 
-                for (int j = 0; j < numOfEdges; j++) {
-                    x +=  FloatMath.cos(pathAngle) * edgeLength;
-                    y -=  FloatMath.sin(pathAngle) * edgeLength;
-                    polygonPath.lineTo(x,y);
-                    pathAngle += deltaAngle;
+                        if (isFirstEdge) {
+                            polygonPath.moveTo(x,y);
+                            isFirstEdge = false;
+                        } else {
+                            polygonPath.lineTo(x,y);
+                        }
+                    }
+
+                    polygonPath.close();
+                    canvas.drawPath(polygonPath, paint);
                 }
-
-                polygonPath.close();
-                canvas.drawPath(polygonPath, paint);
             } else {
                 canvas.drawCircle(centerX, centerY, radius, paint);
             }
@@ -355,26 +389,72 @@ public class MicopiPainter {
         }
     }
 
+    /**
+     * Alpha value of character that will be drawn on top of the picture
+     */
     private static final char CHAR_ALPHA = 255;
-    private static final float CHAR_Y_OFFSET = .333f;
 
+    /**
+     * Paints letters on top of the centre of a canvas - GMail style
+     * @param canvas Canvas to draw on
+     * @param chars Characters to draw
+     * @param color Paint colour
+     */
     public static void paintChars(Canvas canvas, char[] chars, int color) {
         int count = chars.length;
         if (count == 0) return;
         else if (count > 4) count = 4;
 
-        float textSize = canvas.getHeight() * .6f;
-        float x = canvas.getWidth() * .5f;
-        float y = canvas.getHeight() * .5f + textSize * CHAR_Y_OFFSET;
-
         Paint paint = new Paint();
+        paint.setAntiAlias(true);
         paint.setColor(color);
-        paint.setTextSize(textSize);
-        paint.setTypeface(Typeface.create("normal", Typeface.NORMAL));
-        paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);
         paint.setAlpha(CHAR_ALPHA);
 
-        canvas.drawText(chars, 0, count, x, y, paint);
+
+        // Typeface, size and alignment:
+        Typeface sansSerifLight = Typeface.create("sans-serif-light", 0);
+        paint.setTypeface(sansSerifLight);
+
+        final float imageSize = canvas.getWidth();
+        final int tileLetterFontSize = (int) (70f * imageSize / 100f);
+
+        paint.setTextSize(tileLetterFontSize);
+        paint.setTextAlign(Paint.Align.CENTER);
+
+        // Get the rectangle that the text fits into.
+        final Rect rect = new Rect();
+        paint.getTextBounds(chars, 0, 1, rect);
+
+        final float imageSizeHalf = imageSize * 0.5f;
+
+        canvas.drawText(
+                chars,
+                0,
+                count,
+                imageSizeHalf,
+                imageSizeHalf + (rect.bottom - rect.top) * 0.5f,
+                paint
+        );
+
     }
+
+    /**
+     * How much of the canvas the circle is going to occupy
+     */
+    private static final float CIRCLE_SIZE = 0.8f;
+
+    public static void paintCentralCircle(Canvas canvas, int color, int alpha) {
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(color);
+        paint.setAlpha(alpha);
+
+        final float imageCenter = canvas.getWidth() * 0.5f;
+        final float radius      = imageCenter * CIRCLE_SIZE;
+
+        canvas.drawCircle(imageCenter, imageCenter, radius, paint);
+    }
+
+
 }
