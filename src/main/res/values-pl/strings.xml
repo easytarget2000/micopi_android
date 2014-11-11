@@ -34,4 +34,7 @@
     <string name="error_assign">Błąd w przydzielaniu obrazu.</string>
     <string name="retry_button_label">Retry</string>
 
+    <string name="button_previous_image">Poprzednie zdjęcie</string>
+    <string name="button_next_image">Następne zdjęcie</string>
+
 </resources>

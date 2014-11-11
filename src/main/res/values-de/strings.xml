@@ -38,6 +38,7 @@
         Bitte stellen Sie sicher, dass Ihre Speicherkarte nicht gesperrt ist.</string>
     <string name="error_assign">Ein Fehler trat beim Zuweisen des Bildes auf.</string>
 
-    <string name="retry_button_label">Neu generieren</string>
+    <string name="button_previous_image">Vorheriges Bild</string>
+    <string name="button_next_image">Nächstes Bild</string>
 
 </resources>

@@ -38,4 +38,7 @@
     <string name="error_assign">Ett fel uppstod när bilden tilldelades kontakten.</string>
     <string name="retry_button_label">Retry</string>
 
+    <string name="button_previous_image">Föregående bild</string>
+    <string name="button_next_image">Nästa bild</string>
+
 </resources>

@@ -39,6 +39,8 @@
     <string name="error_assign">
         Er is een fout opgetreden tijdens het toewijzen van de afbeelding aan het contact.</string>
     <string name="report_button_label">Report</string>
-    <string name="retry_button_label">Retry</string>
+
+    <string name="button_previous_image">Vorig beeld</string>
+    <string name="button_next_image">Volgend beeld</string>
 
 </resources>

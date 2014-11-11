@@ -38,4 +38,7 @@
     <!--<string name="error_folder">El directorio de Micopi no pudo crearse.</string>-->
     <string name="retry_button_label">Intenta de nuevo</string>
 
+    <string name="button_previous_image">Imagen anterior</string>
+    <string name="button_next_image">Siguiente imagen</string>
+
 </resources>

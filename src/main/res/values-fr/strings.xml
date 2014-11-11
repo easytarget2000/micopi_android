@@ -38,6 +38,7 @@
     <string name="error_saving">Erreur d\'enregistrer la photo</string>
     <string name="error_assign">Erreur d\'assigner la photo.</string>
 
-    <string name="retry_button_label">Essayez à nouveau</string>
+    <string name="button_previous_image">Image précédente</string>
+    <string name="button_next_image">Image suivante</string>
 
 </resources>
