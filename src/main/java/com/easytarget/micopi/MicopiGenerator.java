@@ -65,7 +65,7 @@ public class MicopiGenerator {
         MAIN PATTERN
         */
 
-        switch (fMd5String.charAt(20) % 3) {
+        switch (fMd5String.charAt(4) % 3) {
             case 1:
                 generateWanderingShapes(fCanvas, fContact);
                 break;
@@ -87,7 +87,7 @@ public class MicopiGenerator {
         final float fOffset  = fMd5String.charAt(18) * 2f;
         final float fRadiusFactor = imageSize * 0.4f;
 
-        switch (fMd5String.charAt(20) % 4) {
+        switch (fMd5String.charAt(30) % 4) {
             case 0:     // Paint circles depending on the number of words.
                 for (int i = 0; i < fNumOfWords; i++) {
                     int alpha = (int) (((i + 1f) / fNumOfWords) * 120f);
@@ -116,9 +116,9 @@ public class MicopiGenerator {
                         Color.BLACK,
                         255 - (fMd5String.charAt(19) * 2),
                         (0.3f - (float) fFirstChar / 255f),
-                        (0.3f - (float) fMd5String.charAt(25) / 255f),
-                        (0.3f - (float) fMd5String.charAt(26) / 255f),
-                        Math.max(5, fMd5String.charAt(27) >> 2)
+                        (0.3f - (float) fMd5String.charAt(23) / 255f),
+                        (0.3f - (float) fMd5String.charAt(24) / 255f),
+                        Math.max(5, fMd5String.charAt(25) >> 2)
                 );
                 break;
             case 2:
@@ -142,7 +142,7 @@ public class MicopiGenerator {
         INITIAL LETTER ON CIRCLE
          */
 
-        MicopiPainter.paintCentralCircle(fCanvas, fBackgroundColor, (255 - fMd5String.charAt(27) * 2));
+        MicopiPainter.paintCentralCircle(fCanvas, fBackgroundColor, (255 - fMd5String.charAt(29) * 2));
         MicopiPainter.paintChars(fCanvas, new char[]{fFirstChar}, Color.WHITE);
 
         return fBitmap;
@@ -154,15 +154,14 @@ public class MicopiGenerator {
         final String fMd5String = fContact.getMD5EncryptedString();
         final int fMd5Length    = fMd5String.length();
 
-        //TODO: Distribute charAt indices.
         final int fColor1 = ColorCollection.generateColor(
                 fContact.getFullName().charAt(0),
-                fMd5String.charAt(12),
+                fMd5String.charAt(10),
                 fContact.getNumberOfNameWords(),
-                fMd5String.charAt(13)
+                fMd5String.charAt(11)
         );
         final int fColor2 = Color.WHITE;
-        final int fColor3 = ColorCollection.getCandyColorForChar(fMd5String.charAt(14));
+        final int fColor3 = ColorCollection.getCandyColorForChar(fMd5String.charAt(16));
 
         int md5Pos = 0;
         for (int y = 0; y < 5; y++) {
@@ -339,7 +338,7 @@ public class MicopiGenerator {
         final float fImageSize = canvas.getWidth();
         final String fMd5String = contact.getMD5EncryptedString();
         final int fFirstNameLength = contact.getNameWord(0).length();
-        final float fStrokeWidth = fMd5String.charAt(19) * 2f;
+        final float fStrokeWidth = fMd5String.charAt(12) * 2f;
         final float circleDistance = (fImageSize / fFirstNameLength)
                 + (fImageSize / (fFirstNameLength * 2f));
 
