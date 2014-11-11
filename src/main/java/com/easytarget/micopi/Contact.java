@@ -20,7 +20,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -42,10 +41,12 @@ import java.security.NoSuchAlgorithmException;
  * Created by Michel on 03.02.14.
  */
 public class Contact implements Parcelable{
+    /**
+     * General log tag for Contact class
+     */
     private final static String DEBUG_TAG = "Contact";
 
     private Context mContext;
-    //private Uri mContactUri = null;
     private String mContactId = "";
     private String[] mNameParts;
     private boolean mHasPhoto = false;
@@ -60,23 +61,28 @@ public class Contact implements Parcelable{
 
     private static final String DEBUG_TAG_QUERY = "Contact Query";
 
-    public Contact(Context context, Intent data) {
+    /**
+     * Constructs a contact by getting the contact ID from the Intent data
+     *
+     * @param fContext Context used to get ContentResolver
+     * @param fData Contains picked contact URI
+     */
+    public Contact(final Context fContext, final Intent fData) {
         // The received data contains the URI of the chosen contact.
         // The last part of the URI contains the contact's ID.
-        this(context, data.getData().getLastPathSegment());
-        //mContactUri = data.getData();
+        this(fContext, fData.getData().getLastPathSegment());
     }
 
     /**
-     * Constructor Method
+     * Constructs a contact by querying the database for the given ID
      *
-     * @param c Context
-     * @param data Data from people list (device contacts)
+     * @param fContext Context used to get ContentResolver
+     * @param fContactId Picked contact ID
      */
-    public Contact(Context context, String contactId) {
-        mContext = context;
+    public Contact(final Context fContext, final String fContactId) {
+        mContext = fContext;
         mMd5IsNew = true;
-        mContactId = contactId;
+        mContactId = fContactId;
 
         /*
         CONTACTS DB QUERY
@@ -95,12 +101,12 @@ public class Contact implements Parcelable{
                 ContactsContract.Contacts.CONTENT_URI,
                 contactsProjection,
                 ContactsContract.Contacts._ID + "=?",
-                new String[] {contactId},
+                new String[] {fContactId},
                 null
         );
 
         if(contactsCursor == null) {
-            Log.e(DEBUG_TAG_QUERY, "ERROR: contactsCursor is null. Contact: " + contactId);
+            Log.e(DEBUG_TAG_QUERY, "ERROR: contactsCursor is null. Contact: " + fContactId);
             return;
         }
 
@@ -136,7 +142,7 @@ public class Contact implements Parcelable{
 
             contactsCursor.close();
         } else {
-            Log.e(DEBUG_TAG_QUERY, "ERROR: Cannot move contactsCursor. Contact: " + contactId);
+            Log.e(DEBUG_TAG_QUERY, "ERROR: Cannot move contactsCursor. Contact: " + fContactId);
             return;
         }
 
@@ -152,13 +158,13 @@ public class Contact implements Parcelable{
                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                     new String[] {ContactsContract.CommonDataKinds.Phone.NUMBER},
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?",
-                    new String[] {contactId},
+                    new String[] {fContactId},
                     null
             );
 
             if (phoneCursor == null) {
                 // Something went wrong. The cursor is null after querying.
-                Log.w(DEBUG_TAG_QUERY, "WARNING: phoneCursor is null. Contact: " + contactId);
+                Log.w(DEBUG_TAG_QUERY, "WARNING: phoneCursor is null. Contact: " + fContactId);
                 mPhoneNumber = "1234567890";
             } else if (phoneCursor.moveToFirst()) {
                 // The cursor moved into the first entry.
@@ -172,7 +178,7 @@ public class Contact implements Parcelable{
                 phoneCursor.close();
             } else {
                 // Something went wrong. The cursor is not null but cannot go into the first entry.
-                Log.w(DEBUG_TAG_QUERY, "WARNING: phoneCursor cannot move. Contact: " + contactId);
+                Log.w(DEBUG_TAG_QUERY, "WARNING: phoneCursor cannot move. Contact: " + fContactId);
                 mPhoneNumber = "1234567891";
                 phoneCursor.close();
             }
@@ -186,12 +192,12 @@ public class Contact implements Parcelable{
                 ContactsContract.CommonDataKinds.Email.CONTENT_URI,
                 new String[] {ContactsContract.CommonDataKinds.Email.DATA},
                 ContactsContract.CommonDataKinds.Email.CONTACT_ID + "=?",
-                new String[] {contactId},
+                new String[] {fContactId},
                 null
         );
 
         if(emailCursor == null) {
-            Log.w(DEBUG_TAG_QUERY, "WARNING: emailCursor is null. Contact: " + contactId);
+            Log.w(DEBUG_TAG_QUERY, "WARNING: emailCursor is null. Contact: " + fContactId);
         } else if(emailCursor.moveToFirst()) {
             final int emailIndex = emailCursor.getColumnIndex(
                     ContactsContract.CommonDataKinds.Email.DATA
@@ -201,7 +207,7 @@ public class Contact implements Parcelable{
             Log.i(DEBUG_TAG_QUERY, "E-Mail Address: " + mEmailAddress);
             emailCursor.close();
         } else {
-            Log.w(DEBUG_TAG_QUERY, "WARNING: emailCursor cannot move. Contact: " + contactId);
+            Log.w(DEBUG_TAG_QUERY, "WARNING: emailCursor cannot move. Contact: " + fContactId);
             emailCursor.close();
         }
 
@@ -221,7 +227,7 @@ public class Contact implements Parcelable{
                 ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY + " and "+
                 ContactsContract.CommonDataKinds.Event.MIMETYPE + " = '" +
                 ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE + "' and " +
-                ContactsContract.Data.CONTACT_ID + " = " + contactId;
+                ContactsContract.Data.CONTACT_ID + " = " + fContactId;
 
         final Cursor birthdayCursor = mContext.getContentResolver().query(
                 ContactsContract.Data.CONTENT_URI,
@@ -233,7 +239,7 @@ public class Contact implements Parcelable{
 
         // If the cursor found something, get START_DATE of the query result.
         if (birthdayCursor == null) {
-            Log.w(DEBUG_TAG_QUERY, "WARNING: birthdayCursor is null. Contact: " + contactId);
+            Log.w(DEBUG_TAG_QUERY, "WARNING: birthdayCursor is null. Contact: " + fContactId);
         } else if (birthdayCursor.moveToNext()) {
             final int birthdayIndex = birthdayCursor.getColumnIndex(
                     ContactsContract.CommonDataKinds.Event.START_DATE
@@ -243,7 +249,7 @@ public class Contact implements Parcelable{
             Log.i(DEBUG_TAG_QUERY, "Birthday: " + mBirthday);
             birthdayCursor.close();
         } else {
-            Log.w(DEBUG_TAG_QUERY, "WARNING: birthdayCursor cannot move. Contact: " + contactId);
+            Log.w(DEBUG_TAG_QUERY, "WARNING: birthdayCursor cannot move. Contact: " + fContactId);
             birthdayCursor.close();
         }
 
@@ -252,7 +258,7 @@ public class Contact implements Parcelable{
          */
 
         if (mFullName == null) {
-            Log.e(DEBUG_TAG_QUERY, "ERROR: Didn't find user name. Contact ID: " + contactId);
+            Log.e(DEBUG_TAG_QUERY, "ERROR: Didn't find user name. Contact ID: " + fContactId);
             return;
         }
         mNameParts = mFullName.split(" ");
@@ -265,13 +271,15 @@ public class Contact implements Parcelable{
     PARCELABLE INTERFACE IMPLEMENTATION
      */
 
+    /**
+     * Definition for parceling of boolean values
+     */
     private static final String TRUE_STRING = "TRUE";
 
     public Contact(Parcel in){
         String[] data = new String[9];
 
         in.readStringArray(data);
-        //mContactUri = Uri.parse(data[0]);
         mContactId = data[0];
         mFullName = data[1];
         mPhoneNumber = data[2];
@@ -283,8 +291,6 @@ public class Contact implements Parcelable{
         mMd5String = data[8];
         mHasPhoto = (data[9].equals(TRUE_STRING));
     }
-
-    //TODO: Figure out useful usage of describeContents & flags.
 
     @Override
     public int describeContents(){
@@ -314,35 +320,45 @@ public class Contact implements Parcelable{
         dest.writeStringArray(dataStrings);
     }
 
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Contact createFromParcel(Parcel in) {
+            return new Contact(in);
+        }
+
+        public Contact[] newArray(int size) {
+            return new Contact[size];
+        }
+    };
+
     /*
     GETTER / SETTER
      */
 
     /**
+     * Returns a certain word from the name
      *
-     * @param partNumber Array index
+     * @param fWordIndex Array index
      * @return A part of the contact's name
      */
-    public String getNamePart(int partNumber) {
+    public String getNameWord(final int fWordIndex) {
         if (mNameParts == null) {
             Log.e(DEBUG_TAG, "ERROR: Array of name parts is null.");
             return "";
         }
 
-        if (partNumber < mNameParts.length) {
-            Log.d(DEBUG_TAG, "Returning name part " + partNumber + " " + mNameParts[partNumber]);
-            return mNameParts[partNumber];
+        if (fWordIndex < mNameParts.length) {
+            Log.d(DEBUG_TAG, "Returning name part " + fWordIndex + " " + mNameParts[fWordIndex]);
+            return mNameParts[fWordIndex];
         } else {
-            Log.e(DEBUG_TAG, "ERROR: Name does not contain part number " + partNumber + ".");
+            Log.e(DEBUG_TAG, "ERROR: Name does not contain part number " + fWordIndex + ".");
             return "";
         }
     }
 
     /**
-     *
      * @return The number of all words/name parts in the contact's name
      */
-    public int getNumberOfNameParts() {
+    public int getNumberOfNameWords() {
         if (mNameParts == null) return 0;
         else return mNameParts.length;
     }
@@ -361,29 +377,27 @@ public class Contact implements Parcelable{
         // If no other contact attribute changed, don't re-calculate the MD5 value.
         if (!mMd5IsNew) return mMd5String;
 
-        String combinedString = mFullName + mEmailAddress + mPhoneNumber + mBirthday
+        String combinedInfo = mFullName + mEmailAddress + mPhoneNumber + mBirthday
                 + mTimesContacted + mRetryFactor;
 
 
         try {
             // Initialise and perform MD5 encryption.
-            MessageDigest dEnc = MessageDigest.getInstance("MD5");
+            final MessageDigest fDigest = MessageDigest.getInstance("MD5");
             byte[] combinedBytes;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                combinedBytes = combinedString.getBytes(Charset.forName("ISO-8859-1"));
+                combinedBytes = combinedInfo.getBytes(Charset.forName("ISO-8859-1"));
             } else {
-                combinedString = combinedString.replaceAll("[^\\x00-\\x7F]", "_");
-                combinedBytes = combinedString.getBytes();
+                combinedInfo = combinedInfo.replaceAll("[^\\x00-\\x7F]", "_");
+                combinedBytes = combinedInfo.getBytes();
             }
-            Log.d(DEBUG_TAG, "Generating new MD5 from " + combinedString);
+            Log.d(DEBUG_TAG, "Generating new MD5 from " + combinedInfo);
 
             // MD5-Encryption:
-            dEnc.update(combinedBytes, 0, combinedString.length());
-            String md5EncString = new BigInteger(1, dEnc.digest()).toString( 16 );
+            fDigest.update(combinedBytes, 0, combinedInfo.length());
+            mMd5String = new BigInteger(1, fDigest.digest()).toString(16);
 
-            if (md5EncString.length() >= 32) mMd5String = md5EncString;
-            else mMd5String = md5EncString + mFullName;
-
+            while (mMd5String.length() < 32) mMd5String += mFullName;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -393,6 +407,9 @@ public class Contact implements Parcelable{
         return mMd5String;
     }
 
+    /**
+     * Log tag for assignImage() method
+     */
     private static final String DEBUG_TAG_ASSIGN = "assignImage()";
 
     /**
@@ -503,11 +520,21 @@ public class Contact implements Parcelable{
         return true;
     }
 
+
     /**
-     * Alter the retry factor, so the next MD5 string will change significantly.
+     * Definition of step sized to be used by modifyRetryFactor()
      */
-    public void modifyRetryFactor() {
+    private static final int RETRY_STEP = 9;
+
+    /**
+     * Alters the retry factor, so the next MD5 string will change significantly
+     * Can be used to get back to last picture by setting forward boolean to false
+     *
+     * @param fDoMoveForward If true, increase x steps. If false, decrease x steps.
+     */
+    public void modifyRetryFactor(final boolean fDoMoveForward) {
         mMd5IsNew = true;
-        mRetryFactor++;
+        if (fDoMoveForward) mRetryFactor += RETRY_STEP;
+        else mRetryFactor -= RETRY_STEP;
     }
 }

@@ -4,21 +4,26 @@
     <item android:id="@+id/action_assign"
         android:icon="@drawable/ic_done_white_36dp"
         android:title="@string/assign_button_label"
-        micopi:showAsAction="ifRoom|withText"/>
+        micopi:showAsAction="always|withText"/>
 
-    <item android:id="@+id/action_retry"
-        android:icon="@drawable/ic_autorenew_white_36dp"
-        android:title="@string/retry_button_label"
-        micopi:showAsAction="ifRoom|withText"/>
+    <item android:id="@+id/action_previous_image"
+        android:icon="@drawable/ic_arrow_back_white_36dp"
+        android:title="@string/button_previous_image"
+        micopi:showAsAction="always"/>
+
+    <item android:id="@+id/action_next_image"
+        android:icon="@drawable/ic_arrow_forward_white_36dp"
+        android:title="@string/button_next_image"
+        micopi:showAsAction="always"/>
 
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_search_white_36dp"
         android:title="@string/contact_button_label"
-        micopi:showAsAction="ifRoom" />
+        micopi:showAsAction="ifRoom|withText" />
 
     <item android:id="@+id/action_save"
         android:icon="@drawable/ic_save_white_36dp"
         android:title="@string/save_button_label"
-        micopi:showAsAction="ifRoom" />
+        micopi:showAsAction="ifRoom|withText" />
 
 </menu>

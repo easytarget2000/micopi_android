@@ -42,6 +42,7 @@
     <string name="error_assign">
         An error occurred while assigning this picture to the contact.</string>
 
-    <string name="retry_button_label">Retry</string>
+    <string name="button_previous_image">Previous Image</string>
+    <string name="button_next_image">Next Image</string>
 
 </resources>

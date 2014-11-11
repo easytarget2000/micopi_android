@@ -71,14 +71,12 @@ public class ColorCollection {
 
         // If the given character is between lower case a and z,
         // subtract the index difference to the upper case characters.
-        if (c >= 'a' && c <= 'z') {
-            c -= 32;
-        }
+        if (c >= 'a' && c <= 'z') c -= 32;
 
         final int index = c % (CANDY_PALETTE.length - 1);
 
         int color = CANDY_PALETTE[index];
-        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
+//        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
 
         return color;
     }

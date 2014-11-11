@@ -48,25 +48,86 @@ import java.util.Date;
 
 /**
  * Activity that displays the generated image and all the options.
+ *
+ * Created by Michel on 03.02.14.
  */
 public class MainActivity extends ActionBarActivity {
-    // Keys for instance saving and restoration:
+
+    /**
+     * Key for Contact object, used for instance saving and restoration
+     */
     private static final String STORED_CONTACT  = "storedContact";
+
+    /**
+     * Key for image object, used for instance saving and restoration
+     */
     private static final String STORED_IMAGE    = "storedImage";
+
+    /**
+     * Key for boolean object, used for instance saving and restoration
+     */
     private static final String STORED_PICKED   = "storedPicked";
+
+    /**
+     * Key for screen width, used for instance saving and restoration
+     */
     private static final String STORED_WIDTH    = "storedWidth";
 
+    /**
+     * This activity is the general Context
+     */
     private Context mContext = this;
-    private static final int PICK_CONTACT = 1;      // Return code of contact picker
-    private TextView mNameTextView, mDescriptionTextView;
-    private ImageView mIconImageView;
-    private Contact mContact;
-    private boolean mHasPickedContact   = false;        // Will be set to false after first contact
-    private Bitmap mGeneratedBitmap     = null;         // Generated image
-    private boolean mGuiIsLocked        = false;        // Keeps the user from performing input
-    private Date backButtonDate;    // Last time the back button was pressed
-    private int mScreenWidthInPixels    = -1;           // Horizontal resolution of portrait mode
 
+    /**
+     * Displays the contact name
+     */
+    private TextView mNameTextView;
+
+    /**
+     * Displays a small description text
+     */
+    private TextView mDescriptionTextView;
+
+    /**
+     * Displays the generated image
+     */
+    private ImageView mIconImageView;
+
+    /**
+     * Currently handled contact
+     */
+    private Contact mContact;
+
+    /**
+     * Will be set to false after first contact
+     */
+    private boolean mHasPickedContact = false;
+
+    /**
+     * Generated image
+     */
+    private Bitmap mGeneratedBitmap = null;
+
+    /**
+     * Keeps the user from performing any input while performing a task such as generating an image
+     */
+    private boolean mGuiIsLocked = false;
+
+    /**
+     * Last time the back button was pressed
+     */
+    private Date backButtonDate;
+
+    /**
+     * Horizontal resolution of portrait mode
+     */
+    private int mScreenWidthInPixels = -1;
+
+    /*
+    ACTIVITY OVERRIDES
+     */
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.w("MainActivity: onCreate()", "ONCREATE");
         super.onCreate(savedInstanceState);
@@ -105,12 +166,13 @@ public class MainActivity extends ActionBarActivity {
             pickContact();
         }
 
-        //TODO: Apply colours.
     }
 
+    /**
+     * Populates the GUI elements
+     */
     private void showContactData() {
-        Drawable generatedDrawable = new BitmapDrawable(
-                getResources(), mGeneratedBitmap);
+        Drawable generatedDrawable = new BitmapDrawable(getResources(), mGeneratedBitmap);
         mIconImageView.setImageDrawable(generatedDrawable);
 
         // Populate and show the text views.
@@ -155,8 +217,12 @@ public class MainActivity extends ActionBarActivity {
                 case R.id.action_assign:
                     confirmAssignContactImage();
                     return true;
-                case R.id.action_retry:
-                    mContact.modifyRetryFactor();
+                case R.id.action_previous_image:
+                    mContact.modifyRetryFactor(false);
+                    new generateImageTask().execute();
+                    return true;
+                case R.id.action_next_image:
+                    mContact.modifyRetryFactor(true);
                     new generateImageTask().execute();
                     return true;
                 case R.id.action_search:
@@ -193,6 +259,10 @@ public class MainActivity extends ActionBarActivity {
         Log.d("MainActivity", "onSaveInstanceState()");
     }
 
+    /*
+    GUI ACTION
+     */
+
     /**
      * Locks / unlocks the GUI through boolean field and
      * hides / shows the progress bar.
@@ -205,6 +275,11 @@ public class MainActivity extends ActionBarActivity {
         if(isBusy) mLoadingCircle.setVisibility(View.VISIBLE);
         else mLoadingCircle.setVisibility(View.GONE);
     }
+
+    /**
+     * Return code of contact picker
+     */
+    private static final int PICK_CONTACT = 1;
 
     /**
      * Opens the contact picker and allows the user to chose a contact.
@@ -266,16 +341,15 @@ public class MainActivity extends ActionBarActivity {
         builder.show();
     }
 
-    //Threads that could block the GUI
+    /*
+    THREADS
+     */
 
     /**
      * Constructs a contact from the given Intent data.
      */
     private class generateImageTask extends AsyncTask<Void, Void, Bitmap> {
 
-        /**
-         * Show a blank GUI while generating an image.
-         */
         @Override
         protected void onPreExecute() {
             setGuiIsBusy(true);
@@ -290,10 +364,6 @@ public class MainActivity extends ActionBarActivity {
             setColor(defaultColor);
         }
 
-        /**
-         * Attempt to query the contact from the DB and
-         * if the contact object contains a name, generate a bitmap.
-         */
         @Override
         protected Bitmap doInBackground(Void... params) {
             if (mContact == null) {
@@ -324,10 +394,6 @@ public class MainActivity extends ActionBarActivity {
             return MicopiGenerator.generateBitmap(mContact, mScreenWidthInPixels);
         }
 
-        /**
-         * If a complete bitmap was generated, display it.
-         * @param generatedBitmap Bitmap to display and store for future usage
-         */
         @Override
         protected void onPostExecute(Bitmap generatedBitmap) {
             //If a new bitmap was generated, store it in the field,
@@ -356,23 +422,16 @@ public class MainActivity extends ActionBarActivity {
      */
     private class AssignContactImageTask extends AsyncTask< Void, Void, Boolean > {
 
-        /**
-         * Lock and hide the GUI.
-         */
         @Override
         protected void onPreExecute() {
             setGuiIsBusy(true);
         }
 
-        /** The system calls this to perform work in a worker thread and
-         * delivers it the parameters given to AsyncTask.execute() */
         @Override
         protected Boolean doInBackground(Void... params) {
             return mGeneratedBitmap != null && mContact.assignImage(mGeneratedBitmap);
         }
 
-        /** The system calls this to perform work in the UI thread and delivers
-         * the result from doInBackground() */
         @Override
         protected void onPostExecute(Boolean didSuccessfully) {
 
@@ -403,20 +462,11 @@ public class MainActivity extends ActionBarActivity {
      */
     private class SaveImageTask extends AsyncTask< Void, Void, String > {
 
-        /**
-         * Lock and hide the GUI.
-         */
         @Override
         protected void onPreExecute() {
             setGuiIsBusy(true);
         }
 
-        /**
-         * Perform the actual file saving process
-         *
-         * @param params Unused
-         * @return Full name of the saved image file
-         */
         @Override
         protected String doInBackground(Void... params) {
             String fileName = "";
@@ -434,11 +484,6 @@ public class MainActivity extends ActionBarActivity {
             return fileName;
         }
 
-        /**
-         * Displays a toast after saving the image
-         *
-         * @param fileName Full name of the saved image file
-         */
         @Override
         protected void onPostExecute(String fileName) {
             setGuiIsBusy(false);

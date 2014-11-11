@@ -22,9 +22,8 @@ import android.graphics.Color;
 import android.util.Log;
 
 /**
- * Functional class containing the methods to generate a seemingly random image
- * out of given contact values, such as name and telephone number.
- *
+ * Utility class that generates a seemingly random image out of given contact values, such as the
+ * name and a hash string.
  *
  * Created by Michel on 14.01.14.
  */
@@ -66,8 +65,6 @@ public class MicopiGenerator {
         MAIN PATTERN
         */
 
-//        generateSquareMatrix(fCanvas, fContact);
-
         switch (fMd5String.charAt(20) % 3) {
             case 1:
                 generateWanderingShapes(fCanvas, fContact);
@@ -84,12 +81,11 @@ public class MicopiGenerator {
         ADDITIONAL SHAPES
          */
 
-        final int fNumOfWords = fContact.getNumberOfNameParts();
+        final int fNumOfWords = fContact.getNumberOfNameWords();
         final float fCenterX = imageSize * (fMd5String.charAt(9) / 128f);
         final float fCenterY = imageSize * (fMd5String.charAt(3) / 128f);
         final float fOffset  = fMd5String.charAt(18) * 2f;
         final float fRadiusFactor = imageSize * 0.4f;
-        Log.d("Geometric Addition Center", fCenterX + " " + fCenterY);
 
         switch (fMd5String.charAt(20) % 4) {
             case 0:     // Paint circles depending on the number of words.
@@ -162,7 +158,7 @@ public class MicopiGenerator {
         final int fColor1 = ColorCollection.generateColor(
                 fContact.getFullName().charAt(0),
                 fMd5String.charAt(12),
-                fContact.getNumberOfNameParts(),
+                fContact.getNumberOfNameWords(),
                 fMd5String.charAt(13)
         );
         final int fColor2 = Color.WHITE;
@@ -235,7 +231,7 @@ public class MicopiGenerator {
     private static void generateWanderingShapes(Canvas canvas, Contact contact) {
         // If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
         // there is a 2/3 chance that polygons will be painted instead of circles.
-        final int numOfEdges = contact.getNamePart(0).length();
+        final int numOfEdges = contact.getNameWord(0).length();
         final String md5String = contact.getMD5EncryptedString();
 
         // Some pictures have polygon approximations instead of actual circles.
@@ -244,8 +240,8 @@ public class MicopiGenerator {
 
         // These characters will be used for color generating:
         final char colorChar1     = contact.getFullName().charAt(0);
-        final int lastNamePart    = contact.getNumberOfNameParts() - 1;
-        final char colorChar2     = contact.getNamePart(lastNamePart).charAt(0);
+        final int lastNamePart    = contact.getNumberOfNameWords() - 1;
+        final char colorChar2     = contact.getNameWord(lastNamePart).charAt(0);
 
         // Determine if the shapes will be painted filled or stroked.
         boolean paintFilled = false;
@@ -342,13 +338,13 @@ public class MicopiGenerator {
         // Prepare painting values based on image size and contact data.
         final float fImageSize = canvas.getWidth();
         final String fMd5String = contact.getMD5EncryptedString();
-        final int fFirstNameLength = contact.getNamePart(0).length();
+        final int fFirstNameLength = contact.getNameWord(0).length();
         final float fStrokeWidth = fMd5String.charAt(19) * 2f;
         final float circleDistance = (fImageSize / fFirstNameLength)
                 + (fImageSize / (fFirstNameLength * 2f));
 
         // Contact names with just one word will not get coloured circles.
-        final boolean fDoGenerateColor = contact.getNumberOfNameParts() > 1;
+        final boolean fDoGenerateColor = contact.getNumberOfNameWords() > 1;
 
         int md5Pos = 0;
         for (int y = 0; y < fFirstNameLength; y++) {
