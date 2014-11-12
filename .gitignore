@@ -18,3 +18,13 @@ build/
 
 # Local configuration file (sdk path, etc)
 local.properties
+
+# Android Studio
+.idea
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
