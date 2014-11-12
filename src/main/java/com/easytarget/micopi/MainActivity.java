@@ -43,6 +43,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.easytarget.micopi.engine.ColorUtilities;
+import com.easytarget.micopi.engine.ImageFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
@@ -391,7 +394,7 @@ public class MainActivity extends ActionBarActivity {
             }
             Log.d("Screen Width in Pixels", mScreenWidthInPixels + "");
 
-            return MicopiGenerator.generateBitmap(mContact, mScreenWidthInPixels);
+            return ImageFactory.generateBitmap(mContact, mScreenWidthInPixels);
         }
 
         @Override

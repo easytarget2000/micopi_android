@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi;
+package com.easytarget.micopi.engine;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -32,7 +32,7 @@ import android.util.FloatMath;
  *
  * Created by Michel on 23.01.14.
  */
-public class MicopiPainter {
+public class Painter {
 
     public static void paintSquare(
             final Canvas fCanvas,

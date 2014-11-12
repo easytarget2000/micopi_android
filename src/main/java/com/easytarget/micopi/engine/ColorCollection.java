@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi;
+package com.easytarget.micopi.engine;
 
 import android.graphics.Color;
-import android.util.Log;
 
 /**
  * Created by michel on 27/10/14.
  *
- * Contains the color definitions and getter-generators that will be used by MicopiGenerator
+ * Contains the color definitions and getter-generators that will be used by ImageFactory
  *
  */
 public class ColorCollection {
