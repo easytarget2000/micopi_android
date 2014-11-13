@@ -39,6 +39,16 @@ public class ImageFactory {
      * @return The completed, generated image as a bitmap to be used by the GUI and contact handler.
      */
     public static Bitmap generateBitmap(final Contact fContact, final int fScreenWidthInPixels) {
+        if (fContact == null) {
+            Log.e("ImageFactory", "ERROR: Contact object is null. Returning null image.");
+            return null;
+        }
+
+        if (fContact.getFullName().length() < 1) {
+            Log.e("ImageFactory", "ERROR: Contact name < 1. Returning null image.");
+            return null;
+        }
+
         // Determine the image side length, roughly depending on the screen width.
         // Old devices should not be unnecessarily strained,
         // but if the user takes these account pictures to another device,
@@ -68,19 +78,19 @@ public class ImageFactory {
         MAIN PATTERN
         */
 
-        StripeCandyGenerator.generate(fCanvas, fContact);
+//        StripeCandyGenerator.generate(fCanvas, fContact);
 
-//        switch (fMd5String.charAt(4) % 3) {
-//            case 1:
-//                WanderingShapesGenerator.generate(fCanvas, fContact);
-//                break;
-//            case 2:
-//                SquareMatrixGenerator.generate(fCanvas, fContact);
-//                break;
-//            default:
-//                CircleMatrixGenerator.generate(fCanvas, fContact);
-//                break;
-//        }
+        switch (fMd5String.charAt(4) % 3) {
+            case 1:
+                WanderingShapesGenerator.generate(fCanvas, fContact);
+                break;
+            case 2:
+                SquareMatrixGenerator.generate(fCanvas, fContact);
+                break;
+            default:
+                CircleMatrixGenerator.generate(fCanvas, fContact);
+                break;
+        }
 
         /*
         ADDITIONAL SHAPES

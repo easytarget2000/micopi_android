@@ -27,7 +27,8 @@
         android:id="@+id/iconImageView"
         android:contentDescription="@string/image_description"
         android:layout_centerVertical="true"
-        android:src="@drawable/micopi_logo"
+        android:layout_marginLeft="@dimen/activity_large_margin"
+        android:layout_marginStart="@dimen/activity_large_margin"
         android:adjustViewBounds="true"/>
 
     <ProgressBar

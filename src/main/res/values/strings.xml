@@ -25,7 +25,7 @@
     <string name="no_contact_selected">No contact selected</string>
     <string name="image_description">Calculated contact picture</string>
     <string name="contact_button_label">Pick a contact</string>
-    <string name="crawl_button_label">Generate all contact pictures</string>
+    <!--<string name="crawl_button_label">Generate all contact pictures</string>-->
     <string name="save_button_label">Save image as file</string>
     <string name="assign_button_label">Assign to contact</string>
     <string name="overwrite_dialog">Do you want to assign this contact photo to %s?</string>

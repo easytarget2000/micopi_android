@@ -343,7 +343,7 @@ public class Contact implements Parcelable{
     public String getNameWord(final int fWordIndex) {
         if (mNameParts == null) {
             Log.e(DEBUG_TAG, "ERROR: Array of name parts is null.");
-            return "";
+            return getFullName();
         }
 
         if (fWordIndex < mNameParts.length) {
@@ -351,7 +351,7 @@ public class Contact implements Parcelable{
             return mNameParts[fWordIndex];
         } else {
             Log.e(DEBUG_TAG, "ERROR: Name does not contain part number " + fWordIndex + ".");
-            return "";
+            return getFullName();
         }
     }
 
@@ -364,10 +364,16 @@ public class Contact implements Parcelable{
     }
 
     /**
-     * @return The name string of this contact instance.
+     * @return The name of this contact
      */
     public String getFullName() {
-        return mFullName;
+        if (mFullName == null) {
+            if (mPhoneNumber != null) return mPhoneNumber;
+            else return "Unknown";
+        } else {
+            if (mFullName.length() > 0) return mFullName;
+            else return "Unknown";
+        }
     }
 
     /**
