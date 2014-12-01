@@ -17,6 +17,7 @@
 package com.easytarget.micopi.engine;
 
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * Created by michel on 27/10/14.
@@ -28,25 +29,30 @@ public class ColorCollection {
 
     /**
      * Based on colour palette from google.com/design/spec/style/color.html
+     * Excuse the colour names.
+     * These are just used to make sure that colours "next to each other" are not too similar.
      */
     public static final int CANDY_PALETTE[] = {
-            0xFF3f51B5,
-            0xFFE51C23,
-            0xFFE91E63,
-            0xFF9C27B0,
-            0xFF673AB7,
-            0xFF607D8B,
-            0xFF5677fC,
-            0xFF03A9f4,
-            0xFF00BCD4,
-            0xFF259B24,
-            0xFFCDDC39,
-            0xFF8BC34A,
-            0xFFffEB3B,
-            0xFFffC107,
-            0xFFff9800,
-            0xFFff5722,
-            0xFF795548,
+            0xFF3f51B5, // Navy blue
+            0xFFAEEA00, // Neon yellow-green
+            0xFFE91E63, // Salmon
+            0xFFFFD600, // Cinnamon yellow
+            0xFF9C27B0, // Purple
+            0xFFDD2C00, // Dark deep-orange
+            0xFF673AB7, // Blue-purple
+            0xFFFFC107, // Pale orange
+            0xFF84FFFF, // Light cyan
+            0xFFFF9800, // Neon orange
+            0xFF5677FC, // Blue
+            0xFFAD1457, // Dark pink
+            0xFFFFEB3B, // Pale yellow
+            0xFF03A9f4, // Baby blue
+            0xFFFFA726, // Orange
+            0xFF259B24, // Woodruff
+            0xFFCDDC39, // Spring green
+            0xFF8BC34A, // Light green
+            0xFFFF5722, // Neon red
+            0xFFC6FF00, // Less-pale yellow
     };
 
     /**
@@ -75,7 +81,7 @@ public class ColorCollection {
         final int index = c % (CANDY_PALETTE.length - 1);
 
         int color = CANDY_PALETTE[index];
-//        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
+        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
 
         return color;
     }

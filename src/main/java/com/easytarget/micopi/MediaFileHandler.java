@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.FileOutputStream;
 
 /**
  * Created by michel on 27/10/14.
+ *
  */
 public class MediaFileHandler implements MediaScannerConnection.MediaScannerConnectionClient{
     private MediaScannerConnection mConnection;
@@ -21,10 +23,15 @@ public class MediaFileHandler implements MediaScannerConnection.MediaScannerConn
     /**
      * Saves the generated image to a file.
      */
-    public String saveContactImageFile(Context context, Bitmap bitmap, String name, char md5Char) {
-        mContext = context;
+    public String saveContactImageFile(
+            @NonNull final Context fContext,
+            @NonNull Bitmap bitmap,
+            @NonNull final String fName,
+            final char fAppendix
+    ) {
+        mContext = fContext;
 
-        String strFileName = name.replace( ' ', '_' ) + "-" + md5Char + ".png";
+        String strFileName = fName.replace( ' ', '_' ) + "-" + fAppendix + ".png";
 
         // Files will be stored in the /sdcard/micopi dir.
         File micopiFolder = new File( Environment.getExternalStorageDirectory() + "/micopi/" );
@@ -51,25 +58,20 @@ public class MediaFileHandler implements MediaScannerConnection.MediaScannerConn
      * Makes the saved picture appear in Android's gallery.
      * @param file  Scan this file for media content
      */
-    private void performMediaScan(File file) {
+    private void performMediaScan(@NonNull File file) {
+        if (mContext == null) return;
+        if (mConnection == null) return;
+
         mFileName = file.getAbsolutePath();
-        mConnection = new MediaScannerConnection( mContext, this );
+        mConnection = new MediaScannerConnection(mContext, this);
         mConnection.connect();
     }
 
-    /**
-     *
-     */
     @Override
     public void onMediaScannerConnected() {
         mConnection.scanFile(mFileName, null);
     }
 
-    /**
-     *
-     * @param path
-     * @param uri
-     */
     @Override
     public void onScanCompleted(String path, Uri uri) {
         mConnection.disconnect();

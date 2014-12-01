@@ -27,6 +27,12 @@ import com.easytarget.micopi.Contact;
 public class SquareMatrixGenerator {
 
     /**
+     * Number of squares per row (number of columns) and number of rows;
+     * total number of painted squares is this value squared
+     */
+    private static final int NUM_OF_SQUARES = 5;
+
+    /**
      * Fills a canvas with retro-styled squares
      *
      * @param fCanvas Canvas to draw on
@@ -46,7 +52,7 @@ public class SquareMatrixGenerator {
         final int fColor2 = Color.WHITE;
         final int fColor3 = ColorCollection.getCandyColorForChar(fMd5String.charAt(16));
 
-        int numOfSquares = 5;
+        int numOfSquares = NUM_OF_SQUARES;
         if (fContact.getNameWord(0).length() % 2 == 0) numOfSquares -= 1;
         final float fImageSizeDiv = fCanvas.getWidth() / numOfSquares;
 

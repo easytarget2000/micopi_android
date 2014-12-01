@@ -72,7 +72,7 @@ public class WanderingShapesGenerator {
         float y = x;
 
         // The amount of double shapes that will be painted; at least 10, no more than 25.
-        int numberOfShapes = contact.getFullName().length() * 4;
+        int numberOfShapes = contact.getNumberOfLetters() * 4;
         numberOfShapes = Math.min(numberOfShapes, 25);
         while (numberOfShapes < 10) numberOfShapes *= 2;
         Log.d("Number of Circle Scape shapes", contact.getFullName() + " " + numberOfShapes);

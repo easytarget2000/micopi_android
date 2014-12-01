@@ -37,17 +37,25 @@ public class CircleMatrixGenerator {
         // Prepare painting values based on image size and contact data.
         final float fImageSize = canvas.getWidth();
         final String fMd5String = contact.getMD5EncryptedString();
-        final int fFirstNameLength = contact.getNameWord(0).length();
+
+        // Use the length of the first name as the number of shapes per row and column.
+        int shapesPerRow = contact.getNameWord(0).length();
+        // If the first name is too short, use the length of the entire name.
+        if (shapesPerRow < 5) shapesPerRow = contact.getNumberOfLetters();
+        // If the full name is too short, double the amount of letters.
+        if (shapesPerRow < 6) shapesPerRow *= 2;
+
+
         final float fStrokeWidth = fMd5String.charAt(12) * 2f;
-        final float circleDistance = (fImageSize / fFirstNameLength)
-                + (fImageSize / (fFirstNameLength * 2f));
+        final float circleDistance = (fImageSize / shapesPerRow)
+                + (fImageSize / (shapesPerRow * 2f));
 
         // Contact names with just one word will not get coloured circles.
         final boolean fDoGenerateColor = contact.getNumberOfNameWords() > 1;
 
         int md5Pos = 0;
-        for (int y = 0; y < fFirstNameLength; y++) {
-            for (int x = 0; x < fFirstNameLength; x++) {
+        for (int y = 0; y < shapesPerRow; y++) {
+            for (int x = 0; x < shapesPerRow; x++) {
 
                 md5Pos++;
                 if (md5Pos >= fMd5String.length()) md5Pos = 0;
@@ -56,7 +64,7 @@ public class CircleMatrixGenerator {
                 int color = Color.WHITE;
                 if (fDoGenerateColor) color = ColorCollection.getCandyColorForChar(fMd5Char);
 
-                final int fIndex = y * fFirstNameLength + x;
+                final int fIndex = y * shapesPerRow + x;
                 float radius;
                 if ((fIndex & 1) == 0) radius = fMd5Char * 2f;
                 else radius = fMd5Char * 3f;

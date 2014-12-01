@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -44,13 +45,14 @@ public class Contact implements Parcelable{
     /**
      * General log tag for Contact class
      */
-    private final static String DEBUG_TAG = "Contact";
+    private final static String DEBUG_TAG = Contact.class.getSimpleName();
 
     private Context mContext;
     private String mContactId = "";
     private String[] mNameParts;
     private boolean mHasPhoto = false;
     private String mFullName = "";
+    private int mNumOfLetters = 1;
     private String mPhoneNumber = "555";
     private String mEmailAddress = "NE";
     private String mBirthday = "NB";
@@ -67,7 +69,7 @@ public class Contact implements Parcelable{
      * @param fContext Context used to get ContentResolver
      * @param fData Contains picked contact URI
      */
-    public Contact(final Context fContext, final Intent fData) {
+    public Contact(@NonNull final Context fContext, @NonNull final Intent fData) {
         // The received data contains the URI of the chosen contact.
         // The last part of the URI contains the contact's ID.
         this(fContext, fData.getData().getLastPathSegment());
@@ -79,7 +81,7 @@ public class Contact implements Parcelable{
      * @param fContext Context used to get ContentResolver
      * @param fContactId Picked contact ID
      */
-    public Contact(final Context fContext, final String fContactId) {
+    public Contact(@NonNull final Context fContext, @NonNull final String fContactId) {
         mContext = fContext;
         mMd5IsNew = true;
         mContactId = fContactId;
@@ -263,6 +265,12 @@ public class Contact implements Parcelable{
         }
         mNameParts = mFullName.split(" ");
 
+        // Count all the letters in the name that are not spaces.
+        mNumOfLetters = 0;
+        for (char c : mFullName.toCharArray()) {
+            if (c != ' ') mNumOfLetters++;
+        }
+
         // If the splitting didn't result in anything, just use the full name as one name part.
         if (mNameParts.length == 0) mNameParts = new String[] {mFullName};
     }
@@ -377,6 +385,15 @@ public class Contact implements Parcelable{
     }
 
     /**
+     * Should be used instead of getFullName().length()
+     *
+     * @return The number of actual letters, spaces excluded
+     */
+    public int getNumberOfLetters() {
+        return mNumOfLetters;
+    }
+
+    /**
      * @return The MD5 encoded value as a String.
      */
     public String getMD5EncryptedString() {
@@ -424,7 +441,7 @@ public class Contact implements Parcelable{
      * @param generatedBitmap This will be the new contact image.
      * @return TRUE if assignment was successful.
      */
-    public boolean assignImage( Bitmap generatedBitmap ) {
+    public boolean assignImage(@NonNull Bitmap generatedBitmap) {
 
         final Cursor rawContactCursor = mContext.getContentResolver().query(
                 ContactsContract.RawContacts.CONTENT_URI,
