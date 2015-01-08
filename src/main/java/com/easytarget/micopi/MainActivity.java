@@ -18,9 +18,11 @@ package com.easytarget.micopi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +34,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -44,9 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easytarget.micopi.engine.ColorUtilities;
-import com.easytarget.micopi.engine.ImageFactory;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 /**
@@ -56,83 +57,50 @@ import java.util.Date;
  */
 public class MainActivity extends ActionBarActivity {
 
-    /**
-     * Key for Contact object, used for instance saving and restoration
-     */
-    private static final String STORED_CONTACT  = "storedContact";
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    /**
-     * Key for image object, used for instance saving and restoration
-     */
-    private static final String STORED_IMAGE    = "storedImage";
+    /** Key for Contact object, used for instance saving and restoration */
+    private static final String STORED_CONTACT = "stored_contact";
 
-    /**
-     * Key for boolean object, used for instance saving and restoration
-     */
-    private static final String STORED_PICKED   = "storedPicked";
+    /** Key for boolean object, used for instance saving and restoration */
+    private static final String STORED_PICKED = "stored_picked";
 
-    /**
-     * Key for screen width, used for instance saving and restoration
-     */
-    private static final String STORED_WIDTH    = "storedWidth";
-
-    /**
-     * This activity is the general Context
-     */
+    /** This activity is the general Context */
     private Context mContext = this;
 
-    /**
-     * Displays the contact name
-     */
+    /** Displays the contact name */
     private TextView mNameTextView;
 
-    /**
-     * Displays a small description text
-     */
+    /** Displays a small description text */
     private TextView mDescriptionTextView;
 
-    /**
-     * Displays the generated image
-     */
+    /** Displays the generated image */
     private ImageView mIconImageView;
 
-    /**
-     * Currently handled contact
-     */
+    /** Currently handled contact */
     private Contact mContact;
 
-    /**
-     * Will be set to false after first contact
-     */
+    /** Will be set to false after first contact */
     private boolean mHasPickedContact = false;
-
-    /**
-     * Generated image
-     */
-    private Bitmap mGeneratedBitmap = null;
 
     /**
      * Keeps the user from performing any input while performing a task such as generating an image
      */
     private boolean mGuiIsLocked = false;
 
-    /**
-     * Last time the back button was pressed
-     */
+    /** Last time the back button was pressed */
     private Date backButtonDate;
 
-    /**
-     * Horizontal resolution of portrait mode
-     */
-    private int mScreenWidthPixels = -1;
+    /** Horizontal resolution of portrait mode */
+//    private int mScreenWidthPixels;
 
-    /*
-    ACTIVITY OVERRIDES
-     */
+    private String mImagePath;
+
+    private int mColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.w("MainActivity: onCreate()", "ONCREATE");
+//        Log.w("MainActivity: onCreate()", "ONCREATE");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -148,20 +116,23 @@ public class MainActivity extends ActionBarActivity {
             super.onRestoreInstanceState(savedInstanceState);
 
             // Restore state members from saved instance
-            byte[] imageBytes = savedInstanceState.getByteArray(STORED_IMAGE);
-            if (imageBytes != null) {
-                Log.d("MainActivity", "Restoring bitmap.");
-                mGeneratedBitmap        = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-            }
+//            byte[] imageBytes = savedInstanceState.getByteArray(STORED_IMAGE_PATH);
+//            if (imageBytes != null) {
+//                Log.d("MainActivity", "Restoring bitmap.");
+//                mGeneratedBitmap        = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+//            }
+            mColor                  = savedInstanceState.getInt(Constants.EXTRA_COLOR);
+            mImagePath              = savedInstanceState.getString(Constants.EXTRA_FILE_PATH);
             mContact                = savedInstanceState.getParcelable(STORED_CONTACT);
             mHasPickedContact       = savedInstanceState.getBoolean(STORED_PICKED);
-            mScreenWidthPixels = savedInstanceState.getInt(STORED_WIDTH);
+//            mScreenWidthPixels = savedInstanceState.getInt(STORED_WIDTH);
 
-            if (mHasPickedContact && mContact != null && mGeneratedBitmap != null) {
-                Log.d("Restoring generated bitmap", mGeneratedBitmap.getHeight() + "");
-                Log.d("Restoring contact object", mContact.getFullName());
-                showContactData();
-            }
+//            if (mHasPickedContact && mContact != null && mGeneratedBitmap != null) {
+//                Log.d("Restoring generated bitmap", mGeneratedBitmap.getHeight() + "");
+//                Log.d("Restoring contact object", mContact.getFullName());
+//                showContactData();
+//            }
+            showContactData();
         }
 
         if(!mHasPickedContact) {
@@ -171,20 +142,91 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_FINISHED_ASSIGN);
+        filter.addAction(Constants.ACTION_FINISHED_GENERATE);
+        registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mReceiver);
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setGuiIsBusy(false);
+
+            final String action = intent.getAction();
+            final boolean didSucceed = intent.getBooleanExtra(Constants.EXTRA_SUCCESS, false);
+
+            switch (action) {
+                case Constants.ACTION_FINISHED_GENERATE:
+                    if (didSucceed) {
+                        mImagePath = intent.getStringExtra(Constants.EXTRA_FILE_PATH);
+                        mColor = intent.getIntExtra(
+                                Constants.EXTRA_COLOR,
+                                0
+                        );
+                        showContactData();
+                    } else {
+                        mContact = null;
+                        mNameTextView.setText(R.string.no_contact_selected);
+                        if (getApplicationContext() != null) {
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    getResources().getString(R.string.error_generating),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                    }
+                    break;
+                case Constants.ACTION_FINISHED_ASSIGN:
+                    if (didSucceed) {
+                        Toast.makeText(getApplicationContext(),
+                                String.format(
+                                        getResources().getString(R.string.success_applying_image),
+                                        mContact.getFullName()),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    } else {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                getResources().getString(R.string.error_assign),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                    break;
+                default:
+                    Log.e(LOG_TAG, "Unknown action received: " + action);
+                    break;
+            }
+        }
+    };
+
+
     /**
      * Populates the GUI elements
      */
     private void showContactData() {
-        Drawable generatedDrawable = new BitmapDrawable(getResources(), mGeneratedBitmap);
-        mIconImageView.setImageDrawable(generatedDrawable);
-
+        if (mImagePath == null || mContact == null) {
+            Log.e(LOG_TAG, "No contact or image to show.");
+            return;
+        }
         // Populate and show the text views.
         mNameTextView.setText(mContact.getFullName());
         mNameTextView.setVisibility(View.VISIBLE);
         mDescriptionTextView.setVisibility(View.VISIBLE);
 
-        // Change the app colour to the average colour of the generated image.
-        setColor(ColorUtilities.getAverageColor(mGeneratedBitmap));
+        if (mColor == 0) mColor = getResources().getColor(R.color.primary);
+        setColor(mColor);
+
+        new ShowImageTask().execute();
     }
 
     @Override
@@ -222,11 +264,11 @@ public class MainActivity extends ActionBarActivity {
                     return true;
                 case R.id.action_previous_image:
                     mContact.modifyRetryFactor(false);
-                    new generateImageTask().execute();
+                    startGenerateImageTask();
                     return true;
                 case R.id.action_next_image:
                     mContact.modifyRetryFactor(true);
-                    new generateImageTask().execute();
+                    startGenerateImageTask();
                     return true;
                 case R.id.action_search:
                     pickContact();
@@ -242,20 +284,14 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        if (mGeneratedBitmap != null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            mGeneratedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] bytes = stream.toByteArray();
-            savedInstanceState.putByteArray(STORED_IMAGE, bytes);
-        } else {
-            savedInstanceState.putByteArray(STORED_IMAGE, null);
-        }
-
+        savedInstanceState.putInt(Constants.EXTRA_COLOR, mColor);
+        savedInstanceState.putString(Constants.EXTRA_FILE_PATH, mImagePath);
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
         savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
-        savedInstanceState.putInt(STORED_WIDTH, mScreenWidthPixels);
+//        savedInstanceState.putInt(STORED_WIDTH, mScreenWidthPixels);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -313,7 +349,39 @@ public class MainActivity extends ActionBarActivity {
             backButtonDate = null;
             mHasPickedContact = true;
             mContact = new Contact(mContext, data);
-            new generateImageTask().execute();
+            startGenerateImageTask();
+        }
+    }
+
+    private void startGenerateImageTask() {
+        setGuiIsBusy(true);
+        mIconImageView.setImageDrawable(null);
+
+        // Hide all text views.
+        mNameTextView.setVisibility(View.GONE);
+        mDescriptionTextView.setVisibility(View.GONE);
+
+        // Reset the activity colours.
+        int defaultColor = getResources().getColor(R.color.primary);
+        setColor(defaultColor);
+
+        new GenerateImageTask(mContext, mContact).execute(getScreenWidthPixels() , 0);
+    }
+
+    private int getScreenWidthPixels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            Configuration config = getResources().getConfiguration();
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+
+            // Store the height value as screen width, if in landscape mode.
+            if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                return (int) (config.screenWidthDp * dm.density);
+            } else {
+                return (int) (config.screenHeightDp * dm.density);
+            }
+        } else {
+            // On old android versions, a generic, small screen resolution is assumed.
+            return 480;
         }
     }
 
@@ -322,14 +390,15 @@ public class MainActivity extends ActionBarActivity {
      * Opens a YES/NO dialog for the user to confirm that the contact's image will be overwritten.
      */
     public void confirmAssignContactImage() {
+        if (mContact == null || mImagePath == null) return;
+
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-
             @Override
-            public void onClick(DialogInterface dialog, int iButton) {
-                if(iButton == DialogInterface.BUTTON_POSITIVE) {
-                    new AssignContactImageTask().execute();
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    setGuiIsBusy(true);
+                    new AssignContactImageTask(mContext).execute(mContact.getId(), mImagePath);
                 }
-
             }
         };
 
@@ -348,115 +417,17 @@ public class MainActivity extends ActionBarActivity {
     THREADS
      */
 
-    /**
-     * Constructs a contact from the given Intent data.
-     */
-    private class generateImageTask extends AsyncTask<Void, Void, Bitmap> {
-
-        @Override
-        protected void onPreExecute() {
-            setGuiIsBusy(true);
-            mIconImageView.setImageDrawable(null);
-
-            // Hide all text views.
-            mNameTextView.setVisibility(View.GONE);
-            mDescriptionTextView.setVisibility(View.GONE);
-
-            // Reset the activity colours.
-            int defaultColor = getResources().getColor(R.color.primary);
-            setColor(defaultColor);
-        }
-
+    private class ShowImageTask extends AsyncTask<Void, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(Void... params) {
-            if (mContact == null) {
-                Log.e("generateImageTask", "ERROR: Contact is null.");
-                return null;
-            }
-
-            // Calculate the horizontal pixels.
-            if (mScreenWidthPixels == -1) {
-                // Only bother checking the resolution for Android >= 3.0.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    Configuration config = getResources().getConfiguration();
-                    DisplayMetrics dm = getResources().getDisplayMetrics();
-
-                    // Store the height value as screen width, if in landscape mode.
-                    if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        mScreenWidthPixels = (int) (config.screenWidthDp * dm.density);
-                    } else {
-                        mScreenWidthPixels = (int) (config.screenHeightDp * dm.density);
-                    }
-                } else {
-                    // On old android versions, a generic, small screen resolution is assumed.
-                    mScreenWidthPixels = 480;
-                }
-            }
-//            Log.d("Screen Width in Pixels", mScreenWidthPixels + "");
-
-            return new ImageFactory(mContact, mScreenWidthPixels).generateBitmap();
+            return BitmapFactory.decodeFile(mImagePath);
         }
 
         @Override
-        protected void onPostExecute(Bitmap generatedBitmap) {
-            //If a new bitmap was generated, store it in the field,
-            //display it and show the contact name.
-
-            if(generatedBitmap != null) {
-                mGeneratedBitmap = generatedBitmap;
-                showContactData();
-            } else {
-                Log.e("ConstructContactAndGenerateImageTask", "generatedBitmap is null.");
-                mNameTextView.setText(R.string.no_contact_selected);
-                if(getApplicationContext() != null) {
-                    Toast.makeText(
-                            getApplicationContext(),
-                            getResources().getString(R.string.error_generating),
-                            Toast.LENGTH_LONG
-                   ).show();
-               }
-            }
-            setGuiIsBusy(false);
-        }
-    }
-
-    /**
-     * Assigns the bitmap to the contact.
-     */
-    private class AssignContactImageTask extends AsyncTask<Void, Void, Boolean > {
-
-        @Override
-        protected void onPreExecute() {
-            setGuiIsBusy(true);
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return mGeneratedBitmap != null && mContact.assignImage(mGeneratedBitmap);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean didSuccessfully) {
-
-            if(didSuccessfully && getApplicationContext() != null) {
-                Toast.makeText(getApplicationContext(),
-                        String.format(
-                                getResources().getString(R.string.success_applying_image),
-                                mContact.getFullName()),
-                        Toast.LENGTH_LONG
-               ).show();
-            } else if(!didSuccessfully && getApplicationContext() != null) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        getResources().getString(R.string.error_assign),
-                        Toast.LENGTH_LONG
-               ).show();
-            } else {
-                Log.e("AssignContactImageTask",
-                        "Could not assign the image AND applicationContext is null.");
-            }
-
-            setGuiIsBusy(false);
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            Drawable generatedDrawable = new BitmapDrawable(getResources(), bitmap);
+            mIconImageView.setImageDrawable(generatedDrawable);
         }
     }
 
@@ -472,26 +443,27 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            String fileName = "";
+            if (mImagePath == null) return null;
+            Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
 
-            if(mGeneratedBitmap != null && mContact != null) {
+            if(bitmap != null && mContact != null) {
                 MediaFileHandler fileHandler = new MediaFileHandler();
-                fileName = fileHandler.saveContactImageFile(
+                return fileHandler.saveContactImageFile(
                         mContext,
-                        mGeneratedBitmap,
+                        bitmap,
                         mContact.getFullName(),
                         mContact.getMD5EncryptedString().charAt(0)
                 );
             }
 
-            return fileName;
+            return null;
         }
 
         @Override
         protected void onPostExecute(String fileName) {
             setGuiIsBusy(false);
 
-            if(fileName.length() > 1) {
+            if (!TextUtils.isEmpty(fileName)) {
                 Toast.makeText(
                         mContext,
                         String.format(

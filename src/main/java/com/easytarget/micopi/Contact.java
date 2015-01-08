@@ -16,21 +16,18 @@
 
 package com.easytarget.micopi;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -66,13 +63,13 @@ public class Contact implements Parcelable{
     /**
      * Constructs a contact by getting the contact ID from the Intent data
      *
-     * @param fContext Context used to get ContentResolver
+     * @param context Context used to get ContentResolver
      * @param fData Contains picked contact URI
      */
-    public Contact(@NonNull final Context fContext, @NonNull final Intent fData) {
+    public Contact(@NonNull final Context context, @NonNull final Intent fData) {
         // The received data contains the URI of the chosen contact.
         // The last part of the URI contains the contact's ID.
-        this(fContext, fData.getData().getLastPathSegment());
+        this(context, fData.getData().getLastPathSegment());
     }
 
     /**
@@ -342,6 +339,10 @@ public class Contact implements Parcelable{
     GETTER / SETTER
      */
 
+    public String getId() {
+        return mContactId;
+    }
+
     /**
      * Returns a certain word from the name
      *
@@ -435,114 +436,6 @@ public class Contact implements Parcelable{
      */
     private static final String DEBUG_TAG_ASSIGN = "assignImage()";
 
-    /**
-     * Finds the contact's image entry and replaces it with the generated data.
-     *
-     * @param generatedBitmap This will be the new contact image.
-     * @return TRUE if assignment was successful.
-     */
-    public boolean assignImage(@NonNull Bitmap generatedBitmap) {
-
-        final Cursor rawContactCursor = mContext.getContentResolver().query(
-                ContactsContract.RawContacts.CONTENT_URI,
-                new String[]{ContactsContract.RawContacts._ID},
-                ContactsContract.RawContacts.CONTACT_ID + " = " + mContactId,
-                null,
-                null
-        );
-
-        Uri rawContactUri = null;
-
-        if(rawContactCursor != null) {
-            if(rawContactCursor.moveToFirst()) {
-                final Uri contentUri = ContactsContract.RawContacts.CONTENT_URI;
-                final String rawPath = "" + rawContactCursor.getLong(0);
-                rawContactUri = contentUri.buildUpon().appendPath(rawPath).build();
-            }
-            rawContactCursor.close();
-        } else {
-            Log.e(DEBUG_TAG_ASSIGN, "ERROR: rawContactCursor is null.");
-            return false;
-        }
-
-        // Create a byte stream from the generated image.
-        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        final byte[] photo = outputStream.toByteArray();
-
-        // Set the byte array as the raw contact's photo.
-        final ContentValues values = new ContentValues();
-        int photoRow = -1;
-
-        if(rawContactUri != null) {
-            Log.d(DEBUG_TAG_ASSIGN,
-                    "parseId(): " + ContentUris.parseId( rawContactUri )
-                            + " rawContactUri: " + rawContactUri.toString()
-                            + " contact ID: " + mContactId);
-
-            final String photoSelection = ContactsContract.Data.RAW_CONTACT_ID + " == " +
-                    ContentUris.parseId( rawContactUri ) + " AND " +
-                    ContactsContract.RawContacts.Data.MIMETYPE + "=='" +
-                    ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'";
-
-            final Cursor changePhotoCursor = mContext.getContentResolver().query(
-                    ContactsContract.Data.CONTENT_URI,
-                    null,
-                    photoSelection,
-                    null,
-                    null
-            );
-
-            if(changePhotoCursor != null) {
-                final int index = changePhotoCursor.getColumnIndex(ContactsContract.Data._ID);
-                if(index > 0 && changePhotoCursor.moveToFirst()) {
-                    photoRow = changePhotoCursor.getInt(index);
-                }
-                changePhotoCursor.close();
-            } else {
-                Log.e(DEBUG_TAG_ASSIGN, "ERROR: changePhotoCursor is null.");
-                return false;
-            }
-
-            values.put(
-                    ContactsContract.Data.RAW_CONTACT_ID,
-                    ContentUris.parseId(rawContactUri)
-            );
-            values.put(
-                    ContactsContract.Data.IS_SUPER_PRIMARY,
-                    1
-            );
-            values.put(
-                    ContactsContract.CommonDataKinds.Photo.PHOTO,
-                    photo
-            );
-            values.put(
-                    ContactsContract.Data.MIMETYPE,
-                    ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE
-            );
-        } else {
-            Log.e(DEBUG_TAG_ASSIGN, "ERROR: rawContactUri is null.");
-            return false;
-        }
-
-        if(photoRow >= 0){
-            mContext.getContentResolver().update(
-                    ContactsContract.Data.CONTENT_URI,
-                    values,
-                    ContactsContract.Data._ID + " = " + photoRow,
-                    null
-            );
-        } else {
-            Log.i(DEBUG_TAG_ASSIGN, "INFO: photoRow: " + photoRow);
-            mContext.getContentResolver().insert(
-                    ContactsContract.Data.CONTENT_URI,
-                    values
-            );
-        }
-
-        return true;
-    }
-
 
     /**
      * Definition of step sized to be used by modifyRetryFactor()
@@ -559,5 +452,10 @@ public class Contact implements Parcelable{
         mMd5IsNew = true;
         if (fDoMoveForward) mRetryFactor += RETRY_STEP;
         else mRetryFactor -= RETRY_STEP;
+    }
+
+    public File buildTempFile(Context context) {
+        context = context.getApplicationContext();
+        return new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), mMd5String);
     }
 }
