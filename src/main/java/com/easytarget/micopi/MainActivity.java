@@ -423,7 +423,7 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Assigns the bitmap to the contact.
      */
-    private class AssignContactImageTask extends AsyncTask< Void, Void, Boolean > {
+    private class AssignContactImageTask extends AsyncTask<Void, Void, Boolean > {
 
         @Override
         protected void onPreExecute() {

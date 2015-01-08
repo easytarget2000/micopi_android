@@ -72,8 +72,8 @@ public class Painter {
         darkener.setAlpha(15);
         Paint brightener = new Paint();
         brightener.setColor(Color.WHITE);
-        brightener.setAlpha(25);
-        final int grainDensity = mImageSize / 4;
+        brightener.setAlpha(20);
+        final int grainDensity = mImageSize / 5;
         final Random random = new Random();
         for (int y = 0; y < mImageSize; y++) {
             for (int i = 0; i < grainDensity; i++) {

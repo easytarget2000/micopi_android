@@ -17,9 +17,11 @@
 package com.easytarget.micopi;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -27,6 +29,8 @@ import android.view.Window;
  * First activity to be displayed after launch.
  */
 public class WelcomeActivity extends ActionBarActivity {
+
+    private static final String LOG_TAG = WelcomeActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +50,28 @@ public class WelcomeActivity extends ActionBarActivity {
 
     public void startMainActivity(@SuppressWarnings("unused") View view) {
         Intent intent = new Intent(this, MainActivity.class);
-//        finish();
+        finish();
         startActivity(intent);
     }
 
-    public void startCrawl(@SuppressWarnings("unused") View view) {
-        ContactCrawler.crawl(this, false, false);
-        
+    public void startCrawl(View view) {
+        Cursor contacts = ContactCrawler.allContacts(this);
+        if (contacts == null) {
+            Log.e(LOG_TAG, "Contacts cursor is null.");
+            return;
+        }
+
+        final int numOfContact = contacts.getCount();
+        if (numOfContact < 1) {
+            Log.e(LOG_TAG, "Contacts cursor is empty.");
+            return;
+        }
+
+        while(contacts.moveToNext()) {
+            Log.d(LOG_TAG, "Processing contact: " + contacts.getPosition() + "/" + numOfContact);
+        }
+
+        startMainActivity(view);
     }
 
 }
