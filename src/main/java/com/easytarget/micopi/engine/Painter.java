@@ -17,6 +17,7 @@
 package com.easytarget.micopi.engine;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -26,6 +27,9 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.FloatMath;
+import android.util.Log;
+
+import java.util.Random;
 
 /**
  * Utility class containing the actual paint methods for generating a contact picture.
@@ -34,26 +38,80 @@ import android.util.FloatMath;
  */
 public class Painter {
 
-    public static void paintSquare(
-            final Canvas fCanvas,
-            final boolean fDoPaintFilled,
-            final int fColor,
-            final int fAlpha,
+    private static final String LOG_TAG = Painter.class.getSimpleName();
+
+    private Canvas mCanvas;
+
+    private int mImageSize;
+
+    private float mImageSizeHalf;
+
+    /** Constructor */
+    public Painter(Canvas canvas) {
+        if (canvas == null) {
+            Log.e(LOG_TAG, "Null canvas.");
+            return;
+        }
+
+        mCanvas = canvas;
+        mImageSize = canvas.getWidth();
+        mImageSizeHalf = mImageSize * 0.5f;
+    }
+
+    /**
+     * @return Side length of the square canvas
+     */
+    public int getImageSize() {
+        return mImageSize;
+    }
+
+    /** Adds grain to the entire canvas */
+    public void grain() {
+        Paint darkener = new Paint();
+        darkener.setColor(Color.DKGRAY);
+        darkener.setAlpha(15);
+        Paint brightener = new Paint();
+        brightener.setColor(Color.WHITE);
+        brightener.setAlpha(25);
+        final int grainDensity = mImageSize / 4;
+        final Random random = new Random();
+        for (int y = 0; y < mImageSize; y++) {
+            for (int i = 0; i < grainDensity; i++) {
+                mCanvas.drawPoint(random.nextFloat() * mImageSize, y, darkener);
+                mCanvas.drawPoint(random.nextFloat() * mImageSize, y, brightener);
+            }
+        }
+    }
+
+    /**
+     * Paints a styled square onto the canvas
+     *
+     * @param doPaintFilled Filled or stroked painting
+     * @param color Paint color
+     * @param alpha Paint alpha value
+     * @param x X-coordinate of square centre
+     * @param y Y-coordinate of square centre
+     * @param size Side length
+     */
+    public void paintSquare(
+            final boolean doPaintFilled,
+            final int color,
+            final int alpha,
             final float x,
             final float y,
-            final float fSize
+            final float size
     ) {
-        final float fOffsetX = x * fSize;
-        final float fOffsetY = y * fSize;
+        final float fOffsetX = x * size;
+        final float fOffsetY = y * size;
 
-        final Paint fPaint = new Paint();
-        fPaint.setAntiAlias(true);
-        fPaint.setColor(fColor);
-        fPaint.setAlpha(fAlpha);
-        if (fDoPaintFilled) fPaint.setStyle(Paint.Style.FILL);
-        else fPaint.setStyle(Paint.Style.STROKE);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(color);
+        paint.setAlpha(alpha);
+        if (doPaintFilled) paint.setStyle(Paint.Style.FILL);
+        else paint.setStyle(Paint.Style.STROKE);
 
-        fCanvas.drawRect(fOffsetX, fOffsetY, fOffsetX + fSize, fOffsetY + fSize, fPaint);
+        mCanvas.drawRect(fOffsetX, fOffsetY, fOffsetX + size, fOffsetY + size, paint);
     }
 
     /**
@@ -92,7 +150,6 @@ public class Painter {
      * Paints two shapes on top of each other with slightly different alpha,
      * size and stroke width values.
      *
-     * @param fCanvas Canvas to draw on
      * @param fPaintMode Determines the shape to draw
      * @param fColor Paint color
      * @param fAlpha Paint alpha value
@@ -104,8 +161,7 @@ public class Painter {
      * @param fCenterY Y coordinate of the centre of the shape
      * @param radius Also determines size of polygon approximations
      */
-    public static void paintDoubleShape(
-            final Canvas fCanvas,
+    public void paintDoubleShape(
             final int fPaintMode,
             final int fColor,
             final int fAlpha,
@@ -143,7 +199,7 @@ public class Painter {
 
             } else if (fPaintMode == MODE_POLYGON || fPaintMode == MODE_POLYGON_FILLED) {
                 if (fNumOfEdges == 4) {
-                    fCanvas.drawRect(
+                    mCanvas.drawRect(
                             fCenterX - radius * 0.5f,
                             fCenterY - radius * 0.5f,
                             fCenterX + radius * 0.5f,
@@ -169,10 +225,10 @@ public class Painter {
                     }
 
                     polygonPath.close();
-                    fCanvas.drawPath(polygonPath, fPaint);
+                    mCanvas.drawPath(polygonPath, fPaint);
                 }
             } else {
-                fCanvas.drawCircle(fCenterX, fCenterY, radius, fPaint);
+                mCanvas.drawCircle(fCenterX, fCenterY, radius, fPaint);
             }
 
             // Draw the second shape differently.
@@ -204,7 +260,6 @@ public class Painter {
     /**
      * Paints many lines in beam-like ways
      *
-     * @param fCanvas Canvas to draw on
      * @param fColor Paint color
      * @param fAlpha Paint alpha value
      * @param fPaintMode Determines the shape to draw
@@ -216,8 +271,7 @@ public class Painter {
      * @param fGroupAngle Angle between beam groups
      * @param fDoPaintWide Wide beam groups
      */
-    public static void paintMicopiBeams(
-            final Canvas fCanvas,
+    public void paintMicopiBeams(
             final int fColor,
             final int fAlpha,
             final int fPaintMode,
@@ -229,7 +283,7 @@ public class Painter {
             final boolean fGroupAngle,
             final boolean fDoPaintWide
     ) {
-        final float lengthUnit = (fCanvas.getWidth() / 200f);
+        final float lengthUnit = (mCanvas.getWidth() / 200f);
         lineLength *= lengthUnit;
         angle *= lengthUnit;
 
@@ -260,7 +314,7 @@ public class Painter {
             lineEndX = lineStartX + ((float) Math.cos(angle) * lineLength);
             lineEndY = lineStartY + ((float) Math.sin(angle) * lineLength);
 
-            fCanvas.drawLine(lineStartX, lineStartY, lineEndX, lineEndY, fPaint);
+            mCanvas.drawLine(lineStartX, lineStartY, lineEndX, lineEndY, fPaint);
 
             angle += deltaAngle;
             lineLength += lengthUnit;
@@ -293,8 +347,7 @@ public class Painter {
      */
     private static final float PI_STEP_SIZE = (float) Math.PI / 50f;
 
-    public static void paintSpyro(
-            final Canvas fCanvas,
+    public void paintSpyro(
             final int fColor1,
             final int fColor2,
             final int fColor3,
@@ -304,15 +357,13 @@ public class Painter {
             final float fPoint3Factor,
             final int fRevolutions
     ) {
-        final float fImageSize = fCanvas.getWidth();
-        final float fImageSizeHalf = fImageSize * 0.5f;
-        float fInnerRadius  = fImageSizeHalf * 0.5f;
+        float fInnerRadius  = mImageSizeHalf * 0.5f;
         float fOuterRadius  = (fInnerRadius * 0.5f) + 1;
         float fRadiusSum    = fInnerRadius + fOuterRadius;
 
-        final float point1 = fPoint1Factor * (fImageSize - fRadiusSum);
-        final float point2 = fPoint2Factor * (fImageSize - fRadiusSum);
-        final float point3 = fPoint3Factor * (fImageSize - fRadiusSum);
+        final float point1 = fPoint1Factor * (mImageSize - fRadiusSum);
+        final float point2 = fPoint2Factor * (mImageSize - fRadiusSum);
+        final float point3 = fPoint3Factor * (mImageSize - fRadiusSum);
 
         final Path fPoint1Path = new Path();
         final Path fPoint2Path = new Path();
@@ -323,17 +374,17 @@ public class Painter {
         float x, y, x2, y2, x3, y3;
         do {
             x = (float) (fRadiusSum * FloatMath.cos(t) +
-                    point1 * Math.cos(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+                    point1 * Math.cos(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
             y = (float) (fRadiusSum * FloatMath.sin(t) +
-                    point1 * Math.sin(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+                    point1 * Math.sin(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
             x2 = (float) (fRadiusSum * FloatMath.cos(t) +
-                    point2 * Math.cos(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+                    point2 * Math.cos(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
             y2 = (float) (fRadiusSum * FloatMath.sin(t) +
-                    point2 * Math.sin(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+                    point2 * Math.sin(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
             x3 = (float) (fRadiusSum * FloatMath.cos(t) +
-                    point3 * Math.cos(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+                    point3 * Math.cos(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
             y3 = (float) (fRadiusSum * FloatMath.sin(t) +
-                    point3 * Math.sin(fRadiusSum * t / fOuterRadius) + fImageSizeHalf);
+                    point3 * Math.sin(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
 
             if (moveTo) {
                 fPoint1Path.moveTo(x, y);
@@ -356,16 +407,16 @@ public class Painter {
         // draw the first path
         paint.setColor(fColor1);
         paint.setAlpha(fAlpha);
-        fCanvas.drawPath(fPoint1Path, paint);
+        mCanvas.drawPath(fPoint1Path, paint);
         // draw the second path
         paint.setColor(fColor2);
         paint.setAlpha(fAlpha);
-        fCanvas.drawPath(fPoint2Path, paint);
+        mCanvas.drawPath(fPoint2Path, paint);
         // draw the third path
         paint.setColor(fColor3);
         paint.setAlpha(fAlpha);
         paint.setStrokeWidth(2f);
-        fCanvas.drawPath(fPoint3Path, paint);
+        mCanvas.drawPath(fPoint3Path, paint);
     }
 
     /**
@@ -375,11 +426,10 @@ public class Painter {
 
     /**
      * Paints letters on top of the centre of a canvas - GMail style
-     * @param canvas Canvas to draw on
      * @param chars Characters to draw
      * @param color Paint color
      */
-    public static void paintChars(Canvas canvas, char[] chars, int color) {
+    public void paintChars(char[] chars, int color) {
         int count = chars.length;
         if (count == 0) return;
         else if (count > 4) count = 4;
@@ -390,13 +440,11 @@ public class Painter {
         paint.setAntiAlias(true);
         paint.setAlpha(CHAR_ALPHA);
 
-
         // Typeface, size and alignment:
         Typeface sansSerifLight = Typeface.create("sans-serif-light", 0);
         paint.setTypeface(sansSerifLight);
 
-        final float imageSize = canvas.getWidth();
-        final int tileLetterFontSize = (int) (70f * imageSize / 100f);
+        final int tileLetterFontSize = (int) (70f * mImageSize / 100f);
 
         paint.setTextSize(tileLetterFontSize);
         paint.setTextAlign(Paint.Align.CENTER);
@@ -405,9 +453,9 @@ public class Painter {
         final Rect rect = new Rect();
         paint.getTextBounds(chars, 0, 1, rect);
 
-        final float imageSizeHalf = imageSize * 0.5f;
+        final float imageSizeHalf = mImageSize * 0.5f;
 
-        canvas.drawText(
+        mCanvas.drawText(
                 chars,
                 0,
                 count,
@@ -426,19 +474,18 @@ public class Painter {
     /**
      * Paints a circle in the middle of the image to enhance the visibility of the initial letter
      *
-     * @param canvas Canvas to draw on
      * @param color Paint color
      * @param alpha Paint alpha value
      */
-    public static void paintCentralCircle(Canvas canvas, int color, int alpha) {
+    public void paintCentralCircle(int color, int alpha) {
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(color);
         paint.setAlpha(alpha);
 
-        final float imageCenter = canvas.getWidth() * 0.5f;
+        final float imageCenter = mImageSize * 0.5f;
         final float radius      = imageCenter * CIRCLE_SIZE;
 
-        canvas.drawCircle(imageCenter, imageCenter, radius, paint);
+        mCanvas.drawCircle(imageCenter, imageCenter, radius, paint);
     }
 }

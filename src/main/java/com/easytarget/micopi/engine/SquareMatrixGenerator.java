@@ -15,7 +15,6 @@
  */
 package com.easytarget.micopi.engine;
 
-import android.graphics.Canvas;
 import android.graphics.Color;
 
 import com.easytarget.micopi.Contact;
@@ -35,10 +34,9 @@ public class SquareMatrixGenerator {
     /**
      * Fills a canvas with retro-styled squares
      *
-     * @param fCanvas Canvas to draw on
      * @param fContact Data from this Contact object will be used to generate the shapes and colors
      */
-    public static void generate(final Canvas fCanvas, final Contact fContact) {
+    public static void generate(Painter painter, final Contact fContact) {
 
         final String fMd5String = fContact.getMD5EncryptedString();
         final int fMd5Length    = fMd5String.length();
@@ -54,7 +52,7 @@ public class SquareMatrixGenerator {
 
         int numOfSquares = NUM_OF_SQUARES;
         if (fContact.getNameWord(0).length() % 2 == 0) numOfSquares -= 1;
-        final float fImageSizeDiv = fCanvas.getWidth() / numOfSquares;
+        final float fImageSizeDiv = painter.getImageSize() / numOfSquares;
 
         int md5Pos = 0;
         for (int y = 0; y < numOfSquares; y++) {
@@ -64,8 +62,7 @@ public class SquareMatrixGenerator {
                 final char fMd5Char = fMd5String.charAt(md5Pos);
 
                 if (isOddParity(fMd5Char)) {
-                    Painter.paintSquare(
-                            fCanvas,
+                    painter.paintSquare(
                             true,
                             fColor1,
                             255,
@@ -74,8 +71,7 @@ public class SquareMatrixGenerator {
                             fImageSizeDiv
                     );
                     if (x == 0) {
-                        Painter.paintSquare(
-                                fCanvas,
+                        painter.paintSquare(
                                 true,
                                 fColor2,
                                 200 - fMd5Char,
@@ -85,8 +81,7 @@ public class SquareMatrixGenerator {
                         );
                     }
                     if (x == 1) {
-                        Painter.paintSquare(
-                                fCanvas,
+                        painter.paintSquare(
                                 true,
                                 fColor3,
                                 200 - fMd5Char,

@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
     /**
      * Horizontal resolution of portrait mode
      */
-    private int mScreenWidthInPixels = -1;
+    private int mScreenWidthPixels = -1;
 
     /*
     ACTIVITY OVERRIDES
@@ -155,7 +155,7 @@ public class MainActivity extends ActionBarActivity {
             }
             mContact                = savedInstanceState.getParcelable(STORED_CONTACT);
             mHasPickedContact       = savedInstanceState.getBoolean(STORED_PICKED);
-            mScreenWidthInPixels    = savedInstanceState.getInt(STORED_WIDTH);
+            mScreenWidthPixels = savedInstanceState.getInt(STORED_WIDTH);
 
             if (mHasPickedContact && mContact != null && mGeneratedBitmap != null) {
                 Log.d("Restoring generated bitmap", mGeneratedBitmap.getHeight() + "");
@@ -255,7 +255,7 @@ public class MainActivity extends ActionBarActivity {
 
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
         savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
-        savedInstanceState.putInt(STORED_WIDTH, mScreenWidthInPixels);
+        savedInstanceState.putInt(STORED_WIDTH, mScreenWidthPixels);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -302,6 +302,8 @@ public class MainActivity extends ActionBarActivity {
      */
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
         // Close the app if the back button was pressed on first contact picker.
         if(!mHasPickedContact && resultCode != RESULT_OK) finish();
 
@@ -313,8 +315,6 @@ public class MainActivity extends ActionBarActivity {
             mContact = new Contact(mContext, data);
             new generateImageTask().execute();
         }
-
-        super.onActivityResult(reqCode, resultCode, data);
     }
 
 
@@ -375,7 +375,7 @@ public class MainActivity extends ActionBarActivity {
             }
 
             // Calculate the horizontal pixels.
-            if (mScreenWidthInPixels == -1) {
+            if (mScreenWidthPixels == -1) {
                 // Only bother checking the resolution for Android >= 3.0.
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     Configuration config = getResources().getConfiguration();
@@ -383,18 +383,18 @@ public class MainActivity extends ActionBarActivity {
 
                     // Store the height value as screen width, if in landscape mode.
                     if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        mScreenWidthInPixels = (int) (config.screenWidthDp * dm.density);
+                        mScreenWidthPixels = (int) (config.screenWidthDp * dm.density);
                     } else {
-                        mScreenWidthInPixels = (int) (config.screenHeightDp * dm.density);
+                        mScreenWidthPixels = (int) (config.screenHeightDp * dm.density);
                     }
                 } else {
                     // On old android versions, a generic, small screen resolution is assumed.
-                    mScreenWidthInPixels = 480;
+                    mScreenWidthPixels = 480;
                 }
             }
-            Log.d("Screen Width in Pixels", mScreenWidthInPixels + "");
+//            Log.d("Screen Width in Pixels", mScreenWidthPixels + "");
 
-            return ImageFactory.generateBitmap(mContact, mScreenWidthInPixels);
+            return new ImageFactory(mContact, mScreenWidthPixels).generateBitmap();
         }
 
         @Override

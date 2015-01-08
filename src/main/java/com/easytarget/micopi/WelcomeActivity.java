@@ -46,12 +46,13 @@ public class WelcomeActivity extends ActionBarActivity {
 
     public void startMainActivity(@SuppressWarnings("unused") View view) {
         Intent intent = new Intent(this, MainActivity.class);
-        finish();
+//        finish();
         startActivity(intent);
     }
 
     public void startCrawl(@SuppressWarnings("unused") View view) {
         ContactCrawler.crawl(this, false, false);
+        
     }
 
 }

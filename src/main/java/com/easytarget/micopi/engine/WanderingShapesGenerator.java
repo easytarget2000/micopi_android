@@ -15,7 +15,6 @@
  */
 package com.easytarget.micopi.engine;
 
-import android.graphics.Canvas;
 import android.util.Log;
 
 import com.easytarget.micopi.Contact;
@@ -30,10 +29,9 @@ public class WanderingShapesGenerator {
      * Fills a canvas with a lot of colourful circles or polygon approximations of circles
      * Uses Painter
      *
-     * @param canvas Canvas to draw on
      * @param contact Data from this Contact object will be used to generate the shapes
      */
-    public static void generate(Canvas canvas, Contact contact) {
+    public static void generate(Painter painter, final Contact contact) {
         // If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
         // there is a 2/3 chance that polygons will be painted instead of circles.
         final int numOfEdges = contact.getNameWord(0).length();
@@ -68,7 +66,7 @@ public class WanderingShapesGenerator {
         // Draw all the shapes.
         final int md5Length  = md5String.length();
         int md5Pos = 0;
-        float x = canvas.getWidth() * 0.5f;
+        float x = painter.getImageSize() * 0.5f;
         float y = x;
 
         // The amount of double shapes that will be painted; at least 10, no more than 25.
@@ -115,8 +113,7 @@ public class WanderingShapesGenerator {
             //if (paintFilled) paintMode += Painter.MODE_CIRCLE_FILLED;
 
             // The new coordinates have been generated. Paint something.
-            Painter.paintDoubleShape(
-                    canvas,
+            painter.paintDoubleShape(
                     paintMode,
                     ColorCollection.generateColor(colorChar1, colorChar2, md5Int, i + 1),
                     alpha,

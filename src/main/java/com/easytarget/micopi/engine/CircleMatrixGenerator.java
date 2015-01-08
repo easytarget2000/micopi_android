@@ -33,10 +33,9 @@ public class CircleMatrixGenerator {
      * @param canvas Canvas to draw on
      * @param contact Data from this Contact object will be used to generate the shapes and colors
      */
-    public static void generate(Canvas canvas, Contact contact) {
+    public static void generate(Painter painter, Contact contact) {
         // Prepare painting values based on image size and contact data.
-        final float fImageSize = canvas.getWidth();
-        final String fMd5String = contact.getMD5EncryptedString();
+        final String md5String = contact.getMD5EncryptedString();
 
         // Use the length of the first name as the number of shapes per row and column.
         int shapesPerRow = contact.getNameWord(0).length();
@@ -46,9 +45,10 @@ public class CircleMatrixGenerator {
         if (shapesPerRow < 6) shapesPerRow *= 2;
 
 
-        final float fStrokeWidth = fMd5String.charAt(12) * 2f;
-        final float circleDistance = (fImageSize / shapesPerRow)
-                + (fImageSize / (shapesPerRow * 2f));
+        final int imageSize = painter.getImageSize();
+        final float fStrokeWidth = md5String.charAt(12) * 2f;
+        final float circleDistance = (imageSize / shapesPerRow)
+                + (imageSize / (shapesPerRow * 2f));
 
         // Contact names with just one word will not get coloured circles.
         final boolean fDoGenerateColor = contact.getNumberOfNameWords() > 1;
@@ -58,8 +58,8 @@ public class CircleMatrixGenerator {
             for (int x = 0; x < shapesPerRow; x++) {
 
                 md5Pos++;
-                if (md5Pos >= fMd5String.length()) md5Pos = 0;
-                final char fMd5Char = fMd5String.charAt(md5Pos);
+                if (md5Pos >= md5String.length()) md5Pos = 0;
+                final char fMd5Char = md5String.charAt(md5Pos);
 
                 int color = Color.WHITE;
                 if (fDoGenerateColor) color = ColorCollection.getCandyColorForChar(fMd5Char);
@@ -69,11 +69,10 @@ public class CircleMatrixGenerator {
                 if ((fIndex & 1) == 0) radius = fMd5Char * 2f;
                 else radius = fMd5Char * 3f;
 
-                Painter.paintDoubleShape(
-                        canvas,
+                painter.paintDoubleShape(
                         Painter.MODE_CIRCLE_FILLED,
                         color,
-                        200 - fMd5String.charAt(md5Pos) + fIndex,
+                        200 - md5String.charAt(md5Pos) + fIndex,
                         fStrokeWidth,        // Stroke width
                         0,
                         0f,
