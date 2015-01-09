@@ -35,15 +35,15 @@ public class ImageFactory {
 
     private Contact mContact;
 
-    private int mScreenWidthPixels;
+    private int mImageSize;
 
     /**
      * @param contact Data from this Contact object will be used to generate the shapes and colors
-     * @param screenWidthPixels Width of device screen in pixels; height in landscape mode
+     * @param imageSize Width of device screen in pixels; height in landscape mode
      */
-    public ImageFactory(final Contact contact, final int screenWidthPixels) {
+    public ImageFactory(final Contact contact, final int imageSize) {
         mContact = contact;
-        mScreenWidthPixels = screenWidthPixels;
+        mImageSize = imageSize;
     }
 
     /**
@@ -60,20 +60,8 @@ public class ImageFactory {
             return null;
         }
 
-        // Determine the image side length, roughly depending on the screen width.
-        // Old devices should not be unnecessarily strained,
-        // but if the user takes these account pictures to another device,
-        // they shouldn't look too horribly pixelated.
-        int imageSize = 1080;
-        if (mScreenWidthPixels <= 480) imageSize = 480;
-        else if (mScreenWidthPixels <= 600) imageSize = 640;
-        else if (mScreenWidthPixels < 1000) imageSize = 720;
-        else if (mScreenWidthPixels >= 1200) imageSize = 1440;
-
-//        Log.d("Image Size", imageSize + "");
-
         // Set up the bitmap and the canvas.
-        final Bitmap bitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
+        final Bitmap bitmap = Bitmap.createBitmap(mImageSize, mImageSize, Bitmap.Config.ARGB_8888);
 
         // Set up a new canvas
         // and fill the background with the color for this contact's first letter.
@@ -109,18 +97,17 @@ public class ImageFactory {
         GRAIN
          */
 
-        painter.grain();
+        painter.paintGrain();
 
         /*
         ADDITIONAL SHAPES
          */
 
-
         final int numOfWords = mContact.getNumberOfNameWords();
-        final float centerX = imageSize * (md5String.charAt(9) / 128f);
-        final float centerY = imageSize * (md5String.charAt(3) / 128f);
+        final float centerX = mImageSize * (md5String.charAt(9) / 128f);
+        final float centerY = mImageSize * (md5String.charAt(3) / 128f);
         final float centerOffset  = md5String.charAt(18) * 2f;
-        final float radiusFactor = imageSize * 0.4f;
+        final float radiusFactor = mImageSize * 0.4f;
 
         switch (md5String.charAt(30) % 4) {
             case 0:     // Paint circles depending on the number of words.
@@ -151,7 +138,7 @@ public class ImageFactory {
                         (0.3f - (float) firstChar / 255f),
                         (0.3f - (float) md5String.charAt(23) / 255f),
                         (0.3f - (float) md5String.charAt(24) / 255f),
-                        Math.max(5, md5String.charAt(25) >> 2)
+                        Math.max(4, md5String.charAt(25) >> 2)
                 );
                 break;
             case 2:
@@ -161,7 +148,7 @@ public class ImageFactory {
                         md5String.charAt(12) % 4,       // Paint Mode
                         centerX,
                         centerY,
-                        md5String.charAt(13) * 3,       // Density
+                        md5String.charAt(13) * 2,       // Density
                         md5String.charAt(5) * 0.6f,     // Line Length
                         md5String.charAt(14) * 0.15f,   // Angle
                         md5String.charAt(20) % 2 == 0,  // Large Delta Angle

@@ -24,7 +24,7 @@
     </string>
     <string name="no_contact_selected">Kein Kontakt ausgewählt</string>
     <string name="image_description">Errechnetes Kontaktbild</string>
-    <string name="contact_button_label">Einen Kontakt auswählen</string>
+    <string name="pick_contact">Einen Kontakt auswählen</string>
     <string name="save_button_label">Bild als Datei abspeichern</string>
     <string name="assign_button_label">Bild zuweisen</string>
     <string name="overwrite_dialog">Möchten Sie %s dieses Bild zuweisen?</string>

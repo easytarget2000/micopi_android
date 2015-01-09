@@ -23,7 +23,7 @@
     </string>
     <string name="no_contact_selected">Kies een contact</string>
     <string name="image_description">Gegenereerde contact afbeelding</string>
-    <string name="contact_button_label">Kies een contact</string>
+    <string name="pick_contact">Kies een contact</string>
     <string name="save_button_label">Afbeelding opslaan</string>
     <string name="assign_button_label">Wijs toe aan contact</string>
     <string name="overwrite_dialog">Afbeelding toewijzen aan %s?</string>

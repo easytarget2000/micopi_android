@@ -27,10 +27,11 @@ import android.util.Log;
  */
 public class ColorUtilities {
 
+    private static final int STEP_SIZE_PIXEL = 8;
+
     /**
-     *
-     * @param bitmap
-     * @return
+     * @param bitmap Bitmap that will be processed
+     * @return The average color of the input bitmap
      */
     public static int getAverageColor(Bitmap bitmap) {
         if (bitmap == null) {
@@ -44,18 +45,20 @@ public class ColorUtilities {
 
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
+        int pixelCount = 0;
+        int c = 0;
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int c = bitmap.getPixel(x, y);
+        for (int y = 0; y < height; y += STEP_SIZE_PIXEL) {
+            for (int x = 0; x < width; x += STEP_SIZE_PIXEL) {
+                c = bitmap.getPixel(x, y);
 
                 redBucket += Color.red(c);
                 greenBucket += Color.green(c);
                 blueBucket += Color.blue(c);
+                pixelCount++;
             }
+            redBucket += Color.red(c);
         }
-
-        int pixelCount = width * height;
 
         return Color.rgb(
                 redBucket / pixelCount,

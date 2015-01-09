@@ -24,12 +24,12 @@
 
         <Button
             android:layout_width="match_parent"
-            android:text="@string/contact_button_label"
+            android:text="@string/pick_contact"
             android:id="@+id/firstButton"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:onClick="startMainActivity"
+            android:onClick="selectButtonPressed"
             android:background="@android:color/white"
             android:textColor="@color/primary"
             android:layout_height="48dp" />
@@ -46,18 +46,18 @@
             android:layout_centerHorizontal="true"
             android:textColor="@android:color/white"/>
 
-        <!--<Button-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:text="@string/crawl_button_label"-->
-            <!--android:id="@+id/crawlButton"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:onClick="startCrawl"-->
-            <!--android:background="@android:color/white"-->
-            <!--android:textColor="@color/primary"-->
-            <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
-            <!--android:layout_below="@+id/textView"-->
-            <!--android:layout_height="48dp" />-->
+        <Button
+            android:layout_width="match_parent"
+            android:text="@string/generate_all_pictures"
+            android:id="@+id/crawlButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:onClick="crawlButtonPressed"
+            android:background="@android:color/white"
+            android:textColor="@color/primary"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_below="@+id/textView"
+            android:layout_height="48dp" />
 
     </RelativeLayout>
 

@@ -24,7 +24,7 @@
     <string name="no_contact_selected">Fue seleccionado nadie</string>
     <string name="image_description">Imagen generada</string>
     <!--<string name="action_settings">Ajustes</string>-->
-    <string name="contact_button_label">Seleccionar un contacto</string>
+    <string name="pick_contact">Seleccionar un contacto</string>
     <string name="save_button_label">Guardar imagen en archivo</string>
     <string name="assign_button_label">Aplicar imagen</string>
     <string name="overwrite_dialog">¿Desea asignar a %s esta imagen?</string>

@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -35,7 +34,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -132,14 +130,11 @@ public class MainActivity extends ActionBarActivity {
 //                Log.d("Restoring contact object", mContact.getFullName());
 //                showContactData();
 //            }
-            showContactData();
+            new ShowContactDataTask().execute();
         }
 
-        if(!mHasPickedContact) {
-            Log.d("MainActivity: onCreate()", "No contact picked yet.");
-            pickContact();
-        }
-
+        // Immediately show the contact picker if no contact has been selected, yet.
+        if(!mHasPickedContact) pickContact();
     }
 
     @Override
@@ -173,7 +168,7 @@ public class MainActivity extends ActionBarActivity {
                                 Constants.EXTRA_COLOR,
                                 0
                         );
-                        showContactData();
+                        new ShowContactDataTask().execute();
                     } else {
                         mContact = null;
                         mNameTextView.setText(R.string.no_contact_selected);
@@ -208,26 +203,6 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     };
-
-
-    /**
-     * Populates the GUI elements
-     */
-    private void showContactData() {
-        if (mImagePath == null || mContact == null) {
-            Log.e(LOG_TAG, "No contact or image to show.");
-            return;
-        }
-        // Populate and show the text views.
-        mNameTextView.setText(mContact.getFullName());
-        mNameTextView.setVisibility(View.VISIBLE);
-        mDescriptionTextView.setVisibility(View.VISIBLE);
-
-        if (mColor == 0) mColor = getResources().getColor(R.color.primary);
-        setColor(mColor);
-
-        new ShowImageTask().execute();
-    }
 
     @Override
     public void onBackPressed() {
@@ -365,26 +340,9 @@ public class MainActivity extends ActionBarActivity {
         int defaultColor = getResources().getColor(R.color.primary);
         setColor(defaultColor);
 
-        new GenerateImageTask(mContext, mContact).execute(getScreenWidthPixels() , 0);
+        final int imageSize = DeviceHelper.getBestImageSize(this);
+        new GenerateImageTask(mContext, mContact).execute(imageSize , 0);
     }
-
-    private int getScreenWidthPixels() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            Configuration config = getResources().getConfiguration();
-            DisplayMetrics dm = getResources().getDisplayMetrics();
-
-            // Store the height value as screen width, if in landscape mode.
-            if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                return (int) (config.screenWidthDp * dm.density);
-            } else {
-                return (int) (config.screenHeightDp * dm.density);
-            }
-        } else {
-            // On old android versions, a generic, small screen resolution is assumed.
-            return 480;
-        }
-    }
-
 
     /**
      * Opens a YES/NO dialog for the user to confirm that the contact's image will be overwritten.
@@ -407,7 +365,7 @@ public class MainActivity extends ActionBarActivity {
                 String.format(
                         getResources().getString(R.string.overwrite_dialog),
                         mContact.getFullName())
-       );
+        );
         builder.setNegativeButton(android.R.string.no, dialogClickListener);
         builder.setPositiveButton(android.R.string.yes, dialogClickListener);
         builder.show();
@@ -417,17 +375,29 @@ public class MainActivity extends ActionBarActivity {
     THREADS
      */
 
-    private class ShowImageTask extends AsyncTask<Void, Void, Bitmap> {
+    private class ShowContactDataTask extends AsyncTask<Void, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(Void... params) {
+            if (mImagePath == null || mContact == null) return null;
             return BitmapFactory.decodeFile(mImagePath);
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
+            if (bitmap == null)  {
+                Log.e(LOG_TAG, "Could not load image from file.");
+                mColor = getResources().getColor(R.color.primary);
+                setColor(mColor);
+                return;
+            }
+            setColor(mColor);
             Drawable generatedDrawable = new BitmapDrawable(getResources(), bitmap);
             mIconImageView.setImageDrawable(generatedDrawable);
+
+            mNameTextView.setText(mContact.getFullName());
+            mNameTextView.setVisibility(View.VISIBLE);
+            mDescriptionTextView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -447,7 +417,7 @@ public class MainActivity extends ActionBarActivity {
             Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
 
             if(bitmap != null && mContact != null) {
-                MediaFileHandler fileHandler = new MediaFileHandler();
+                FileHelper fileHandler = new FileHelper();
                 return fileHandler.saveContactImageFile(
                         mContext,
                         bitmap,
@@ -470,7 +440,7 @@ public class MainActivity extends ActionBarActivity {
                                 getResources().getString(R.string.success_saving_image),
                                 fileName),
                         Toast.LENGTH_LONG
-               ).show();
+                ).show();
             } else {
                 Toast.makeText(
                         mContext,
@@ -478,7 +448,7 @@ public class MainActivity extends ActionBarActivity {
                                 getResources().getString(R.string.error_saving),
                                 fileName),
                         Toast.LENGTH_LONG
-               ).show();
+                ).show();
             }
         }
     }
@@ -500,18 +470,8 @@ public class MainActivity extends ActionBarActivity {
         Set the action bar colour to the average colour of the generated image and
         the status bar colour for Android Version >= 5.0 accordingly.
         */
-        try {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
-        } catch (NullPointerException nullError) {
-            Log.e("MainActivity:generateImageTask()", nullError.toString());
-        } catch (NoSuchMethodError methodError) {
-            Log.e("MainActivity:generateImageTask()", methodError.toString());
-        }
 
-        Log.d(
-                "MainActivity:generateImageTask()",
-                "Changing status bar & action bar colour."
-        );
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Get the window through a reference to the activity.

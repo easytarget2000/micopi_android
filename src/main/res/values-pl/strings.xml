@@ -21,7 +21,7 @@
     <string name="introduction_text"></string>
     <string name="no_contact_selected">No contact selected</string>
     <string name="image_description">Obliczony obraz</string>
-    <string name="contact_button_label">Wybierz kontakt</string>
+    <string name="pick_contact">Wybierz kontakt</string>
     <string name="save_button_label">Zapisz obraz jako plik</string>
     <string name="assign_button_label">Przydziel obraz do kontaktu</string>
     <string name="overwrite_dialog">Przydzielić obraz do kontaktu %s?</string>

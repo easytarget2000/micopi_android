@@ -46,6 +46,8 @@ public class Painter {
 
     private float mImageSizeHalf;
 
+    private Paint mPaint;
+
     /** Constructor */
     public Painter(Canvas canvas) {
         if (canvas == null) {
@@ -53,9 +55,13 @@ public class Painter {
             return;
         }
 
+
         mCanvas = canvas;
         mImageSize = canvas.getWidth();
         mImageSizeHalf = mImageSize * 0.5f;
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+//        paint.setFilterBitmap(true);
     }
 
     /**
@@ -65,19 +71,22 @@ public class Painter {
         return mImageSize;
     }
 
-    /** Adds grain to the entire canvas */
-    public void grain() {
+    /** Adds paintGrain to the entire canvas */
+    public void paintGrain() {
         Paint darkener = new Paint();
         darkener.setColor(Color.DKGRAY);
         darkener.setAlpha(15);
         Paint brightener = new Paint();
         brightener.setColor(Color.WHITE);
         brightener.setAlpha(20);
-        final int grainDensity = mImageSize / 5;
+        final int grainDensity = mImageSize / 7;
         final Random random = new Random();
+        float darkenerX;
         for (int y = 0; y < mImageSize; y++) {
             for (int i = 0; i < grainDensity; i++) {
-                mCanvas.drawPoint(random.nextFloat() * mImageSize, y, darkener);
+                darkenerX = random.nextFloat() * mImageSize;
+                mCanvas.drawPoint(darkenerX, y, darkener);
+                mCanvas.drawPoint(mImageSize - darkenerX, y, darkener);
                 mCanvas.drawPoint(random.nextFloat() * mImageSize, y, brightener);
             }
         }
@@ -150,11 +159,11 @@ public class Painter {
      * Paints two shapes on top of each other with slightly different alpha,
      * size and stroke width values.
      *
-     * @param fPaintMode Determines the shape to draw
-     * @param fColor Paint color
-     * @param fAlpha Paint alpha value
-     * @param fStrokeWidth Paint stroke width
-     * @param fNumOfEdges Number of polygon edges
+     * @param paintMode Determines the shape to draw
+     * @param color Paint color
+     * @param alpha Paint alpha value
+     * @param strokeWidth Paint stroke width
+     * @param numOfEdges Number of polygon edges
      * @param fArcStartAngle Start angle of an arc
      * @param fArcEndAngle End angle of an arc
      * @param fCenterX X coordinate of the centre of the shape
@@ -162,11 +171,11 @@ public class Painter {
      * @param radius Also determines size of polygon approximations
      */
     public void paintDoubleShape(
-            final int fPaintMode,
-            final int fColor,
-            final int fAlpha,
-            final float fStrokeWidth,
-            final int fNumOfEdges,
+            final int paintMode,
+            final int color,
+            final int alpha,
+            final float strokeWidth,
+            final int numOfEdges,
             final float fArcStartAngle,
             final float fArcEndAngle,
             final float fCenterX,
@@ -174,19 +183,17 @@ public class Painter {
             float radius
     ) {
         // Configure paint:
-        final Paint fPaint = new Paint();
-        fPaint.setAntiAlias(true);
-        fPaint.setColor(fColor);
-        fPaint.setAlpha(fAlpha);
-        fPaint.setStrokeWidth(fStrokeWidth);
+        mPaint.setColor(color);
+        mPaint.setAlpha(alpha);
+        mPaint.setStrokeWidth(strokeWidth);
 
         // All filled mode int have a value >= 10.
-        if (fPaintMode >= MODE_CIRCLE_FILLED) fPaint.setStyle(Paint.Style.FILL);
-        else fPaint.setStyle(Paint.Style.STROKE);
+        if (paintMode >= MODE_CIRCLE_FILLED) mPaint.setStyle(Paint.Style.FILL);
+        else mPaint.setStyle(Paint.Style.STROKE);
 
         // Draw two shapes of the same kind.
         for (int i = 0; i < 2; i++) {
-            if (fPaintMode == MODE_ARC || fPaintMode == MODE_ARC_FILLED) {
+            if (paintMode == MODE_ARC || paintMode == MODE_ARC_FILLED) {
                 final RectF oval = new RectF();
                 oval.set(
                         fCenterX - radius,
@@ -197,22 +204,22 @@ public class Painter {
                 final Path fArcPath = new Path();
                 fArcPath.arcTo(oval, fArcStartAngle, fArcEndAngle, true);
 
-            } else if (fPaintMode == MODE_POLYGON || fPaintMode == MODE_POLYGON_FILLED) {
-                if (fNumOfEdges == 4) {
+            } else if (paintMode == MODE_POLYGON || paintMode == MODE_POLYGON_FILLED) {
+                if (numOfEdges == 4) {
                     mCanvas.drawRect(
                             fCenterX - radius * 0.5f,
                             fCenterY - radius * 0.5f,
                             fCenterX + radius * 0.5f,
                             fCenterY + radius * 0.5f,
-                            fPaint
+                            mPaint
                     );
                 } else {
                     Path polygonPath = new Path();
                     // Use Path.moveTo() for first vertex.
                     boolean isFirstEdge = true;
 
-                    for (i = 1; i <= fNumOfEdges; i++) {
-                        final float angle = TWO_PI * i / fNumOfEdges;
+                    for (i = 1; i <= numOfEdges; i++) {
+                        final float angle = TWO_PI * i / numOfEdges;
                         final float x = fCenterX + radius * FloatMath.cos(angle);
                         final float y = fCenterY + radius * FloatMath.sin(angle);
 
@@ -225,15 +232,15 @@ public class Painter {
                     }
 
                     polygonPath.close();
-                    mCanvas.drawPath(polygonPath, fPaint);
+                    mCanvas.drawPath(polygonPath, mPaint);
                 }
             } else {
-                mCanvas.drawCircle(fCenterX, fCenterY, radius, fPaint);
+                mCanvas.drawCircle(fCenterX, fCenterY, radius, mPaint);
             }
 
             // Draw the second shape differently.
-            radius -= fStrokeWidth * 0.5f;
-            fPaint.setAlpha((int) (fAlpha * 0.75f));
+            radius -= strokeWidth * 0.5f;
+            mPaint.setAlpha((int) (alpha * 0.75f));
         }
     }
 
@@ -260,8 +267,8 @@ public class Painter {
     /**
      * Paints many lines in beam-like ways
      *
-     * @param fColor Paint color
-     * @param fAlpha Paint alpha value
+     * @param color Paint color
+     * @param alpha Paint alpha value
      * @param fPaintMode Determines the shape to draw
      * @param centerX X coordinate of the centre of the shape
      * @param centerY Y coordinate of the centre of the shape
@@ -272,8 +279,8 @@ public class Painter {
      * @param fDoPaintWide Wide beam groups
      */
     public void paintMicopiBeams(
-            final int fColor,
-            final int fAlpha,
+            final int color,
+            final int alpha,
             final int fPaintMode,
             float centerX,
             float centerY,
@@ -293,19 +300,17 @@ public class Painter {
         else deltaAngle = lengthUnit;
 
         // Configure paint:
-        final Paint fPaint = new Paint();
-        fPaint.setAntiAlias(true);
-        fPaint.setColor(fColor);
-        fPaint.setAlpha(fAlpha);
-        fPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(color);
+        mPaint.setAlpha(alpha);
+        mPaint.setStyle(Paint.Style.STROKE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            fPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
+            mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
         }
 
         // Set wide or thin strokes.
-        if (fDoPaintWide) fPaint.setStrokeWidth(24f);
-        else fPaint.setStrokeWidth(8f);
+        if (fDoPaintWide) mPaint.setStrokeWidth(24f);
+        else mPaint.setStrokeWidth(8f);
         float lineStartX = centerX;
         float lineStartY = centerY;
         float lineEndX, lineEndY;
@@ -314,7 +319,7 @@ public class Painter {
             lineEndX = lineStartX + ((float) Math.cos(angle) * lineLength);
             lineEndY = lineStartY + ((float) Math.sin(angle) * lineLength);
 
-            mCanvas.drawLine(lineStartX, lineStartY, lineEndX, lineEndY, fPaint);
+            mCanvas.drawLine(lineStartX, lineStartY, lineEndX, lineEndY, mPaint);
 
             angle += deltaAngle;
             lineLength += lengthUnit;
@@ -342,9 +347,7 @@ public class Painter {
         }
     }
 
-    /**
-     * Distance between circle steps
-     */
+    /** Distance between circle steps */
     private static final float PI_STEP_SIZE = (float) Math.PI / 50f;
 
     public void paintSpyro(
@@ -399,24 +402,21 @@ public class Painter {
             t += PI_STEP_SIZE;
         } while (t < TWO_PI * fRevolutions);
 
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setAntiAlias(true);
-        paint.setFilterBitmap(true);
+        mPaint.setStyle(Paint.Style.STROKE);
 
-        // draw the first path
-        paint.setColor(fColor1);
-        paint.setAlpha(fAlpha);
-        mCanvas.drawPath(fPoint1Path, paint);
-        // draw the second path
-        paint.setColor(fColor2);
-        paint.setAlpha(fAlpha);
-        mCanvas.drawPath(fPoint2Path, paint);
-        // draw the third path
-        paint.setColor(fColor3);
-        paint.setAlpha(fAlpha);
-        paint.setStrokeWidth(2f);
-        mCanvas.drawPath(fPoint3Path, paint);
+        // Draw the first path.
+        mPaint.setColor(fColor1);
+        mPaint.setAlpha(fAlpha);
+        mCanvas.drawPath(fPoint1Path, mPaint);
+        // Draw the second path.
+        mPaint.setColor(fColor2);
+        mPaint.setAlpha(fAlpha);
+        mCanvas.drawPath(fPoint2Path, mPaint);
+        // Draw the third path.
+        mPaint.setColor(fColor3);
+        mPaint.setAlpha(fAlpha);
+        mPaint.setStrokeWidth(2f);
+        mCanvas.drawPath(fPoint3Path, mPaint);
     }
 
     /**
@@ -434,24 +434,21 @@ public class Painter {
         if (count == 0) return;
         else if (count > 4) count = 4;
 
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(color);
-        paint.setAntiAlias(true);
-        paint.setAlpha(CHAR_ALPHA);
+        mPaint.setColor(color);
+        mPaint.setAlpha(CHAR_ALPHA);
 
         // Typeface, size and alignment:
         Typeface sansSerifLight = Typeface.create("sans-serif-light", 0);
-        paint.setTypeface(sansSerifLight);
+        mPaint.setTypeface(sansSerifLight);
 
         final int tileLetterFontSize = (int) (70f * mImageSize / 100f);
 
-        paint.setTextSize(tileLetterFontSize);
-        paint.setTextAlign(Paint.Align.CENTER);
+        mPaint.setTextSize(tileLetterFontSize);
+        mPaint.setTextAlign(Paint.Align.CENTER);
 
         // Get the rectangle that the text fits into.
         final Rect rect = new Rect();
-        paint.getTextBounds(chars, 0, 1, rect);
+        mPaint.getTextBounds(chars, 0, 1, rect);
 
         final float imageSizeHalf = mImageSize * 0.5f;
 
@@ -461,7 +458,7 @@ public class Painter {
                 count,
                 imageSizeHalf,
                 imageSizeHalf + (rect.bottom - rect.top) * 0.5f,
-                paint
+                mPaint
         );
 
     }
@@ -478,14 +475,13 @@ public class Painter {
      * @param alpha Paint alpha value
      */
     public void paintCentralCircle(int color, int alpha) {
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(color);
-        paint.setAlpha(alpha);
+        mPaint.setColor(color);
+        mPaint.setAlpha(alpha);
+        mPaint.setStyle(Paint.Style.FILL);
 
         final float imageCenter = mImageSize * 0.5f;
         final float radius      = imageCenter * CIRCLE_SIZE;
 
-        mCanvas.drawCircle(imageCenter, imageCenter, radius, paint);
+        mCanvas.drawCircle(imageCenter, imageCenter, radius, mPaint);
     }
 }

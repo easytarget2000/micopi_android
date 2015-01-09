@@ -25,6 +25,10 @@ import com.easytarget.micopi.Contact;
  */
 public class WanderingShapesGenerator {
 
+    private static final int DENSITY_FACTOR = 3;
+
+    private static final int MIN_DENSITY = 8;
+
     /**
      * Fills a canvas with a lot of colourful circles or polygon approximations of circles
      * Uses Painter
@@ -70,9 +74,9 @@ public class WanderingShapesGenerator {
         float y = x;
 
         // The amount of double shapes that will be painted; at least 10, no more than 25.
-        int numberOfShapes = contact.getNumberOfLetters() * 4;
-        numberOfShapes = Math.min(numberOfShapes, 25);
-        while (numberOfShapes < 10) numberOfShapes *= 2;
+        int numberOfShapes = contact.getNumberOfLetters() * DENSITY_FACTOR;
+//        numberOfShapes = Math.min(numberOfShapes, MIN_DENSITY);
+        while (numberOfShapes < MIN_DENSITY) numberOfShapes *= 2;
         Log.d("Number of Circle Scape shapes", contact.getFullName() + " " + numberOfShapes);
 
         for (int i = 0; i < numberOfShapes; i++) {

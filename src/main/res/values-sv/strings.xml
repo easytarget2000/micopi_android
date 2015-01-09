@@ -23,7 +23,7 @@
         till kontakten.</string>
     <string name="no_contact_selected">No contact selected</string>
     <string name="image_description">Genererad kontaktbild</string>
-    <string name="contact_button_label">Välj en kontakt</string>
+    <string name="pick_contact">Välj en kontakt</string>
     <string name="save_button_label">Spara bilden som fil</string>
     <string name="assign_button_label">Tilldela kontakten</string>
     <string name="overwrite_dialog">Vill du använda kontaktbilden fär %s?</string>

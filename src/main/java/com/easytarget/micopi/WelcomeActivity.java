@@ -16,12 +16,12 @@
 
 package com.easytarget.micopi;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -48,30 +48,74 @@ public class WelcomeActivity extends ActionBarActivity {
         }
     }
 
-    public void startMainActivity(@SuppressWarnings("unused") View view) {
+    public void selectButtonPressed(@SuppressWarnings("unused") View view) {
         Intent intent = new Intent(this, MainActivity.class);
         finish();
         startActivity(intent);
     }
 
-    public void startCrawl(View view) {
-        Cursor contacts = ContactCrawler.allContacts(this);
-        if (contacts == null) {
-            Log.e(LOG_TAG, "Contacts cursor is null.");
-            return;
+    public void crawlButtonPressed(View view) {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        dialog.setMessage(R.string.batch_question);
+
+        // Alternatively react on pressing the OK button.
+        dialog.setPositiveButton(R.string.generate_all, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                showBatchConfirmDialog(true);
+            }
+        });
+
+        dialog.setNeutralButton(R.string.generate_missing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                showBatchConfirmDialog(false);
+            }
+        });
+
+        dialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void showBatchConfirmDialog(final boolean doOverwrite) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        if (doOverwrite) {
+            dialog.setMessage(R.string.confirm_all);
+        } else {
+            dialog.setTitle(R.string.batch_experimental);
+            dialog.setMessage(R.string.batch_experimental_warning);
         }
 
-        final int numOfContact = contacts.getCount();
-        if (numOfContact < 1) {
-            Log.e(LOG_TAG, "Contacts cursor is empty.");
-            return;
-        }
+        // Alternatively react on pressing the OK button.
+        dialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                startCrawl(doOverwrite);
+            }
+        });
 
-        while(contacts.moveToNext()) {
-            Log.d(LOG_TAG, "Processing contact: " + contacts.getPosition() + "/" + numOfContact);
-        }
+        dialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
 
-        startMainActivity(view);
+        dialog.show();
+    }
+
+    private void startCrawl(final boolean doOverwrite) {
+        Intent batchService = new Intent(this, BatchService.class);
+        batchService.putExtra(Constants.EXTRA_DO_OVERWRITE, doOverwrite);
+        final int imageSize = DeviceHelper.getBestImageSize(this);
+        batchService.putExtra(Constants.EXTRA_IMAGE_SIZE, imageSize);
+        startService(batchService);
+//
+//        selectButtonPressed(view);
     }
 
 }

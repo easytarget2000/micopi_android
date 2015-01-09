@@ -17,7 +17,6 @@
 package com.easytarget.micopi.engine;
 
 import android.graphics.Color;
-import android.util.Log;
 
 /**
  * Created by michel on 27/10/14.
@@ -73,17 +72,14 @@ public class ColorCollection {
      * @return Color from the candy palette
      */
     public static int getCandyColorForChar(char c) {
-
         // If the given character is between lower case a and z,
         // subtract the index difference to the upper case characters.
         if (c >= 'a' && c <= 'z') c -= 32;
 
         final int index = c % (CANDY_PALETTE.length - 1);
 
-        int color = CANDY_PALETTE[index];
-        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
-
-        return color;
+        return CANDY_PALETTE[index];
+//        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
     }
 
     /**
@@ -101,12 +97,13 @@ public class ColorCollection {
         if (i1 % 4 != 0) {
             color = getCandyColorForChar(c2);
         } else {
-            final int harshIndex = i2 % HARSH_PALETTE.length;
+            final int harshIndex = i2 % (HARSH_PALETTE.length - 1);
             color = HARSH_PALETTE[harshIndex];
         }
 
         if (i2 % 2 == 0) {
-            color *= c1 * -c2 * i2 * i1;
+//            color *= c1 * -c2 * i2 * i1;
+            color *= c1 * -c2;
         }
 
         return color | 0xff000000;

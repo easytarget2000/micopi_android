@@ -26,7 +26,7 @@
         la photo produit sera présenté avant de l\'assigner à la personne désigné.
     </string>
     <string name="image_description">Image calculée</string>
-    <string name="contact_button_label">Choisir un contact</string>
+    <string name="pick_contact">Choisir un contact</string>
     <string name="save_button_label">Enregistrer l\'image</string>
     <string name="assign_button_label">Attribuez à ce contact</string>
     <string name="overwrite_dialog">Voulez-vous assigner cette image à %s?</string>

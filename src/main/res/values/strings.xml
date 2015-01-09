@@ -24,7 +24,6 @@
     </string>
     <string name="no_contact_selected">No contact selected</string>
     <string name="image_description">Calculated contact picture</string>
-    <string name="contact_button_label">Pick a contact</string>
     <!--<string name="crawl_button_label">Generate all contact pictures</string>-->
     <string name="save_button_label">Save image as file</string>
     <string name="assign_button_label">Assign to contact</string>
@@ -44,5 +43,23 @@
 
     <string name="button_previous_image">Previous Image</string>
     <string name="button_next_image">Next Image</string>
+
+    <string name="batch_question">
+        Would you like to overwrite all images or only generate pictures for contacts
+        that currently do not have one?
+    </string>
+    <string name="confirm_all">
+        Please confirm that you would like to overwrite all contact images.
+    </string>
+    <string name="batch_experimental">Batch mode is experimental!</string>
+    <string name="batch_experimental_warning">
+        Please note:\nDifferent flavours of Android and some apps may store pictures in unique ways.
+        \n\n
+        It is unlikely, but not impossible, that profile images get overwritten.
+    </string>
+    <string name="generate_all">Generate all</string>
+    <string name="generate_all_pictures">Generate all images (experimental)</string>
+    <string name="generate_missing">Generate missing</string>
+    <string name="pick_contact">Pick a single contact</string>
 
 </resources>
