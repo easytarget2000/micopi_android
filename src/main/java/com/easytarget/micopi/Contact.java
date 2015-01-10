@@ -20,14 +20,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -451,9 +449,9 @@ public class Contact implements Parcelable{
     }
 
     /**
-     * Log tag for assignImage() method
+     * Log tag for assignTempFileToContact() method
      */
-    private static final String DEBUG_TAG_ASSIGN = "assignImage()";
+    private static final String DEBUG_TAG_ASSIGN = "assignTempFileToContact()";
 
 
     /**
@@ -473,8 +471,4 @@ public class Contact implements Parcelable{
         else mRetryFactor -= RETRY_STEP;
     }
 
-    public File buildTempFile(Context context) {
-        context = context.getApplicationContext();
-        return new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), mMd5String);
-    }
 }

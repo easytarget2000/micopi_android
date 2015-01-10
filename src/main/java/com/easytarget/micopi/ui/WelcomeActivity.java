@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi;
+package com.easytarget.micopi.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,6 +24,11 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
+
+import com.easytarget.micopi.BatchService;
+import com.easytarget.micopi.Constants;
+import com.easytarget.micopi.DeviceHelper;
+import com.easytarget.micopi.R;
 
 /**
  * First activity to be displayed after launch.

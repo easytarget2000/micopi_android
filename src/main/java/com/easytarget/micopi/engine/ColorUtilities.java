@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class ColorUtilities {
 
-    private static final int STEP_SIZE_PIXEL = 8;
+    private static final int STEP_SIZE_PIXEL = 6;
 
     /**
      * @param bitmap Bitmap that will be processed

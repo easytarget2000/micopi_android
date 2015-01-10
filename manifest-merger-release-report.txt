@@ -41,7 +41,7 @@ MERGED from com.android.support:support-v4:21.0.3:16:5
 		ADDED from AndroidManifest.xml:36:9
 	android:theme
 		ADDED from AndroidManifest.xml:38:9
-activity#com.easytarget.micopi.WelcomeActivity
+activity#com.easytarget.micopi.ui.WelcomeActivity
 ADDED from AndroidManifest.xml:41:9
 	android:label
 		ADDED from AndroidManifest.xml:43:13
@@ -59,7 +59,7 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:47:17
 	android:name
 		ADDED from AndroidManifest.xml:47:27
-activity#com.easytarget.micopi.MainActivity
+activity#com.easytarget.micopi.ui.MainActivity
 ADDED from AndroidManifest.xml:52:9
 	android:label
 		ADDED from AndroidManifest.xml:54:13

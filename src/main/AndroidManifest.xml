@@ -39,7 +39,7 @@
 
         <!-- Micopi Welcome Activity -->
         <activity
-            android:name="com.easytarget.micopi.WelcomeActivity"
+            android:name=".ui.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -50,7 +50,7 @@
 
         <!-- Micopi Main Activity -->
         <activity
-            android:name="com.easytarget.micopi.MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name">
         </activity>
 

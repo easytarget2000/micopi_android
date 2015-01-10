@@ -77,7 +77,7 @@ public class BatchService extends IntentService {
                 cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID);
 
         while (cursor.moveToNext()) {
-            final int rawContactId = cursor.getInt(idIndex);
+            final String rawContactId = cursor.getString(idIndex);
             final String name = cursor.getString(nameIndex);
             final int photoId = cursor.getInt(photoIdIndex);
             if (!TextUtils.isEmpty(name)) {
@@ -91,8 +91,11 @@ public class BatchService extends IntentService {
                             new ImageFactory(contact, screenWidthInPixels).generateBitmap();
 
                     Log.d(LOG_TAG, "Assigning image to " + contact.toString() + ".");
-
-//                    FileHelper.assignImage(getApplicationContext(), generatedBitmap, rawContactId);
+                    FileHelper.assignImageToContact(
+                            getApplicationContext(),
+                            generatedBitmap,
+                            rawContactId
+                    );
                 }
             }
         }

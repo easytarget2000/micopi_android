@@ -30,7 +30,7 @@ public class AssignContactImageService extends IntentService {
      *
      * @return TRUE if assignment was successful.
      */
-//    public boolean assignImage(final String contactId) {
+//    public boolean assignTempFileToContact(final String contactId) {
 //        if (mAppContext == null || mBitmap == null) return false;
 //
 //        final Cursor rawContactCursor = mAppContext.getContentResolver().query(

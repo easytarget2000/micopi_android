@@ -38,56 +38,56 @@ public class SquareMatrixGenerator {
      */
     public static void generate(Painter painter, final Contact fContact) {
 
-        final String fMd5String = fContact.getMD5EncryptedString();
-        final int fMd5Length    = fMd5String.length();
+        final String md5String = fContact.getMD5EncryptedString();
+        final int md5Length    = md5String.length();
 
-        final int fColor1 = ColorCollection.generateColor(
+        final int color1 = ColorCollection.generateColor(
                 fContact.getFullName().charAt(0),
-                fMd5String.charAt(10),
+                md5String.charAt(10),
                 fContact.getNumberOfNameWords(),
-                fMd5String.charAt(11)
+                md5String.charAt(11)
         );
-        final int fColor2 = Color.WHITE;
-        final int fColor3 = ColorCollection.getCandyColorForChar(fMd5String.charAt(16));
+        final int color2 = Color.WHITE;
+        final int color3 = ColorCollection.getCandyColorForChar(md5String.charAt(16));
 
         int numOfSquares = NUM_OF_SQUARES;
         if (fContact.getNameWord(0).length() % 2 == 0) numOfSquares -= 1;
-        final float fImageSizeDiv = painter.getImageSize() / numOfSquares;
+        final float sideLength = painter.getImageSize() / numOfSquares;
 
         int md5Pos = 0;
         for (int y = 0; y < numOfSquares; y++) {
             for (int x = 0; x < 3; x++) {
                 md5Pos++;
-                if (md5Pos >= fMd5Length) md5Pos = 0;
-                final char fMd5Char = fMd5String.charAt(md5Pos);
+                if (md5Pos >= md5Length) md5Pos = 0;
+                final char fMd5Char = md5String.charAt(md5Pos);
 
                 if (isOddParity(fMd5Char)) {
                     painter.paintSquare(
-                            true,
-                            fColor1,
-                            255,
+                            true,       // doPaintFilled
+                            color1,
+                            255,        // Alpha
                             x,
                             y,
-                            fImageSizeDiv
+                            sideLength
                     );
                     if (x == 0) {
                         painter.paintSquare(
                                 true,
-                                fColor2,
+                                color2,
                                 200 - fMd5Char,
                                 4,
                                 y,
-                                fImageSizeDiv
+                                sideLength
                         );
                     }
                     if (x == 1) {
                         painter.paintSquare(
                                 true,
-                                fColor3,
+                                color3,
                                 200 - fMd5Char,
                                 3,
                                 y,
-                                fImageSizeDiv
+                                sideLength
                         );
                     }
                 }

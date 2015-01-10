@@ -103,7 +103,7 @@ public class ColorCollection {
 
         if (i2 % 2 == 0) {
 //            color *= c1 * -c2 * i2 * i1;
-            color *= c1 * -c2;
+            color *= c1 * -c2 * i2;
         }
 
         return color | 0xff000000;

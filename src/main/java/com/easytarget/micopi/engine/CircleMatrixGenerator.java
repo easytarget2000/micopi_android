@@ -15,9 +15,6 @@
  */
 package com.easytarget.micopi.engine;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-
 import com.easytarget.micopi.Contact;
 
 /**
@@ -53,7 +50,7 @@ public class CircleMatrixGenerator {
         final boolean doGenerateColor = contact.getNumberOfNameWords() > 1;
 
         int md5Pos = 0;
-        int color = Color.WHITE;
+        int color = ColorCollection.getCandyColorForChar(contact.getFullName().charAt(0));
         for (int y = 0; y < shapesPerRow; y++) {
             for (int x = 0; x < shapesPerRow; x++) {
 
@@ -68,7 +65,7 @@ public class CircleMatrixGenerator {
                 if ((index & 1) == 0) radius = md5Char * 2f;
                 else radius = md5Char * 3f;
 
-                painter.paintDoubleShape(
+                painter.paintShape(
                         Painter.MODE_CIRCLE_FILLED,
                         color,
                         200 - md5String.charAt(md5Pos) + index,

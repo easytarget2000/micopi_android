@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -17,6 +18,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 /**
  * Created by michel on 27/10/14.
@@ -26,30 +29,65 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
 
     private static final String LOG_TAG = FileHelper.class.getSimpleName();
 
+    private static final String DIR_MICOPI = "/micopi/";
+
+    private static final String TEMP_FILE_NAME = ".tempfile.png";
+
     private MediaScannerConnection mConnection;
 
     private static Context mAppContext;
 
     private String mFileName;
 
+    public static File openTempFile(Context context) {
+        if (context == null) return null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            return new File(
+                    context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                    TEMP_FILE_NAME
+            );
+        } else {
+            // Fallback: use the Micopi directory on the external storage.
+            File micopiDir = prepareMicopiDir();
+            return new File(micopiDir.getAbsolutePath(), TEMP_FILE_NAME);
+        }
+    }
+
+    /** Creates a Micopi directory on the external storage */
+    private static File prepareMicopiDir() {
+        File micopiDir = new File(Environment.getExternalStorageDirectory() + DIR_MICOPI);
+        micopiDir.mkdirs();
+        return micopiDir;
+    }
+
     /**
      * Finds the contact's image entry and replaces it with the generated data.
      *
      * @param context
-     * @param tempImageFile
      * @param contactId
      * @return TRUE if assignment was successful.
      */
-    public static boolean assignImage(Context context, File tempImageFile, final String contactId) {
+    public static boolean assignTempFileToContact(
+            Context context,
+            final String contactId
+    ) {
+        if (context == null) return false;
+
+        // Open the temporary file in which the image was stored.
+        File tempImageFile = openTempFile(context);
+        if (tempImageFile == null) return false;
+
         // Create a byte stream from the file.
         byte[] image = new byte[(int) tempImageFile.length()];
         try {
             new FileInputStream(tempImageFile).read(image);
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
 
-        return assignImage(context, image, contactId);
+        return assignImageToContact(context, image, contactId);
     }
 
     /**
@@ -60,13 +98,17 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
      * @param contactId
      * @return TRUE if assignment was successful.
      */
-    public static boolean assignImage(Context context, final Bitmap bitmap, final String contactId) {
+    public static boolean assignImageToContact(
+            Context context,
+            final Bitmap bitmap,
+            final String contactId
+    ) {
         // Create a byte stream from the generated image.
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         final byte[] image = outputStream.toByteArray();
 
-        return assignImage(context, image, contactId);
+        return assignImageToContact(context, image, contactId);
     }
 
     /**
@@ -77,7 +119,11 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
      * @param contactId
      * @return TRUE if assignment was successful.
      */
-    public static boolean assignImage(Context context, final byte[] image, final String contactId) {
+    public static boolean assignImageToContact(
+            Context context,
+            final byte[] image,
+            final String contactId
+    ) {
         mAppContext = context.getApplicationContext();
         if (mAppContext == null || TextUtils.isEmpty(contactId)) return false;
 
@@ -178,38 +224,55 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
     }
 
     /**
-     * Saves the generated image to a file.
+     * The last generated image is stored in a temporary file in the App directory.
+     * This method copies the temporary file to a Micopi folder on the external storage,
+     * so that it can be accessed by the user.
+     * A media scan is performed, to have the file listed in gallery apps.
+     *
+     * @param context Context from which to get the temporary file from the app dir
+     * @param fileName First part of the new file name, usually the full contact name
+     * @param appendix Appendix character to separate files from the same contact
+     * @return FirstName_LastName-appendix.png, if successfully copied the file
      */
-    public String saveContactImageFile(
+    public String copyTempFileToPublicDir(
             Context context,
-            @NonNull Bitmap bitmap,
-            @NonNull final String name,
+            final String fileName,
             final char appendix
     ) {
+        if (context == null || TextUtils.isEmpty(fileName)) return null;
         mAppContext = context.getApplicationContext();
-        if (mAppContext == null) return null;
-
-        String strFileName = name.replace( ' ', '_' ) + "-" + appendix + ".png";
 
         // Files will be stored in the /sdcard/micopi dir.
-        File micopiFolder = new File( Environment.getExternalStorageDirectory() + "/micopi/" );
-        if( micopiFolder.mkdirs() ) Log.i("New directory created", micopiFolder.getPath());
-        else Log.i( "New directory created", "false" );
+        File micopiDir = prepareMicopiDir();
 
         // The file name is "FirstName_LastName-x.png".
-        File file = new File( micopiFolder.getAbsolutePath(), strFileName );
-        FileOutputStream fileOutStream;
+        final String newName = fileName.replace(' ', '_') + "-" + appendix + ".png";
+        File newFile = new File(micopiDir.getAbsolutePath(), newName);
 
+        // Open the temporary file and copy the file to the new destination.
+        File tempFile = openTempFile(context);
+        if (tempFile == null) return null;
         try {
-            fileOutStream = new FileOutputStream( file );
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutStream);
-            fileOutStream.close();
-            performMediaScan( file );
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            return "";
+            copyFile(tempFile, newFile);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.toString());
+            return null;
         }
-        return strFileName;
+
+        performMediaScan(newFile);
+        return newName;
+    }
+
+    public void copyFile(File src, File dst) throws IOException {
+        FileInputStream inStream = new FileInputStream(src);
+        FileOutputStream outStream = new FileOutputStream(dst);
+
+        FileChannel inChannel = inStream.getChannel();
+        FileChannel outChannel = outStream.getChannel();
+
+        inChannel.transferTo(0, inChannel.size(), outChannel);
+        inStream.close();
+        outStream.close();
     }
 
     /**

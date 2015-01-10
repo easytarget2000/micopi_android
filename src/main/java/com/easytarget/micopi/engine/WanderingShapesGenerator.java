@@ -25,9 +25,11 @@ import com.easytarget.micopi.Contact;
  */
 public class WanderingShapesGenerator {
 
-    private static final int DENSITY_FACTOR = 3;
+    private static final String LOG_TAG = WanderingShapesGenerator.class.getSimpleName();
 
-    private static final int MIN_DENSITY = 8;
+    private static final int DENSITY_FACTOR = 1;
+
+    private static final int MIN_DENSITY = 4;
 
     /**
      * Fills a canvas with a lot of colourful circles or polygon approximations of circles
@@ -60,7 +62,7 @@ public class WanderingShapesGenerator {
         if (paintFilled) alpha /= 2;
         //Log.i("Circle Scape", "Alpha: " + alpha + " paintFilled: " + paintFilled);
         // This was 0.1
-        float shapeWidth = (float) md5String.charAt(7) * 2f;
+        float shapeWidth = (float) md5String.charAt(7) * 5f;
 
         // Determine if to paint occasional arcs or not.
         boolean paintArc = true;
@@ -74,12 +76,20 @@ public class WanderingShapesGenerator {
         float y = x;
 
         // The amount of double shapes that will be painted; at least 10, no more than 25.
-        int numberOfShapes = contact.getNumberOfLetters() * DENSITY_FACTOR;
-//        numberOfShapes = Math.min(numberOfShapes, MIN_DENSITY);
-        while (numberOfShapes < MIN_DENSITY) numberOfShapes *= 2;
-        Log.d("Number of Circle Scape shapes", contact.getFullName() + " " + numberOfShapes);
+        int numOfShapes = contact.getNumberOfLetters() * DENSITY_FACTOR;
+//        numOfShapes = Math.min(numOfShapes, MIN_DENSITY);
+        while (numOfShapes < MIN_DENSITY) numOfShapes *= 2;
+//        Log.d("Number of Circle Scape shapes", contact.getFullName() + " " + numOfShapes);
 
-        for (int i = 0; i < numberOfShapes; i++) {
+        final int paintMode;
+//        if (paintArc && ((md5Int % 2) == 0)) paintMode = Painter.MODE_ARC;
+        if (paintArc) paintMode = Painter.MODE_ARC;
+        else if (paintPolygon) paintMode = Painter.MODE_POLYGON;
+        else paintMode = Painter.MODE_CIRCLE;
+
+        Log.d(LOG_TAG, "Number of shapes: " + numOfShapes);
+
+        for (int i = 0; i < numOfShapes; i++) {
             // Get the next character from the MD5 String.
             md5Pos++;
             if (md5Pos >= md5Length) md5Pos = 0;
@@ -111,15 +121,15 @@ public class WanderingShapesGenerator {
                     break;
             }
 
-            int paintMode = Painter.MODE_CIRCLE;
-            if (paintArc && md5Int % 2 == 0) paintMode = Painter.MODE_ARC;
-            else if (paintPolygon) paintMode = Painter.MODE_POLYGON;
+
             //if (paintFilled) paintMode += Painter.MODE_CIRCLE_FILLED;
 
             // The new coordinates have been generated. Paint something.
-            painter.paintDoubleShape(
+            final int color = ColorCollection.generateColor(colorChar1, colorChar2, md5Int, i + 1);
+//            Log.d("WanderingShapes", "Color: " + Integer.toHexString(color));
+            painter.paintShape(
                     paintMode,
-                    ColorCollection.generateColor(colorChar1, colorChar2, md5Int, i + 1),
+                    color,
                     alpha,
                     shapeWidth,
                     numOfEdges,
@@ -129,7 +139,7 @@ public class WanderingShapesGenerator {
                     y,
                     i * md5String.charAt(2) // Radius
             );
-            shapeWidth += .05f;
+            shapeWidth += .1f;
         }
     }
 }

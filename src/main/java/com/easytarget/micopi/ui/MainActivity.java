@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi;
+package com.easytarget.micopi.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -44,8 +44,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.easytarget.micopi.AssignContactImageTask;
+import com.easytarget.micopi.Constants;
+import com.easytarget.micopi.Contact;
+import com.easytarget.micopi.DeviceHelper;
+import com.easytarget.micopi.FileHelper;
+import com.easytarget.micopi.GenerateImageTask;
+import com.easytarget.micopi.R;
 import com.easytarget.micopi.engine.ColorUtilities;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -89,11 +97,6 @@ public class MainActivity extends ActionBarActivity {
     /** Last time the back button was pressed */
     private Date backButtonDate;
 
-    /** Horizontal resolution of portrait mode */
-//    private int mScreenWidthPixels;
-
-    private String mImagePath;
-
     private int mColor;
 
     @Override
@@ -109,27 +112,13 @@ public class MainActivity extends ActionBarActivity {
 
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
-            Log.d("MainActivity", "onRestoreInstanceState()");
+//            Log.d("MainActivity", "onRestoreInstanceState()");
             // Always call the superclass so it can restore the view hierarchy
-            super.onRestoreInstanceState(savedInstanceState);
+//            super.onRestoreInstanceState(savedInstanceState);
 
-            // Restore state members from saved instance
-//            byte[] imageBytes = savedInstanceState.getByteArray(STORED_IMAGE_PATH);
-//            if (imageBytes != null) {
-//                Log.d("MainActivity", "Restoring bitmap.");
-//                mGeneratedBitmap        = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-//            }
             mColor                  = savedInstanceState.getInt(Constants.EXTRA_COLOR);
-            mImagePath              = savedInstanceState.getString(Constants.EXTRA_FILE_PATH);
             mContact                = savedInstanceState.getParcelable(STORED_CONTACT);
             mHasPickedContact       = savedInstanceState.getBoolean(STORED_PICKED);
-//            mScreenWidthPixels = savedInstanceState.getInt(STORED_WIDTH);
-
-//            if (mHasPickedContact && mContact != null && mGeneratedBitmap != null) {
-//                Log.d("Restoring generated bitmap", mGeneratedBitmap.getHeight() + "");
-//                Log.d("Restoring contact object", mContact.getFullName());
-//                showContactData();
-//            }
             new ShowContactDataTask().execute();
         }
 
@@ -163,7 +152,6 @@ public class MainActivity extends ActionBarActivity {
             switch (action) {
                 case Constants.ACTION_FINISHED_GENERATE:
                     if (didSucceed) {
-                        mImagePath = intent.getStringExtra(Constants.EXTRA_FILE_PATH);
                         mColor = intent.getIntExtra(
                                 Constants.EXTRA_COLOR,
                                 0
@@ -263,7 +251,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt(Constants.EXTRA_COLOR, mColor);
-        savedInstanceState.putString(Constants.EXTRA_FILE_PATH, mImagePath);
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
         savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
 //        savedInstanceState.putInt(STORED_WIDTH, mScreenWidthPixels);
@@ -348,14 +335,14 @@ public class MainActivity extends ActionBarActivity {
      * Opens a YES/NO dialog for the user to confirm that the contact's image will be overwritten.
      */
     public void confirmAssignContactImage() {
-        if (mContact == null || mImagePath == null) return;
+        if (mContact == null) return;
 
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     setGuiIsBusy(true);
-                    new AssignContactImageTask(mContext).execute(mContact.getId(), mImagePath);
+                    new AssignContactImageTask(mContext).execute(mContact.getId());
                 }
             }
         };
@@ -378,8 +365,11 @@ public class MainActivity extends ActionBarActivity {
     private class ShowContactDataTask extends AsyncTask<Void, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(Void... params) {
-            if (mImagePath == null || mContact == null) return null;
-            return BitmapFactory.decodeFile(mImagePath);
+            if (mContact == null) return null;
+            File tempFile = FileHelper.openTempFile(getApplicationContext());
+            if (tempFile == null) return null;
+            Log.d(LOG_TAG, "Loading bitmap from temp file:" + tempFile.getAbsolutePath());
+            return BitmapFactory.decodeFile(tempFile.getAbsolutePath());
         }
 
         @Override
@@ -413,20 +403,14 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            if (mImagePath == null) return null;
-            Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+            if (mContact == null) return null;
 
-            if(bitmap != null && mContact != null) {
-                FileHelper fileHandler = new FileHelper();
-                return fileHandler.saveContactImageFile(
-                        mContext,
-                        bitmap,
-                        mContact.getFullName(),
-                        mContact.getMD5EncryptedString().charAt(0)
-                );
-            }
-
-            return null;
+            FileHelper fileHandler = new FileHelper();
+            return fileHandler.copyTempFileToPublicDir(
+                    mContext,
+                    mContact.getFullName(),
+                    mContact.getMD5EncryptedString().charAt(0)
+            );
         }
 
         @Override
