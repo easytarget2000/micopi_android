@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2014 Easy Target
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0.txt
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.easytarget.micopi.ui;
 
 import android.app.AlertDialog;
@@ -31,19 +15,15 @@ import com.easytarget.micopi.DeviceHelper;
 import com.easytarget.micopi.R;
 
 /**
- * First activity to be displayed after launch.
+ * Created by michel on 11/01/15.
+ *
  */
-public class WelcomeActivity extends ActionBarActivity {
-
-    private static final String LOG_TAG = WelcomeActivity.class.getSimpleName();
+public class BatchActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-
-        // The welcome activity doesn't need to have an action bar.
-        if(getSupportActionBar() != null) getSupportActionBar().hide();
+        setContentView(R.layout.activity_batch);
 
         // Set the status bar colour of this window on Android >= 5.0.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -53,38 +33,12 @@ public class WelcomeActivity extends ActionBarActivity {
         }
     }
 
-    public void selectButtonPressed(@SuppressWarnings("unused") View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        finish();
-        startActivity(intent);
+    public void generateAllPressed(View view) {
+        showBatchConfirmDialog(true);
     }
 
-    public void crawlButtonPressed(View view) {
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
-        dialog.setMessage(R.string.batch_question);
-
-        // Alternatively react on pressing the OK button.
-        dialog.setPositiveButton(R.string.generate_all, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                showBatchConfirmDialog(true);
-            }
-        });
-
-        dialog.setNeutralButton(R.string.generate_missing, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                showBatchConfirmDialog(false);
-            }
-        });
-
-        dialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
-
-        dialog.show();
+    public void generateMissingPressed(View view) {
+        showBatchConfirmDialog(false);
     }
 
     private void showBatchConfirmDialog(final boolean doOverwrite) {
@@ -122,5 +76,4 @@ public class WelcomeActivity extends ActionBarActivity {
 //
 //        selectButtonPressed(view);
     }
-
 }

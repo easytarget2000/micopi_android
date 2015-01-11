@@ -9,6 +9,8 @@ public class Constants {
 
     public static final String ACTION_FINISHED_GENERATE = "finished_generating";
 
+    public static final String ACTION_UPDATE_PROGRESS = "update_progress";
+
     public static final String EXTRA_COLOR = "color";
 
     public static final String EXTRA_CONTACT = "contact";
@@ -18,6 +20,8 @@ public class Constants {
     public static final String EXTRA_FILE_PATH = "file_path";
 
     public static final String EXTRA_IMAGE_SIZE = "screen_width";
+
+    public static final String EXTRA_PROGRESS = "progress";
 
     public static final String EXTRA_SUCCESS = "success";
 

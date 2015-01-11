@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/primary"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/batch_question"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+    <Button
+        android:background="@android:color/white"
+        android:layout_height="@dimen/abc_action_button_min_height_material"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_width="fill_parent"
+        android:onClick="generateMissingPressed"
+        android:text="@string/generate_missing"
+        android:textColor="@color/primary"/>
+
+    <Button
+        android:background="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/abc_action_button_min_height_material"
+        android:layout_width="fill_parent"
+        android:text="@string/generate_all"
+        android:onClick="generateAllPressed"
+        android:textColor="@color/primary"/>
+
+    <include layout="@layout/progress_bar"/>
+
+</RelativeLayout>

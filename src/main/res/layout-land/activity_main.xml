@@ -30,14 +30,15 @@
         android:adjustViewBounds="true"/>
 
     <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/progressBar"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_centerVertical="true"
+        android:indeterminate="false"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:layout_centerVertical="true"
+        android:layout_height="@dimen/activity_large_margin"
+        android:layout_width="fill_parent"
+        android:max="100"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleHorizontal" />
 
     <TextView
         android:layout_width="wrap_content"

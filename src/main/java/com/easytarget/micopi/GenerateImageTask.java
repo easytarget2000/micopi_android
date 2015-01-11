@@ -35,11 +35,6 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
 
     @Override
     protected Void doInBackground(Integer... params) {
-//        if (params.length < 2) {
-//            Log.e(LOG_TAG, "Wrong parameter length: " + params.length);
-//            return sendBroadcast(false, 0);
-//        }
-
         if (mContact == null) {
             Log.e("generateImageTask", "ERROR: Contact is null.");
             return sendBroadcast(false, 0);
@@ -50,6 +45,7 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
         Bitmap generatedBitmap = new ImageFactory(mContact, params[0]).generateBitmap();
         long endTime = System.currentTimeMillis();
         Log.d(LOG_TAG, "FINISHED IMAGE GENERATOR: " + (endTime - startTime));
+        sendProgressBroadcast(85);
 
         final int averageColor = ColorUtilities.getAverageColor(generatedBitmap);
 
@@ -58,18 +54,16 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
             return sendBroadcast(false, 0);
         }
         File tempFile = FileHelper.openTempFile(mAppContext);
-        startTime = System.currentTimeMillis();
 
+        FileOutputStream stream;
         try {
-            generatedBitmap.compress(
-                    Bitmap.CompressFormat.PNG,
-                    100,
-                    new FileOutputStream(tempFile)
-            );
+            stream = new FileOutputStream(tempFile);
         } catch (FileNotFoundException e) {
             Log.e(LOG_TAG, e.toString());
             return sendBroadcast(false, 0);
         }
+        startTime = System.currentTimeMillis();
+        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         endTime = System.currentTimeMillis();
         Log.d(LOG_TAG, "FINISHED SAVING FILE: " + (endTime - startTime));
 
@@ -87,5 +81,16 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
         mAppContext.sendBroadcast(finishBroadcast);
         return null;
     }
+    
+    private Intent mProgressBroadcast;
+
+    private void sendProgressBroadcast(final int progress) {
+        if (mProgressBroadcast == null) {
+            mProgressBroadcast = new Intent(Constants.ACTION_UPDATE_PROGRESS);
+        }
+        mProgressBroadcast.putExtra(Constants.EXTRA_PROGRESS, progress);
+        mAppContext.sendBroadcast(mProgressBroadcast);
+    }
+
 
 }

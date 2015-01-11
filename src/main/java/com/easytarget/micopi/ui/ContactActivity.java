@@ -54,21 +54,20 @@ import com.easytarget.micopi.R;
 import com.easytarget.micopi.engine.ColorUtilities;
 
 import java.io.File;
-import java.util.Date;
 
 /**
  * Activity that displays the generated image and all the options.
  *
  * Created by Michel on 03.02.14.
  */
-public class MainActivity extends ActionBarActivity {
+public class ContactActivity extends ActionBarActivity {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = ContactActivity.class.getSimpleName();
 
     /** Key for Contact object, used for instance saving and restoration */
     private static final String STORED_CONTACT = "stored_contact";
 
-    /** Key for boolean object, used for instance saving and restoration */
+    /** Key for boolean value, used for instance saving and restoration */
     private static final String STORED_PICKED = "stored_picked";
 
     /** This activity is the general Context */
@@ -83,6 +82,8 @@ public class MainActivity extends ActionBarActivity {
     /** Displays the generated image */
     private ImageView mIconImageView;
 
+    private ProgressBar mProgressbar;
+
     /** Currently handled contact */
     private Contact mContact;
 
@@ -93,9 +94,6 @@ public class MainActivity extends ActionBarActivity {
      * Keeps the user from performing any input while performing a task such as generating an image
      */
     private boolean mGuiIsLocked = false;
-
-    /** Last time the back button was pressed */
-    private Date backButtonDate;
 
     private int mColor;
 
@@ -109,13 +107,10 @@ public class MainActivity extends ActionBarActivity {
         mNameTextView           = (TextView) findViewById(R.id.nameTextView);
         mDescriptionTextView    = (TextView) findViewById(R.id.descriptionTextView);
         mIconImageView          = (ImageView) findViewById(R.id.iconImageView);
+        mProgressbar            = (ProgressBar) findViewById(R.id.progressBar);
 
         // Check whether we're recreating a previously destroyed instance
-        if (savedInstanceState != null) {
-//            Log.d("MainActivity", "onRestoreInstanceState()");
-            // Always call the superclass so it can restore the view hierarchy
-//            super.onRestoreInstanceState(savedInstanceState);
-
+        if (savedInstanceState != null && !mGuiIsLocked) {
             mColor                  = savedInstanceState.getInt(Constants.EXTRA_COLOR);
             mContact                = savedInstanceState.getParcelable(STORED_CONTACT);
             mHasPickedContact       = savedInstanceState.getBoolean(STORED_PICKED);
@@ -126,12 +121,21 @@ public class MainActivity extends ActionBarActivity {
         if(!mHasPickedContact) pickContact();
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(this, WelcomeActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+//    }
+
     @Override
     protected void onResume() {
         super.onResume();
         IntentFilter filter = new IntentFilter();
         filter.addAction(Constants.ACTION_FINISHED_ASSIGN);
         filter.addAction(Constants.ACTION_FINISHED_GENERATE);
+        filter.addAction(Constants.ACTION_UPDATE_PROGRESS);
         registerReceiver(mReceiver, filter);
     }
 
@@ -144,13 +148,13 @@ public class MainActivity extends ActionBarActivity {
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            setGuiIsBusy(false);
 
             final String action = intent.getAction();
             final boolean didSucceed = intent.getBooleanExtra(Constants.EXTRA_SUCCESS, false);
 
             switch (action) {
                 case Constants.ACTION_FINISHED_GENERATE:
+                    setGuiIsBusy(false);
                     if (didSucceed) {
                         mColor = intent.getIntExtra(
                                 Constants.EXTRA_COLOR,
@@ -170,6 +174,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                     break;
                 case Constants.ACTION_FINISHED_ASSIGN:
+                    setGuiIsBusy(false);
                     if (didSucceed) {
                         Toast.makeText(getApplicationContext(),
                                 String.format(
@@ -185,24 +190,16 @@ public class MainActivity extends ActionBarActivity {
                         ).show();
                     }
                     break;
+                case Constants.ACTION_UPDATE_PROGRESS:
+                    final int progress = intent.getIntExtra(Constants.EXTRA_PROGRESS, 33);
+                    mProgressbar.setProgress(progress);
+                    break;
                 default:
                     Log.e(LOG_TAG, "Unknown action received: " + action);
                     break;
             }
         }
     };
-
-    @Override
-    public void onBackPressed() {
-        if (backButtonDate == null) {
-            backButtonDate = new Date();
-        } else if (backButtonDate.getTime() - System.currentTimeMillis() <= 4000) {
-            finish();
-        }
-
-        backButtonDate.setTime(System.currentTimeMillis());
-        if(!mGuiIsLocked) pickContact();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -250,14 +247,12 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
         savedInstanceState.putInt(Constants.EXTRA_COLOR, mColor);
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
         savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
-//        savedInstanceState.putInt(STORED_WIDTH, mScreenWidthPixels);
-
-        // Always call the superclass so it can save the view hierarchy state
-        super.onSaveInstanceState(savedInstanceState);
-        Log.d("MainActivity", "onSaveInstanceState()");
+//        savedInstanceState.putInt(STORED_PROGRESS, mProgressbar.getProgress());
     }
 
     /*
@@ -272,9 +267,8 @@ public class MainActivity extends ActionBarActivity {
      */
     private void setGuiIsBusy(boolean isBusy) {
         mGuiIsLocked = isBusy;
-        ProgressBar mLoadingCircle = (ProgressBar) findViewById(R.id.progressBar);
-        if(isBusy) mLoadingCircle.setVisibility(View.VISIBLE);
-        else mLoadingCircle.setVisibility(View.GONE);
+        if(isBusy) mProgressbar.setVisibility(View.VISIBLE);
+        else mProgressbar.setVisibility(View.GONE);
     }
 
     /**
@@ -308,7 +302,6 @@ public class MainActivity extends ActionBarActivity {
         // Check if the activity result is ok and check the request code.
         // The latter should be 1 indicating a picked contact.
         if(resultCode == RESULT_OK && reqCode == PICK_CONTACT) {
-            backButtonDate = null;
             mHasPickedContact = true;
             mContact = new Contact(mContext, data);
             startGenerateImageTask();
@@ -316,6 +309,9 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void startGenerateImageTask() {
+        // Show fake progress.
+        mProgressbar.setProgress(5);
+
         setGuiIsBusy(true);
         mIconImageView.setImageDrawable(null);
 
@@ -323,11 +319,13 @@ public class MainActivity extends ActionBarActivity {
         mNameTextView.setVisibility(View.GONE);
         mDescriptionTextView.setVisibility(View.GONE);
 
+
         // Reset the activity colours.
         int defaultColor = getResources().getColor(R.color.primary);
         setColor(defaultColor);
 
         final int imageSize = DeviceHelper.getBestImageSize(this);
+        mProgressbar.setProgress(25);
         new GenerateImageTask(mContext, mContact).execute(imageSize , 0);
     }
 
@@ -374,6 +372,7 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
+            mProgressbar.setProgress(99);
             super.onPostExecute(bitmap);
             if (bitmap == null)  {
                 Log.e(LOG_TAG, "Could not load image from file.");
@@ -383,6 +382,7 @@ public class MainActivity extends ActionBarActivity {
             }
             setColor(mColor);
             Drawable generatedDrawable = new BitmapDrawable(getResources(), bitmap);
+            mProgressbar.setVisibility(View.GONE);
             mIconImageView.setImageDrawable(generatedDrawable);
 
             mNameTextView.setText(mContact.getFullName());

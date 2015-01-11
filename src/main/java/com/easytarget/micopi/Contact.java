@@ -448,26 +448,18 @@ public class Contact implements Parcelable{
         return mMd5String;
     }
 
-    /**
-     * Log tag for assignTempFileToContact() method
-     */
-    private static final String DEBUG_TAG_ASSIGN = "assignTempFileToContact()";
-
-
-    /**
-     * Definition of step sized to be used by modifyRetryFactor()
-     */
+    /** Definition of step sized to be used by modifyRetryFactor() */
     private static final int RETRY_STEP = 9;
 
     /**
      * Alters the retry factor, so the next MD5 string will change significantly
      * Can be used to get back to last picture by setting forward boolean to false
      *
-     * @param fDoMoveForward If true, increase x steps. If false, decrease x steps.
+     * @param doMoveForward If true, increase x steps. If false, decrease x steps.
      */
-    public void modifyRetryFactor(final boolean fDoMoveForward) {
+    public void modifyRetryFactor(final boolean doMoveForward) {
         mMd5IsNew = true;
-        if (fDoMoveForward) mRetryFactor += RETRY_STEP;
+        if (doMoveForward) mRetryFactor += RETRY_STEP;
         else mRetryFactor -= RETRY_STEP;
     }
 

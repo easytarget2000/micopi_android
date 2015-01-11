@@ -167,7 +167,7 @@ public class ImageFactory {
         INITIAL LETTER ON CIRCLE
          */
 
-        painter.paintCentralCircle(bgColor, (255 - md5String.charAt(29) * 2));
+        painter.paintCentralCircle(bgColor, (255 - md5String.charAt(29)));
         painter.paintChars(new char[]{firstChar}, Color.WHITE);
 
         return bitmap;
