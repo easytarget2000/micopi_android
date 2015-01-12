@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 
 /**
  * Created by michel on 08/01/15.
+ *
  */
 public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
 
@@ -42,13 +43,14 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
 
         long startTime = System.currentTimeMillis();
         Log.d(LOG_TAG, "Starting image generator with image size " + params[0] + ".");
-        Bitmap generatedBitmap = new ImageFactory(mContact, params[0]).generateBitmap();
+        ImageFactory factory = new ImageFactory(mContact, params[0]);
+        Bitmap generatedBitmap = factory.generateBitmapBroadcasting(mAppContext);
         long endTime = System.currentTimeMillis();
         Log.d(LOG_TAG, "FINISHED IMAGE GENERATOR: " + (endTime - startTime));
-        sendProgressBroadcast(85);
 
         final int averageColor = ColorUtilities.getAverageColor(generatedBitmap);
 
+        startTime = System.currentTimeMillis();
         if (generatedBitmap == null) {
             Log.e(LOG_TAG, "Generated null bitmap.");
             return sendBroadcast(false, 0);
@@ -62,7 +64,6 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
             Log.e(LOG_TAG, e.toString());
             return sendBroadcast(false, 0);
         }
-        startTime = System.currentTimeMillis();
         generatedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         endTime = System.currentTimeMillis();
         Log.d(LOG_TAG, "FINISHED SAVING FILE: " + (endTime - startTime));
@@ -81,16 +82,5 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
         mAppContext.sendBroadcast(finishBroadcast);
         return null;
     }
-    
-    private Intent mProgressBroadcast;
-
-    private void sendProgressBroadcast(final int progress) {
-        if (mProgressBroadcast == null) {
-            mProgressBroadcast = new Intent(Constants.ACTION_UPDATE_PROGRESS);
-        }
-        mProgressBroadcast.putExtra(Constants.EXTRA_PROGRESS, progress);
-        mAppContext.sendBroadcast(mProgressBroadcast);
-    }
-
 
 }

@@ -34,24 +34,20 @@ public class SquareMatrixGenerator {
     /**
      * Fills a canvas with retro-styled squares
      *
-     * @param fContact Data from this Contact object will be used to generate the shapes and colors
+     * @param contact Data from this Contact object will be used to generate the shapes and colors
      */
-    public static void generate(Painter painter, final Contact fContact) {
+    public static void generate(Painter painter, final Contact contact) {
+        if (painter == null || contact == null) return;
 
-        final String md5String = fContact.getMD5EncryptedString();
-        final int md5Length    = md5String.length();
+        final String md5String = contact.getMD5EncryptedString();
+        final int md5Length = md5String.length();
 
-        final int color1 = ColorCollection.generateColor(
-                fContact.getFullName().charAt(0),
-                md5String.charAt(10),
-                fContact.getNumberOfNameWords(),
-                md5String.charAt(11)
-        );
+        final int color1 = ColorCollection.getCandyColorForChar(md5String.charAt(16));
         final int color2 = Color.WHITE;
-        final int color3 = ColorCollection.getCandyColorForChar(md5String.charAt(16));
+        final int color3 = ColorCollection.getCandyColorForChar(md5String.charAt(17));
 
         int numOfSquares = NUM_OF_SQUARES;
-        if (fContact.getNameWord(0).length() % 2 == 0) numOfSquares -= 1;
+        if (contact.getNameWord(0).length() % 2 == 0) numOfSquares -= 1;
         final float sideLength = painter.getImageSize() / numOfSquares;
 
         int md5Pos = 0;
@@ -59,9 +55,9 @@ public class SquareMatrixGenerator {
             for (int x = 0; x < 3; x++) {
                 md5Pos++;
                 if (md5Pos >= md5Length) md5Pos = 0;
-                final char fMd5Char = md5String.charAt(md5Pos);
+                final char md5Char = md5String.charAt(md5Pos);
 
-                if (isOddParity(fMd5Char)) {
+                if (isOddParity(md5Char)) {
                     painter.paintSquare(
                             true,       // doPaintFilled
                             color1,
@@ -74,17 +70,17 @@ public class SquareMatrixGenerator {
                         painter.paintSquare(
                                 true,
                                 color2,
-                                200 - fMd5Char,
+                                200 - md5Char,
                                 4,
                                 y,
                                 sideLength
                         );
                     }
-                    if (x == 1) {
+                    if (x % 2 == 1) {
                         painter.paintSquare(
                                 true,
                                 color3,
-                                200 - fMd5Char,
+                                200 - md5Char,
                                 3,
                                 y,
                                 sideLength

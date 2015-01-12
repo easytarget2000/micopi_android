@@ -13,13 +13,12 @@
 <!--See the License for the specific language governing permissions and-->
 <!--limitations under the License.-->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/primary"
-    android:id="@+id/rootView">
+    android:background="@color/primary">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -46,17 +45,17 @@
         android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
 
     <TextView
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/white"
-        android:text="@string/no_contact_selected"
-        android:id="@+id/nameTextView"
         android:layout_alignLeft="@id/descriptionTextView"
         android:layout_alignStart="@id/descriptionTextView"
         android:layout_below="@+id/descriptionTextView"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:text="@string/no_contact_selected"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>
 

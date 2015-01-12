@@ -27,19 +27,17 @@ public class CircleMatrixGenerator {
      * Fills the image with circles in a grid;
      * The grid size is always "number of letters in the first name ^ 2".
      *
-     * @param canvas Canvas to draw on
      * @param contact Data from this Contact object will be used to generate the shapes and colors
      */
     public static void generate(Painter painter, Contact contact) {
         // Prepare painting values based on image size and contact data.
         final String md5String = contact.getMD5EncryptedString();
 
-        // Use the length of the first name as the number of shapes per row and column.
-        int shapesPerRow = contact.getNameWord(0).length();
-        // If the first name is too short, use the length of the entire name.
-        if (shapesPerRow < 4) shapesPerRow = contact.getNumberOfLetters();
-        // If the full name is too short, double the amount of letters.
-        if (shapesPerRow < 5) shapesPerRow *= 2;
+        // Use the length of the first name to determine the number of shapes per row and column.
+        final int firstNameLength = contact.getNameWord(0).length();
+        int shapesPerRow = (firstNameLength % 2 == 0) ? firstNameLength : (firstNameLength / 2);
+        if (shapesPerRow < 3) shapesPerRow = contact.getNumberOfLetters();
+        if (shapesPerRow < 3) shapesPerRow += 2;
 
         final int imageSize = painter.getImageSize();
         final float fStrokeWidth = md5String.charAt(12) * 2f;

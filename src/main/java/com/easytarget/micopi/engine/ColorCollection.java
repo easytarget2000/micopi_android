@@ -83,28 +83,24 @@ public class ColorCollection {
     }
 
     /**
-     * Generate a color from the candy or harsh palette.
+     * Takes a color from the candy or harsh palette and, in some cases, modifies its value
      *
-     * @param c1 ASCII integer value of this character will be used as factor 1
-     * @param c2 ASCII integer value of this character will be used as factor 2
-     * @param i1 Used as factor 3
-     * @param i2 Used as factor 4
-     * @return A color with alpha = 255, possibly with altered values
+     * @return A color with alpha = 255
      */
-    public static int generateColor(char c1, char c2, int i1, int i2) {
+    public static int generateColor(int i1, int i2, int i3) {
         int color;
 
-        if (i1 % 4 != 0) {
-            color = getCandyColorForChar(c2);
+        if (i1 % 2 == 0) {
+            color = getCandyColorForChar((char) i3);
         } else {
             final int harshIndex = i2 % (HARSH_PALETTE.length - 1);
             color = HARSH_PALETTE[harshIndex];
         }
 
-        if (i2 % 2 == 0) {
+//        if (i1 % 4 == 0) {
 //            color *= c1 * -c2 * i2 * i1;
-            color *= c1 * -c2 * i2;
-        }
+//            color *= c1 * -i2;
+//        }
 
         return color | 0xff000000;
     }

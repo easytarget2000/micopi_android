@@ -15,8 +15,6 @@
  */
 package com.easytarget.micopi.engine;
 
-import android.util.Log;
-
 import com.easytarget.micopi.Contact;
 
 /**
@@ -49,8 +47,8 @@ public class WanderingShapesGenerator {
 
         // These characters will be used for color generating:
         final char colorChar1     = contact.getFullName().charAt(0);
-        final int lastNamePart    = contact.getNumberOfNameWords() - 1;
-        final char colorChar2     = contact.getNameWord(lastNamePart).charAt(0);
+//        final int lastNamePart    = contact.getNumberOfNameWords() - 1;
+//        final char colorChar2     = contact.getNameWord(lastNamePart).charAt(0);
 
         // Determine if the shapes will be painted filled or stroked.
         boolean paintFilled = false;
@@ -75,10 +73,9 @@ public class WanderingShapesGenerator {
         float x = painter.getImageSize() * 0.5f;
         float y = x;
 
-        // The amount of double shapes that will be painted; at least 10, no more than 25.
-        int numOfShapes = contact.getNumberOfLetters() * DENSITY_FACTOR;
-//        numOfShapes = Math.min(numOfShapes, MIN_DENSITY);
-        while (numOfShapes < MIN_DENSITY) numOfShapes *= 2;
+        // The amount of double shapes that will be painted:
+        int numOfShapes = contact.getNumberOfLetters();
+        while (numOfShapes < MIN_DENSITY) numOfShapes += 2;
 //        Log.d("Number of Circle Scape shapes", contact.getFullName() + " " + numOfShapes);
 
         final int paintMode;
@@ -86,8 +83,6 @@ public class WanderingShapesGenerator {
         if (paintArc) paintMode = Painter.MODE_ARC;
         else if (paintPolygon) paintMode = Painter.MODE_POLYGON;
         else paintMode = Painter.MODE_CIRCLE;
-
-        Log.d(LOG_TAG, "Number of shapes: " + numOfShapes);
 
         for (int i = 0; i < numOfShapes; i++) {
             // Get the next character from the MD5 String.
@@ -125,8 +120,8 @@ public class WanderingShapesGenerator {
             //if (paintFilled) paintMode += Painter.MODE_CIRCLE_FILLED;
 
             // The new coordinates have been generated. Paint something.
-            final int color = ColorCollection.generateColor(colorChar1, colorChar2, md5Int, i + 1);
-//            Log.d("WanderingShapes", "Color: " + Integer.toHexString(color));
+            final int color = ColorCollection.generateColor(md5Int, colorChar1, i + 1);
+//            Log.d("WanderingShapes", "Color: " + Integer.toHexString(color) + ", " + alpha);
             painter.paintShape(
                     paintMode,
                     color,
@@ -139,7 +134,7 @@ public class WanderingShapesGenerator {
                     y,
                     i * md5String.charAt(2) // Radius
             );
-            shapeWidth += .1f;
+            shapeWidth *= 1.5f;
         }
     }
 }

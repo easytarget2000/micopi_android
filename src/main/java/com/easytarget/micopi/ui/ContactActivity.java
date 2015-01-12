@@ -102,7 +102,7 @@ public class ContactActivity extends ActionBarActivity {
 //        Log.w("MainActivity: onCreate()", "ONCREATE");
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_contact);
 
         mNameTextView           = (TextView) findViewById(R.id.nameTextView);
         mDescriptionTextView    = (TextView) findViewById(R.id.descriptionTextView);
@@ -154,7 +154,7 @@ public class ContactActivity extends ActionBarActivity {
 
             switch (action) {
                 case Constants.ACTION_FINISHED_GENERATE:
-                    setGuiIsBusy(false);
+                    showProgress(false);
                     if (didSucceed) {
                         mColor = intent.getIntExtra(
                                 Constants.EXTRA_COLOR,
@@ -174,7 +174,7 @@ public class ContactActivity extends ActionBarActivity {
                     }
                     break;
                 case Constants.ACTION_FINISHED_ASSIGN:
-                    setGuiIsBusy(false);
+                    showProgress(false);
                     if (didSucceed) {
                         Toast.makeText(getApplicationContext(),
                                 String.format(
@@ -259,15 +259,11 @@ public class ContactActivity extends ActionBarActivity {
     GUI ACTION
      */
 
-    /**
-     * Locks / unlocks the GUI through boolean field and
-     * hides / shows the progress bar.
-     *
-     * @param isBusy Will be applied to mGuiIsLocked field
-     */
-    private void setGuiIsBusy(boolean isBusy) {
-        mGuiIsLocked = isBusy;
-        if(isBusy) mProgressbar.setVisibility(View.VISIBLE);
+    private void showProgress(boolean doShow) {
+        mGuiIsLocked = doShow;
+        if (mProgressbar == null) return;
+
+        if (doShow) mProgressbar.setVisibility(View.VISIBLE);
         else mProgressbar.setVisibility(View.GONE);
     }
 
@@ -309,16 +305,15 @@ public class ContactActivity extends ActionBarActivity {
     }
 
     private void startGenerateImageTask() {
-        // Show fake progress.
+        // Reset the ProgressBar.
         mProgressbar.setProgress(5);
 
-        setGuiIsBusy(true);
+        showProgress(true);
         mIconImageView.setImageDrawable(null);
 
         // Hide all text views.
         mNameTextView.setVisibility(View.GONE);
         mDescriptionTextView.setVisibility(View.GONE);
-
 
         // Reset the activity colours.
         int defaultColor = getResources().getColor(R.color.primary);
@@ -339,7 +334,7 @@ public class ContactActivity extends ActionBarActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                    setGuiIsBusy(true);
+                    mGuiIsLocked = true;
                     new AssignContactImageTask(mContext).execute(mContact.getId());
                 }
             }
@@ -398,7 +393,7 @@ public class ContactActivity extends ActionBarActivity {
 
         @Override
         protected void onPreExecute() {
-            setGuiIsBusy(true);
+            mGuiIsLocked = true;
         }
 
         @Override
@@ -415,7 +410,7 @@ public class ContactActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(String fileName) {
-            setGuiIsBusy(false);
+            mGuiIsLocked = false;
 
             if (!TextUtils.isEmpty(fileName)) {
                 Toast.makeText(
@@ -443,7 +438,7 @@ public class ContactActivity extends ActionBarActivity {
      * @param color ARGB Color to apply
      */
     private void setColor(int color) {
-        View mainView = findViewById(R.id.rootView);
+        View mainView = findViewById(R.id.layout_contact);
         if (mainView == null) {
             Log.e("MainActivity:setColor()", "WARNING: Did not find root view.");
         } else {

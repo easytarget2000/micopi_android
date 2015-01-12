@@ -78,11 +78,11 @@ public class Painter {
     public void paintGrain() {
         Paint darkener = new Paint();
         darkener.setColor(Color.DKGRAY);
-        darkener.setAlpha(15);
+        darkener.setAlpha(8);
         Paint brightener = new Paint();
         brightener.setColor(Color.WHITE);
-        brightener.setAlpha(10);
-        final int grainDensity = mImageSize / 5;
+        brightener.setAlpha(8);
+        final int grainDensity = mImageSize / 3;
         final Random random = new Random();
         float darkenerX;
         for (int y = 0; y < mImageSize; y++) {
@@ -116,12 +116,16 @@ public class Painter {
         final float offsetX = x * size;
         final float offsetY = y * size;
 
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
         mPaint.setColor(color);
         mPaint.setAlpha(alpha);
+        mPaint.setShadowLayer(0f, 0f, 0f, 0);
 
-        if (doPaintFilled) mPaint.setStyle(Paint.Style.FILL);
-        else mPaint.setStyle(Paint.Style.STROKE);
+        if (doPaintFilled) {
+            mPaint.setStyle(Paint.Style.FILL);
+        } else {
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeWidth(offsetX);
+        }
 
         mCanvas.drawRect(offsetX, offsetY, offsetX + size, offsetY + size, mPaint);
     }
@@ -199,11 +203,10 @@ public class Painter {
         if (paintMode >= MODE_CIRCLE_FILLED) mPaint.setStyle(Paint.Style.FILL);
         else mPaint.setStyle(Paint.Style.STROKE);
 
-//        Draw two shapes of the same kind.
-//        for (int i = 0; i < 1; i++) {
         final float shadowRadius;
-        if (radius % 2 == 0) shadowRadius = mShadowRadius;
-        else shadowRadius = 0;
+//        if (((int) radius) % 2 == 0)
+            shadowRadius = mShadowRadius;
+//        else shadowRadius = 0;
         mPaint.setShadowLayer(shadowRadius, mShadowRadius, mShadowRadius, SHADOW_COLOR);
 
         if (paintMode == MODE_ARC || paintMode == MODE_ARC_FILLED) {
@@ -250,14 +253,8 @@ public class Painter {
                 mCanvas.drawPath(polygonPath, mPaint);
             }
         } else {
-//                Log.d(LOG_TAG, "drawCircle() " + Integer.toHexString(mPaint.getColor()));
             mCanvas.drawCircle(centerX, centerY, radius, mPaint);
         }
-
-//            // Draw the second shape differently.
-//            radius -= strokeWidth * 0.5f;
-//            mPaint.setAlpha((int) (alpha * 0.75f));
-//        }
     }
 
     /**
@@ -368,23 +365,23 @@ public class Painter {
     private static final float PI_STEP_SIZE = (float) Math.PI / 50f;
 
     public void paintSpyro(
-            final int fColor1,
-            final int fColor2,
-            final int fColor3,
-            final int fAlpha,
+            final int color1,
+            final int color2,
+            final int color3,
+            final int alpha,
             final float fPoint1Factor,
             final float fPoint2Factor,
             final float fPoint3Factor,
             final int revolutions
     ) {
 
-        float fInnerRadius  = mImageSizeHalf * 0.5f;
-        float fOuterRadius  = (fInnerRadius * 0.5f) + 1;
-        float fRadiusSum    = fInnerRadius + fOuterRadius;
+        float innerRadius  = mImageSizeHalf * 0.5f;
+        float outerRadius  = (innerRadius * 0.5f) + 1;
+        float radiusSum    = innerRadius + outerRadius;
 
-        final float point1 = fPoint1Factor * (mImageSize - fRadiusSum);
-        final float point2 = fPoint2Factor * (mImageSize - fRadiusSum);
-        final float point3 = fPoint3Factor * (mImageSize - fRadiusSum);
+        final float point1 = fPoint1Factor * (mImageSize - radiusSum);
+        final float point2 = fPoint2Factor * (mImageSize - radiusSum);
+        final float point3 = fPoint3Factor * (mImageSize - radiusSum);
 
         final Path fPoint1Path = new Path();
         final Path fPoint2Path = new Path();
@@ -394,18 +391,18 @@ public class Painter {
         float t = 0f;
         float x, y, x2, y2, x3, y3;
         do {
-            x = (float) (fRadiusSum * FloatMath.cos(t) +
-                    point1 * Math.cos(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
-            y = (float) (fRadiusSum * FloatMath.sin(t) +
-                    point1 * Math.sin(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
-            x2 = (float) (fRadiusSum * FloatMath.cos(t) +
-                    point2 * Math.cos(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
-            y2 = (float) (fRadiusSum * FloatMath.sin(t) +
-                    point2 * Math.sin(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
-            x3 = (float) (fRadiusSum * FloatMath.cos(t) +
-                    point3 * Math.cos(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
-            y3 = (float) (fRadiusSum * FloatMath.sin(t) +
-                    point3 * Math.sin(fRadiusSum * t / fOuterRadius) + mImageSizeHalf);
+            x = (float) (radiusSum * FloatMath.cos(t) +
+                    point1 * Math.cos(radiusSum * t / outerRadius) + mImageSizeHalf);
+            y = (float) (radiusSum * FloatMath.sin(t) +
+                    point1 * Math.sin(radiusSum * t / outerRadius) + mImageSizeHalf);
+            x2 = (float) (radiusSum * FloatMath.cos(t) +
+                    point2 * Math.cos(radiusSum * t / outerRadius) + mImageSizeHalf);
+            y2 = (float) (radiusSum * FloatMath.sin(t) +
+                    point2 * Math.sin(radiusSum * t / outerRadius) + mImageSizeHalf);
+            x3 = (float) (radiusSum * FloatMath.cos(t) +
+                    point3 * Math.cos(radiusSum * t / outerRadius) + mImageSizeHalf);
+            y3 = (float) (radiusSum * FloatMath.sin(t) +
+                    point3 * Math.sin(radiusSum * t / outerRadius) + mImageSizeHalf);
 
             if (moveTo) {
                 fPoint1Path.moveTo(x, y);
@@ -424,17 +421,17 @@ public class Painter {
         mPaint.setStyle(Paint.Style.STROKE);
 
         // Draw the first path.
-        mPaint.setColor(fColor1);
-        mPaint.setAlpha(fAlpha);
+        mPaint.setColor(color1);
+        mPaint.setAlpha(alpha);
         mCanvas.drawPath(fPoint1Path, mPaint);
         // Draw the second path.
-        mPaint.setColor(fColor2);
-        mPaint.setAlpha(fAlpha);
+        mPaint.setColor(color2);
+        mPaint.setAlpha(alpha);
         mCanvas.drawPath(fPoint2Path, mPaint);
         // Draw the third path.
-        mPaint.setColor(fColor3);
-        mPaint.setAlpha(fAlpha);
-        mPaint.setStrokeWidth(2f);
+        mPaint.setColor(color3);
+        mPaint.setAlpha(alpha);
+        mPaint.setStrokeWidth(10 / revolutions);
         mCanvas.drawPath(fPoint3Path, mPaint);
     }
 

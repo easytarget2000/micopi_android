@@ -1,13 +1,21 @@
 package com.easytarget.micopi.ui;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.easytarget.micopi.BatchService;
 import com.easytarget.micopi.Constants;
@@ -20,6 +28,16 @@ import com.easytarget.micopi.R;
  */
 public class BatchActivity extends ActionBarActivity {
 
+    private static final String LOG_TAG = BatchActivity.class.getSimpleName();
+
+    private static final String STORED_CONTACT = "stored_contact";
+
+    private static final String STORED_PROGRESS = "stored_progress";
+
+    private ProgressBar mProgressBar;
+
+    private String mContactName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +48,87 @@ public class BatchActivity extends ActionBarActivity {
             Window window = this.getWindow();
             int statusBarColor = getResources().getColor(R.color.primary_dark);
             window.setStatusBarColor(statusBarColor);
+        }
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        if (savedInstanceState != null) {
+            mContactName = savedInstanceState.getString(STORED_CONTACT);
+            mProgressBar.setProgress(savedInstanceState.getInt(STORED_PROGRESS));
+        }
+
+        showContactName();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_FINISHED_GENERATE);
+        filter.addAction(Constants.ACTION_UPDATE_PROGRESS);
+        registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mReceiver);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mProgressBar != null) {
+            outState.putInt(STORED_PROGRESS, mProgressBar.getProgress());
+            outState.putString(STORED_CONTACT, mContactName);
+        }
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            switch (action) {
+                case Constants.ACTION_FINISHED_GENERATE:
+                    mProgressBar.setVisibility(View.GONE);
+                    mContactName = null;
+                    showContactName();
+                    break;
+                case Constants.ACTION_UPDATE_PROGRESS:
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    final int progress = intent.getIntExtra(Constants.EXTRA_PROGRESS, 33);
+                    mProgressBar.setProgress(progress);
+                    Log.d(LOG_TAG, "Did receive progress " + progress + ".");
+                    mContactName = intent.getStringExtra(Constants.EXTRA_CONTACT);
+                    showContactName();
+                    break;
+                default:
+                    Log.e(LOG_TAG, "Unknown action received: " + action);
+                    break;
+            }
+        }
+    };
+
+    private TextView mContactView;
+
+    private LinearLayout mControlLayout;
+
+    private void showContactName() {
+        if (mContactView == null) {
+            mContactView = (TextView) findViewById(R.id.text_contact_name);
+        }
+
+        if (mControlLayout == null) {
+            mControlLayout = (LinearLayout) findViewById(R.id.layout_control);
+        }
+
+        if (TextUtils.isEmpty(mContactName)) {
+            mContactView.setVisibility(View.GONE);
+            mControlLayout.setVisibility(View.GONE);
+        } else {
+            mContactView.setVisibility(View.VISIBLE);
+            mControlLayout.setVisibility(View.VISIBLE);
+            mContactView.setText(mContactName);
         }
     }
 

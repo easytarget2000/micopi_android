@@ -76,6 +76,9 @@ public class BatchService extends IntentService {
 //        if (mUpdateErrors.size() > 0 || mInsertErrors.size() > 0) createNotificationForError();
 //        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("CONTACTS_UPDATED"));
         getContentResolver().notifyChange(ContactsContract.Data.CONTENT_URI, null);
+
+        Intent progressBroadcast = new Intent(Constants.ACTION_FINISHED_GENERATE);
+        sendBroadcast(progressBroadcast);
         stopForeground(true);
     }
 
@@ -100,12 +103,12 @@ public class BatchService extends IntentService {
                 Contact contact = new Contact(getApplicationContext(), rawContactId + "");
 
                 if (photoId <= 0 || doOverwrite) {
-                    updateNotification(contact.getFullName(), maxProgress, progress++);
+                    updateProgress(contact.getFullName(), maxProgress, progress++);
                     Log.d(LOG_TAG, "Generating image for " + contact.toString() + ".");
                     final Bitmap generatedBitmap =
                             new ImageFactory(contact, screenWidthInPixels).generateBitmap();
 
-                    updateNotification(contact.getFullName(), maxProgress, progress++);
+                    updateProgress(contact.getFullName(), maxProgress, progress++);
 
                     Log.d(LOG_TAG, "Assigning image to " + contact.toString() + ".");
                     FileHelper.assignImageToContact(
@@ -160,8 +163,15 @@ public class BatchService extends IntentService {
 
     private NotificationManager mNotMan;
 
-    private void updateNotification(final String text, int maxProgress, int progress) {
-        Notification notification = createNotification(text, maxProgress, progress);
+    private void updateProgress(final String contactName, int maxProgress, int progress) {
+        // Broadcast that will be received by the Activity:
+        Intent progressBroadcast = new Intent(Constants.ACTION_UPDATE_PROGRESS);
+        final int normalisedProgress = (int) (((float) progress / (float) maxProgress) * 100f);
+        progressBroadcast.putExtra(Constants.EXTRA_PROGRESS, normalisedProgress);
+        progressBroadcast.putExtra(Constants.EXTRA_CONTACT, contactName);
+        sendBroadcast(progressBroadcast);
+
+        Notification notification = createNotification(contactName, maxProgress, progress);
 
         if (mNotMan == null) {
             mNotMan = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);

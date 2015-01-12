@@ -61,5 +61,6 @@
     <string name="generate_all_pictures">Generate all images (experimental)</string>
     <string name="generate_missing">Generate missing</string>
     <string name="pick_contact">Pick a single contact</string>
+    <string name="skip">Skip</string>
 
 </resources>

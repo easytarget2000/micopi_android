@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_large_margin">64dp</dimen>
     <dimen name="activity_xlarge_margin">128dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
     <dimen name="text_large">24sp</dimen>
     <dimen name="text_xlarge">32sp</dimen>
 </resources>

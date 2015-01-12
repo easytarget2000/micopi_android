@@ -16,11 +16,14 @@
 
 package com.easytarget.micopi.engine;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.easytarget.micopi.Constants;
 import com.easytarget.micopi.Contact;
 
 /**
@@ -33,7 +36,11 @@ public class ImageFactory {
 
     private static final String LOG_TAG = ImageFactory.class.getSimpleName();
 
+    private boolean mDoBroadcastProgress = false;
+
     private Contact mContact;
+
+    private Context mAppContext;
 
     private int mImageSize;
 
@@ -44,6 +51,17 @@ public class ImageFactory {
     public ImageFactory(final Contact contact, final int imageSize) {
         mContact = contact;
         mImageSize = imageSize;
+    }
+
+    public Bitmap generateBitmapBroadcasting(Context context) {
+        if (context == null) {
+            mDoBroadcastProgress = false;
+        } else {
+            mDoBroadcastProgress = true;
+            mAppContext = context.getApplicationContext();
+        }
+
+        return generateBitmap();
     }
 
     /**
@@ -72,6 +90,7 @@ public class ImageFactory {
 
         // The contact's current MD5 encoded string will be referenced a lot.
         final String md5String = mContact.getMD5EncryptedString();
+        if (mDoBroadcastProgress) sendProgressBroadcast(30);
 
         /*
         MAIN PATTERN
@@ -79,18 +98,20 @@ public class ImageFactory {
 
         final Painter painter = new Painter(canvas);
 
-        switch (md5String.charAt(4) % 3) {
+        final int painterMode = md5String.charAt(5) % 3;
+        Log.d(LOG_TAG, "Painter mode: " + painterMode);
+        switch (painterMode) {
             case 1:
-                WanderingShapesGenerator.generate(painter, mContact);
+                CircleMatrixGenerator.generate(painter, mContact);
                 break;
             case 2:
                 SquareMatrixGenerator.generate(painter, mContact);
                 break;
             default:
-                CircleMatrixGenerator.generate(painter, mContact);
-                break;
+                WanderingShapesGenerator.generate(painter, mContact);
         }
 
+        if (mDoBroadcastProgress) sendProgressBroadcast(50);
         painter.paintGrain();
 
 //        final int numOfWords = mContact.getNumberOfNameWords();
@@ -150,7 +171,7 @@ public class ImageFactory {
         // Optional Spyro;
         if (md5String.charAt(30) % 3 == 0) {
             final int revolutions = Math.max(4, md5String.charAt(25) >> 3);
-            Log.d(LOG_TAG, "Spyro revolutions: " + revolutions);
+//            Log.d(LOG_TAG, "Spyro revolutions: " + revolutions);
             painter.paintSpyro(
                     Color.WHITE,
                     Color.YELLOW,
@@ -167,9 +188,23 @@ public class ImageFactory {
         INITIAL LETTER ON CIRCLE
          */
 
-        painter.paintCentralCircle(bgColor, (255 - md5String.charAt(29)));
+        painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)));
         painter.paintChars(new char[]{firstChar}, Color.WHITE);
+//        painter.paintChars(new char[]{'3'}, Color.WHITE);
 
+        if (mDoBroadcastProgress) sendProgressBroadcast(70);
         return bitmap;
+    }
+
+    private Intent mProgressBroadcast;
+
+    private void sendProgressBroadcast(final int progress) {
+        if (mAppContext == null) return;
+
+        if (mProgressBroadcast == null) {
+            mProgressBroadcast = new Intent(Constants.ACTION_UPDATE_PROGRESS);
+        }
+        mProgressBroadcast.putExtra(Constants.EXTRA_PROGRESS, progress);
+        mAppContext.sendBroadcast(mProgressBroadcast);
     }
 }
