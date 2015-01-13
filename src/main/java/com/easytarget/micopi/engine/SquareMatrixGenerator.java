@@ -22,6 +22,7 @@ import com.easytarget.micopi.Contact;
 /**
  * Created by michel on 12/11/14.
  *
+ * Image generator
  */
 public class SquareMatrixGenerator {
 
@@ -34,6 +35,7 @@ public class SquareMatrixGenerator {
     /**
      * Fills a canvas with retro-styled squares
      *
+     * @param painter Paint the generated shape in this object
      * @param contact Data from this Contact object will be used to generate the shapes and colors
      */
     public static void generate(Painter painter, final Contact contact) {

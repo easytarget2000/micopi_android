@@ -20,7 +20,7 @@
     android:indeterminate="false"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:layout_height="@dimen/activity_large_margin"
+    android:layout_height="@dimen/button_height"
     android:layout_width="fill_parent"
     android:max="100"
     android:padding="@dimen/margin_small"

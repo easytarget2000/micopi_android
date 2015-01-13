@@ -5,7 +5,7 @@
 <!--you may not use this file except in compliance with the License.-->
 <!--You may obtain a copy of the License at-->
 
-    <!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
 
 <!--Unless required by applicable law or agreed to in writing, software-->
 <!--distributed under the License is distributed on an "AS IS" BASIS,-->
@@ -21,48 +21,46 @@
     android:background="@color/primary">
 
     <ImageView
+        android:id="@+id/image_contact"
+        android:src="@drawable/micopi_logo"
+        android:adjustViewBounds="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/iconImageView"
+        android:layout_height="fill_parent"
         android:contentDescription="@string/image_description"
-        android:layout_centerVertical="true"
-        android:adjustViewBounds="true"/>
+        android:layout_centerHorizontal="true"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:indeterminate="false"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_height="@dimen/activity_large_margin"
-        android:layout_width="fill_parent"
-        android:max="100"
-        android:visibility="gone"
-        style="?android:attr/progressBarStyleHorizontal" />
+    <include layout="@layout/progress_bar"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/text_contact_name"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/image_description"
-        android:textColor="@android:color/white"
-        android:id="@+id/descriptionTextView"
-        android:layout_toEndOf="@+id/iconImageView"
-        android:layout_toRightOf="@+id/iconImageView"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
-
-    <TextView
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginLeft="@dimen/margin_default"
+        android:layout_marginRight="@dimen/margin_default"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_toRightOf="@id/image_contact"
+        android:layout_toEndOf="@id/image_contact"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="@string/no_contact_selected"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
-        android:text="@string/no_contact_selected"
-        android:id="@+id/nameTextView"
-        android:layout_below="@+id/descriptionTextView"
-        android:layout_alignLeft="@id/descriptionTextView"
-        android:layout_alignStart="@id/descriptionTextView"/>
+        android:textSize="@dimen/text_size_large"/>
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_above="@id/text_contact_name"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/text_contact_name"
+        android:layout_alignStart="@id/text_contact_name"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginRight="@dimen/margin_default"
+        android:layout_width="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/image_description"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>
 

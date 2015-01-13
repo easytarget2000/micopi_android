@@ -17,8 +17,6 @@ public class Constants {
 
     public static final String EXTRA_DO_OVERWRITE = "overwrite";
 
-    public static final String EXTRA_FILE_PATH = "file_path";
-
     public static final String EXTRA_IMAGE_SIZE = "screen_width";
 
     public static final String EXTRA_PROGRESS = "progress";

@@ -10,6 +10,7 @@
         parent="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <item name="android:actionBarStyle">@style/ContactsMaterialActionBar</item>
+        <item name="android:textSize">@dimen/text_size</item>
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ContactsMaterialActionBar</item>
     </style>
@@ -19,6 +20,7 @@
         name="ContactsMaterialActionBar"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/primary</item>
+        <item name="android:textSize">@dimen/text_size</item>
 
         <!-- Support library compatibility -->
         <item name="background">@color/primary</item>

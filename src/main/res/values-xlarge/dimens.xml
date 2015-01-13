@@ -15,9 +15,8 @@
 <!--limitations under the License.-->
 
 <resources>
-    <dimen name="button_height">48dp</dimen>
-    <dimen name="margin_default">16dp</dimen>
-    <dimen name="margin_small">8dp</dimen>
-    <dimen name="text_size">14sp</dimen>
-    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="button_height">64dp</dimen>
+    <dimen name="margin_default">64dp</dimen>
+    <dimen name="text_size">24sp</dimen>
+    <dimen name="text_size_large">36sp</dimen>
 </resources>

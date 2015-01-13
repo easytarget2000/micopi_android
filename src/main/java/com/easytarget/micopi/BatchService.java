@@ -34,6 +34,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.easytarget.micopi.engine.ImageFactory;
+import com.easytarget.micopi.ui.BatchActivity;
 import com.easytarget.micopi.ui.WelcomeActivity;
 
 import java.util.ArrayList;
@@ -198,7 +199,7 @@ public class BatchService extends IntentService {
 //    }
 
     private PendingIntent getNotificationIntent() {
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        Intent intent = new Intent(this, BatchActivity.class);
         return PendingIntent.getActivity(this, 0, intent, 0);
     }
 }

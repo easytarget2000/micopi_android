@@ -20,13 +20,14 @@ import com.easytarget.micopi.Contact;
 /**
  * Created by michel on 12/11/14.
  *
+ * Image generator
  */
 public class CircleMatrixGenerator {
 
     /**
-     * Fills the image with circles in a grid;
-     * The grid size is always "number of letters in the first name ^ 2".
+     * Fills the image with circles in a grid
      *
+     * @param painter Paint the generated shape in this object
      * @param contact Data from this Contact object will be used to generate the shapes and colors
      */
     public static void generate(Painter painter, Contact contact) {
@@ -35,7 +36,7 @@ public class CircleMatrixGenerator {
 
         // Use the length of the first name to determine the number of shapes per row and column.
         final int firstNameLength = contact.getNameWord(0).length();
-        int shapesPerRow = (firstNameLength % 2 == 0) ? firstNameLength : (firstNameLength / 2);
+        int shapesPerRow = (firstNameLength % 3 == 0) ? firstNameLength : (firstNameLength / 2);
         if (shapesPerRow < 3) shapesPerRow = contact.getNumberOfLetters();
         if (shapesPerRow < 3) shapesPerRow += 2;
 
@@ -48,7 +49,7 @@ public class CircleMatrixGenerator {
         final boolean doGenerateColor = contact.getNumberOfNameWords() > 1;
 
         int md5Pos = 0;
-        int color = ColorCollection.getCandyColorForChar(contact.getFullName().charAt(0));
+//        int color = ColorCollection.getCandyColorForChar(contact.getFullName().charAt(0));
         for (int y = 0; y < shapesPerRow; y++) {
             for (int x = 0; x < shapesPerRow; x++) {
 
@@ -56,7 +57,8 @@ public class CircleMatrixGenerator {
                 if (md5Pos >= md5String.length()) md5Pos = 0;
                 final char md5Char = md5String.charAt(md5Pos);
 
-                if (doGenerateColor) color = ColorCollection.getCandyColorForChar(md5Char);
+//                if (doGenerateColor)
+                final int color = ColorCollection.getCandyColorForChar(md5Char);
 
                 final int index = y * shapesPerRow + x;
                 final float radius;
@@ -66,11 +68,9 @@ public class CircleMatrixGenerator {
                 painter.paintShape(
                         Painter.MODE_CIRCLE_FILLED,
                         color,
-                        200 - md5String.charAt(md5Pos) + index,
+                        255 - md5String.charAt(md5Pos),
                         fStrokeWidth,        // Stroke width
                         0,
-                        0f,
-                        0f,
                         x * circleDistance,
                         y * circleDistance,
                         radius

@@ -104,9 +104,9 @@ public class ContactActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_contact);
 
-        mNameTextView           = (TextView) findViewById(R.id.nameTextView);
-        mDescriptionTextView    = (TextView) findViewById(R.id.descriptionTextView);
-        mIconImageView          = (ImageView) findViewById(R.id.iconImageView);
+        mNameTextView           = (TextView) findViewById(R.id.text_contact_name);
+        mDescriptionTextView    = (TextView) findViewById(R.id.text_description);
+        mIconImageView          = (ImageView) findViewById(R.id.image_contact);
         mProgressbar            = (ProgressBar) findViewById(R.id.progressBar);
 
         // Check whether we're recreating a previously destroyed instance

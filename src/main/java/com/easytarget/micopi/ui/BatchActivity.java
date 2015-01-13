@@ -175,4 +175,12 @@ public class BatchActivity extends ActionBarActivity {
 //
 //        selectButtonPressed(view);
     }
+
+    public void cancelPressed(View view) {
+
+    }
+
+    public void skipPressed(View view) {
+
+    }
 }

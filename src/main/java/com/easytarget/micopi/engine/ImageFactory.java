@@ -98,7 +98,7 @@ public class ImageFactory {
 
         final Painter painter = new Painter(canvas);
 
-        final int painterMode = md5String.charAt(5) % 3;
+        final int painterMode = md5String.charAt(5) % 4;
         Log.d(LOG_TAG, "Painter mode: " + painterMode);
         switch (painterMode) {
             case 1:
@@ -110,6 +110,9 @@ public class ImageFactory {
             default:
                 WanderingShapesGenerator.generate(painter, mContact);
         }
+
+//        WanderingShapesGenerator.generate(painter, mContact);
+
 
         if (mDoBroadcastProgress) sendProgressBroadcast(50);
         painter.paintGrain();

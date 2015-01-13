@@ -17,18 +17,24 @@
     <shared>
       <config>
         <devices>
+          <device id="Nexus 7 2013" />
+          <device id="2.7in QVGA" />
           <device id="Nexus S" />
-          <device id="Nexus 6" />
           <device id="Nexus 9" />
           <device id="Nexus 5" />
           <device id="Nexus One" />
+          <device id="Nexus 6" />
           <device id="Galaxy Nexus" />
-          <device id="Nexus 7 2013" />
         </devices>
         <target>android-10</target>
       </config>
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/src/main/res/layout/activity_batch.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/src/main/res/layout/activity_contact.xml">
         <config>
           <theme>@style/AppTheme</theme>
@@ -47,28 +53,31 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="mode" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.easytarget.micopi" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dce7e32-bcc4-441d-860c-769c76f3e0a1" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout-land/activity_main.xml" afterPath="$PROJECT_DIR$/src/main/res/layout-land/activity_contact.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_contact.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/values-large/dimens.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/values-xlarge/dimens.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/StripeCandyGenerator.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/AssignContactImageTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/AssignContactImageTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/BatchActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/BatchActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/BatchService.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/BatchService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorCollection.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorCollection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/GenerateImageTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/GenerateImageTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ImageFactory.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ImageFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_batch.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_batch.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_contact.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_contact.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout-land/activity_contact.xml" afterPath="$PROJECT_DIR$/src/main/res/layout-land/activity_contact.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/src/main/res/values/dimens.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/progress_bar.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/progress_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/src/main/res/values/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MicopiAndroidStudioProject.iws" />
@@ -92,21 +101,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GenerateImageTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/GenerateImageTask.java">
+      <file leaf-file-name="ContactActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="870" max-vertical-offset="1365">
-              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2955" max-vertical-offset="6165">
+              <caret line="267" column="5" selection-start-line="267" selection-start-column="5" selection-end-line="267" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContactActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java">
+      <file leaf-file-name="activity_welcome.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2700" max-vertical-offset="6165">
-              <caret line="251" column="65" selection-start-line="251" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+            <state vertical-scroll-proportion="-12.666667" vertical-offset="243" max-vertical-offset="1110">
+              <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -115,23 +127,31 @@
       <file leaf-file-name="ImageFactory.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ImageFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="73" max-vertical-offset="2100">
-              <caret line="102" column="30" selection-start-line="102" selection-start-column="30" selection-end-line="102" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2085" max-vertical-offset="2955">
+              <caret line="177" column="24" selection-start-line="177" selection-start-column="24" selection-end-line="177" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WanderingShapesGenerator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1965">
+              <caret line="50" column="69" selection-start-line="50" selection-start-column="69" selection-end-line="50" selection-end-column="69" />
               <folding>
-                <element signature="e#3792#3857#0" expanded="false" />
+                <element signature="e#0#5147#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BatchActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/BatchActivity.java">
+      <file leaf-file-name="ColorCollection.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorCollection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5933544" vertical-offset="570" max-vertical-offset="2595">
-              <caret line="63" column="31" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1485">
+              <caret line="94" column="41" selection-start-line="94" selection-start-column="41" selection-end-line="94" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,24 +159,9 @@
       <file leaf-file-name="CircleMatrixGenerator.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1110">
-              <caret line="36" column="63" selection-start-line="36" selection-start-column="63" selection-end-line="36" selection-end-column="63" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="201" max-vertical-offset="1110">
+              <caret line="67" column="30" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="30" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_contact.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_contact.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.111111" vertical-offset="63" max-vertical-offset="1005">
-              <caret line="17" column="31" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding>
-                <element signature="e#1405#1432#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -167,25 +172,30 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.222221" vertical-offset="228" max-vertical-offset="1110">
-              <caret line="48" column="50" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="50" />
-              <folding />
+            <state vertical-scroll-proportion="-13.444445" vertical-offset="582" max-vertical-offset="1080">
+              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+              <folding>
+                <element signature="e#1222#1249#0" expanded="true" />
+                <element signature="e#1527#1550#0" expanded="true" />
+                <element signature="e#1585#1608#0" expanded="true" />
+                <element signature="e#1644#1667#0" expanded="true" />
+                <element signature="e#1703#1726#0" expanded="true" />
+                <element signature="e#1896#1925#0" expanded="true" />
+                <element signature="e#2067#2091#0" expanded="true" />
+                <element signature="e#2398#2421#0" expanded="true" />
+                <element signature="e#2457#2480#0" expanded="true" />
+                <element signature="e#2613#2640#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="progress_bar.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/progress_bar.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
+      <file leaf-file-name="Painter.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.444445" vertical-offset="0" max-vertical-offset="510">
-              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-              <folding>
-                <element signature="e#921#951#0" expanded="true" />
-                <element signature="e#1033#1054#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.68817204" vertical-offset="5335" max-vertical-offset="6825">
+              <caret line="405" column="32" selection-start-line="405" selection-start-column="32" selection-end-line="405" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -735,9 +745,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/res/values-ca/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/values-nl/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/values-fr/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MicopiGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/MicopiGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Generator.java" />
@@ -753,11 +760,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/DeviceHelper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/WelcomeActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/AssignContactImageTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/FileHelper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorUtilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Contact.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout-land/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-large/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-large-land/activity_main.xml" />
@@ -765,27 +770,32 @@
         <option value="$PROJECT_DIR$/src/main/res/layout-xlarge-land/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-large/activity_welcome.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/WelcomeActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/GenerateImageTask.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/AssignContactImageTask.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/button_common.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_batch.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/BatchActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_contact.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values-large/dimens.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/values-xlarge/dimens.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/BatchService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorCollection.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/GenerateImageTask.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_batch.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/progress_bar.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_contact.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorCollection.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout-land/activity_contact.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ImageFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/BatchActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java" />
       </list>
     </option>
   </component>
@@ -839,7 +849,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -897,6 +908,10 @@
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values-xlarge" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -917,10 +932,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values-ca" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -947,6 +958,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MicopiAndroidStudioProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MicopiAndroidStudioProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout-land" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1032,10 +1069,39 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MicopiAndroidStudioProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MicopiAndroidStudioProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="micopi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1266,7 +1332,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="1053" extended-state="0" />
+    <frame x="0" y="23" width="1920" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1275,6 +1341,7 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2625133" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991462" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18783352" sideWeight="0.39776358" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -1282,21 +1349,20 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38812786" sideWeight="0.39822295" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22523962" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32550693" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29562435" sideWeight="0.60223645" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47385272" sideWeight="0.60223645" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17075774" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19116081" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28700745" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32337245" sideWeight="0.67447495" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1547492" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1320,47 +1386,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java</url>
-          <line>211</line>
-          <properties />
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="27" />
+      <option name="time" value="28" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/BatchService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="3150">
-          <caret line="79" column="82" selection-start-line="79" selection-start-column="82" selection-end-line="79" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ImageFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2580" max-vertical-offset="2715">
-          <caret line="172" column="22" selection-start-line="172" selection-start-column="22" selection-end-line="172" selection-end-column="22" />
-          <folding>
-            <element signature="e#3792#3857#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_batch.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="596" max-vertical-offset="1290">
-          <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/WelcomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="960" max-vertical-offset="1110">
@@ -1489,13 +1518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2614897" vertical-offset="0" max-vertical-offset="631">
-          <caret line="11" column="74" selection-start-line="11" selection-start-column="74" selection-end-line="11" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../_Allgemeines/androidsdk/platforms/android-21/data/res/values/attrs.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33280507" vertical-offset="9150" max-vertical-offset="113280">
@@ -1557,49 +1579,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14263074" vertical-offset="0" max-vertical-offset="631">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../_Allgemeines/androidsdk/sources/android-21/android/graphics/Bitmap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47943038" vertical-offset="13782" max-vertical-offset="24105">
           <caret line="981" column="38" selection-start-line="981" selection-start-column="38" selection-end-line="981" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/AssignContactImageTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24752475" vertical-offset="0" max-vertical-offset="909">
-          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="1485">
-          <caret line="62" column="24" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/BatchService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="542" max-vertical-offset="2850">
-          <caret line="79" column="82" selection-start-line="79" selection-start-column="82" selection-end-line="79" selection-end-column="82" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1618,56 +1601,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar!/android/support/v4/app/FragmentActivity.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.024793388" vertical-offset="0" max-vertical-offset="1155">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-          <folding />
+        <state vertical-scroll-proportion="0.34680134" vertical-offset="919" max-vertical-offset="1890">
+          <caret line="76" column="19" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_batch.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/AssignContactImageTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34710744" vertical-offset="0" max-vertical-offset="1500">
-          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="7230">
-          <caret line="83" column="31" selection-start-line="83" selection-start-column="31" selection-end-line="83" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="720" max-vertical-offset="1980">
-          <caret line="62" column="60" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.30040053" vertical-offset="0" max-vertical-offset="749">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21677215" vertical-offset="523" max-vertical-offset="1395">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1425">
+          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1110">
-          <caret line="36" column="63" selection-start-line="36" selection-start-column="63" selection-end-line="36" selection-end-column="63" />
+        <state vertical-scroll-proportion="0.37974682" vertical-offset="0" max-vertical-offset="711">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values-large/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4008439" vertical-offset="0" max-vertical-offset="711">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values-xlarge/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42194092" vertical-offset="0" max-vertical-offset="711">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+          <caret line="21" column="36" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.666667" vertical-offset="243" max-vertical-offset="1110">
+          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -1677,11 +1672,10 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.444445" vertical-offset="0" max-vertical-offset="510">
-          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.2631579" vertical-offset="0" max-vertical-offset="684">
+          <caret line="12" column="79" selection-start-line="12" selection-start-column="79" selection-end-line="12" selection-end-column="79" />
           <folding>
-            <element signature="e#921#951#0" expanded="true" />
-            <element signature="e#1033#1054#0" expanded="true" />
+            <element signature="e#921#943#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1691,11 +1685,95 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.111111" vertical-offset="63" max-vertical-offset="1005">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.8903509" vertical-offset="321" max-vertical-offset="1080">
+          <caret line="62" column="33" selection-start-line="0" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
           <folding>
-            <element signature="e#1405#1432#0" expanded="true" />
+            <element signature="e#1133#1160#0" expanded="true" />
+            <element signature="e#1578#1601#0" expanded="true" />
+            <element signature="e#1636#1659#0" expanded="true" />
+            <element signature="e#1695#1718#0" expanded="true" />
+            <element signature="e#1754#1777#0" expanded="true" />
+            <element signature="e#1866#1893#0" expanded="true" />
+            <element signature="e#2271#2294#0" expanded="true" />
+            <element signature="e#2329#2352#0" expanded="true" />
+            <element signature="e#2388#2411#0" expanded="true" />
+            <element signature="e#2447#2470#0" expanded="true" />
+            <element signature="e#2492#2521#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/BatchService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8312236" vertical-offset="2139" max-vertical-offset="2850">
+          <caret line="203" column="5" selection-start-line="203" selection-start-column="5" selection-end-line="203" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/BatchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34599155" vertical-offset="1419" max-vertical-offset="2715">
+          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2742616" vertical-offset="0" max-vertical-offset="711">
+          <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_batch.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42982456" vertical-offset="876" max-vertical-offset="1560">
+          <caret line="78" column="29" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="42" />
+          <folding>
+            <element signature="e#920#943#0" expanded="false" />
+            <element signature="e#1136#1159#0" expanded="false" />
+            <element signature="e#1181#1205#0" expanded="false" />
+            <element signature="e#1350#1372#0" expanded="false" />
+            <element signature="e#1409#1432#0" expanded="false" />
+            <element signature="e#1546#1572#0" expanded="false" />
+            <element signature="e#1641#1659#0" expanded="false" />
+            <element signature="e#1755#1777#0" expanded="false" />
+            <element signature="e#1814#1837#0" expanded="false" />
+            <element signature="e#1136#1159#0" expanded="false" />
+            <element signature="e#2038#2056#0" expanded="false" />
+            <element signature="e#2864#2910#0" expanded="false" />
+            <element signature="e#3033#3054#0" expanded="false" />
+            <element signature="e#3094#3115#0" expanded="false" />
+            <element signature="e#3286#3304#0" expanded="false" />
+            <element signature="e#2864#2910#0" expanded="false" />
+            <element signature="e#3590#3611#0" expanded="false" />
+            <element signature="e#3651#3672#0" expanded="false" />
+            <element signature="e#3787#3801#0" expanded="false" />
+            <element signature="e#3286#3304#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2955" max-vertical-offset="6165">
+          <caret line="267" column="5" selection-start-line="267" selection-start-column="5" selection-end-line="267" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../_Allgemeines/androidsdk/sources/android-21/android/graphics/Color.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.0860215" vertical-offset="1045" max-vertical-offset="5985">
+          <caret line="54" column="22" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1704,45 +1782,62 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.222221" vertical-offset="228" max-vertical-offset="1110">
-          <caret line="48" column="50" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="50" />
+        <state vertical-scroll-proportion="-13.444445" vertical-offset="582" max-vertical-offset="1080">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="e#1222#1249#0" expanded="true" />
+            <element signature="e#1527#1550#0" expanded="true" />
+            <element signature="e#1585#1608#0" expanded="true" />
+            <element signature="e#1644#1667#0" expanded="true" />
+            <element signature="e#1703#1726#0" expanded="true" />
+            <element signature="e#1896#1925#0" expanded="true" />
+            <element signature="e#2067#2091#0" expanded="true" />
+            <element signature="e#2398#2421#0" expanded="true" />
+            <element signature="e#2457#2480#0" expanded="true" />
+            <element signature="e#2613#2640#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="201" max-vertical-offset="1110">
+          <caret line="67" column="30" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar!/android/support/v4/app/FragmentActivity.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ColorCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34680134" vertical-offset="919" max-vertical-offset="1890">
-          <caret line="76" column="19" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="925" max-vertical-offset="1485">
+          <caret line="94" column="41" selection-start-line="94" selection-start-column="41" selection-end-line="94" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/ContactActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2700" max-vertical-offset="6165">
-          <caret line="251" column="65" selection-start-line="251" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1965">
+          <caret line="50" column="69" selection-start-line="50" selection-start-column="69" selection-end-line="50" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#5147#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/ImageFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="748" max-vertical-offset="2100">
-          <caret line="102" column="30" selection-start-line="102" selection-start-column="30" selection-end-line="102" selection-end-column="30" />
-          <folding>
-            <element signature="e#3792#3857#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="2085" max-vertical-offset="2955">
+          <caret line="177" column="24" selection-start-line="177" selection-start-column="24" selection-end-line="177" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/ui/BatchActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/easytarget/micopi/engine/Painter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5933544" vertical-offset="570" max-vertical-offset="2595">
-          <caret line="63" column="31" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.68817204" vertical-offset="5335" max-vertical-offset="6825">
+          <caret line="405" column="32" selection-start-line="405" selection-start-column="32" selection-end-line="405" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

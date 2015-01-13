@@ -79,7 +79,6 @@ public class ColorCollection {
         final int index = c % (CANDY_PALETTE.length - 1);
 
         return CANDY_PALETTE[index];
-//        Log.d("getCandyColorForChar()", c + ": " + index + ": " + Integer.toHexString(color));
     }
 
     /**
@@ -87,20 +86,21 @@ public class ColorCollection {
      *
      * @return A color with alpha = 255
      */
-    public static int generateColor(int i1, int i2, int i3) {
+    public static int generateColor(char c1, int i1, int i2) {
         int color;
 
-        if (i1 % 2 == 0) {
-            color = getCandyColorForChar((char) i3);
-        } else {
-            final int harshIndex = i2 % (HARSH_PALETTE.length - 1);
-            color = HARSH_PALETTE[harshIndex];
+        switch (i1 % 5) {
+            case 0:
+                final int harshIndex = i2 % (HARSH_PALETTE.length - 1);
+                color = HARSH_PALETTE[harshIndex];
+                break;
+            case 1:
+                color = getCandyColorForChar(c1);
+                color =  ColorUtilities.getDarkenedColor(color);
+                break;
+            default:
+                color = getCandyColorForChar(c1);
         }
-
-//        if (i1 % 4 == 0) {
-//            color *= c1 * -c2 * i2 * i1;
-//            color *= c1 * -i2;
-//        }
 
         return color | 0xff000000;
     }

@@ -23,7 +23,6 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.FloatMath;
@@ -32,7 +31,9 @@ import android.util.Log;
 import java.util.Random;
 
 /**
- * Utility class containing the actual paint methods for generating a contact picture.
+ * Utility class containing the actual paint methods for generating a contact picture;
+ * stores the Canvas and other often-used attributes;
+ * to be accessed by different steps of the ImageFactory
  *
  * Created by Michel on 23.01.14.
  */
@@ -141,16 +142,6 @@ public class Painter {
     public static final int MODE_CIRCLE_FILLED = 10;
 
     /**
-     * Shape definition: circle arc, stroked
-     */
-    public static final int MODE_ARC = 1;
-
-    /**
-     * Shape definition: circle arc, filled
-     */
-    public static final int MODE_ARC_FILLED = 11;
-
-    /**
      * Shape definition: polygon approximating a circle, stroked
      */
     public static final int MODE_POLYGON = 3;
@@ -171,8 +162,6 @@ public class Painter {
      * @param alpha Paint alpha value
      * @param strokeWidth Paint stroke width
      * @param numOfEdges Number of polygon edges
-     * @param arcStartAngle Start angle of an arc
-     * @param arcEndAngle End angle of an arc
      * @param centerX X coordinate of the centre of the shape
      * @param centerY Y coordinate of the centre of the shape
      * @param radius Also determines size of polygon approximations
@@ -183,16 +172,11 @@ public class Painter {
             final int alpha,
             final float strokeWidth,
             final int numOfEdges,
-            float arcStartAngle,
-            final float arcEndAngle,
             final float centerX,
             final float centerY,
             float radius
     ) {
 
-//        if (paintMode == MODE_ARC || paintMode == MODE_ARC_FILLED) {
-//            Log.d(LOG_TAG, "Painting arc with angles " + arcStartAngle + ", " + arcEndAngle);
-//        }
         // Configure paint:
         mPaint.setColor(color);
         mPaint.setAlpha(alpha);
@@ -205,23 +189,11 @@ public class Painter {
 
         final float shadowRadius;
 //        if (((int) radius) % 2 == 0)
-            shadowRadius = mShadowRadius;
+        shadowRadius = mShadowRadius;
 //        else shadowRadius = 0;
         mPaint.setShadowLayer(shadowRadius, mShadowRadius, mShadowRadius, SHADOW_COLOR);
 
-        if (paintMode == MODE_ARC || paintMode == MODE_ARC_FILLED) {
-            final RectF oval = new RectF();
-            oval.set(
-                    centerX - radius,
-                    centerY - radius,
-                    centerX + radius,
-                    centerY + radius
-            );
-            final Path fArcPath = new Path();
-            while (arcStartAngle >= 180) arcStartAngle -= 44;
-            fArcPath.arcTo(oval, arcStartAngle, arcEndAngle, true);
-
-        } else if (paintMode == MODE_POLYGON || paintMode == MODE_POLYGON_FILLED) {
+        if (paintMode == MODE_POLYGON || paintMode == MODE_POLYGON_FILLED) {
             if (numOfEdges == 4) {
                 mCanvas.drawRect(
                         centerX - radius * 0.5f,
@@ -431,7 +403,7 @@ public class Painter {
         // Draw the third path.
         mPaint.setColor(color3);
         mPaint.setAlpha(alpha);
-        mPaint.setStrokeWidth(10 / revolutions);
+        mPaint.setStrokeWidth(20 / revolutions);
         mCanvas.drawPath(fPoint3Path, mPaint);
     }
 

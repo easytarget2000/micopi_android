@@ -20,52 +20,50 @@
     android:background="@color/primary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_vertical_margin">
+    android:padding="@dimen/margin_default">
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:id="@+id/image_logo"
+        android:contentDescription="@string/app_name"
         android:layout_height="fill_parent"
-        android:id="@+id/imageView"
-        android:layout_above="@+id/firstButton"
+        android:layout_width="fill_parent"
+        android:layout_above="@+id/button_pick"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
-        android:src="@drawable/micopi_logo" />
+        android:layout_marginBottom="@dimen/margin_default"
+        android:src="@drawable/micopi_logo"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:text="@string/pick_contact"
-        android:id="@+id/firstButton"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="selectButtonPressed"
+        android:id="@id/button_pick"
         android:background="@android:color/white"
+        android:layout_centerVertical="true"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_width="match_parent"
+        android:onClick="selectButtonPressed"
+        android:text="@string/pick_contact"
         android:textColor="@color/primary"
-        android:layout_height="48dp" />
+        android:textSize="@dimen/text_size"/>
 
     <TextView
+        android:id="@+id/text_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/introduction_text"
-        android:id="@+id/textView"
-        android:layout_below="@+id/firstButton"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/button_pick"
+        android:layout_marginBottom="@dimen/margin_default"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:text="@string/introduction_text"
+        android:textSize="@dimen/text_size"
         android:textColor="@android:color/white"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:text="@string/generate_all_pictures"
-        android:id="@+id/crawlButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="crawlButtonPressed"
         android:background="@android:color/white"
-        android:textColor="@color/primary"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/textView"
-        android:layout_height="@dimen/abc_action_button_min_height_material" />
+        android:layout_below="@+id/text_intro"
+        android:layout_height="@dimen/button_height"
+        android:layout_width="match_parent"
+        android:onClick="crawlButtonPressed"
+        android:text="@string/generate_all_pictures"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/primary"/>
 
 </RelativeLayout>
