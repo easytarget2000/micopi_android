@@ -46,10 +46,11 @@
     <string name="confirm_all">
         Bitte bestätige, dass alle Bilder überschrieben werden sollen.
     </string>
+    <string name="donate">Danke sagen</string>
     <string name="no_contact_selected">Keinen Kontakt ausgewählt</string>
     <string name="please_note">Bitte Beachte</string>
     <string name="auto_experimental_long">
-        Verschiedene Versionen von Android und einige Apps speichern Bilder auf eigene Art.
+        Verschiedene Versionen von Android und manche Apps speichern Bilder auf eigene Art.
         \n\nEs ist unwahrscheinlich, aber nicht unmöglich, dass Bilder überschrieben werden.
     </string>
     <string name="auto_mode">Automatischer Modus</string>

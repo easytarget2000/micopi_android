@@ -38,18 +38,19 @@
     <string name="all_contacts">Tous les contacts</string>
     <string name="auto_experimental_long">
         Différentes versions d\'Android et certaines applications
-        peuvent stocker des photos dans des moyens uniques.
+        peuvent stocker des photos différemment.
         \n\nIl est peu probable mais pas impossible que certaines images sont écrasées.
     </string>
     <string name="auto_mode">Mode automatique</string>
     <string name="confirm_all">
         S\'il vous plaît confirmer que vous souhaitez remplacer toutes les images de contact.
     </string>
+    <string name="donate">Faire un don</string>
     <string name="please_note">Notez</string>
     <string name="previous_image">Image précédente</string>
     <string name="next_image">Image suivante</string>
     <string name="overwrite_all_or_only">
-        Voulez-vous remplacer toutes les images ou seulement générer des images pour contacts sans?
+        Voulez-vous remplacer toutes les images ou seulement générer pour contacts sans image?
     </string>
     <string name="missing_pictures">Images manquantes</string>
     <string name="pick_contact">Choisir un contact</string>

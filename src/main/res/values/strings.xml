@@ -19,10 +19,10 @@
         Different flavours of Android and some apps may store pictures in unique ways.
         \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
-    <string name="please_note">Please Note</string>
     <string name="confirm_all">
         Please confirm that you would like to overwrite all contact images.
     </string>
+    <string name="donate">Donate</string>
     <string name="error_assign">
         An error occurred while assigning this picture to the contact.
     </string>
@@ -44,6 +44,7 @@
         Would you like to overwrite all images or only generate pictures for contacts
         that currently do not have one?
     </string>
+    <string name="please_note">Please Note</string>
     <string name="pick_contact">Pick a single contact</string>
     <string name="picture_will_be_previewed">
         After selecting a contact, the generated picture will be previewed

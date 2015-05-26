@@ -45,5 +45,6 @@
     <string name="pick_contact">Wybierz kontakt</string>
     <string name="skip">Skip</string>
     <string name="picture_will_be_previewed">Wybierz kontakt do podglądu.</string>
+    <string name="donate">Przekaź darowiznę</string>
 
 </resources>

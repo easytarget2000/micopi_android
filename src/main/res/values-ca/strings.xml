@@ -25,7 +25,7 @@
     <string name="assign_to_contact">Aplicar imagen</string>
     <string name="want_to_assign">¿Desea asignar a %s esta imagen?</string>
     <string name="report">Reportar</string>
-    <string name="got_new_picture">%s tiene ahora una nueva imagen de contacto.</string>
+    <string name="got_new_picture">%1$s tiene ahora una nueva imagen de contacto.</string>
     <string name="saved_picture_as">La imagen se guardó con el nombre %s</string>
     <string name="error_generating">Ocurrió un error al generar la imagen.</string>
     <string name="error_retrieving">Ocurrió un error obteniendo los datos de contacto.</string>
@@ -40,17 +40,16 @@
         Different flavours of Android and some apps may store pictures in unique ways.
         \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
-    <string name="auto_mode">Automatic mode</string>
+    <string name="auto_mode">Mode automàtic</string>
+    <string name="donate">Donar</string>
     <string name="please_note">Tingui En Compte</string>
     <string name="overwrite_all_or_only">
         Would you like to overwrite all images or only generate pictures for contacts
         that currently do not have one?
     </string>
-    <string name="confirm_all">
-        Please confirm that you would like to overwrite all contact images.
-    </string>
+    <string name="confirm_all">Confirmeu que voleu sobreescriure totes les imatges.</string>
 
-    <string name="missing_pictures">Missing pictures</string>
+    <string name="missing_pictures">Imatges que falta</string>
     <string name="pick_contact">Seleccionar un contacto</string>
     <string name="skip">Skip</string>
 

@@ -17,6 +17,7 @@
 package org.eztarget.micopi.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,9 @@ import com.easytarget.micopi.R;
 public class WelcomeActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = WelcomeActivity.class.getSimpleName();
+
+    private static final String PAYPAL_DONATE_URL =
+            "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VPWXDNB6P4QAJ";
 
 //    private boolean doIgnoreBackButton = false;
 
@@ -63,4 +67,8 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(new Intent(this, BatchActivity.class));
     }
 
+    public void donateButtonPressed(View view) {
+        final Intent payPal = new Intent(Intent.ACTION_VIEW, Uri.parse(PAYPAL_DONATE_URL));
+        startActivity(payPal);
+    }
 }

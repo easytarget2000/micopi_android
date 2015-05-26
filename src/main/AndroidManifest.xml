@@ -44,8 +44,6 @@
             </intent-filter>
         </activity>
 
-        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
-
         <!-- Micopi Main Activity -->
         <activity
             android:name="org.eztarget.micopi.ui.ContactActivity"
