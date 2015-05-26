@@ -32,7 +32,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -61,7 +61,7 @@ import java.io.File;
  *
  * Created by Michel on 03.02.14.
  */
-public class ContactActivity extends ActionBarActivity {
+public class ContactActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = ContactActivity.class.getSimpleName();
 

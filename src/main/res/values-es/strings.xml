@@ -27,21 +27,25 @@
     <string name="report">Reportar</string>
     <string name="got_new_picture">%s tiene ahora una nueva imagen de contacto.</string>
     <string name="saved_picture_as">La imagen se guardó con el nombre %s</string>
-    <string name="error_generating">Ocurrió un error al generar la imagen.</string>
-    <string name="error_retrieving">Ocurrió un error obteniendo los datos de contacto.</string>
-    <string name="error_saving">Ocurrió un error guardando la imagen.</string>
-    <string name="error_assign">Ocurrió un error mientras se asignaba la imagen al contacto.</string>
 
     <string name="previous_image">Imagen anterior</string>
     <string name="next_image">Siguiente imagen</string>
 
-    <string name="all_contacts">Tots els contactes</string>
+    <string name="all_contacts">Todos los contactos</string>
     <string name="auto_experimental_long">
-        Different flavours of Android and some apps may store pictures in unique ways.
-        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
+        Las diferentes versiones de Android y algunas aplicaciones
+        pueden almacenar imágenes en una forma única.
+        \n\nEs poco probable, pero no imposible,
+        que las imágenes de perfil consiguen sobrescribe.
     </string>
-    <string name="auto_mode">Automatic mode</string>
-    <string name="please_note">Tingui En Compte</string>
+    <string name="auto_mode">Modo automático</string>
+    <string name="error_assign">
+        Ocurrió un error mientras se asignaba la imagen al contacto.
+    </string>
+    <string name="error_generating">Ocurrió un error al generar la imagen.</string>
+    <string name="error_retrieving">Ocurrió un error obteniendo los datos de contacto.</string>
+    <string name="error_saving">Ocurrió un error guardando la imagen.</string>
+    <string name="please_note">Tenga En Cuenta</string>
     <string name="overwrite_all_or_only">
         Would you like to overwrite all images or only generate pictures for contacts
         that currently do not have one?

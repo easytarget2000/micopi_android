@@ -177,7 +177,7 @@ public class BatchService extends IntentService {
         return new NotificationCompat.Builder(this)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setContentTitle(getResources().getString(R.string.auto_experimental_short))
+                .setContentTitle(getResources().getString(R.string.auto_mode))
                 .setContentText(text != null ? text : "0")
                 .setSmallIcon(R.drawable.ic_account_circle_white_24dp)
                 .setLargeIcon(mLargeIcon)

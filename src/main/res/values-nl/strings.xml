@@ -48,7 +48,7 @@
         \n\nHet is onwaarschijnlijk, maar niet onmogelijk, dat sommige beelden worden overschreven.
     </string>
     <string name="auto_mode">Batch-modus (experimenteel)</string>
-    <string name="auto_experimental_short">Batch-modus is experimenteel.</string>
+    <string name="please_note">Batch-modus is experimenteel.</string>
     <string name="overwrite_all_or_only">
         Wilt u alle afbeeldingen overschrijven?
     </string>

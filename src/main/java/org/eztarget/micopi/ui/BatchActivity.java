@@ -150,7 +150,7 @@ public class BatchActivity extends AppCompatActivity {
         if (doOverwrite) {
             dialog.setMessage(R.string.confirm_all);
         } else {
-            dialog.setTitle(R.string.auto_experimental_short);
+            dialog.setTitle(R.string.please_note);
             dialog.setMessage(R.string.auto_experimental_long);
         }
 

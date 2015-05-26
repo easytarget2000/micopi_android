@@ -32,7 +32,7 @@
         \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
     <string name="auto_mode">Automatic mode (experimental)</string>
-    <string name="auto_experimental_short">Auto mode is experimental!</string>
+    <string name="please_note">Auto mode is experimental!</string>
     <string name="overwrite_all_or_only">
         Would you like to overwrite all images or only generate pictures for contacts
         that currently do not have one?

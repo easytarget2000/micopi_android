@@ -40,7 +40,7 @@ public class Contact implements Parcelable{
     /**
      * General log tag for Contact class
      */
-    private final static String DEBUG_TAG = Contact.class.getSimpleName();
+    private final static String TAG = Contact.class.getSimpleName();
 
     private String mContactId;
 
@@ -296,12 +296,13 @@ public class Contact implements Parcelable{
     /**
      * Definition for parceling of boolean values
      */
-    private static final String TRUE_STRING = "TRUE";
+    private static final String PARCEL_TRUE_VALUE = "TRUE";
 
     public Contact(Parcel in){
-        String[] data = new String[9];
+        String[] data = new String[10];
 
         in.readStringArray(data);
+
         mContactId = data[0];
         mFullName = data[1];
         mPhoneNumber = data[2];
@@ -309,9 +310,9 @@ public class Contact implements Parcelable{
         mBirthday = data[4];
         mTimesContacted = data[5];
         mRetryFactor = Integer.parseInt(data[6]);
-        mMd5IsNew = (data[7].equals(TRUE_STRING));
+        mMd5IsNew = (data[7].equals(PARCEL_TRUE_VALUE));
         mMd5String = data[8];
-        mHasPhoto = (data[9].equals(TRUE_STRING));
+        mHasPhoto = (data[9].equals(PARCEL_TRUE_VALUE));
     }
 
     @Override
@@ -323,10 +324,10 @@ public class Contact implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         String md5IsNewString = "FALSE";
         String hasPhotoString = "FALSE";
-        if (mMd5IsNew) md5IsNewString = TRUE_STRING;
-        if (mHasPhoto) hasPhotoString = TRUE_STRING;
+        if (mMd5IsNew) md5IsNewString = PARCEL_TRUE_VALUE;
+        if (mHasPhoto) hasPhotoString = PARCEL_TRUE_VALUE;
 
-        String[] dataStrings = new String[] {
+        final String[] dataStrings = new String[] {
                 mContactId,
                 mFullName,
                 mPhoneNumber,
@@ -368,15 +369,15 @@ public class Contact implements Parcelable{
      */
     public String getNameWord(final int fWordIndex) {
         if (mNameParts == null) {
-            Log.v(DEBUG_TAG, toString() + ": Array of name parts is null.");
+            Log.v(TAG, toString() + ": Array of name parts is null.");
             return getFullName();
         }
 
         if (fWordIndex < mNameParts.length) {
-//            Log.d(DEBUG_TAG, "Returning name part " + fWordIndex + " " + mNameParts[fWordIndex]);
+//            Log.d(TAG, "Returning name part " + fWordIndex + " " + mNameParts[fWordIndex]);
             return mNameParts[fWordIndex];
         } else {
-            Log.e(DEBUG_TAG, "Name does not contain part number " + fWordIndex + ".");
+            Log.e(TAG, "Name does not contain part number " + fWordIndex + ".");
             return getFullName();
         }
     }
@@ -432,7 +433,7 @@ public class Contact implements Parcelable{
                 combinedInfo = combinedInfo.replaceAll("[^\\x00-\\x7F]", "_");
                 combinedBytes = combinedInfo.getBytes();
             }
-//            Log.d(DEBUG_TAG, "Generating new MD5 from " + combinedInfo);
+//            Log.d(TAG, "Generating new MD5 from " + combinedInfo);
 
             // MD5-Encryption:
             fDigest.update(combinedBytes, 0, combinedInfo.length());

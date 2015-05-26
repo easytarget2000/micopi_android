@@ -14,13 +14,12 @@
 
     <string name="all_contacts">All contacts</string>
     <string name="assign_to_contact">Assign to contact</string>
-    <string name="auto_mode">Automatic mode (experimental)</string>
+    <string name="auto_mode">Automatic mode</string>
     <string name="auto_experimental_long">
-        Please note:
-        \nDifferent flavours of Android and some apps may store pictures in unique ways.
+        Different flavours of Android and some apps may store pictures in unique ways.
         \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
-    <string name="auto_experimental_short">Auto mode is experimental</string>
+    <string name="please_note">Please Note</string>
     <string name="confirm_all">
         Please confirm that you would like to overwrite all contact images.
     </string>
@@ -37,7 +36,7 @@
         Please make sure your storage is not locked.
     </string>
     <string name="generated_image">Generated contact picture</string>
-    <string name="got_new_picture">%$1s has got a new contact picture.</string>
+    <string name="got_new_picture">%1$s has got a new contact picture.</string>
     <string name="missing_pictures">Missing pictures</string>
     <string name="next_image">Next image</string>
     <string name="no_contact_selected">No contact selected</string>
@@ -53,9 +52,9 @@
     <string name="previous_image">Previous image</string>
     <string name="report">Report</string>
     <string name="save_image_file">Save image as file</string>
-    <string name="saved_picture_as">Saved contact picture as %s.</string>
+    <string name="saved_picture_as">Saved contact picture as %1$s.</string>
     <string name="skip">Skip</string>
-    <string name="want_to_assign">Do you want to assign this contact photo to %$1s?</string>
+    <string name="want_to_assign">Do you want to assign this contact photo to %1$s?</string>
     <string name="retry_button_label">Retry</string>
 
 </resources>
