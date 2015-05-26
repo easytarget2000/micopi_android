@@ -21,19 +21,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="60de5aed-990a-47b5-ad6d-57e973020ab7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/res/layout-small/activity_welcome.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/WelcomeActivity.java" afterPath="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/WelcomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/engine/ImageFactory.java" afterPath="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/engine/ImageFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/layout/progress_bar.xml" afterPath="$PROJECT_DIR$/src/main/res/layout/progress_bar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/drawable/progress_drawable.xml" afterPath="$PROJECT_DIR$/src/main/res/drawable/progress_drawable.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values-ca/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values-ca/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values-de/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values-de/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values-es/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values-es/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values-fr/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values-fr/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values-nl/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values-nl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values-pl/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values-pl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/res/values-sv/strings.xml" afterPath="$PROJECT_DIR$/src/main/res/values-sv/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MicopiAndroidStudioProject.iws" />
@@ -83,37 +73,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="activity_welcome.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.75862">
-              <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
-              <folding>
-                <element signature="e#909#932#0" expanded="true" />
-                <element signature="e#1250#1273#0" expanded="true" />
-                <element signature="e#1309#1327#0" expanded="true" />
-                <element signature="e#1500#1522#0" expanded="true" />
-                <element signature="e#1604#1625#0" expanded="true" />
-                <element signature="e#1743#1765#0" expanded="true" />
-                <element signature="e#1834#1852#0" expanded="true" />
-                <element signature="e#2173#2196#0" expanded="true" />
-                <element signature="e#2218#2253#0" expanded="true" />
-                <element signature="e#2328#2346#0" expanded="true" />
-                <element signature="e#2485#2507#0" expanded="true" />
-                <element signature="e#2591#2614#0" expanded="true" />
-                <element signature="e#2731#2750#0" expanded="true" />
-                <element signature="e#2819#2837#0" expanded="true" />
-                <element signature="e#2928#2950#0" expanded="true" />
-                <element signature="e#3115#3131#0" expanded="true" />
-                <element signature="e#3206#3224#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="activity_contact.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_contact.xml">
           <provider editor-type-id="android-designer">
@@ -127,17 +86,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="progress_bar.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="progress_bar.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/res/layout/progress_bar.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.448276">
-              <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
-              <folding>
-                <element signature="e#921#943#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.57793343">
+              <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dimens.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/values/dimens.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -152,39 +119,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_welcome.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout-small/activity_welcome.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
+      <file leaf-file-name="ContactActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/ContactActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5172415">
-              <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="186" column="39" selection-start-line="186" selection-start-column="39" selection-end-line="186" selection-end-column="39" />
               <folding>
-                <element signature="e#909#932#0" expanded="true" />
-                <element signature="e#1059#1081#0" expanded="true" />
-                <element signature="e#1208#1229#0" expanded="true" />
-                <element signature="e#1347#1369#0" expanded="true" />
-                <element signature="e#1438#1456#0" expanded="true" />
-                <element signature="e#1777#1800#0" expanded="true" />
-                <element signature="e#1822#1857#0" expanded="true" />
-                <element signature="e#1932#1950#0" expanded="true" />
-                <element signature="e#2089#2111#0" expanded="true" />
-                <element signature="e#2195#2218#0" expanded="true" />
-                <element signature="e#2335#2354#0" expanded="true" />
-                <element signature="e#2423#2441#0" expanded="true" />
-                <element signature="e#2532#2554#0" expanded="true" />
-                <element signature="e#2719#2735#0" expanded="true" />
-                <element signature="e#2810#2828#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WelcomeActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ImageFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/engine/ImageFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WelcomeActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/WelcomeActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.325">
+            <state vertical-scroll-proportion="0.0">
               <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
               <folding>
                 <element signature="e#0#2407#0" expanded="true" />
@@ -989,7 +949,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/eztarget/micopi/engine/ColorUtilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eztarget/micopi/BatchService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eztarget/micopi/ui/BatchActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/engine/ImageFactory.java" />
         <option value="$PROJECT_DIR$/src/main/res/values-sv/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/BatchActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/ContactActivity.java" />
@@ -1002,9 +961,11 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_welcome.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout-small/activity_welcome.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values-es/strings.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/drawable/progress_drawable.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values-de/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/WelcomeActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/res/drawable/progress_drawable.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/eztarget/micopi/engine/ImageFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/progress_bar.xml" />
       </list>
     </option>
   </component>
@@ -1439,7 +1400,7 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960597" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1450,7 +1411,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977587" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977587" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1574,14 +1535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/engine/ImageFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="176" column="22" selection-start-line="176" selection-start-column="22" selection-end-line="176" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/BatchActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1589,14 +1542,6 @@
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/ContactActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1666,21 +1611,21 @@
         <state vertical-scroll-proportion="-5.5172415">
           <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
           <folding>
-            <element signature="e#909#932#0" expanded="true" />
-            <element signature="e#1059#1081#0" expanded="true" />
-            <element signature="e#1208#1229#0" expanded="true" />
-            <element signature="e#1347#1369#0" expanded="true" />
-            <element signature="e#1438#1456#0" expanded="true" />
-            <element signature="e#1777#1800#0" expanded="true" />
-            <element signature="e#1822#1857#0" expanded="true" />
-            <element signature="e#1932#1950#0" expanded="true" />
-            <element signature="e#2089#2111#0" expanded="true" />
-            <element signature="e#2195#2218#0" expanded="true" />
-            <element signature="e#2335#2354#0" expanded="true" />
-            <element signature="e#2423#2441#0" expanded="true" />
-            <element signature="e#2532#2554#0" expanded="true" />
-            <element signature="e#2719#2735#0" expanded="true" />
-            <element signature="e#2810#2828#0" expanded="true" />
+            <element signature="e#909#932#0" expanded="false" />
+            <element signature="e#1059#1081#0" expanded="false" />
+            <element signature="e#1120#1126#0" expanded="false" />
+            <element signature="e#1347#1369#0" expanded="false" />
+            <element signature="e#1438#1456#0" expanded="false" />
+            <element signature="e#1777#1800#0" expanded="false" />
+            <element signature="e#1822#1857#0" expanded="false" />
+            <element signature="e#1932#1950#0" expanded="false" />
+            <element signature="e#2089#2111#0" expanded="false" />
+            <element signature="e#2195#2218#0" expanded="false" />
+            <element signature="e#2335#2354#0" expanded="false" />
+            <element signature="e#2423#2441#0" expanded="false" />
+            <element signature="e#2532#2554#0" expanded="false" />
+            <element signature="e#2719#2735#0" expanded="false" />
+            <element signature="e#2810#2828#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1693,23 +1638,21 @@
         <state vertical-scroll-proportion="-12.75862">
           <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
           <folding>
-            <element signature="e#909#932#0" expanded="true" />
-            <element signature="e#1250#1273#0" expanded="true" />
-            <element signature="e#1309#1327#0" expanded="true" />
-            <element signature="e#1500#1522#0" expanded="true" />
-            <element signature="e#1604#1625#0" expanded="true" />
-            <element signature="e#1743#1765#0" expanded="true" />
-            <element signature="e#1834#1852#0" expanded="true" />
-            <element signature="e#2173#2196#0" expanded="true" />
-            <element signature="e#2218#2253#0" expanded="true" />
-            <element signature="e#2328#2346#0" expanded="true" />
-            <element signature="e#2485#2507#0" expanded="true" />
-            <element signature="e#2591#2614#0" expanded="true" />
-            <element signature="e#2731#2750#0" expanded="true" />
-            <element signature="e#2819#2837#0" expanded="true" />
-            <element signature="e#2928#2950#0" expanded="true" />
-            <element signature="e#3115#3131#0" expanded="true" />
-            <element signature="e#3206#3224#0" expanded="true" />
+            <element signature="e#909#932#0" expanded="false" />
+            <element signature="e#1250#1273#0" expanded="false" />
+            <element signature="e#1250#1273#0" expanded="false" />
+            <element signature="e#1500#1522#0" expanded="false" />
+            <element signature="e#1604#1625#0" expanded="false" />
+            <element signature="e#1743#1765#0" expanded="false" />
+            <element signature="e#1834#1852#0" expanded="false" />
+            <element signature="e#2173#2196#0" expanded="false" />
+            <element signature="e#2218#2253#0" expanded="false" />
+            <element signature="e#2328#2346#0" expanded="false" />
+            <element signature="e#2485#2507#0" expanded="false" />
+            <element signature="e#2591#2614#0" expanded="false" />
+            <element signature="e#2731#2750#0" expanded="false" />
+            <element signature="e#2819#2837#0" expanded="false" />
+            <element signature="e#3206#3224#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1730,19 +1673,6 @@
         <state vertical-scroll-proportion="0.33333334">
           <caret line="624" column="20" selection-start-line="624" selection-start-column="20" selection-end-line="624" selection-end-column="20" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/progress_bar.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.448276">
-          <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
-          <folding>
-            <element signature="e#921#943#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1775,14 +1705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/progress_drawable.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values-de/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.8">
@@ -1793,12 +1715,76 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/WelcomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.325">
+        <state vertical-scroll-proportion="0.0">
           <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
           <folding>
             <element signature="e#0#2407#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../_Allgemeines/androidsdk/platforms/android-22/android.jar!/android/content/Context.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3478261">
+          <caret line="279" column="25" selection-start-line="279" selection-start-column="25" selection-end-line="279" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../_Allgemeines/androidsdk/platforms/android-22/android.jar!/android/widget/ProgressBar.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3478261">
+          <caret line="154" column="29" selection-start-line="154" selection-start-column="29" selection-end-line="154" selection-end-column="29" />
+          <folding>
+            <element signature="e#4421#4422#0" expanded="true" />
+            <element signature="e#4472#4473#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/ui/ContactActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="186" column="39" selection-start-line="186" selection-start-column="39" selection-end-line="186" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/eztarget/micopi/engine/ImageFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/progress_drawable.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/progress_bar.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.57793343">
+          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

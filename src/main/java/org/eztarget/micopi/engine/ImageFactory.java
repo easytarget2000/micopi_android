@@ -103,7 +103,7 @@ public class ImageFactory {
 
         // The contact's current MD5 encoded string will be referenced a lot.
         final String md5String = mContact.getMD5EncryptedString();
-        if (mDoBroadcastProgress) sendProgressBroadcast(30);
+        if (mDoBroadcastProgress) sendProgressBroadcast(40);
 
         /*
         MAIN PATTERN
@@ -133,7 +133,7 @@ public class ImageFactory {
             startTime = System.currentTimeMillis();
         }
 
-        if (mDoBroadcastProgress) sendProgressBroadcast(50);
+        if (mDoBroadcastProgress) sendProgressBroadcast(70);
         painter.paintGrain();
 
         if(BENCHMARK) {
@@ -172,7 +172,7 @@ public class ImageFactory {
         painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)));
         painter.paintChars(new char[]{firstChar}, Color.WHITE);
 
-        if (mDoBroadcastProgress) sendProgressBroadcast(70);
+        if (mDoBroadcastProgress) sendProgressBroadcast(100);
         if(BENCHMARK) Log.d(LOG_TAG_BM, "15: " + (System.currentTimeMillis() - startTime));
         return bitmap;
     }
