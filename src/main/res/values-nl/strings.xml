@@ -16,19 +16,16 @@
 
 <resources>
 
-    <string name="app_name">Micopi</string>
-    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
-    <string name="introduction_text">
+    <string name="picture_will_be_previewed">
         De gegenereerde Afbeelding wordt getoond na het toewijzen van een contact.
     </string>
     <string name="no_contact_selected">Kies een contact</string>
-    <string name="image_description">Gegenereerde contact afbeelding</string>
-    <string name="pick_contact">Kies een contact</string>
-    <string name="save_button_label">Afbeelding opslaan</string>
-    <string name="assign_button_label">Wijs toe aan contact</string>
-    <string name="overwrite_dialog">Afbeelding toewijzen aan %s?</string>
-    <string name="success_applying_image">%s heeft een nieuwe contact afbeelding.</string>
-    <string name="success_saving_image">Afbeelding opgeslagen als %s.</string>
+    <string name="generated_image">Gegenereerde contact afbeelding</string>
+    <string name="save_image_file">Afbeelding opslaan</string>
+    <string name="assign_to_contact">Wijs toe aan contact</string>
+    <string name="want_to_assign">Afbeelding toewijzen aan %s?</string>
+    <string name="got_new_picture">%s heeft een nieuwe contact afbeelding.</string>
+    <string name="saved_picture_as">Afbeelding opgeslagen als %s.</string>
     <string name="error_generating">
         Er is een fout opgetreden tijdens het genereren van de afbeelding.</string>
     <string name="error_retrieving">
@@ -38,9 +35,29 @@
         Controleer de gegevens en probeer het nog een keer.</string>
     <string name="error_assign">
         Er is een fout opgetreden tijdens het toewijzen van de afbeelding aan het contact.</string>
-    <string name="report_button_label">Report</string>
+    <string name="report">Report</string>
 
-    <string name="button_previous_image">Vorig beeld</string>
-    <string name="button_next_image">Volgend beeld</string>
+    <string name="previous_image">Vorig beeld</string>
+    <string name="next_image">Volgend beeld</string>
+
+    <string name="all_contacts">Alle contacten</string>
+    <string name="auto_experimental_long">
+        Let op:
+        \nVerschillende versies van Android en sommige apps kunnen foto\'s
+        op een unieke manier op te slaan.
+        \n\nHet is onwaarschijnlijk, maar niet onmogelijk, dat sommige beelden worden overschreven.
+    </string>
+    <string name="auto_mode">Batch-modus (experimenteel)</string>
+    <string name="auto_experimental_short">Batch-modus is experimenteel.</string>
+    <string name="overwrite_all_or_only">
+        Wilt u alle afbeeldingen overschrijven?
+    </string>
+    <string name="confirm_all">
+        Bevestig dat u alle beelden te overschrijven.
+    </string>
+
+    <string name="missing_pictures">Ontbrekende foto\'s</string>
+    <string name="pick_contact">Kies een contact</string>
+    <string name="skip">Overslaan</string>
 
 </resources>

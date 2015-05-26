@@ -1,4 +1,4 @@
-package com.easytarget.micopi;
+package org.eztarget.micopi;
 
 /**
  * Created by michel on 08/01/15.

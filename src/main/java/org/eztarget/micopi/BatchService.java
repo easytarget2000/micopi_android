@@ -1,4 +1,4 @@
-package com.easytarget.micopi;
+package org.eztarget.micopi;
 
 /*
  * Original work Copyright (C) 2013 The ChameleonOS Open Source Project
@@ -33,9 +33,10 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.easytarget.micopi.engine.ImageFactory;
-import com.easytarget.micopi.ui.BatchActivity;
-import com.easytarget.micopi.ui.WelcomeActivity;
+import com.easytarget.micopi.R;
+
+import org.eztarget.micopi.engine.ImageFactory;
+import org.eztarget.micopi.ui.BatchActivity;
 
 import java.util.ArrayList;
 
@@ -46,13 +47,23 @@ public class BatchService extends IntentService {
 
     private static final String LOG_TAG = BatchService.class.getSimpleName();
 
-    private static final int SERVICE_NOTIFICATION_ID = 441444;
+    public static final int SERVICE_NOTIFICATION_ID = 441444;
 
-    private static final int ERROR_NOTIFICATION_ID = 4412669;
+//    public static final int ERROR_NOTIFICATION_ID = 4412669;
 
     private ArrayList<Contact> mInsertErrors;
 
     private ArrayList<Contact> mUpdateErrors;
+
+    private boolean mIsCancelled;
+
+    private Contact mContact;
+
+    private int mProgress;
+
+    private int mMaxProgress;
+
+    private int mScreenWidthPixels;
 
     public BatchService() {
         super(LOG_TAG);
@@ -60,19 +71,23 @@ public class BatchService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        startForeground(SERVICE_NOTIFICATION_ID, createNotification("", 10, 0));
+        mProgress = 0;
+        mMaxProgress = 0;
+        mIsCancelled = false;
+        mContact = null;
+
+        startForeground(SERVICE_NOTIFICATION_ID, createNotification(""));
 
         final boolean doOverwrite =
                 intent.getBooleanExtra(Constants.EXTRA_DO_OVERWRITE, false);
-        final int screenWidthInPixels =
-                intent.getIntExtra(Constants.EXTRA_IMAGE_SIZE, 1080);
+        mScreenWidthPixels = intent.getIntExtra(Constants.EXTRA_IMAGE_SIZE, 1080);
 
-        Log.d(LOG_TAG, "onHandleIntent: " + doOverwrite + ", " + screenWidthInPixels);
+        Log.d(LOG_TAG, "onHandleIntent: " + doOverwrite + ", " + mScreenWidthPixels);
         mInsertErrors = new ArrayList<>();
 
         mUpdateErrors = new ArrayList<>();
 
-        processContacts(doOverwrite, screenWidthInPixels);
+        processContacts(doOverwrite);
 
 //        if (mUpdateErrors.size() > 0 || mInsertErrors.size() > 0) createNotificationForError();
 //        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("CONTACTS_UPDATED"));
@@ -80,10 +95,23 @@ public class BatchService extends IntentService {
 
         Intent progressBroadcast = new Intent(Constants.ACTION_FINISHED_GENERATE);
         sendBroadcast(progressBroadcast);
+
+        // TODO: Show finish notification.
+
         stopForeground(true);
     }
 
-    private void processContacts(final boolean doOverwrite, final int screenWidthInPixels) {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mIsCancelled = true;
+        stopForeground(true);
+    }
+
+    private void processContacts(final boolean doOverwrite) {
+        if (mScreenWidthPixels < 100) return;
+
+        // TODO: Specify photo ID selection to get right amount of maxProgress.
         Cursor cursor = getContacts();
         final int idIndex =
                 cursor.getColumnIndex(ContactsContract.Contacts._ID);
@@ -92,26 +120,22 @@ public class BatchService extends IntentService {
         final int photoIdIndex =
                 cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID);
 
-        final int maxProgress = cursor.getCount() * 2;
-        int progress = 0;
-        while (cursor.moveToNext()) {
+        mMaxProgress = cursor.getCount() * 2;
+        while (cursor.moveToNext() && !mIsCancelled) {
             final String rawContactId = cursor.getString(idIndex);
             final String name = cursor.getString(nameIndex);
             final int photoId = cursor.getInt(photoIdIndex);
             if (!TextUtils.isEmpty(name)) {
-//                final byte[] photo = getContactPhotoBlob(photoId);
-
-                Contact contact = new Contact(getApplicationContext(), rawContactId + "");
+                mContact = new Contact(getApplicationContext(), rawContactId + "");
 
                 if (photoId <= 0 || doOverwrite) {
-                    updateProgress(contact.getFullName(), maxProgress, progress++);
-                    Log.d(LOG_TAG, "Generating image for " + contact.toString() + ".");
+                    updateProgress();
+//                    Log.d(LOG_TAG, "Generating image for " + mContact.toString() + ".");
                     final Bitmap generatedBitmap =
-                            new ImageFactory(contact, screenWidthInPixels).generateBitmap();
+                            new ImageFactory(mContact, mScreenWidthPixels).generateBitmap();
 
-                    updateProgress(contact.getFullName(), maxProgress, progress++);
+                    updateProgress();
 
-                    Log.d(LOG_TAG, "Assigning image to " + contact.toString() + ".");
                     FileHelper.assignImageToContact(
                             getApplicationContext(),
                             generatedBitmap,
@@ -120,6 +144,7 @@ public class BatchService extends IntentService {
                 }
             }
         }
+
         cursor.close();
     }
 
@@ -142,7 +167,7 @@ public class BatchService extends IntentService {
 
     private Bitmap mLargeIcon;
 
-    private Notification createNotification(final String text, int maxProgress, int progress) {
+    private Notification createNotification(final String text) {
         PendingIntent contentIntent = getNotificationIntent();
 
         if (mLargeIcon == null) {
@@ -152,51 +177,36 @@ public class BatchService extends IntentService {
         return new NotificationCompat.Builder(this)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setContentTitle(getResources().getString(R.string.batch_experimental))
+                .setContentTitle(getResources().getString(R.string.auto_experimental_short))
                 .setContentText(text != null ? text : "0")
                 .setSmallIcon(R.drawable.ic_account_circle_white_24dp)
                 .setLargeIcon(mLargeIcon)
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(contentIntent)
-                .setProgress(maxProgress, progress, false)
+                .setProgress(mMaxProgress, mProgress, false)
                 .build();
     }
 
     private NotificationManager mNotMan;
 
-    private void updateProgress(final String contactName, int maxProgress, int progress) {
+    private void updateProgress() {
+        if (mIsCancelled) return;
+        mProgress++;
+
         // Broadcast that will be received by the Activity:
         Intent progressBroadcast = new Intent(Constants.ACTION_UPDATE_PROGRESS);
-        final int normalisedProgress = (int) (((float) progress / (float) maxProgress) * 100f);
+        final int normalisedProgress = (int) (((float) mProgress / (float) mMaxProgress) * 100f);
         progressBroadcast.putExtra(Constants.EXTRA_PROGRESS, normalisedProgress);
-        progressBroadcast.putExtra(Constants.EXTRA_CONTACT, contactName);
+        progressBroadcast.putExtra(Constants.EXTRA_CONTACT, mContact.getFullName());
         sendBroadcast(progressBroadcast);
 
-        Notification notification = createNotification(contactName, maxProgress, progress);
+        Notification notification = createNotification(mContact.getFullName());
 
         if (mNotMan == null) {
             mNotMan = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         mNotMan.notify(SERVICE_NOTIFICATION_ID, notification);
     }
-
-//    private void createNotificationForError() {
-//        Intent intent = new Intent(this, ErrorsListActivity.class);
-//        intent.putParcelableArrayListExtra("insertErrors", mInsertErrors);
-//        intent.putParcelableArrayListExtra("updateErrors", mUpdateErrors);
-//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        String contentText = getString(R.string.sql_error_notification_text, mInsertErrors.size() + mUpdateErrors.size());
-//        Notification notice = new NotificationCompat.Builder(this)
-//                .setSmallIcon(R.drawable.ic_settings_identicons)
-//                .setContentTitle(getString(R.string.sql_error_notification_title))
-//                .setContentText(contentText)
-//                .setContentIntent(contentIntent)
-//                .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
-//                .setAutoCancel(true)
-//                .build();
-//        NotificationManager nm = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-//        nm.notify(ERROR_NOTIFICATION_ID, notice);
-//    }
 
     private PendingIntent getNotificationIntent() {
         Intent intent = new Intent(this, BatchActivity.class);

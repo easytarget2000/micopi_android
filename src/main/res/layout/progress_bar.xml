@@ -24,5 +24,6 @@
     android:layout_width="fill_parent"
     android:max="100"
     android:padding="@dimen/margin_small"
+    android:progressDrawable="@drawable/progress_drawable"
     android:visibility="gone"
     style="?android:attr/progressBarStyleHorizontal" />

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi.engine;
+package org.eztarget.micopi.engine;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,8 +23,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.easytarget.micopi.Constants;
-import com.easytarget.micopi.Contact;
+import org.eztarget.micopi.Constants;
+import org.eztarget.micopi.Contact;
 
 /**
  * Utility class that generates a seemingly random image out of given contact values, such as the
@@ -35,6 +35,10 @@ import com.easytarget.micopi.Contact;
 public class ImageFactory {
 
     private static final String LOG_TAG = ImageFactory.class.getSimpleName();
+
+    private static final String LOG_TAG_BM = LOG_TAG + ": Benchmark";
+
+    private static final boolean BENCHMARK = false;
 
     private boolean mDoBroadcastProgress = false;
 
@@ -78,6 +82,10 @@ public class ImageFactory {
             return null;
         }
 
+        long startTime;
+
+        if(BENCHMARK) startTime = System.currentTimeMillis();
+
         // Set up the bitmap and the canvas.
         final Bitmap bitmap = Bitmap.createBitmap(mImageSize, mImageSize, Bitmap.Config.ARGB_8888);
 
@@ -87,6 +95,11 @@ public class ImageFactory {
         final char firstChar = mContact.getFullName().charAt(0);
         final int bgColor = ColorCollection.getCandyColorForChar(firstChar);
         canvas.drawColor(bgColor);
+
+        if(BENCHMARK) {
+            Log.d(LOG_TAG_BM, "10: " + (System.currentTimeMillis() - startTime));
+            startTime = System.currentTimeMillis();
+        }
 
         // The contact's current MD5 encoded string will be referenced a lot.
         final String md5String = mContact.getMD5EncryptedString();
@@ -99,7 +112,11 @@ public class ImageFactory {
         final Painter painter = new Painter(canvas);
 
         final int painterMode = md5String.charAt(5) % 4;
-        Log.d(LOG_TAG, "Painter mode: " + painterMode);
+        if(BENCHMARK) {
+            Log.d(LOG_TAG_BM, "11: " + (System.currentTimeMillis() - startTime) + ", " + painterMode);
+            Log.d(LOG_TAG_BM, "Mode: " + painterMode);
+            startTime = System.currentTimeMillis();
+        }
         switch (painterMode) {
             case 1:
                 CircleMatrixGenerator.generate(painter, mContact);
@@ -111,70 +128,26 @@ public class ImageFactory {
                 WanderingShapesGenerator.generate(painter, mContact);
         }
 
-//        WanderingShapesGenerator.generate(painter, mContact);
-
+        if(BENCHMARK) {
+            Log.d(LOG_TAG_BM, "12: " + (System.currentTimeMillis() - startTime));
+            startTime = System.currentTimeMillis();
+        }
 
         if (mDoBroadcastProgress) sendProgressBroadcast(50);
         painter.paintGrain();
 
-//        final int numOfWords = mContact.getNumberOfNameWords();
-//        final float centerX = mImageSize * (md5String.charAt(9) / 128f);
-//        final float centerY = mImageSize * (md5String.charAt(3) / 128f);
-//        final float centerOffset  = md5String.charAt(18) * 2f;
-//        final float radiusFactor = mImageSize * 0.4f;
-
-//        switch (md5String.charAt(30) % 4) {
-//            case 0:     // Paint circles depending on the number of words.
-//                for (int i = 0; i < numOfWords; i++) {
-//                    int alpha = (int) (((i + 1f) / numOfWords) * 120f);
-//
-//                    painter.paintShape(
-//                            Painter.MODE_CIRCLE,
-//                            Color.WHITE,
-//                            alpha,
-//                            ((numOfWords / (i + 1f)) * 80f), // Stroke Width
-//                            0,                              // No edges
-//                            0f,                             // No arc start angle
-//                            0f,                             // No arc end angle
-//                            centerX + (i * centerOffset),
-//                            centerY - (i * centerOffset),
-//                            ((numOfWords / (i + 1f)) * radiusFactor)
-//                    );
-//                    //Log.d("Word Circles", alpha + "");
-//                }
-//                break;
-//            case 1:
-//                painter.paintSpyro(
-//                        Color.WHITE,
-//                        Color.YELLOW,
-//                        Color.BLACK,
-//                        255 - (md5String.charAt(19) * 2),
-//                        (0.3f - (float) firstChar / 255f),
-//                        (0.3f - (float) md5String.charAt(23) / 255f),
-//                        (0.3f - (float) md5String.charAt(24) / 255f),
-//                        Math.max(4, md5String.charAt(25) >> 2)
-//                );
-//                break;
-//            case 2:
-//                painter.paintMicopiBeams(
-//                        bgColor,
-//                        md5String.charAt(17) / 5,       // Alpha
-//                        md5String.charAt(12) % 4,       // Paint Mode
-//                        centerX,
-//                        centerY,
-//                        md5String.charAt(13) * 2,       // Density
-//                        md5String.charAt(5) * 0.6f,     // Line Length
-//                        md5String.charAt(14) * 0.15f,   // Angle
-//                        md5String.charAt(20) % 2 == 0,  // Large Delta Angle
-//                        md5String.charAt(21) % 2 == 0   // Wide Strokes
-//                );
-//                break;
-//        }
+        if(BENCHMARK) {
+            Log.d(LOG_TAG_BM, "13: " + (System.currentTimeMillis() - startTime));
+            startTime = System.currentTimeMillis();
+        }
 
         // Optional Spyro;
         if (md5String.charAt(30) % 3 == 0) {
             final int revolutions = Math.max(4, md5String.charAt(25) >> 3);
-//            Log.d(LOG_TAG, "Spyro revolutions: " + revolutions);
+            if(BENCHMARK) {
+                Log.d(LOG_TAG_BM, "Spyro revolutions: " + revolutions);
+                startTime = System.currentTimeMillis();
+            }
             painter.paintSpyro(
                     Color.WHITE,
                     Color.YELLOW,
@@ -187,15 +160,20 @@ public class ImageFactory {
             );
         }
 
+        if(BENCHMARK) {
+            Log.d(LOG_TAG_BM, "14: " + (System.currentTimeMillis() - startTime));
+            startTime = System.currentTimeMillis();
+        }
+
         /*
         INITIAL LETTER ON CIRCLE
          */
 
         painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)));
         painter.paintChars(new char[]{firstChar}, Color.WHITE);
-//        painter.paintChars(new char[]{'3'}, Color.WHITE);
 
         if (mDoBroadcastProgress) sendProgressBroadcast(70);
+        if(BENCHMARK) Log.d(LOG_TAG_BM, "15: " + (System.currentTimeMillis() - startTime));
         return bitmap;
     }
 

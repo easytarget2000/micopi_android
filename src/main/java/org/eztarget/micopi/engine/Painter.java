@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi.engine;
+package org.eztarget.micopi.engine;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -79,19 +79,29 @@ public class Painter {
     public void paintGrain() {
         Paint darkener = new Paint();
         darkener.setColor(Color.DKGRAY);
-        darkener.setAlpha(8);
+        darkener.setAlpha(26);
         Paint brightener = new Paint();
         brightener.setColor(Color.WHITE);
-        brightener.setAlpha(8);
-        final int grainDensity = mImageSize / 3;
+        brightener.setAlpha(14);
+        final int grainDensity = mImageSize / 7;
         final Random random = new Random();
-        float darkenerX;
-        for (int y = 0; y < mImageSize; y++) {
+        float darkenerX, brightenerX;
+
+        for (int y = 0; y < mImageSize; y += 3) {
+            // The density value is the x-step value.
             for (int i = 0; i < grainDensity; i++) {
+                // Get a new x coordinate in the current row.
                 darkenerX = random.nextFloat() * mImageSize;
+                // Darken the random point.
                 mCanvas.drawPoint(darkenerX, y, darkener);
+                // Darken the same point at the other side of the image.
                 mCanvas.drawPoint(mImageSize - darkenerX, y, darkener);
-                mCanvas.drawPoint(random.nextFloat() * mImageSize, y, brightener);
+                // Get a new x coordinate in the same row.
+                brightenerX = random.nextFloat() * mImageSize;
+                // Brighten the random point.
+                mCanvas.drawPoint(brightenerX, y, brightener);
+                // Brighten the point below (y+1).
+                mCanvas.drawPoint(brightenerX, y+1, brightener);
             }
         }
     }
@@ -355,9 +365,9 @@ public class Painter {
         final float point2 = fPoint2Factor * (mImageSize - radiusSum);
         final float point3 = fPoint3Factor * (mImageSize - radiusSum);
 
-        final Path fPoint1Path = new Path();
-        final Path fPoint2Path = new Path();
-        final Path fPoint3Path = new Path();
+        final Path pointPath1 = new Path();
+        final Path pointPath2 = new Path();
+        final Path pointPath3 = new Path();
         boolean moveTo = true;
 
         float t = 0f;
@@ -377,14 +387,14 @@ public class Painter {
                     point3 * Math.sin(radiusSum * t / outerRadius) + mImageSizeHalf);
 
             if (moveTo) {
-                fPoint1Path.moveTo(x, y);
-                fPoint2Path.moveTo(x2, y2);
-                fPoint3Path.moveTo(x3, y3);
+                pointPath1.moveTo(x, y);
+                pointPath2.moveTo(x2, y2);
+                pointPath3.moveTo(x3, y3);
                 moveTo = false;
             } else {
-                fPoint1Path.lineTo(x, y);
-                fPoint2Path.lineTo(x2, y2);
-                fPoint3Path.lineTo(x3, y3);
+                pointPath1.lineTo(x, y);
+                pointPath2.lineTo(x2, y2);
+                pointPath3.lineTo(x3, y3);
             }
             t += PI_STEP_SIZE;
         } while (t < TWO_PI * revolutions);
@@ -395,16 +405,16 @@ public class Painter {
         // Draw the first path.
         mPaint.setColor(color1);
         mPaint.setAlpha(alpha);
-        mCanvas.drawPath(fPoint1Path, mPaint);
+        mCanvas.drawPath(pointPath1, mPaint);
         // Draw the second path.
         mPaint.setColor(color2);
         mPaint.setAlpha(alpha);
-        mCanvas.drawPath(fPoint2Path, mPaint);
+        mCanvas.drawPath(pointPath2, mPaint);
         // Draw the third path.
         mPaint.setColor(color3);
         mPaint.setAlpha(alpha);
         mPaint.setStrokeWidth(20 / revolutions);
-        mCanvas.drawPath(fPoint3Path, mPaint);
+        mCanvas.drawPath(pointPath3, mPaint);
     }
 
     /**

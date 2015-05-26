@@ -1,4 +1,4 @@
-package com.easytarget.micopi;
+package org.eztarget.micopi;
 
 import android.content.Context;
 import android.content.res.Configuration;

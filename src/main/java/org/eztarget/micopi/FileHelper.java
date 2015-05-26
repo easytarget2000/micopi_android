@@ -1,4 +1,4 @@
-package com.easytarget.micopi;
+package org.eztarget.micopi;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -31,7 +31,7 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
 
     private static final String DIR_MICOPI = "/micopi/";
 
-    private static final String TEMP_FILE_NAME = ".tempfile.png";
+    private static final String TEMP_FILE_NAME = ".tempfile.jpg";
 
     private MediaScannerConnection mConnection;
 
@@ -105,7 +105,7 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
     ) {
         // Create a byte stream from the generated image.
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         final byte[] image = outputStream.toByteArray();
 
         return assignImageToContact(context, image, contactId);
@@ -135,75 +135,73 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
                 null
         );
 
-        Uri rawContactUri = null;
 
-        if(rawContactCursor != null) {
-            if(rawContactCursor.moveToFirst()) {
-                final Uri contentUri = ContactsContract.RawContacts.CONTENT_URI;
-                final String rawPath = "" + rawContactCursor.getLong(0);
-                rawContactUri = contentUri.buildUpon().appendPath(rawPath).build();
-            }
-            rawContactCursor.close();
-        } else {
+        if(rawContactCursor == null){
             Log.e(LOG_TAG, "ERROR: rawContactCursor is null.");
             return false;
         }
+
+        final Uri rawContactUri;
+        if (rawContactCursor.moveToFirst()) {
+            final Uri contentUri = ContactsContract.RawContacts.CONTENT_URI;
+            final String rawPath = "" + rawContactCursor.getLong(0);
+            rawContactUri = contentUri.buildUpon().appendPath(rawPath).build();
+        } else {
+            rawContactCursor.close();
+            return false;
+        }
+        rawContactCursor.close();
 
         // Set the byte array as the raw contact's image.
         final ContentValues values = new ContentValues();
         int photoRow = -1;
 
-        if(rawContactUri != null) {
-//            Log.d(LOG_TAG,
-//                    "parseId(): " + ContentUris.parseId(rawContactUri)
-//                            + " rawContactUri: " + rawContactUri.toString()
-//                            + " contact ID: " + contactId);
-
-            final String photoSelection = ContactsContract.Data.RAW_CONTACT_ID + "=="
-                    + ContentUris.parseId(rawContactUri)
-                    + " AND "
-                    + ContactsContract.RawContacts.Data.MIMETYPE + "=='"
-                    + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'";
-
-            final Cursor changePhotoCursor = mAppContext.getContentResolver().query(
-                    ContactsContract.Data.CONTENT_URI,
-                    null,
-                    photoSelection,
-                    null,
-                    null
-            );
-
-            if(changePhotoCursor != null) {
-                final int index = changePhotoCursor.getColumnIndex(ContactsContract.Data._ID);
-                if(index > 0 && changePhotoCursor.moveToFirst()) {
-                    photoRow = changePhotoCursor.getInt(index);
-                }
-                changePhotoCursor.close();
-            } else {
-                Log.e(LOG_TAG, "ERROR: changePhotoCursor is null.");
-                return false;
-            }
-
-            values.put(
-                    ContactsContract.Data.RAW_CONTACT_ID,
-                    ContentUris.parseId(rawContactUri)
-            );
-            values.put(
-                    ContactsContract.Data.IS_SUPER_PRIMARY,
-                    1
-            );
-            values.put(
-                    ContactsContract.CommonDataKinds.Photo.PHOTO,
-                    image
-            );
-            values.put(
-                    ContactsContract.Data.MIMETYPE,
-                    ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE
-            );
-        } else {
+        if (rawContactUri == null) {
             Log.e(LOG_TAG, "ERROR: rawContactUri is null.");
             return false;
         }
+
+        final String photoSelection =
+                ContactsContract.Data.RAW_CONTACT_ID + "=="
+                        + ContentUris.parseId(rawContactUri)
+                        + " AND "
+                        + ContactsContract.RawContacts.Data.MIMETYPE + "=='"
+                        + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'";
+
+        final Cursor changePhotoCursor = mAppContext.getContentResolver().query(
+                ContactsContract.Data.CONTENT_URI,
+                null,
+                photoSelection,
+                null,
+                null
+        );
+
+        if(changePhotoCursor == null) {
+            Log.e(LOG_TAG, "ERROR: changePhotoCursor is null.");
+            return false;
+        }
+        final int index = changePhotoCursor.getColumnIndex(ContactsContract.Data._ID);
+        if(index > 0 && changePhotoCursor.moveToFirst()) {
+            photoRow = changePhotoCursor.getInt(index);
+        }
+        changePhotoCursor.close();
+
+        values.put(
+                ContactsContract.Data.RAW_CONTACT_ID,
+                ContentUris.parseId(rawContactUri)
+        );
+        values.put(
+                ContactsContract.Data.IS_SUPER_PRIMARY,
+                1
+        );
+        values.put(
+                ContactsContract.CommonDataKinds.Photo.PHOTO,
+                image
+        );
+        values.put(
+                ContactsContract.Data.MIMETYPE,
+                ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE
+        );
 
         if(photoRow >= 0){
             mAppContext.getContentResolver().update(

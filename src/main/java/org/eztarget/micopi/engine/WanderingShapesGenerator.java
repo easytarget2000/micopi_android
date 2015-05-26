@@ -13,9 +13,9 @@
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-    package com.easytarget.micopi.engine;
+    package org.eztarget.micopi.engine;
 
-    import com.easytarget.micopi.Contact;
+    import org.eztarget.micopi.Contact;
 
     /**
      * Created by michel on 12/11/14.
@@ -31,8 +31,8 @@
         private static final int MIN_DENSITY = 4;
 
         /**
-         * Fills a canvas with a lot of colourful circles or polygon approximations of circles
-         * Uses Painter
+         * Fills the Canvas in the Painter with a lot of colourful circles
+         * or polygon approximations of circles
          *
          * @param painter Paint the generated shape in this object
          * @param contact Data from this Contact object will be used to generate the shapes and colors

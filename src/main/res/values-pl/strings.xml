@@ -2,39 +2,48 @@
 
 <!--Copyright (C) 2014 Easy Target-->
 
-<!--Licensed under the Apache License, Version 2.0 (the "License");-->
-<!--you may not use this file except in compliance with the License.-->
-<!--You may obtain a copy of the License at-->
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
 
 <!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
 
-<!--Unless required by applicable law or agreed to in writing, software-->
-<!--distributed under the License is distributed on an "AS IS" BASIS,-->
-<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
-<!--See the License for the specific language governing permissions and-->
-<!--limitations under the License.-->
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
 
 <resources>
 
-    <string name="app_name">Micopi</string>
-    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
-    <string name="introduction_text"></string>
     <string name="no_contact_selected">No contact selected</string>
-    <string name="image_description">Obliczony obraz</string>
-    <string name="pick_contact">Wybierz kontakt</string>
-    <string name="save_button_label">Zapisz obraz jako plik</string>
-    <string name="assign_button_label">Przydziel obraz do kontaktu</string>
-    <string name="overwrite_dialog">Przydzielić obraz do kontaktu %s?</string>
-    <string name="report_button_label">Raport</string>
-    <string name="success_applying_image">%s dostał/a nowy obraz w profilu.</string>
-    <string name="success_saving_image">Obraz zapisany jako %s.</string>
+    <string name="generated_image">Obliczony obraz</string>
+    <string name="save_image_file">Zapisz obraz jako plik</string>
+    <string name="assign_to_contact">Przydziel obraz do kontaktu</string>
+    <string name="want_to_assign">Przydzielić obraz do kontaktu %s?</string>
+    <string name="report">Raport</string>
+    <string name="got_new_picture">%s dostał/a nowy obraz w profilu.</string>
+    <string name="saved_picture_as">Obraz zapisany jako %s.</string>
     <string name="error_generating">Błąd przy generowaniu obrazu.</string>
     <string name="error_retrieving">Błąd w przywołaniu danych kontaktowych.</string>
     <string name="error_saving">Błąd przy zapisywaniu obrazu.</string>
     <string name="error_assign">Błąd w przydzielaniu obrazu.</string>
-    <string name="retry_button_label">Retry</string>
 
-    <string name="button_previous_image">Poprzednie zdjęcie</string>
-    <string name="button_next_image">Następne zdjęcie</string>
+    <string name="previous_image">Poprzednie zdjęcie</string>
+    <string name="next_image">Następne zdjęcie</string>
+
+    <string name="all_contacts">All Contacts</string>
+    <string name="auto_experimental_long">
+        Please note:\nDifferent flavours of Android and some apps may store pictures in unique ways.
+        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
+    </string>
+    <string name="auto_mode">Automatic mode (experimental)</string>
+    <string name="auto_experimental_short">Auto mode is experimental!</string>
+    <string name="overwrite_all_or_only">
+        Would you like to overwrite all images or only generate pictures for contacts
+        that currently do not have one?
+    </string>
+    <string name="confirm_all">
+        Please confirm that you would like to overwrite all contact images.
+    </string>
+
+    <string name="missing_pictures">Missing pictures</string>
+    <string name="pick_contact">Wybierz kontakt</string>
+    <string name="skip">Skip</string>
+    <string name="picture_will_be_previewed">Wybierz kontakt do podglądu.</string>
 
 </resources>

@@ -16,29 +16,44 @@
 
 <resources>
 
-    <string name="app_name">Micopi</string>
-    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
-    <string name="introduction_text">
+    <string name="picture_will_be_previewed">
         När du valt en kontakt kan du färhandsgranska den genererade bilden innan du tilldelar den
         till kontakten.</string>
     <string name="no_contact_selected">No contact selected</string>
-    <string name="image_description">Genererad kontaktbild</string>
-    <string name="pick_contact">Välj en kontakt</string>
-    <string name="save_button_label">Spara bilden som fil</string>
-    <string name="assign_button_label">Tilldela kontakten</string>
-    <string name="overwrite_dialog">Vill du använda kontaktbilden fär %s?</string>
-    <string name="report_button_label">Rapportera</string>
-    <string name="success_applying_image">%s fick en ny kontaktbild.</string>
-    <string name="success_saving_image">Kontaktbild sparad som %s.</string>
+    <string name="generated_image">Genererad kontaktbild</string>
+    <string name="save_image_file">Spara bilden som fil</string>
+    <string name="assign_to_contact">Tilldela kontakten</string>
+    <string name="want_to_assign">Vill du använda kontaktbilden fär %s?</string>
+    <string name="report">Rapportera</string>
+    <string name="got_new_picture">%s fick en ny kontaktbild.</string>
+    <string name="saved_picture_as">Kontaktbild sparad som %s.</string>
     <string name="error_generating">Ett fel uppstod när bilden skapades.</string>
     <string name="error_retrieving">Ett fel uppstod när kontaktinformationen hämtades.</string>
     <string name="error_saving">
         Ett fel uppstod när bilden sparades på din enhet.
         Vänligen kontrollera att lagringsutrymmet inte är låst.</string>
     <string name="error_assign">Ett fel uppstod när bilden tilldelades kontakten.</string>
-    <string name="retry_button_label">Retry</string>
 
-    <string name="button_previous_image">Föregående bild</string>
-    <string name="button_next_image">Nästa bild</string>
+    <string name="previous_image">Föregående bild</string>
+    <string name="next_image">Nästa bild</string>
+
+    <string name="all_contacts">All Contacts</string>
+    <string name="auto_experimental_long">
+        Please note:\nDifferent flavours of Android and some apps may store pictures in unique ways.
+        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
+    </string>
+    <string name="auto_mode">Automatic mode (experimental)</string>
+    <string name="auto_experimental_short">Auto mode is experimental!</string>
+    <string name="overwrite_all_or_only">
+        Would you like to overwrite all images or only generate pictures for contacts
+        that currently do not have one?
+    </string>
+    <string name="confirm_all">
+        Please confirm that you would like to overwrite all contact images.
+    </string>
+
+    <string name="missing_pictures">Missing pictures</string>
+    <string name="pick_contact">Välj en kontakt</string>
+    <string name="skip">Skip</string>
 
 </resources>

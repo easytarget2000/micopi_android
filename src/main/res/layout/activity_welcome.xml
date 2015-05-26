@@ -52,7 +52,7 @@
         android:layout_marginBottom="@dimen/margin_default"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/introduction_text"
+        android:text="@string/picture_will_be_previewed"
         android:textSize="@dimen/text_size"
         android:textColor="@android:color/white"/>
 
@@ -62,7 +62,7 @@
         android:layout_height="@dimen/button_height"
         android:layout_width="match_parent"
         android:onClick="crawlButtonPressed"
-        android:text="@string/generate_all_pictures"
+        android:text="@string/auto_mode"
         android:textSize="@dimen/text_size"
         android:textColor="@color/primary"/>
 

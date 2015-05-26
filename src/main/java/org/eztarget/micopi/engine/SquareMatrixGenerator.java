@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.easytarget.micopi.engine;
+package org.eztarget.micopi.engine;
 
 import android.graphics.Color;
 
-import com.easytarget.micopi.Contact;
+import org.eztarget.micopi.Contact;
 
 /**
  * Created by michel on 12/11/14.

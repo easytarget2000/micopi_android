@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi.ui;
+package org.eztarget.micopi.ui;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 
@@ -28,11 +28,11 @@ import com.easytarget.micopi.R;
 /**
  * First activity to be displayed after launch.
  */
-public class WelcomeActivity extends ActionBarActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = WelcomeActivity.class.getSimpleName();
 
-    private boolean doIgnoreBackButton = false;
+//    private boolean doIgnoreBackButton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +47,15 @@ public class WelcomeActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (!doIgnoreBackButton) {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if (!doIgnoreBackButton) {
+//            super.onBackPressed();
+//        }
+//    }
 
     public void selectButtonPressed(@SuppressWarnings("unused") View view) {
         Intent intent = new Intent(this, ContactActivity.class);
-//        finish();
-//        doIgnoreBackButton =
         startActivity(intent);
     }
 

@@ -16,29 +16,42 @@
 
 <resources>
 
-    <string name="app_name">Micopi</string>
-    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
-    <string name="introduction_text">
+    <string name="picture_will_be_previewed">
         Tras seleccionar un nombre de la lista,
         se generará la imagen para que pueda aplicarla al contacto.</string>
     <string name="no_contact_selected">Fue seleccionado nadie</string>
-    <string name="image_description">Imagen generada</string>
-    <!--<string name="action_settings">Ajustes</string>-->
-    <string name="pick_contact">Seleccionar un contacto</string>
-    <string name="save_button_label">Guardar imagen en archivo</string>
-    <string name="assign_button_label">Aplicar imagen</string>
-    <string name="overwrite_dialog">¿Desea asignar a %s esta imagen?</string>
-    <string name="report_button_label">Reportar</string>
-    <string name="success_applying_image">%s tiene ahora una nueva imagen de contacto.</string>
-    <string name="success_saving_image">La imagen se guardó con el nombre %s</string>
+    <string name="generated_image">Imagen generada</string>
+    <string name="save_image_file">Guardar imagen en archivo</string>
+    <string name="assign_to_contact">Aplicar imagen</string>
+    <string name="want_to_assign">¿Desea asignar a %s esta imagen?</string>
+    <string name="report">Reportar</string>
+    <string name="got_new_picture">%s tiene ahora una nueva imagen de contacto.</string>
+    <string name="saved_picture_as">La imagen se guardó con el nombre %s</string>
     <string name="error_generating">Ocurrió un error al generar la imagen.</string>
     <string name="error_retrieving">Ocurrió un error obteniendo los datos de contacto.</string>
     <string name="error_saving">Ocurrió un error guardando la imagen.</string>
     <string name="error_assign">Ocurrió un error mientras se asignaba la imagen al contacto.</string>
-    <!--<string name="error_folder">El directorio de Micopi no pudo crearse.</string>-->
-    <string name="retry_button_label">Intenta de nuevo</string>
 
-    <string name="button_previous_image">Imagen anterior</string>
-    <string name="button_next_image">Siguiente imagen</string>
+    <string name="previous_image">Imagen anterior</string>
+    <string name="next_image">Siguiente imagen</string>
+
+    <string name="all_contacts">Tots els contactes</string>
+    <string name="auto_experimental_long">
+        Please note:\nDifferent flavours of Android and some apps may store pictures in unique ways.
+        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
+    </string>
+    <string name="auto_mode">Automatic mode (experimental)</string>
+    <string name="auto_experimental_short">Auto mode is experimental!</string>
+    <string name="overwrite_all_or_only">
+        Would you like to overwrite all images or only generate pictures for contacts
+        that currently do not have one?
+    </string>
+    <string name="confirm_all">
+        Please confirm that you would like to overwrite all contact images.
+    </string>
+
+    <string name="missing_pictures">Missing pictures</string>
+    <string name="pick_contact">Seleccionar un contacto</string>
+    <string name="skip">Skip</string>
 
 </resources>

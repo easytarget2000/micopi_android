@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi.ui;
+package org.eztarget.micopi.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -44,14 +44,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.easytarget.micopi.AssignContactImageTask;
-import com.easytarget.micopi.Constants;
-import com.easytarget.micopi.Contact;
-import com.easytarget.micopi.DeviceHelper;
-import com.easytarget.micopi.FileHelper;
-import com.easytarget.micopi.GenerateImageTask;
 import com.easytarget.micopi.R;
-import com.easytarget.micopi.engine.ColorUtilities;
+
+import org.eztarget.micopi.AssignContactImageTask;
+import org.eztarget.micopi.Constants;
+import org.eztarget.micopi.Contact;
+import org.eztarget.micopi.DeviceHelper;
+import org.eztarget.micopi.FileHelper;
+import org.eztarget.micopi.GenerateImageTask;
+import org.eztarget.micopi.engine.ColorUtilities;
 
 import java.io.File;
 
@@ -178,7 +179,7 @@ public class ContactActivity extends ActionBarActivity {
                     if (didSucceed) {
                         Toast.makeText(getApplicationContext(),
                                 String.format(
-                                        getResources().getString(R.string.success_applying_image),
+                                        getResources().getString(R.string.got_new_picture),
                                         mContact.getFullName()),
                                 Toast.LENGTH_LONG
                         ).show();
@@ -343,7 +344,7 @@ public class ContactActivity extends ActionBarActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(
                 String.format(
-                        getResources().getString(R.string.overwrite_dialog),
+                        getResources().getString(R.string.want_to_assign),
                         mContact.getFullName())
         );
         builder.setNegativeButton(android.R.string.no, dialogClickListener);
@@ -361,7 +362,7 @@ public class ContactActivity extends ActionBarActivity {
             if (mContact == null) return null;
             File tempFile = FileHelper.openTempFile(getApplicationContext());
             if (tempFile == null) return null;
-            Log.d(LOG_TAG, "Loading bitmap from temp file:" + tempFile.getAbsolutePath());
+//            Log.d(LOG_TAG, "Loading bitmap from temp file:" + tempFile.getAbsolutePath());
             return BitmapFactory.decodeFile(tempFile.getAbsolutePath());
         }
 
@@ -416,7 +417,7 @@ public class ContactActivity extends ActionBarActivity {
                 Toast.makeText(
                         mContext,
                         String.format(
-                                getResources().getString(R.string.success_saving_image),
+                                getResources().getString(R.string.saved_picture_as),
                                 fileName),
                         Toast.LENGTH_LONG
                 ).show();

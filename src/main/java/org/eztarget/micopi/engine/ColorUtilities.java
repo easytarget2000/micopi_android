@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi.engine;
+package org.eztarget.micopi.engine;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

@@ -26,7 +26,7 @@
         android:adjustViewBounds="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/image_description"
+        android:contentDescription="@string/generated_image"
         android:layout_centerHorizontal="true"/>
 
     <include layout="@layout/progress_bar"/>
@@ -43,7 +43,7 @@
         android:layout_marginRight="@dimen/margin_default"
         android:layout_marginStart="@dimen/margin_default"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/image_description"
+        android:text="@string/generated_image"
         android:textColor="@android:color/white"/>
 
     <TextView

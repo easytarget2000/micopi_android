@@ -28,7 +28,7 @@
         android:layout_alignParentStart="true"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:contentDescription="@string/image_description"
+        android:contentDescription="@string/generated_image"
         android:layout_centerHorizontal="true"/>
 
     <include layout="@layout/progress_bar"/>
@@ -59,7 +59,7 @@
         android:layout_marginRight="@dimen/margin_default"
         android:layout_width="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/image_description"
+        android:text="@string/generated_image"
         android:textColor="@android:color/white"/>
 
 </RelativeLayout>

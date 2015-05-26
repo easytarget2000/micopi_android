@@ -1,6 +1,7 @@
-package com.easytarget.micopi.ui;
+package org.eztarget.micopi.ui;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,16 +18,19 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.easytarget.micopi.BatchService;
-import com.easytarget.micopi.Constants;
-import com.easytarget.micopi.DeviceHelper;
 import com.easytarget.micopi.R;
+
+import org.eztarget.micopi.BatchService;
+import org.eztarget.micopi.Constants;
+import org.eztarget.micopi.DeviceHelper;
+
+// TODO: Use fragments.
 
 /**
  * Created by michel on 11/01/15.
  *
  */
-public class BatchActivity extends ActionBarActivity {
+public class BatchActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = BatchActivity.class.getSimpleName();
 
@@ -93,12 +97,12 @@ public class BatchActivity extends ActionBarActivity {
                     mProgressBar.setVisibility(View.GONE);
                     mContactName = null;
                     showContactName();
+                    mContactView.setText("\u2713");
                     break;
                 case Constants.ACTION_UPDATE_PROGRESS:
                     mProgressBar.setVisibility(View.VISIBLE);
                     final int progress = intent.getIntExtra(Constants.EXTRA_PROGRESS, 33);
                     mProgressBar.setProgress(progress);
-                    Log.d(LOG_TAG, "Did receive progress " + progress + ".");
                     mContactName = intent.getStringExtra(Constants.EXTRA_CONTACT);
                     showContactName();
                     break;
@@ -146,8 +150,8 @@ public class BatchActivity extends ActionBarActivity {
         if (doOverwrite) {
             dialog.setMessage(R.string.confirm_all);
         } else {
-            dialog.setTitle(R.string.batch_experimental);
-            dialog.setMessage(R.string.batch_experimental_warning);
+            dialog.setTitle(R.string.auto_experimental_short);
+            dialog.setMessage(R.string.auto_experimental_long);
         }
 
         // Alternatively react on pressing the OK button.
@@ -172,15 +176,19 @@ public class BatchActivity extends ActionBarActivity {
         final int imageSize = DeviceHelper.getBestImageSize(this);
         batchService.putExtra(Constants.EXTRA_IMAGE_SIZE, imageSize);
         startService(batchService);
-//
-//        selectButtonPressed(view);
     }
+
+    private NotificationManager mNotMan;
 
     public void cancelPressed(View view) {
 
+        Intent batchService = new Intent(this, BatchService.class);
+        stopService(batchService);
+        mContactName = null;
+        showContactName();
     }
 
     public void skipPressed(View view) {
-
     }
+
 }

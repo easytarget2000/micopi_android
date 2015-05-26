@@ -3,17 +3,17 @@
 
     <item android:id="@+id/action_assign"
         android:icon="@drawable/ic_done_white_36dp"
-        android:title="@string/assign_button_label"
+        android:title="@string/assign_to_contact"
         micopi:showAsAction="always|withText"/>
 
     <item android:id="@+id/action_previous_image"
         android:icon="@drawable/ic_arrow_back_white_36dp"
-        android:title="@string/button_previous_image"
+        android:title="@string/previous_image"
         micopi:showAsAction="always"/>
 
     <item android:id="@+id/action_next_image"
         android:icon="@drawable/ic_arrow_forward_white_36dp"
-        android:title="@string/button_next_image"
+        android:title="@string/next_image"
         micopi:showAsAction="always"/>
 
     <item android:id="@+id/action_search"
@@ -23,7 +23,7 @@
 
     <item android:id="@+id/action_save"
         android:icon="@drawable/ic_save_white_36dp"
-        android:title="@string/save_button_label"
+        android:title="@string/save_image_file"
         micopi:showAsAction="ifRoom|withText" />
 
 </menu>

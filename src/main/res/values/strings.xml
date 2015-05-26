@@ -2,65 +2,60 @@
 
 <!--Copyright (C) 2014 Easy Target-->
 
-<!--Licensed under the Apache License, Version 2.0 (the "License");-->
-<!--you may not use this file except in compliance with the License.-->
-<!--You may obtain a copy of the License at-->
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
 
 <!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
 
-<!--Unless required by applicable law or agreed to in writing, software-->
-<!--distributed under the License is distributed on an "AS IS" BASIS,-->
-<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
-<!--See the License for the specific language governing permissions and-->
-<!--limitations under the License.-->
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
 
 <resources>
 
-    <string name="app_name">Micopi</string>
-    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
-    <string name="introduction_text">
-        After selecting a contact, the generated picture will be previewed
-        before assigning it to that person.
-    </string>
-    <string name="no_contact_selected">No contact selected</string>
-    <string name="image_description">Calculated contact picture</string>
-    <!--<string name="crawl_button_label">Generate all contact pictures</string>-->
-    <string name="save_button_label">Save image as file</string>
-    <string name="assign_button_label">Assign to contact</string>
-    <string name="overwrite_dialog">Do you want to assign this contact photo to %s?</string>
-    <string name="report_button_label">Report</string>
-    <string name="success_applying_image">%s got a new contact picture.</string>
-    <string name="success_saving_image">Saved contact picture as %s.</string>
-    <string name="error_generating">
-        An error occurred while generating the image.</string>
-    <string name="error_retrieving"
-        >An error occurred while retrieving the contact\'s information.</string>
-    <string name="error_saving">
-        An error occurred while trying to save this image as a file on your device.
-        Please make sure your storage is not locked.</string>
-    <string name="error_assign">
-        An error occurred while assigning this picture to the contact.</string>
+    <string name="app_name" translatable="false">Micopi</string>
 
-    <string name="button_previous_image">Previous Image</string>
-    <string name="button_next_image">Next Image</string>
-
-    <string name="batch_question">
-        Would you like to overwrite all images or only generate pictures for contacts
-        that currently do not have one?
+    <string name="all_contacts">All contacts</string>
+    <string name="assign_to_contact">Assign to contact</string>
+    <string name="auto_mode">Automatic mode (experimental)</string>
+    <string name="auto_experimental_long">
+        Please note:
+        \nDifferent flavours of Android and some apps may store pictures in unique ways.
+        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
+    <string name="auto_experimental_short">Auto mode is experimental</string>
     <string name="confirm_all">
         Please confirm that you would like to overwrite all contact images.
     </string>
-    <string name="batch_experimental">Batch mode is experimental!</string>
-    <string name="batch_experimental_warning">
-        Please note:\nDifferent flavours of Android and some apps may store pictures in unique ways.
-        \n\n
-        It is unlikely, but not impossible, that profile images get overwritten.
+    <string name="error_assign">
+        An error occurred while assigning this picture to the contact.
     </string>
-    <string name="generate_all">Generate all</string>
-    <string name="generate_all_pictures">Generate all images (experimental)</string>
-    <string name="generate_missing">Generate missing</string>
+    <string name="error_generating">
+        An error occurred while generating the image.
+    </string>
+    <string name="error_retrieving">An error occurred while retrieving the contact\'s information.
+    </string>
+    <string name="error_saving">
+        An error occurred while trying to save this image as a file on your device.
+        Please make sure your storage is not locked.
+    </string>
+    <string name="generated_image">Generated contact picture</string>
+    <string name="got_new_picture">%$1s has got a new contact picture.</string>
+    <string name="missing_pictures">Missing pictures</string>
+    <string name="next_image">Next image</string>
+    <string name="no_contact_selected">No contact selected</string>
+    <string name="overwrite_all_or_only">
+        Would you like to overwrite all images or only generate pictures for contacts
+        that currently do not have one?
+    </string>
     <string name="pick_contact">Pick a single contact</string>
+    <string name="picture_will_be_previewed">
+        After selecting a contact, the generated picture will be previewed
+        before assigning it to that person.
+    </string>
+    <string name="previous_image">Previous image</string>
+    <string name="report">Report</string>
+    <string name="save_image_file">Save image as file</string>
+    <string name="saved_picture_as">Saved contact picture as %s.</string>
     <string name="skip">Skip</string>
+    <string name="want_to_assign">Do you want to assign this contact photo to %$1s?</string>
+    <string name="retry_button_label">Retry</string>
 
 </resources>

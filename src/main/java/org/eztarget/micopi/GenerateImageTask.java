@@ -1,4 +1,4 @@
-package com.easytarget.micopi;
+package org.eztarget.micopi;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.easytarget.micopi.engine.ColorUtilities;
-import com.easytarget.micopi.engine.ImageFactory;
+import org.eztarget.micopi.engine.ColorUtilities;
+import org.eztarget.micopi.engine.ImageFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,16 +41,11 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
             return sendBroadcast(false, 0);
         }
 
-        long startTime = System.currentTimeMillis();
-        Log.d(LOG_TAG, "Starting image generator with image size " + params[0] + ".");
         ImageFactory factory = new ImageFactory(mContact, params[0]);
         Bitmap generatedBitmap = factory.generateBitmapBroadcasting(mAppContext);
-        long endTime = System.currentTimeMillis();
-        Log.d(LOG_TAG, "FINISHED IMAGE GENERATOR: " + (endTime - startTime));
 
         final int averageColor = ColorUtilities.getAverageColor(generatedBitmap);
 
-        startTime = System.currentTimeMillis();
         if (generatedBitmap == null) {
             Log.e(LOG_TAG, "Generated null bitmap.");
             return sendBroadcast(false, 0);
@@ -64,13 +59,8 @@ public class GenerateImageTask extends AsyncTask<Integer, Void, Void> {
             Log.e(LOG_TAG, e.toString());
             return sendBroadcast(false, 0);
         }
-        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        endTime = System.currentTimeMillis();
-        Log.d(LOG_TAG, "FINISHED SAVING FILE: " + (endTime - startTime));
-
-//        if (params[1] == 1) {
-//            new AssignContactImageTask(mAppContext).execute(mContact.getId());
-//        }
+//        generatedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        generatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
         return sendBroadcast(true, averageColor);
     }

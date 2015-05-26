@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.easytarget.micopi;
+package org.eztarget.micopi;
 
 import android.content.Context;
 import android.content.Intent;

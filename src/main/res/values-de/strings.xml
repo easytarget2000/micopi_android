@@ -16,21 +16,18 @@
 
 <resources>
 
-    <string name="app_name">Micopi</string>
-    <string name="ad_unit_id">ca-app-pub-3919756936405773/8547803445</string>
-    <string name="introduction_text">
+    <string name="picture_will_be_previewed">
         Nachdem Du einen Kontakt ausgewählt hast,
         wird das generierte Bild angezeigt, bevor Du es der Person zuweisen kannst.
     </string>
     <string name="no_contact_selected">Kein Kontakt ausgewählt</string>
-    <string name="image_description">Errechnetes Kontaktbild</string>
-    <string name="pick_contact">Einen Kontakt auswählen</string>
-    <string name="save_button_label">Bild als Datei abspeichern</string>
-    <string name="assign_button_label">Bild zuweisen</string>
-    <string name="overwrite_dialog">Möchten Sie %s dieses Bild zuweisen?</string>
-    <string name="report_button_label">Bericht</string>
-    <string name="success_applying_image">%s hat ein neues Profilbild.</string>
-    <string name="success_saving_image">Das Bild wurde als %s gespeichert.</string>
+    <string name="generated_image">Errechnetes Kontaktbild</string>
+    <string name="save_image_file">Bild als Datei abspeichern</string>
+    <string name="assign_to_contact">Bild zuweisen</string>
+    <string name="want_to_assign">Möchten Sie %s dieses Bild zuweisen?</string>
+    <string name="report">Bericht</string>
+    <string name="got_new_picture">%s hat ein neues Profilbild.</string>
+    <string name="saved_picture_as">Das Bild wurde als %s gespeichert.</string>
     <string name="error_generating">Ein Fehler trat beim Generieren des Bildes auf.</string>
     <string name="error_retrieving">Ein Fehler trat beim Abrufen der Kontaktdaten auf.</string>
     <string name="error_saving">
@@ -38,7 +35,27 @@
         Bitte stellen Sie sicher, dass Ihre Speicherkarte nicht gesperrt ist.</string>
     <string name="error_assign">Ein Fehler trat beim Zuweisen des Bildes auf.</string>
 
-    <string name="button_previous_image">Vorheriges Bild</string>
-    <string name="button_next_image">Nächstes Bild</string>
+    <string name="previous_image">Vorheriges Bild</string>
+    <string name="next_image">Nächstes Bild</string>
+
+    <string name="all_contacts">Alle Kontakte</string>
+    <string name="overwrite_all_or_only">
+        Möchtest Du für alle Personen ein neues Bild generieren oder nur für Kontakte,
+        die noch keines haben?
+    </string>
+    <string name="confirm_all">
+        Bitte bestätige, dass alle Bilder überschrieben werden sollen.
+    </string>
+    <string name="auto_experimental_short">Dieser Modus ist experimentell.</string>
+    <string name="auto_experimental_long">
+        Bitte beachte:
+        \nVerschiedene Versionen von Android und einige Apps speichern Bilder auf eigene Art.
+        \n\nEs ist unwahrscheinlich, aber nicht unmöglich,
+        dass Bilder überschrieben werden.
+    </string>
+    <string name="auto_mode">Automatischer Modus (experimentell)</string>
+    <string name="missing_pictures">Generiere fehlende</string>
+    <string name="pick_contact">Einen Kontakt auswählen</string>
+    <string name="skip">Weiter</string>
 
 </resources>
