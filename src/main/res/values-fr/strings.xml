@@ -14,46 +14,33 @@
 <!--See the License for the specific language governing permissions and-->
 <!--limitations under the License.-->
 
-<!--FRENCH-->
-
 <resources>
 
-    <string name="no_contact_selected">Personne n\'a été sélectionné</string>
-    <string name="picture_will_be_previewed">
-        Après le choix du contact,
-        la photo produit sera présenté avant de l\'assigner à la personne désigné.
-    </string>
-    <string name="generated_image">Image calculée</string>
-    <string name="save_image_file">Enregistrer l\'image</string>
-    <string name="assign_to_contact">Attribuez à ce contact</string>
-    <string name="want_to_assign">Voulez-vous assigner cette image à %1$s?</string>
-    <string name="report">Rapport d\'erreur</string>
-    <string name="got_new_picture">%s a obtenu une nouvelle photo de profil.</string>
-    <string name="saved_picture_as">L\'image enregistré comme %1$s.</string>
-    <string name="error_generating">Erreur de générer la photo.</string>
-    <string name="error_retrieving">Erreur de désigner les fichiers de contact.</string>
-    <string name="error_saving">Erreur d\'enregistrer la photo</string>
-    <string name="error_assign">Erreur d\'assigner la photo.</string>
-
     <string name="all_contacts">Tous les contacts</string>
-    <string name="auto_experimental_long">
-        Différentes versions d\'Android et certaines applications
-        peuvent stocker des photos différemment.
-        \n\nIl est peu probable mais pas impossible que certaines images sont écrasées.
-    </string>
+    <string name="assign_to_contact">Attribuer au contact</string>
     <string name="auto_mode">Mode automatique</string>
-    <string name="confirm_all">
-        S\'il vous plaît confirmer que vous souhaitez remplacer toutes les images de contact.
-    </string>
+    <string name="auto_experimental_long">Différentes versions d\'Android et certaines applications peuvent stocker les images différemment.\n\nIl est peu probable mais pas impossible que certaines images soient écrasées.</string>
+    <string name="confirm_all">Veuillez confirmer que vous souhaitez remplacer toutes les images de contact.</string>
     <string name="donate">Faire un don</string>
-    <string name="please_note">Notez</string>
-    <string name="previous_image">Image précédente</string>
-    <string name="next_image">Image suivante</string>
-    <string name="overwrite_all_or_only">
-        Voulez-vous remplacer toutes les images ou seulement générer pour contacts sans image?
-    </string>
+    <string name="error_assign">Une erreur est survenue lors de l\'attribution de l\'image.</string>
+    <string name="error_generating">Une erreur est survenue lors de la génération de l\'image.</string>
+    <string name="error_retrieving">Une erreur est survenue lors de la récupération des informations de contact.</string>
+    <string name="error_saving">Une erreur est survenue lors de la sauvegarde de l\'image sur votre appareil. Veuillez vérifier que votre stockage ne soit pas verrouillé.</string>
+    <string name="generated_image">Image générée</string>
+    <string name="got_new_picture">%s a obtenu une nouvelle image de contact.</string>
     <string name="missing_pictures">Images manquantes</string>
-    <string name="pick_contact">Choisir un contact</string>
-    <string name="skip">Sauter</string>
+    <string name="next_image">Image suivante</string>    
+    <string name="no_contact_selected">Aucun contact sélectionné</string>
+    <string name="overwrite_all_or_only">Voulez-vous remplacer toutes les images ou uniquement en générer pour les contacts sans image ?</string>
+    <string name="please_note">Évaluer</string>
+    <string name="pick_contact">Choisir un contact</string>    
+    <string name="picture_will_be_previewed">Après le choix, l\'image générée sera affichée avant de l\'attribuer au contact.</string>
+    <string name="previous_image">Image précédente</string>
+    <string name="report">Rapport</string>    
+    <string name="save_image_file">Sauvegarder l\'image</string>
+    <string name="saved_picture_as">Image sauvegardée comme %1$s.</string>
+    <string name="skip">Ignorer</string>    
+    <string name="want_to_assign">Voulez-vous attribuer cette image à %1$s ?</string>
+    <string name="retry_button_label">Réessayer</string>    
 
 </resources>
