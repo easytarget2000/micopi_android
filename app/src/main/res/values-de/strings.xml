@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");-->
+<!--you may not use this file except in compliance with the License.-->
+<!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software-->
+<!--distributed under the License is distributed on an "AS IS" BASIS,-->
+<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
+<!--See the License for the specific language governing permissions and-->
+<!--limitations under the License.-->
+
+<resources>
+
+    <string name="picture_will_be_previewed">
+        Nachdem du einen Kontakt ausgewählt hast,
+        wird das generierte Bild angezeigt, bevor du es der Person zuweisen kannst.
+    </string>
+    <string name="generated_image">Errechnetes Kontaktbild</string>
+    <string name="save_image_file">Bild als Datei abspeichern</string>
+    <string name="assign_to_contact">Bild zuweisen</string>
+    <string name="want_to_assign">Möchtest du %1$s dieses Bild zuweisen?</string>
+    <string name="report">Bericht</string>
+    <string name="got_new_picture">%1$s hat ein neues Profilbild.</string>
+    <string name="saved_picture_as">Das Bild wurde als %1$s gespeichert.</string>
+    <string name="error_generating">Ein Fehler trat beim Generieren des Bildes auf.</string>
+    <string name="error_retrieving">Ein Fehler trat beim Abrufen der Kontaktdaten auf.</string>
+    <string name="error_saving">
+        Ein Fehler trat beim Speichern des Bildes auf.
+        Bitte stelle sicher, dass die Speicherkarte nicht gesperrt ist.
+    </string>
+    <string name="error_assign">Ein Fehler trat beim Zuweisen des Bildes auf.</string>
+
+    <string name="previous_image">Vorheriges Bild</string>
+    <string name="next_image">Nächstes Bild</string>
+
+    <string name="all_contacts">Alle Kontakte</string>
+    <string name="overwrite_all_or_only">
+        Möchtest du für alle Personen ein neues Bild generieren oder nur für Kontakte,
+        die noch keines haben?
+    </string>
+    <string name="confirm_all">
+        Bitte bestätige, dass alle Bilder überschrieben werden sollen.
+    </string>
+    <string name="donate">Danke sagen</string>
+    <string name="no_contact_selected">Keinen Kontakt ausgewählt</string>
+    <string name="please_note">Bitte Beachte</string>
+    <string name="auto_experimental_long">
+        Verschiedene Versionen von Android und manche Apps speichern Bilder auf eigene Art.
+        \n\nEs ist unwahrscheinlich, aber nicht unmöglich, dass Bilder überschrieben werden.
+    </string>
+    <string name="auto_mode">Automatischer Modus</string>
+    <string name="missing_pictures">Generiere fehlende</string>
+    <string name="pick_contact">Einen Kontakt auswählen</string>
+    <string name="skip">Weiter</string>
+
+</resources>

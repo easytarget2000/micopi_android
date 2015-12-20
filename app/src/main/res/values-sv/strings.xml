@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");-->
+<!--you may not use this file except in compliance with the License.-->
+<!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software-->
+<!--distributed under the License is distributed on an "AS IS" BASIS,-->
+<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
+<!--See the License for the specific language governing permissions and-->
+<!--limitations under the License.-->
+
+<resources>
+
+    <string name="picture_will_be_previewed">
+        När du valt en kontakt kan du färhandsgranska den genererade bilden innan du tilldelar den
+        till kontakten.</string>
+    <string name="no_contact_selected">No contact selected</string>
+    <string name="generated_image">Genererad kontaktbild</string>
+    <string name="save_image_file">Spara bilden som fil</string>
+    <string name="assign_to_contact">Tilldela kontakten</string>
+    <string name="want_to_assign">Vill du använda kontaktbilden fär %s?</string>
+    <string name="report">Rapportera</string>
+    <string name="got_new_picture">%s fick en ny kontaktbild.</string>
+    <string name="saved_picture_as">Kontaktbild sparad som %s.</string>
+    <string name="error_generating">Ett fel uppstod när bilden skapades.</string>
+    <string name="error_retrieving">Ett fel uppstod när kontaktinformationen hämtades.</string>
+    <string name="error_saving">
+        Ett fel uppstod när bilden sparades på din enhet.
+        Vänligen kontrollera att lagringsutrymmet inte är låst.</string>
+    <string name="error_assign">Ett fel uppstod när bilden tilldelades kontakten.</string>
+
+    <string name="previous_image">Föregående bild</string>
+    <string name="next_image">Nästa bild</string>
+
+    <string name="all_contacts">All Contacts</string>
+    <string name="auto_experimental_long">
+        Different flavours of Android and some apps may store pictures in unique ways.
+        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
+    </string>
+    <string name="auto_mode">Automatic mode (experimental)</string>
+    <string name="please_note">Please Note</string>
+    <string name="overwrite_all_or_only">
+        Would you like to overwrite all images or only generate pictures for contacts
+        that currently do not have one?
+    </string>
+    <string name="confirm_all">
+        Please confirm that you would like to overwrite all contact images.
+    </string>
+
+    <string name="missing_pictures">Missing pictures</string>
+    <string name="pick_contact">Välj en kontakt</string>
+    <string name="skip">Skip</string>
+    <string name="donate">Donera</string>
+
+</resources>

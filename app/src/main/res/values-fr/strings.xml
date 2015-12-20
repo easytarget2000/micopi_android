@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");-->
+<!--you may not use this file except in compliance with the License.-->
+<!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software-->
+<!--distributed under the License is distributed on an "AS IS" BASIS,-->
+<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
+<!--See the License for the specific language governing permissions and-->
+<!--limitations under the License.-->
+
+<resources>
+
+    <string name="all_contacts">Tous les contacts</string>
+    <string name="assign_to_contact">Attribuer au contact</string>
+    <string name="auto_mode">Mode automatique</string>
+    <string name="auto_experimental_long">Différentes versions d\'Android et certaines applications peuvent stocker les images différemment.\n\nIl est peu probable mais pas impossible que certaines images soient écrasées.</string>
+    <string name="confirm_all">Veuillez confirmer que vous souhaitez remplacer toutes les images de contact.</string>
+    <string name="donate">Faire un don</string>
+    <string name="error_assign">Une erreur est survenue lors de l\'attribution de l\'image.</string>
+    <string name="error_generating">Une erreur est survenue lors de la génération de l\'image.</string>
+    <string name="error_retrieving">Une erreur est survenue lors de la récupération des informations de contact.</string>
+    <string name="error_saving">Une erreur est survenue lors de la sauvegarde de l\'image sur votre appareil. Veuillez vérifier que votre stockage ne soit pas verrouillé.</string>
+    <string name="generated_image">Image générée</string>
+    <string name="got_new_picture">%s a obtenu une nouvelle image de contact.</string>
+    <string name="missing_pictures">Images manquantes</string>
+    <string name="next_image">Image suivante</string>    
+    <string name="no_contact_selected">Aucun contact sélectionné</string>
+    <string name="overwrite_all_or_only">Voulez-vous remplacer toutes les images ou uniquement en générer pour les contacts sans image ?</string>
+    <string name="please_note">Évaluer</string>
+    <string name="pick_contact">Choisir un contact</string>    
+    <string name="picture_will_be_previewed">Après le choix, l\'image générée sera affichée avant de l\'attribuer au contact.</string>
+    <string name="previous_image">Image précédente</string>
+    <string name="report">Rapport</string>    
+    <string name="save_image_file">Sauvegarder l\'image</string>
+    <string name="saved_picture_as">Image sauvegardée comme %1$s.</string>
+    <string name="skip">Ignorer</string>    
+    <string name="want_to_assign">Voulez-vous attribuer cette image à %1$s ?</string>
+
+</resources>
