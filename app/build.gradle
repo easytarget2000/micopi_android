@@ -8,8 +8,8 @@ android {
         applicationId "com.easytarget.micopi"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 22
-        versionName "3.2"
+        versionCode 23
+        versionName "3.2.5"
     }
     buildTypes {
         release {

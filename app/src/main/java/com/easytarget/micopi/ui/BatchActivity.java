@@ -34,7 +34,7 @@ import com.easytarget.micopi.R;
 public class BatchActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = BatchActivity.class.getSimpleName();
-    
+
     private static final String STORED_CONTACT = "stored_contact";
 
     private static final String STORED_PROGRESS = "stored_progress";

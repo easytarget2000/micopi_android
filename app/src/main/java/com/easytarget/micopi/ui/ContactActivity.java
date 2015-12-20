@@ -22,6 +22,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -40,8 +41,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.easytarget.micopi.AssignContactImageTask;
-import com.easytarget.micopi.Constants;
 import com.easytarget.micopi.Contact;
 import com.easytarget.micopi.DeviceHelper;
 import com.easytarget.micopi.FileHelper;
@@ -85,11 +84,11 @@ public class ContactActivity extends AppCompatActivity {
      * Currently handled contact
      */
     private Contact mContact;
-
-    /**
-     * Will be set to false after first contact
-     */
-    private boolean mHasPickedContact = false;
+//
+//    /**
+//     * Will be set to false after first contact
+//     */
+//    private boolean mHasPickedContact = false;
 
     /**
      * Keeps the user from performing any input while performing a task such as generating an image
@@ -105,14 +104,14 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact);
 
         // Check whether we're recreating a previously destroyed instance
-        if (savedInstanceState != null && !mGuiIsLocked) {
-            mColor = savedInstanceState.getInt(Constants.EXTRA_COLOR);
-            mContact = savedInstanceState.getParcelable(STORED_CONTACT);
-            mHasPickedContact = savedInstanceState.getBoolean(STORED_PICKED);
+        if (savedInstanceState != null && savedInstanceState.containsKey(STORED_CONTACT)) {
+//            mColor = savedInstanceState.getInt(Constants.EXTRA_COLOR);
+            setContact((Contact) savedInstanceState.getParcelable(STORED_CONTACT));
+//            mHasPickedContact = savedInstanceState.getBoolean(STORED_PICKED);
         }
 
         // Immediately show the contact picker if no contact has been selected, yet.
-        if (!mHasPickedContact) pickContact();
+        if (mContact == null) pickContact();
     }
 
     @Override
@@ -184,17 +183,21 @@ public class ContactActivity extends AppCompatActivity {
 
                     }
                     return true;
+
                 case R.id.action_previous_image:
                     mContact.modifyRetryFactor(false);
-                    startGenerateImageTask();
+                    generateImage();
                     return true;
+
                 case R.id.action_next_image:
                     mContact.modifyRetryFactor(true);
-                    startGenerateImageTask();
+                    generateImage();
                     return true;
+
                 case R.id.action_search:
                     pickContact();
                     return true;
+
                 case R.id.action_save:
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         final int writePerm = checkSelfPermission(
@@ -210,7 +213,11 @@ public class ContactActivity extends AppCompatActivity {
                             return true;
                         }
                     }
-                    new SaveImageTask().execute();
+                    final ImageView imageView = (ImageView) findViewById(R.id.image_contact);
+
+                    new SaveImageTask().execute(
+                            ((BitmapDrawable) imageView.getDrawable()).getBitmap()
+                    );
                     return true;
 
                 default:
@@ -237,9 +244,9 @@ public class ContactActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putInt(Constants.EXTRA_COLOR, mColor);
+//        savedInstanceState.putInt(Constants.EXTRA_COLOR, mColor);
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
-        savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
+//        savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
     }
 
     /*
@@ -272,34 +279,38 @@ public class ContactActivity extends AppCompatActivity {
         super.onActivityResult(reqCode, resultCode, data);
 
         // Close the app if the back button was pressed on first contact picker.
-        if (!mHasPickedContact && resultCode != RESULT_OK) finish();
+        if (mContact == null && resultCode != RESULT_OK) finish();
 
         // Check if the activity result is ok and check the request code.
         // The latter should be 1 indicating a picked contact.
         if (resultCode == RESULT_OK && reqCode == PICK_CONTACT) {
-            mHasPickedContact = true;
-            mContact = Contact.buildContact(this, data);
-
-            final TextView nameView = (TextView) findViewById(R.id.text_contact_name);
-            final View descriptionView = findViewById(R.id.text_description);
-
-            if (mContact == null) {
-                Log.e("generateImageTask", "ERROR: Contact is null.");
-                nameView.setText(R.string.no_contact_selected);
-                descriptionView.setVisibility(View.GONE);
-
-                // TODO: Show error.
-                return;
-            } else {
-                nameView.setText(mContact.getFullName());
-                descriptionView.setVisibility(View.GONE);
-            }
-
-            startGenerateImageTask();
+            setContact(Contact.buildContact(this, data));
         }
     }
 
-    private void startGenerateImageTask() {
+    private void setContact(final Contact contact) {
+        mContact = contact;
+
+        final TextView nameView = (TextView) findViewById(R.id.text_contact_name);
+        final View descriptionView = findViewById(R.id.text_description);
+
+        if (mContact == null) {
+            Log.e("generateImageTask", "ERROR: Contact is null.");
+            nameView.setText(R.string.no_contact_selected);
+            descriptionView.setVisibility(View.GONE);
+
+            // TODO: Show error.
+            return;
+        } else {
+            nameView.setText(mContact.getFullName());
+            descriptionView.setVisibility(View.VISIBLE);
+            descriptionView.setVisibility(View.VISIBLE);
+        }
+
+        generateImage();
+    }
+
+    private void generateImage() {
         final ImageView imageView = (ImageView) findViewById(R.id.image_contact);
         imageView.setImageDrawable(null);
 
@@ -310,7 +321,7 @@ public class ContactActivity extends AppCompatActivity {
 
         if (generatedBitmap == null) {
             Log.e(TAG, "Generated null bitmap.");
-            setColor(getColor(R.color.primary));
+            setColor(getResources().getColor(R.color.primary));
         } else {
             setColor(ColorUtilities.getAverageColor(generatedBitmap));
         }
@@ -323,12 +334,34 @@ public class ContactActivity extends AppCompatActivity {
     public void confirmAssignContactImage() {
         if (mContact == null) return;
 
+        final ImageView imageView = (ImageView) findViewById(R.id.image_contact);
+
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
-                    mGuiIsLocked = true;
-                    new AssignContactImageTask(ContactActivity.this).execute(mContact.getId());
+                    final boolean didAssign = FileHelper.assignImageToContact(
+                            ContactActivity.this,
+                            ((BitmapDrawable)imageView.getDrawable()).getBitmap(),
+                            mContact.getId()
+                    );
+
+                    if (didAssign) {
+                        Toast.makeText(
+                                ContactActivity.this,
+                                String.format(
+                                        getString(R.string.got_new_picture),
+                                        mContact.getFullName()
+                                ),
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    } else {
+                        Toast.makeText(
+                                ContactActivity.this,
+                                R.string.error_assign,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
                 }
             }
         };
@@ -344,43 +377,18 @@ public class ContactActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private void showErrorToast() {
+
+    }
+
     /*
     THREADS
      */
 
-//    private class ShowContactDataTask extends AsyncTask<Void, Void, Bitmap> {
-//        @Override
-//        protected Bitmap doInBackground(Void... params) {
-//            if (mContact == null) return null;
-//            File tempFile = FileHelper.openTempFile(getApplicationContext());
-//            if (tempFile == null) return null;
-////            Log.d(TAG, "Loading bitmap from temp file:" + tempFile.getAbsolutePath());
-//            return BitmapFactory.decodeFile(tempFile.getAbsolutePath());
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Bitmap bitmap) {
-//            super.onPostExecute(bitmap);
-//            if (bitmap == null) {
-//                Log.e(TAG, "Could not load image from file.");
-//                mColor = getResources().getColor(R.color.primary);
-//                setColor(mColor);
-//                return;
-//            }
-//            setColor(mColor);
-//            Drawable generatedDrawable = new BitmapDrawable(getResources(), bitmap);
-//            mIconImageView.setImageDrawable(generatedDrawable);
-//
-//            mNameTextView.setText(mContact.getFullName());
-//            mNameTextView.setVisibility(View.VISIBLE);
-//            mDescriptionTextView.setVisibility(View.VISIBLE);
-//        }
-//    }
-
     /**
      * Save the generated image to a file on the device
      */
-    private class SaveImageTask extends AsyncTask<Void, Void, String> {
+    private class SaveImageTask extends AsyncTask<Bitmap, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -388,12 +396,13 @@ public class ContactActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(Bitmap... params) {
             if (mContact == null) return null;
+            if (params == null || params.length < 1) return null;
 
-            FileHelper fileHandler = new FileHelper();
-            return fileHandler.copyTempFileToPublicDir(
+            return new FileHelper().storeImage(
                     ContactActivity.this,
+                    params[0],
                     mContact.getFullName(),
                     mContact.getMD5EncryptedString().charAt(0)
             );

@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -27,7 +26,7 @@ import java.nio.channels.FileChannel;
  */
 public class FileHelper implements MediaScannerConnection.MediaScannerConnectionClient{
 
-    private static final String LOG_TAG = FileHelper.class.getSimpleName();
+    private static final String TAG = FileHelper.class.getSimpleName();
 
     private static final String DIR_MICOPI = "/micopi/";
 
@@ -61,34 +60,34 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
         return micopiDir;
     }
 
-    /**
-     * Finds the contact's image entry and replaces it with the generated data.
-     *
-     * @param context
-     * @param contactId
-     * @return TRUE if assignment was successful.
-     */
-    public static boolean assignTempFileToContact(
-            Context context,
-            final String contactId
-    ) {
-        if (context == null) return false;
-
-        // Open the temporary file in which the image was stored.
-        File tempImageFile = openTempFile(context);
-        if (tempImageFile == null) return false;
-
-        // Create a byte stream from the file.
-        byte[] image = new byte[(int) tempImageFile.length()];
-        try {
-            new FileInputStream(tempImageFile).read(image);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return assignImageToContact(context, image, contactId);
-    }
+//    /**
+//     * Finds the contact's image entry and replaces it with the generated data.
+//     *
+//     * @param context
+//     * @param contactId
+//     * @return TRUE if assignment was successful.
+//     */
+//    public static boolean assignTempFileToContact(
+//            Context context,
+//            final String contactId
+//    ) {
+//        if (context == null) return false;
+//
+//        // Open the temporary file in which the image was stored.
+//        File tempImageFile = openTempFile(context);
+//        if (tempImageFile == null) return false;
+//
+//        // Create a byte stream from the file.
+//        byte[] image = new byte[(int) tempImageFile.length()];
+//        try {
+//            new FileInputStream(tempImageFile).read(image);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//
+//        return assignImageToContact(context, image, contactId);
+//    }
 
     /**
      * Finds the contact's image entry and replaces it with the generated data.
@@ -137,7 +136,7 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
 
 
         if(rawContactCursor == null){
-            Log.e(LOG_TAG, "ERROR: rawContactCursor is null.");
+            Log.e(TAG, "ERROR: rawContactCursor is null.");
             return false;
         }
 
@@ -157,7 +156,7 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
         int photoRow = -1;
 
         if (rawContactUri == null) {
-            Log.e(LOG_TAG, "ERROR: rawContactUri is null.");
+            Log.e(TAG, "ERROR: rawContactUri is null.");
             return false;
         }
 
@@ -177,7 +176,7 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
         );
 
         if(changePhotoCursor == null) {
-            Log.e(LOG_TAG, "ERROR: changePhotoCursor is null.");
+            Log.e(TAG, "ERROR: changePhotoCursor is null.");
             return false;
         }
         final int index = changePhotoCursor.getColumnIndex(ContactsContract.Data._ID);
@@ -211,7 +210,7 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
                     null
             );
         } else {
-            Log.i(LOG_TAG, "INFO: photoRow: " + photoRow);
+            Log.i(TAG, "INFO: photoRow: " + photoRow);
             mAppContext.getContentResolver().insert(
                     ContactsContract.Data.CONTENT_URI,
                     values
@@ -219,6 +218,44 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
         }
 
         return true;
+    }
+
+    public String storeImage(
+            final Context context,
+            final Bitmap bitmap,
+            final String fileName, final char appendix
+    ) {
+        if (context == null || TextUtils.isEmpty(fileName)) return null;
+        mAppContext = context.getApplicationContext();
+
+        // Files will be stored in the /sdcard/micopi dir.
+        File micopiDir = prepareMicopiDir();
+
+        // The file name is "FirstName_LastName-x.png".
+        final String newName = fileName.replace(' ', '_') + "-" + appendix + ".png";
+        final File outFile = new File(micopiDir.getAbsolutePath(), newName);
+
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(outFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        mFileName = outFile.getAbsolutePath();
+        mConnection = new MediaScannerConnection(context, this);
+        mConnection.connect();
+
+        return newName;
     }
 
     /**
@@ -253,11 +290,11 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
         try {
             copyFile(tempFile, newFile);
         } catch (IOException e) {
-            Log.e(LOG_TAG, e.toString());
+            Log.e(TAG, e.toString());
             return null;
         }
 
-        performMediaScan(newFile);
+//        performMediaScan(newFile);
         return newName;
     }
 
@@ -271,19 +308,6 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
         inChannel.transferTo(0, inChannel.size(), outChannel);
         inStream.close();
         outStream.close();
-    }
-
-    /**
-     * Makes the saved picture appear in Android's gallery.
-     * @param file  Scan this file for media content
-     */
-    private void performMediaScan(@NonNull File file) {
-        if (mAppContext == null) return;
-        if (mConnection == null) return;
-
-        mFileName = file.getAbsolutePath();
-        mConnection = new MediaScannerConnection(mAppContext, this);
-        mConnection.connect();
     }
 
     @Override
