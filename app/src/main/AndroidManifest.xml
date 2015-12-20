@@ -45,8 +45,7 @@
         <!-- Micopi Main Activity -->
         <activity
             android:name="com.easytarget.micopi.ui.ContactActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppThemeActionBar">
+            android:label="@string/app_name">
         </activity>
 
         <activity

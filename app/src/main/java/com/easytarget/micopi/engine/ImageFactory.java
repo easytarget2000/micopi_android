@@ -98,7 +98,7 @@ public class ImageFactory {
         // and fill the background with the color for this contact's first letter.
         final Canvas canvas = new Canvas(bitmap);
         final char firstChar = mContact.getFullName().charAt(0);
-        final int bgColor = ColorCollection.getCandyColorForChar(firstChar);
+        final int bgColor = ColorCollection.getColor(firstChar);
         canvas.drawColor(bgColor);
 
         if(BENCHMARK) {

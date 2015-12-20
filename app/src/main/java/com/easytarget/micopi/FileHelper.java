@@ -223,13 +223,13 @@ public class FileHelper implements MediaScannerConnection.MediaScannerConnection
     public String storeImage(
             final Context context,
             final Bitmap bitmap,
-            final String fileName, final char appendix
+            final String fileName,
+            final char appendix
     ) {
         if (context == null || TextUtils.isEmpty(fileName)) return null;
-        mAppContext = context.getApplicationContext();
 
         // Files will be stored in the /sdcard/micopi dir.
-        File micopiDir = prepareMicopiDir();
+        final File micopiDir = prepareMicopiDir();
 
         // The file name is "FirstName_LastName-x.png".
         final String newName = fileName.replace(' ', '_') + "-" + appendix + ".png";

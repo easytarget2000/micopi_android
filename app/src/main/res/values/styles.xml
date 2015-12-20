@@ -5,9 +5,7 @@
 
     </style>
 
-    <style
-        name="AppThemeActionBar"
-        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <item name="android:actionBarStyle">@style/ContactsMaterialActionBar</item>
         <item name="android:textSize">@dimen/text_size</item>
@@ -16,9 +14,7 @@
     </style>
 
     <!-- ActionBar styles -->
-    <style
-        name="ContactsMaterialActionBar"
-        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="ContactsMaterialActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/primary</item>
         <item name="android:textSize">@dimen/text_size</item>
 

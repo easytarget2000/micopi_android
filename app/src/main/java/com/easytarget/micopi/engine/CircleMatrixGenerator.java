@@ -48,7 +48,7 @@ public class CircleMatrixGenerator {
                 + (imageSize / (shapesPerRow * 2f));
 
         int md5Pos = 0;
-//        int color = ColorCollection.getCandyColorForChar(contact.getFullName().charAt(0));
+//        int color = ColorCollection.getColor(contact.getFullName().charAt(0));
         for (int y = 0; y < shapesPerRow; y++) {
             for (int x = 0; x < shapesPerRow; x++) {
 
@@ -57,7 +57,7 @@ public class CircleMatrixGenerator {
                 final char md5Char = md5String.charAt(md5Pos);
 
 //                if (doGenerateColor)
-                final int color = ColorCollection.getCandyColorForChar(md5Char);
+                final int color = ColorCollection.getColor(md5Char);
 
                 final int index = y * shapesPerRow + x;
                 final float radius;

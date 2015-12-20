@@ -108,7 +108,7 @@
                         break;
                 }
 
-                final int color = ColorCollection.getCandyColorForChar(md5String.charAt(md5Pos));
+                final int color = ColorCollection.getColor(md5String.charAt(md5Pos));
                 final float radius = md5String.charAt(md5Pos) + md5String.charAt(2);
 //                Log.d(
 //                        LOG_TAG,

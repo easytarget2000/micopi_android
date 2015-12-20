@@ -44,9 +44,9 @@ public class SquareMatrixGenerator {
         final String md5String = contact.getMD5EncryptedString();
         final int md5Length = md5String.length();
 
-        final int color1 = ColorCollection.getCandyColorForChar(md5String.charAt(16));
+        final int color1 = ColorCollection.getColor(md5String.charAt(16));
         final int color2 = Color.WHITE;
-        final int color3 = ColorCollection.getCandyColorForChar(md5String.charAt(17));
+        final int color3 = ColorCollection.getColor(md5String.charAt(17));
 
         int numOfSquares = NUM_OF_SQUARES;
         if (contact.getNameWord(0).length() % 2 == 0) numOfSquares -= 1;

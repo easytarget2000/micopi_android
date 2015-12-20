@@ -20,9 +20,8 @@ import android.graphics.Color;
 
 /**
  * Created by michel on 27/10/14.
- *
+ * <p/>
  * Contains the color definitions and getter-generators that will be used by ImageFactory
- *
  */
 public class ColorCollection {
 
@@ -31,27 +30,34 @@ public class ColorCollection {
      * Excuse the colour names.
      * These are just used to make sure that colours "next to each other" are not too similar.
      */
-    public static final int CANDY_PALETTE[] = {
-            0xFF3f51B5, // Navy blue
-            0xFFAEEA00, // Neon yellow-green
-            0xFFE91E63, // Salmon
-            0xFFFFD600, // Cinnamon yellow
-            0xFF9C27B0, // Purple
-            0xFFDD2C00, // Dark deep-orange
-            0xFF673AB7, // Blue-purple
-            0xFFFFC107, // Pale orange
-            0xFF84FFFF, // Light cyan
-            0xFFFF9800, // Neon orange
-            0xFF5677FC, // Blue
-            0xFFAD1457, // Dark pink
-            0xFFFFEB3B, // Pale yellow
-            0xFF03A9f4, // Baby blue
-            0xFFFFA726, // Orange
-            0xFF259B24, // Woodruff
-            0xFFCDDC39, // Spring green
-            0xFF8BC34A, // Light green
-            0xFFFF5722, // Neon red
-            0xFFC6FF00, // Less-pale yellow
+    public static final int PALETTE[] = {
+            0xFFFF9800,
+            0xFFCDDC39,
+            0xFFFFA000,
+            0xFF7C4DFF,
+            0xFF0288D1,
+            0xFFD32F2F,
+            0xFFFFC107,
+            0xFF7C4DFF,
+            0xFFF44336,
+            0xFFFFEB3B,
+            0xFF2196F3,
+            0xFFFF4081,
+            0xFF536DFE,
+            0xFFC2185B,
+            0xFFF57C00,
+            0xFF4CAF50,
+            0xFF303F9F,
+            0xFF3F51B5,
+            0xFF03A9F4,
+            0xFFE64A19,
+            0xFFFFF9C4,
+            0xFFFF5722,
+            0xFF00796B,
+            0xFF009688,
+            0xFFBBDEFB,
+            0xFFFF5252,
+            0xFF1976D2
     };
 
     /**
@@ -60,7 +66,7 @@ public class ColorCollection {
     public static final int HARSH_PALETTE[] = {
             Color.WHITE,
             Color.RED,
-            Color.BLACK,
+            0xFF212121,
             0xFF009688,
     };
 
@@ -71,14 +77,14 @@ public class ColorCollection {
      * @param c ASCII integer value of this character will be used as array index
      * @return Color from the candy palette
      */
-    public static int getCandyColorForChar(char c) {
+    public static int getColor(char c) {
         // If the given character is between lower case a and z,
         // subtract the index difference to the upper case characters.
         if (c >= 'a' && c <= 'z') c -= 32;
 
-        final int index = c % (CANDY_PALETTE.length - 1);
+        final int index = c % (PALETTE.length - 1);
 
-        return CANDY_PALETTE[index];
+        return PALETTE[index];
     }
 
     /**
@@ -95,11 +101,11 @@ public class ColorCollection {
                 color = HARSH_PALETTE[harshIndex];
                 break;
             case 1:
-                color = getCandyColorForChar(c1);
-                color =  ColorUtilities.getDarkenedColor(color);
+                color = getColor(c1);
+                color = ColorUtilities.getDarkenedColor(color);
                 break;
             default:
-                color = getCandyColorForChar(c1);
+                color = getColor(c1);
         }
 
         return color | 0xff000000;

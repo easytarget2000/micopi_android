@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,7 +32,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -139,12 +137,12 @@ public class ContactActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onSearchRequested() {
@@ -228,6 +226,72 @@ public class ContactActivity extends AppCompatActivity {
         return true;
     }
 
+    public void onButtonClicked(View view) {
+        switch (view.getId()) {
+            case R.id.button_assign:
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    confirmAssignContactImage();
+                } else {
+                    final int contactPerm = checkSelfPermission(
+                            Manifest.permission.WRITE_CONTACTS
+                    );
+
+                    final boolean hasWritePerm;
+                    hasWritePerm = contactPerm == PackageManager.PERMISSION_GRANTED;
+
+                    if (hasWritePerm) {
+                        confirmAssignContactImage();
+                    } else {
+                        Log.d(TAG, "Permission to write contacts not given.");
+                        // Once the permission is given, the mail will be sent.
+                        // See onRequestPermissionsResult().
+                        ActivityCompat.requestPermissions(
+                                this,
+                                new String[]{Manifest.permission.READ_CONTACTS},
+                                WRITE_CONTACTS_PERMISSION_CODE
+                        );
+                    }
+
+                }
+                return;
+
+            case R.id.button_search:
+                pickContact();
+                return;
+
+            case R.id.button_prev:
+                mContact.modifyRetryFactor(false);
+                generateImage();
+                return;
+
+            case R.id.button_next:
+                mContact.modifyRetryFactor(true);
+                generateImage();
+                return;
+
+            case R.id.button_save:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    final int writePerm = checkSelfPermission(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    );
+
+                    if (writePerm != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(
+                                this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                WRITE_STORAGE_PERMISSION_CODE
+                        );
+                        return;
+                    }
+                }
+                final ImageView imageView = (ImageView) findViewById(R.id.image_contact);
+
+                new SaveImageTask().execute(
+                        ((BitmapDrawable) imageView.getDrawable()).getBitmap()
+                );
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -243,10 +307,7 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-
-//        savedInstanceState.putInt(Constants.EXTRA_COLOR, mColor);
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
-//        savedInstanceState.putBoolean(STORED_PICKED, mHasPickedContact);
     }
 
     /*
@@ -342,7 +403,7 @@ public class ContactActivity extends AppCompatActivity {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     final boolean didAssign = FileHelper.assignImageToContact(
                             ContactActivity.this,
-                            ((BitmapDrawable)imageView.getDrawable()).getBitmap(),
+                            ((BitmapDrawable) imageView.getDrawable()).getBitmap(),
                             mContact.getId()
                     );
 
@@ -418,7 +479,7 @@ public class ContactActivity extends AppCompatActivity {
                         String.format(
                                 getResources().getString(R.string.saved_picture_as),
                                 fileName),
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                 ).show();
             } else {
                 Toast.makeText(
@@ -450,8 +511,6 @@ public class ContactActivity extends AppCompatActivity {
         Set the action bar colour to the average colour of the generated image and
         the status bar colour for Android Version >= 5.0 accordingly.
         */
-
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(mColor));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Get the window through a reference to the activity.

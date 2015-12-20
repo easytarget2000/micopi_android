@@ -20,4 +20,6 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="text_size">14sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
+    <dimen name="welcome_max_width">400dp</dimen>
+    <dimen name="horizontal_padding_welcome">@dimen/margin_default</dimen>
 </resources>

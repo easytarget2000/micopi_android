@@ -56,8 +56,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!--<include layout="@layout/progress_bar"/>-->
-
     <TextView
         android:id="@+id/text_contact_name"
         android:layout_width="wrap_content"
@@ -87,18 +85,6 @@
             android:textColor="@color/primary"
             android:textSize="@dimen/text_size"/>
 
-        <!--<Button-->
-            <!--android:background="@android:color/white"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_height="@dimen/abc_action_button_min_height_material"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_marginLeft="@dimen/margin_small"-->
-            <!--android:layout_marginStart="@dimen/margin_small"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:onClick="skipPressed"-->
-            <!--android:text="@string/skip"-->
-            <!--android:textColor="@color/primary"-->
-            <!--android:textSize="@dimen/text_size"/>-->
 
     </LinearLayout>
 
