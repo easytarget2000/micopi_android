@@ -73,7 +73,6 @@
             android:src="@drawable/ic_search_white_36dp"
             android:tint="@android:color/white"
             app:backgroundTint="@color/accent"
-
             app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
@@ -129,8 +128,9 @@
         android:src="@drawable/ic_done_white_36dp"
         android:tint="@android:color/white"
         app:backgroundTint="@color/accent"
-
         tools:ignore="RtlHardcoded" />
+
+    <include layout="@layout/include_back_button" />
 
 </RelativeLayout>
 

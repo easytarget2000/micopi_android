@@ -29,7 +29,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -51,7 +50,7 @@ import com.easytarget.micopi.engine.ImageFactory;
  * <p/>
  * Created by Michel on 03.02.14.
  */
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends TaskActivity {
 
     private static final String TAG = ContactActivity.class.getSimpleName();
 
@@ -69,24 +68,10 @@ public class ContactActivity extends AppCompatActivity {
      */
     private static final String STORED_PICKED = "stored_picked";
 
-//    /** Displays the contact name */
-//    private TextView mNameTextView;
-//
-//    /** Displays a small description text */
-//    private TextView mDescriptionTextView;
-//
-//    /** Displays the generated image */
-//    private ImageView mIconImageView;
-
     /**
      * Currently handled contact
      */
     private Contact mContact;
-//
-//    /**
-//     * Will be set to false after first contact
-//     */
-//    private boolean mHasPickedContact = false;
 
     /**
      * Keeps the user from performing any input while performing a task such as generating an image
@@ -293,18 +278,6 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final int contactPerm = checkSelfPermission(
-                    Manifest.permission.READ_CONTACTS
-            );
-
-            if (contactPerm != PackageManager.PERMISSION_GRANTED) onBackPressed();
-        }
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putParcelable(STORED_CONTACT, mContact);
@@ -436,10 +409,6 @@ public class ContactActivity extends AppCompatActivity {
         builder.setNegativeButton(android.R.string.no, dialogClickListener);
         builder.setPositiveButton(android.R.string.yes, dialogClickListener);
         builder.show();
-    }
-
-    private void showErrorToast() {
-
     }
 
     /*

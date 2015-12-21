@@ -10,17 +10,34 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
-    android:padding="@dimen/margin_small">
+    android:paddingBottom="@dimen/margin_default"
+    android:paddingLeft="@dimen/horizontal_padding_welcome"
+    android:paddingRight="@dimen/horizontal_padding_welcome"
+    android:paddingTop="@dimen/margin_default"
+    tools:ignore="RtlHardcoded">
+
+    <TextView
+        android:id="@+id/text_micopi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_small"
+        android:gravity="center"
+        android:text="micopi"
+        android:textColor="@android:color/white"
+        android:textSize="44sp"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/group_welcome_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

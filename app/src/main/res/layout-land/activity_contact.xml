@@ -133,5 +133,7 @@
         app:backgroundTint="@color/accent"
         tools:ignore="RtlHardcoded" />
 
+    <include layout="@layout/include_back_button" />
+
 </RelativeLayout>
 

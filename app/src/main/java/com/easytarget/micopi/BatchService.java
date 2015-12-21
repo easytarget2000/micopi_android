@@ -45,9 +45,9 @@ public class BatchService extends IntentService {
 
     private static final String LOG_TAG = BatchService.class.getSimpleName();
 
-    public static final int SERVICE_NOTIFICATION_ID = 441444;
+    private static boolean sIsRunning = false;
 
-//    public static final int ERROR_NOTIFICATION_ID = 4412669;
+    public static final int SERVICE_NOTIFICATION_ID = 441444;
 
     private ArrayList<Contact> mInsertErrors;
 
@@ -85,6 +85,7 @@ public class BatchService extends IntentService {
 
         mUpdateErrors = new ArrayList<>();
 
+        sIsRunning = true;
         processContacts(doOverwrite);
 
 //        if (mUpdateErrors.size() > 0 || mInsertErrors.size() > 0) createNotificationForError();
@@ -97,6 +98,7 @@ public class BatchService extends IntentService {
         // TODO: Show finish notification.
 
         stopForeground(true);
+        sIsRunning = false;
     }
 
     @Override
@@ -104,6 +106,10 @@ public class BatchService extends IntentService {
         super.onDestroy();
         mIsCancelled = true;
         stopForeground(true);
+    }
+
+    public static boolean isRunning() {
+        return sIsRunning;
     }
 
     private void processContacts(final boolean doOverwrite) {
