@@ -38,7 +38,7 @@ public class ImageFactory {
 
     private static final String LOG_TAG_BM = LOG_TAG + ": Benchmark";
 
-    private static final boolean BENCHMARK = false;
+    private static final boolean BENCHMARK = true;
 
     private boolean mDoBroadcastProgress = false;
 
@@ -158,7 +158,8 @@ public class ImageFactory {
                     Color.WHITE,
                     Color.YELLOW,
                     Color.BLACK,
-                    255 - (md5String.charAt(19) * 2),
+                    255,
+//                    255 - (md5String.charAt(19) * 2),
                     (0.3f - (float) firstChar / 255f),
                     (0.3f - (float) md5String.charAt(23) / 255f),
                     (0.3f - (float) md5String.charAt(24) / 255f),

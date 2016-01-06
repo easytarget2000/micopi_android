@@ -46,27 +46,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="697ff0f4-c29e-462c-9b91-b4f7f76bf0d3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-v19/dimens.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-v19/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/ui/ContactActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/ui/ContactActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/ImageFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/ImageFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/Painter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/Painter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_batch.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_batch.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/include_back_button.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/include_back_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-ca/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-ca/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-de/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-de/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-es/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-es/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-nl/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-nl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-sv/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-sv/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="micopi_android.iws" />
@@ -93,16 +75,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="466" column="21" selection-start-line="466" selection-start-column="21" selection-end-line="466" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Painter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/Painter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="177" column="16" selection-start-line="177" selection-start-column="16" selection-end-line="177" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -141,21 +113,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageFactory.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ImageFactory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/ImageFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="133" column="27" selection-start-line="133" selection-start-column="27" selection-end-line="133" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.4097117">
+              <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WanderingShapesGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WanderingShapesGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.2518969">
-              <caret line="122" column="9" selection-start-line="122" selection-start-column="9" selection-end-line="122" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -175,7 +147,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
+              <caret line="75" column="28" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -1799,7 +1771,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values-sv/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_batch.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/Painter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/ui/ContactActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v19/styles.xml" />
@@ -1807,10 +1778,11 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/include_back_button.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v19/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/ImageFactory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/Painter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/ImageFactory.java" />
       </list>
     </option>
   </component>
@@ -2862,30 +2834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/ui/ContactActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="466" column="21" selection-start-line="466" selection-start-column="21" selection-end-line="466" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/Painter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="177" column="16" selection-start-line="177" selection-start-column="16" selection-end-line="177" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/SquareMatrixGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2894,18 +2842,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/ImageFactory.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="133" column="27" selection-start-line="133" selection-start-column="27" selection-end-line="133" selection-end-column="27" />
+          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/WanderingShapesGenerator.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/CircleMatrixGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.2518969">
-          <caret line="122" column="9" selection-start-line="122" selection-start-column="9" selection-end-line="122" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="28" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/Painter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46889225">
+          <caret line="83" column="30" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/ui/ContactActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="466" column="21" selection-start-line="466" selection-start-column="21" selection-end-line="466" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easytarget/micopi/engine/ImageFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4097117">
+          <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
           <folding />
         </state>
       </provider>

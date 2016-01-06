@@ -38,9 +38,18 @@ public class CircleMatrixGenerator {
 
         // Use the length of the first name to determine the number of shapes per row and column.
         final int firstNameLength = contact.getNameWord(0).length();
-        int shapesPerRow = (md5String.charAt(20) % 2 == 0) ? firstNameLength : firstNameLength / 2;
-        if (shapesPerRow < 3) shapesPerRow = contact.getNumberOfLetters();
-        if (shapesPerRow < 3) shapesPerRow += 2;
+//        int shapesPerRow = (md5String.charAt(20) % 2 == 0) ? firstNameLength : firstNameLength / 2;
+//        if (shapesPerRow < 3) shapesPerRow = contact.getNumberOfLetters();
+//        if (shapesPerRow < 3) shapesPerRow += 2;
+
+        final int shapesPerRow;
+        if (firstNameLength < 3) {
+            shapesPerRow = 3;
+        } else if (firstNameLength > 8) {
+            shapesPerRow = 8;
+        } else {
+            shapesPerRow = firstNameLength;
+        }
 
         final int imageSize = painter.getImageSize();
         final float strokeWidth = md5String.charAt(12) * 3f;
@@ -61,8 +70,8 @@ public class CircleMatrixGenerator {
 
                 final int index = y * shapesPerRow + x;
                 final float radius;
-                if ((index & 1) == 0) radius = md5Char * 3f;
-                else radius = md5Char * 4f;
+                if ((index & 1) == 0) radius = md5Char * 6f;
+                else radius = md5Char * 5f;
 
                 painter.paintShape(
                         Painter.MODE_CIRCLE_FILLED,

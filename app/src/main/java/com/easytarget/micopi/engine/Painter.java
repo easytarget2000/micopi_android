@@ -61,7 +61,7 @@ public class Painter {
         mCanvas = canvas;
         mImageSize = canvas.getWidth();
         mImageSizeHalf = mImageSize * 0.5f;
-        mShadowRadius = mImageSize / 40f;
+        mShadowRadius = mImageSize / 20f;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
 //        paint.setFilterBitmap(true);
@@ -78,10 +78,10 @@ public class Painter {
     public void paintGrain() {
         Paint darkener = new Paint();
         darkener.setColor(Color.DKGRAY);
-        darkener.setAlpha(26);
+        darkener.setAlpha(33);
         Paint brightener = new Paint();
         brightener.setColor(Color.WHITE);
-        brightener.setAlpha(14);
+        brightener.setAlpha(22);
         final int grainDensity = mImageSize / 7;
         final Random random = new Random();
         float darkenerX, brightenerX;
@@ -200,7 +200,7 @@ public class Painter {
 //        if (((int) radius) % 2 == 0)
         shadowRadius = mShadowRadius;
 //        else shadowRadius = 0;
-        mPaint.setShadowLayer(shadowRadius, mShadowRadius, mShadowRadius, SHADOW_COLOR);
+        mPaint.setShadowLayer(mShadowRadius, mShadowRadius, mShadowRadius, SHADOW_COLOR);
 
         double angle;
         float x, y;
