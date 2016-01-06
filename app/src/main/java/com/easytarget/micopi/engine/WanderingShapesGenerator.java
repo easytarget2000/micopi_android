@@ -47,15 +47,15 @@
             final boolean doPaintPolygon =
                     (md5String.charAt(15) % 2 == 0 && numOfEdges > 2 && numOfEdges < 9);
 
-            // These characters will be used for color generating:
-            final int colorFactor1 = contact.getFullName().charAt(0);
+//            // These characters will be used for color generating:
+//            final int colorFactor1 = contact.getFullName().charAt(0);
 
-            // Determine if the shapes will be painted filled or stroked.
-            boolean paintFilled = false;
-            if (md5String.charAt(0) % 2 == 0) paintFilled = true;
+//            // Determine if the shapes will be painted filled or stroked.
+//            boolean paintFilled = false;
+//            if (md5String.charAt(0) % 2 == 0) paintFilled = true;
 
             // Determine the alpha value to paint with.
-            final int alpha  = 255 - (md5String.charAt(6) / 2);
+//            final int alpha  = 255 - (md5String.charAt(6) / 2);
             // Filled shapes have a smaller alpha value.
     //        if (paintFilled) alpha /= 2;
             float shapeWidth = (float) md5String.charAt(7) * 6f;
@@ -117,9 +117,8 @@
 //                                + x + ", " + y + " ," + radius
 //                );
 
-                painter.paintShape(paintMode, color, alpha, shapeWidth, numOfEdges, x, y, radius);
+                painter.paintShape(paintMode, color, 255, shapeWidth, numOfEdges, x, y, radius);
                 shapeWidth *= 1.05f;
             }
-//            Log.d(LOG_TAG, "END");
         }
     }

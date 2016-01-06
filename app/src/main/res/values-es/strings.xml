@@ -35,8 +35,11 @@
     <string name="auto_experimental_long">
         Las diferentes versiones de Android y algunas aplicaciones
         pueden almacenar imágenes en una forma única.
-        \n\nEs poco probable, pero no imposible,
+        Es poco probable, pero no imposible,
         que las imágenes de perfil consiguen sobrescribe.
+        \n\nMicopi ha sido probada exhaustivamente bajo varios dispositivos.
+        Sin embargo recomendamos hacer una copia de seguridad
+        de las fotos de sus contactos más importantes.
     </string>
     <string name="auto_mode">Modo automático</string>
     <string name="donate">Donar</string>

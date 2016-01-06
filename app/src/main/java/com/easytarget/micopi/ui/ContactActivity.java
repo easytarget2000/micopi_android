@@ -33,7 +33,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,7 +77,7 @@ public class ContactActivity extends TaskActivity {
      */
     private boolean mGuiIsLocked = false;
 
-    private int mColor;
+//    private int mColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,11 +195,7 @@ public class ContactActivity extends TaskActivity {
                             return true;
                         }
                     }
-                    final ImageView imageView = (ImageView) findViewById(R.id.image_contact);
-
-                    new SaveImageTask().execute(
-                            ((BitmapDrawable) imageView.getDrawable()).getBitmap()
-                    );
+                    new SaveImageTask().execute();
                     return true;
 
                 default:
@@ -271,9 +266,7 @@ public class ContactActivity extends TaskActivity {
                 }
                 final ImageView imageView = (ImageView) findViewById(R.id.image_contact);
 
-                new SaveImageTask().execute(
-                        ((BitmapDrawable) imageView.getDrawable()).getBitmap()
-                );
+                new SaveImageTask().execute();
         }
     }
 
@@ -418,21 +411,22 @@ public class ContactActivity extends TaskActivity {
     /**
      * Save the generated image to a file on the device
      */
-    private class SaveImageTask extends AsyncTask<Bitmap, Void, String> {
+    private class SaveImageTask extends AsyncTask<Void, Void, String> {
+
+        Bitmap mBitmap;
 
         @Override
         protected void onPreExecute() {
             mGuiIsLocked = true;
+            final ImageView imageView = (ImageView) findViewById(R.id.image_contact);
+            mBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         }
 
         @Override
-        protected String doInBackground(Bitmap... params) {
-            if (mContact == null) return null;
-            if (params == null || params.length < 1) return null;
-
+        protected String doInBackground(Void... params) {
             return new FileHelper().storeImage(
                     ContactActivity.this,
-                    params[0],
+                    mBitmap,
                     mContact.getFullName(),
                     mContact.getMD5EncryptedString().charAt(0)
             );
@@ -441,6 +435,7 @@ public class ContactActivity extends TaskActivity {
         @Override
         protected void onPostExecute(String fileName) {
             mGuiIsLocked = false;
+            mBitmap = null;
 
             if (!TextUtils.isEmpty(fileName)) {
                 Toast.makeText(
@@ -468,25 +463,25 @@ public class ContactActivity extends TaskActivity {
      * @param color ARGB Color to apply
      */
     private void setColor(int color) {
-        mColor = color;
+//        mColor = color;
         final View mainView = findViewById(R.id.layout_contact);
         if (mainView == null) {
             Log.e("MainActivity:setColor()", "WARNING: Did not find root view.");
         } else {
-            mainView.setBackgroundColor(mColor);
+            mainView.setBackgroundColor(color);
         }
 
-        /*
-        Set the action bar colour to the average colour of the generated image and
-        the status bar colour for Android Version >= 5.0 accordingly.
-        */
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Get the window through a reference to the activity.
-            final Window window = ContactActivity.this.getWindow();
-            // Set the status bar colour of this window.
-            int statusColor = ColorUtilities.getDarkenedColor(mColor);
-            window.setStatusBarColor(statusColor);
-        }
+//        /*
+//        Set the action bar colour to the average colour of the generated image and
+//        the status bar colour for Android Version >= 5.0 accordingly.
+//        */
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            // Get the window through a reference to the activity.
+//            final Window window = ContactActivity.this.getWindow();
+//            // Set the status bar colour of this window.
+//            int statusColor = ColorUtilities.getDarkenedColor(mColor);
+//            window.setStatusBarColor(statusColor);
+//        }
     }
 }

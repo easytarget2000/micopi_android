@@ -429,8 +429,8 @@ public class Painter {
      * @param chars Characters to draw
      * @param color Paint color
      */
-    public void paintChars(char[] chars, int color) {
-        int count = chars.length;
+    public void paintChars(final String string, int color) {
+        int count = string.length();
         if (count == 0) return;
         else if (count > 4) count = 4;
 
@@ -439,22 +439,21 @@ public class Painter {
         mPaint.setShadowLayer(0f, 0f, 0f, 0);
 
         // Typeface, size and alignment:
-        Typeface sansSerifLight = Typeface.create("sans-serif-light", 0);
+        Typeface sansSerifLight = Typeface.create("sans-serif-light", Typeface.BOLD);
         mPaint.setTypeface(sansSerifLight);
 
-        final int tileLetterFontSize = (int) (70f * mImageSize / 100f);
 
-        mPaint.setTextSize(tileLetterFontSize);
+        mPaint.setTextSize(74f * mImageSize / 100f);
         mPaint.setTextAlign(Paint.Align.CENTER);
 
         // Get the rectangle that the text fits into.
         final Rect rect = new Rect();
-        mPaint.getTextBounds(chars, 0, 1, rect);
+        mPaint.getTextBounds(string, 0, 1, rect);
 
         final float imageSizeHalf = mImageSize * 0.5f;
 
         mCanvas.drawText(
-                chars,
+                string,
                 0,
                 count,
                 imageSizeHalf,

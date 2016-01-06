@@ -43,7 +43,7 @@ public class CircleMatrixGenerator {
         if (shapesPerRow < 3) shapesPerRow += 2;
 
         final int imageSize = painter.getImageSize();
-        final float fStrokeWidth = md5String.charAt(12) * 2f;
+        final float strokeWidth = md5String.charAt(12) * 3f;
         final float circleDistance = (imageSize / shapesPerRow)
                 + (imageSize / (shapesPerRow * 2f));
 
@@ -61,14 +61,15 @@ public class CircleMatrixGenerator {
 
                 final int index = y * shapesPerRow + x;
                 final float radius;
-                if ((index & 1) == 0) radius = md5Char * 2f;
-                else radius = md5Char * 3f;
+                if ((index & 1) == 0) radius = md5Char * 3f;
+                else radius = md5Char * 4f;
 
                 painter.paintShape(
                         Painter.MODE_CIRCLE_FILLED,
                         color,
-                        255 - md5String.charAt(md5Pos),
-                        fStrokeWidth,        // Stroke width
+                        255,
+//                        255 - md5String.charAt(md5Pos),
+                        strokeWidth,        // Stroke width
                         0,
                         x * circleDistance,
                         y * circleDistance,

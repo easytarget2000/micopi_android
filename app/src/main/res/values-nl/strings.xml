@@ -42,10 +42,11 @@
 
     <string name="all_contacts">Alle contacten</string>
     <string name="auto_experimental_long">
-        Let op:
-        \nVerschillende versies van Android en sommige apps kunnen foto\'s
+        Verschillende versies van Android en sommige apps kunnen foto\'s
         op een unieke manier op te slaan.
-        \n\nHet is onwaarschijnlijk, maar niet onmogelijk, dat sommige beelden worden overschreven.
+        Het is onwaarschijnlijk, maar niet onmogelijk, dat sommige beelden worden overschreven.
+        \n\nOndanks dat wij grote moeite hebben gedaan om deze app te testen,
+        raden wij het gebruikers toch aan om een backup te maken van de contact fotos.
     </string>
     <string name="auto_mode">Batch-modus (experimenteel)</string>
     <string name="please_note">Batch-modus is experimenteel.</string>

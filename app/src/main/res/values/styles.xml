@@ -10,7 +10,8 @@
         <item name="android:actionBarStyle">@style/ContactsMaterialActionBar</item>
         <item name="android:textSize">@dimen/text_size</item>
         <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/ContactsMaterialActionBar</item>
+        <!--<item name="actionBarStyle">@style/ContactsMaterialActionBar</item>-->
+
     </style>
 
     <!-- ActionBar styles -->

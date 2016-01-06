@@ -30,7 +30,7 @@ public class SquareMatrixGenerator {
      * Number of squares per row (number of columns) and number of rows;
      * total number of painted squares is this value squared
      */
-    private static final int NUM_OF_SQUARES = 5;
+    private static final int NUM_OF_SQUARES = 9;
 
     /**
      * Fills a canvas with retro-styled squares

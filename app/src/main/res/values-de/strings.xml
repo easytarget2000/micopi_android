@@ -51,7 +51,10 @@
     <string name="please_note">Bitte Beachte</string>
     <string name="auto_experimental_long">
         Verschiedene Versionen von Android und manche Apps speichern Bilder auf eigene Art.
-        \n\nEs ist unwahrscheinlich, aber nicht unmöglich, dass Bilder überschrieben werden.
+        Es ist unwahrscheinlich, aber nicht unmöglich, dass Bilder überschrieben werden.
+        \n\nMicopi wurde ausführlich getestet.
+        Wir empfehlen dennoch,
+        vor der Benutzung ein Backup deiner wichtigsten Kontakte und ihrer Bilder zu machen.
     </string>
     <string name="auto_mode">Automatischer Modus</string>
     <string name="missing_pictures">Generiere fehlende</string>

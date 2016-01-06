@@ -18,11 +18,13 @@
         layout="@layout/include_back_button" />
 
     <LinearLayout
+        android:layout_marginTop="4dp"
+        android:paddingLeft="@dimen/horizontal_padding_welcome"
+        android:paddingRight="@dimen/horizontal_padding_welcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/image_back_batch"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_default">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -91,6 +93,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 </RelativeLayout>

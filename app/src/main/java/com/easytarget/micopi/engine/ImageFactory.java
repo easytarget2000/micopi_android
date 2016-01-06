@@ -122,6 +122,7 @@ public class ImageFactory {
             Log.d(LOG_TAG_BM, "Mode: " + painterMode);
             startTime = System.currentTimeMillis();
         }
+
         switch (painterMode) {
             case 1:
                 CircleMatrixGenerator.generate(painter, mContact);
@@ -175,7 +176,14 @@ public class ImageFactory {
          */
 
         painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)));
-        painter.paintChars(new char[]{firstChar}, Color.WHITE);
+        painter.paintChars(
+                String.valueOf(firstChar),
+                // Experimental:
+//                md5String.charAt(26) % 2 == 0 ?
+//                        String.valueOf(firstChar).toLowerCase() :
+//                        String.valueOf(firstChar).toUpperCase(),
+                Color.WHITE
+        );
 
         if (mDoBroadcastProgress) sendProgressBroadcast(100);
         if(BENCHMARK) Log.d(LOG_TAG_BM, "15: " + (System.currentTimeMillis() - startTime));

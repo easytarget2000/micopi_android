@@ -39,8 +39,9 @@
 
     <string name="all_contacts">All Contacts</string>
     <string name="auto_experimental_long">
-        Different flavours of Android and some apps may store pictures in unique ways.
-        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
+        Appen har testats noggrant,
+        men vi rekommenderar ändå att du gör en sökerhetskopia på dina käraste bilder,
+        för säkerhets skull.
     </string>
     <string name="auto_mode">Automatic mode (experimental)</string>
     <string name="please_note">Please Note</string>
