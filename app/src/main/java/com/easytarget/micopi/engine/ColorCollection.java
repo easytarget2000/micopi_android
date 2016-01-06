@@ -31,12 +31,16 @@ public class ColorCollection {
      * These are just used to make sure that colours "next to each other" are not too similar.
      */
     public static final int PALETTE[] = {
+            0xFF00E676,
             0xFFFF9800,
             0xFFCDDC39,
             0xFFFFA000,
+            0xFFFFAB40,
             0xFF7C4DFF,
             0xFF0288D1,
             0xFFD32F2F,
+            0xFF29B6F6,
+            0xFFFFF59D,
             0xFFFFC107,
             0xFF7C4DFF,
             0xFFF44336,
@@ -50,12 +54,14 @@ public class ColorCollection {
             0xFF303F9F,
             0xFF3F51B5,
             0xFF03A9F4,
+            0xFFAD1457,
             0xFFE64A19,
             0xFFFFF9C4,
             0xFFFF5722,
             0xFF00796B,
             0xFF009688,
             0xFFBBDEFB,
+            0xFF80CBC4,
             0xFFFF5252,
             0xFF1976D2
     };

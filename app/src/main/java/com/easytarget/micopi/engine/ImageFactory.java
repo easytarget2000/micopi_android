@@ -147,30 +147,29 @@ public class ImageFactory {
             startTime = System.currentTimeMillis();
         }
 
-        // Optional Spyro;
-        if (md5String.charAt(30) % 3 == 0) {
-            final int revolutions = Math.max(4, md5String.charAt(25) >> 3);
-            if(BENCHMARK) {
-                Log.d(LOG_TAG_BM, "Spyro revolutions: " + revolutions);
-                startTime = System.currentTimeMillis();
-            }
-            painter.paintSpyro(
-                    Color.WHITE,
-                    Color.YELLOW,
-                    Color.BLACK,
-                    255,
-//                    255 - (md5String.charAt(19) * 2),
-                    (0.3f - (float) firstChar / 255f),
-                    (0.3f - (float) md5String.charAt(23) / 255f),
-                    (0.3f - (float) md5String.charAt(24) / 255f),
-                    revolutions
-            );
-        }
-
-        if(BENCHMARK) {
-            Log.d(LOG_TAG_BM, "14: " + (System.currentTimeMillis() - startTime));
-            startTime = System.currentTimeMillis();
-        }
+//        // Optional Spyro;
+//        if (md5String.charAt(30) % 3 == 0) {
+//            final int revolutions = Math.max(4, md5String.charAt(25) >> 3);
+//            if(BENCHMARK) {
+//                Log.d(LOG_TAG_BM, "Spyro revolutions: " + revolutions);
+//                startTime = System.currentTimeMillis();
+//            }
+//            painter.paintSpyro(
+//                    Color.WHITE,
+//                    Color.YELLOW,
+//                    Color.BLACK,
+//                    255,
+////                    255 - (md5String.charAt(19) * 2),
+//                    (0.3f - (float) firstChar / 255f),
+//                    (0.3f - (float) md5String.charAt(23) / 255f),
+//                    (0.3f - (float) md5String.charAt(24) / 255f),
+//                    revolutions
+//            );
+//        }
+//        if(BENCHMARK) {
+//            Log.d(LOG_TAG_BM, "14: " + (System.currentTimeMillis() - startTime));
+//            startTime = System.currentTimeMillis();
+//        }
 
         /*
         INITIAL LETTER ON CIRCLE

@@ -24,11 +24,7 @@
      */
     public class WanderingShapesGenerator {
 
-        private static final String LOG_TAG = WanderingShapesGenerator.class.getSimpleName();
-
-        private static final int DENSITY_FACTOR = 1;
-
-        private static final int MIN_DENSITY = 4;
+        private static final String TAG = WanderingShapesGenerator.class.getSimpleName();
 
         /**
          * Fills the Canvas in the Painter with a lot of colourful circles
@@ -43,22 +39,7 @@
             final int numOfEdges = contact.getNameWord(0).length();
             final String md5String = contact.getMD5EncryptedString();
 
-            // Some pictures have polygon approximations instead of actual circles.
-            final boolean doPaintPolygon =
-                    (md5String.charAt(15) % 2 == 0 && numOfEdges > 2 && numOfEdges < 9);
-
-//            // These characters will be used for color generating:
-//            final int colorFactor1 = contact.getFullName().charAt(0);
-
-//            // Determine if the shapes will be painted filled or stroked.
-//            boolean paintFilled = false;
-//            if (md5String.charAt(0) % 2 == 0) paintFilled = true;
-
-            // Determine the alpha value to paint with.
-//            final int alpha  = 255 - (md5String.charAt(6) / 2);
-            // Filled shapes have a smaller alpha value.
-    //        if (paintFilled) alpha /= 2;
-            float shapeWidth = (float) md5String.charAt(7) * 6f;
+            float shapeWidth = (float) md5String.charAt(7) * 3f;
 
             // Draw all the shapes.
             final int md5Length  = md5String.length();
@@ -68,13 +49,23 @@
 
             // The amount of double shapes that will be painted:
             int numOfShapes = contact.getNumberOfLetters();
-            if (numOfShapes < MIN_DENSITY) shapeWidth *= 2f;
-    //        Log.d("Number of Circle Scape shapes", contact.getFullName() + " " + numOfShapes);
+            if (numOfShapes < 3) {
+                numOfShapes = 3;
+            } else if (numOfShapes > 9) {
+                numOfShapes = 10;
+            } else {
+                numOfShapes = contact.getNumberOfLetters();
+            }
 
+            // Some pictures have polygon approximations instead of actual circles.
             final int paintMode;
-    //        if (paintArc && ((md5Int % 2) == 0)) paintMode = Painter.MODE_ARC;
-            if (doPaintPolygon) paintMode = Painter.MODE_POLYGON;
-            else paintMode = Painter.MODE_CIRCLE;
+            if ((md5String.charAt(15) % 2 == 0 && numOfEdges > 2 && numOfEdges < 9)) {
+                paintMode = Painter.MODE_POLYGON;
+            } else {
+                paintMode = Painter.MODE_CIRCLE;
+            }
+
+            int movementValue;
 
             for (int i = 0; i < numOfShapes; i++) {
                 // Get the next character from the MD5 String.
@@ -82,34 +73,32 @@
                 if (md5Pos >= md5Length) md5Pos = 0;
 
                 // Move the coordinates around.
-                final int md5Int = md5String.charAt(md5Pos) + i;
-                switch (md5Int % 6) {
+                movementValue = md5String.charAt(md5Pos) + i;
+                switch (movementValue % 6) {
                     case 0:
-                        x += md5Int;
-                        y += md5Int;
+                        x += movementValue;
+                        y -= movementValue;
                         break;
                     case 1:
-                        x -= md5Int;
-                        y -= md5Int;
+                        x -= movementValue;
+                        y += movementValue;
                         break;
                     case 2:
-                        x += md5Int * 2;
+                        x += movementValue * 2;
                         break;
                     case 3:
-                        y += md5Int * 2;
+                        y += movementValue * 3;
                         break;
                     case 4:
-                        x -= md5Int * 2;
-                        y -= md5Int;
+                        x -= movementValue * 2;
+                        y -= movementValue;
                         break;
                     default:
-                        x -= md5Int;
-                        y -= md5Int * 2;
+                        x -= movementValue;
+                        y -= movementValue * 2;
                         break;
                 }
 
-                final int color = ColorCollection.getColor(md5String.charAt(md5Pos));
-                final float radius = md5String.charAt(md5Pos) + md5String.charAt(2);
 //                Log.d(
 //                        LOG_TAG,
 //                        paintMode + ", " + Integer.toHexString(color) + ", " + alpha + ", "
@@ -117,8 +106,17 @@
 //                                + x + ", " + y + " ," + radius
 //                );
 
-                painter.paintShape(paintMode, color, 255, shapeWidth, numOfEdges, x, y, radius);
-                shapeWidth *= 1.05f;
+                painter.paintShape(
+                        paintMode,
+                        ColorCollection.getColor(md5String.charAt(md5Pos)),
+                        255,
+                        shapeWidth,
+                        numOfEdges,
+                        x,
+                        y,
+                        md5String.charAt(md5Pos) + md5String.charAt(2)
+                );
+                shapeWidth *= 1.5f;
             }
         }
     }

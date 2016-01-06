@@ -61,7 +61,7 @@ public class Painter {
         mCanvas = canvas;
         mImageSize = canvas.getWidth();
         mImageSizeHalf = mImageSize * 0.5f;
-        mShadowRadius = mImageSize / 20f;
+        mShadowRadius = mImageSize / 10f;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
 //        paint.setFilterBitmap(true);
@@ -74,35 +74,50 @@ public class Painter {
         return mImageSize;
     }
 
+    private static float[][] sRandomMap;
+
     /** Adds paintGrain to the entire canvas */
     public void paintGrain() {
-        Paint darkener = new Paint();
-        darkener.setColor(Color.DKGRAY);
-        darkener.setAlpha(33);
-        Paint brightener = new Paint();
-        brightener.setColor(Color.WHITE);
-        brightener.setAlpha(22);
-        final int grainDensity = mImageSize / 7;
-        final Random random = new Random();
-        float darkenerX, brightenerX;
+//        Paint darkener = new Paint();
+//        darkener.setColor(Color.DKGRAY);
+//        darkener.setAlpha(23);
+//        Paint brightener = new Paint();
+//        brightener.setColor(Color.WHITE);
+//        brightener.setAlpha(15);
+//        final int xDensity = mImageSize / 4;
+//        float darkenerX, brightenerX;
+//
+//        if (sRandomMap == null) {
+//            Log.d("13", "Nu");
+//            sRandomMap = new float[mImageSize][xDensity];
+//            final Random random = new Random();
+//
+//            for (int y = 0; y < mImageSize; y += 2) {
+//                for (int i = 0; i < xDensity; i++) {
+//                    sRandomMap[y][i] = random.nextFloat();
+//                }
+//            }
+//        }
+//
+//        for (int y = 0; y < mImageSize; y += 2) {
+//            // The density value is the x-step value.
+//
+//            for (int i = 0; i < xDensity; i++) {
+//                // Get a new x coordinate in the current row.
+//                darkenerX = sRandomMap[y][i] * mImageSize;
+//                // Darken the random point.
+//                mCanvas.drawPoint(darkenerX, y, darkener);
+//                // Darken the same point at the other side of the image.
+//                mCanvas.drawPoint(mImageSize - darkenerX, y, darkener);
+//                // Get a new x coordinate in the same row.
+//                brightenerX = sRandomMap[y][i] * mImageSize;
+//                // Brighten the random point.
+//                mCanvas.drawPoint(brightenerX, y, brightener);
+//                // Brighten the point below (y+1).
+//                mCanvas.drawPoint(brightenerX, y+1, brightener);
+//            }
+//        }
 
-        for (int y = 0; y < mImageSize; y += 3) {
-            // The density value is the x-step value.
-            for (int i = 0; i < grainDensity; i++) {
-                // Get a new x coordinate in the current row.
-                darkenerX = random.nextFloat() * mImageSize;
-                // Darken the random point.
-                mCanvas.drawPoint(darkenerX, y, darkener);
-                // Darken the same point at the other side of the image.
-                mCanvas.drawPoint(mImageSize - darkenerX, y, darkener);
-                // Get a new x coordinate in the same row.
-                brightenerX = random.nextFloat() * mImageSize;
-                // Brighten the random point.
-                mCanvas.drawPoint(brightenerX, y, brightener);
-                // Brighten the point below (y+1).
-                mCanvas.drawPoint(brightenerX, y+1, brightener);
-            }
-        }
     }
 
     /**
@@ -200,7 +215,7 @@ public class Painter {
 //        if (((int) radius) % 2 == 0)
         shadowRadius = mShadowRadius;
 //        else shadowRadius = 0;
-        mPaint.setShadowLayer(mShadowRadius, mShadowRadius, mShadowRadius, SHADOW_COLOR);
+        mPaint.setShadowLayer(mShadowRadius, mShadowRadius / 2, mShadowRadius / 2, SHADOW_COLOR);
 
         double angle;
         float x, y;

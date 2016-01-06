@@ -34,6 +34,7 @@
         android:layout_marginLeft="@dimen/margin_default"
         android:layout_marginRight="@dimen/margin_default"
         android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="8dp"
         android:text="@string/generated_image"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/white" />
