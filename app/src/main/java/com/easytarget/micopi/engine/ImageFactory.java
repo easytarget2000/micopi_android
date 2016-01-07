@@ -17,14 +17,17 @@
 package com.easytarget.micopi.engine;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.easytarget.micopi.Constants;
 import com.easytarget.micopi.Contact;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Utility class that generates a seemingly random image out of given contact values, such as the
@@ -34,19 +37,17 @@ import com.easytarget.micopi.Contact;
  */
 public class ImageFactory {
 
-    private static final String LOG_TAG = ImageFactory.class.getSimpleName();
+    private static final String TAG = ImageFactory.class.getSimpleName();
 
-    private static final String LOG_TAG_BM = LOG_TAG + ": Benchmark";
+    private static final String LOG_TAG_BM = TAG + ": Benchmark";
 
-    private static final boolean BENCHMARK = true;
-
-    private boolean mDoBroadcastProgress = false;
+    private static final boolean BENCHMARK = false;
 
     private Contact mContact;
 
-    private Context mAppContext;
-
     private int mImageSize;
+
+    private static Bitmap sGrainBitmap;
 
     /**
      * @param contact Data from this Contact object will be used to generate the shapes and colors
@@ -57,20 +58,27 @@ public class ImageFactory {
         mImageSize = imageSize;
     }
 
-    public Bitmap generateBitmapBroadcasting(Context context) {
-        if (context == null) {
-            mDoBroadcastProgress = false;
-        } else {
-            mDoBroadcastProgress = true;
-            mAppContext = context.getApplicationContext();
+    public static Bitmap bitmapFrom(final Context context, final Contact contact, final int imageSize) {
+        final ImageFactory factory = new ImageFactory(contact, imageSize);
+        AssetManager assetManager = context.getAssets();
+
+        if (sGrainBitmap == null) {
+            Log.d(TAG, "Loading Grain Bitmap from Assets.");
+
+            final InputStream inputStream;
+            try {
+                inputStream = assetManager.open("texture_noise.png");
+                sGrainBitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+            }
         }
 
-        return generateBitmap();
+        return factory.generateBitmap();
     }
 
-    public static Bitmap bitmapFrom(final Contact contact, final int imageSize) {
-        final ImageFactory factory = new ImageFactory(contact, imageSize);
-        return factory.generateBitmap();
+    public static Bitmap getGrainBitmap() {
+        return sGrainBitmap;
     }
 
     /**
@@ -78,12 +86,12 @@ public class ImageFactory {
      */
     public Bitmap generateBitmap() {
         if (mContact == null) {
-            Log.e(LOG_TAG, "ERROR: Contact object is null. Returning null image.");
+            Log.e(TAG, "ERROR: Contact object is null. Returning null image.");
             return null;
         }
 
         if (mContact.getFullName().length() < 1) {
-            Log.e(LOG_TAG, "ERROR: Contact name < 1. Returning null image.");
+            Log.e(TAG, "ERROR: Contact name < 1. Returning null image.");
             return null;
         }
 
@@ -108,7 +116,7 @@ public class ImageFactory {
 
         // The contact's current MD5 encoded string will be referenced a lot.
         final String md5String = mContact.getMD5EncryptedString();
-        if (mDoBroadcastProgress) sendProgressBroadcast(40);
+//        if (mDoBroadcastProgress) sendProgressBroadcast(40);
 
         /*
         MAIN PATTERN
@@ -139,37 +147,13 @@ public class ImageFactory {
             startTime = System.currentTimeMillis();
         }
 
-        if (mDoBroadcastProgress) sendProgressBroadcast(70);
+//        if (mDoBroadcastProgress) sendProgressBroadcast(70);
         painter.paintGrain();
 
         if(BENCHMARK) {
             Log.d(LOG_TAG_BM, "13: " + (System.currentTimeMillis() - startTime));
             startTime = System.currentTimeMillis();
         }
-
-//        // Optional Spyro;
-//        if (md5String.charAt(30) % 3 == 0) {
-//            final int revolutions = Math.max(4, md5String.charAt(25) >> 3);
-//            if(BENCHMARK) {
-//                Log.d(LOG_TAG_BM, "Spyro revolutions: " + revolutions);
-//                startTime = System.currentTimeMillis();
-//            }
-//            painter.paintSpyro(
-//                    Color.WHITE,
-//                    Color.YELLOW,
-//                    Color.BLACK,
-//                    255,
-////                    255 - (md5String.charAt(19) * 2),
-//                    (0.3f - (float) firstChar / 255f),
-//                    (0.3f - (float) md5String.charAt(23) / 255f),
-//                    (0.3f - (float) md5String.charAt(24) / 255f),
-//                    revolutions
-//            );
-//        }
-//        if(BENCHMARK) {
-//            Log.d(LOG_TAG_BM, "14: " + (System.currentTimeMillis() - startTime));
-//            startTime = System.currentTimeMillis();
-//        }
 
         /*
         INITIAL LETTER ON CIRCLE
@@ -185,20 +169,20 @@ public class ImageFactory {
                 Color.WHITE
         );
 
-        if (mDoBroadcastProgress) sendProgressBroadcast(100);
+//        if (mDoBroadcastProgress) sendProgressBroadcast(100);
         if(BENCHMARK) Log.d(LOG_TAG_BM, "15: " + (System.currentTimeMillis() - startTime));
         return bitmap;
     }
 
-    private Intent mProgressBroadcast;
+//    private Intent mProgressBroadcast;
 
-    private void sendProgressBroadcast(final int progress) {
-        if (mAppContext == null) return;
-
-        if (mProgressBroadcast == null) {
-            mProgressBroadcast = new Intent(Constants.ACTION_UPDATE_PROGRESS);
-        }
-        mProgressBroadcast.putExtra(Constants.EXTRA_PROGRESS, progress);
-        mAppContext.sendBroadcast(mProgressBroadcast);
-    }
+//    private void sendProgressBroadcast(final int progress) {
+//        if (mAppContext == null) return;
+//
+//        if (mProgressBroadcast == null) {
+//            mProgressBroadcast = new Intent(Constants.ACTION_UPDATE_PROGRESS);
+//        }
+//        mProgressBroadcast.putExtra(Constants.EXTRA_PROGRESS, progress);
+//        mAppContext.sendBroadcast(mProgressBroadcast);
+//    }
 }

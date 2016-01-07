@@ -343,7 +343,11 @@ public class ContactActivity extends TaskActivity {
 
 
         final Bitmap generatedBitmap;
-        generatedBitmap = ImageFactory.bitmapFrom(mContact, DeviceHelper.getBestImageSize(this));
+        generatedBitmap = ImageFactory.bitmapFrom(
+                this,
+                mContact,
+                DeviceHelper.getBestImageSize(this)
+        );
         imageView.setImageBitmap(generatedBitmap);
 
         if (generatedBitmap == null) {

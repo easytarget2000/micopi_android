@@ -139,7 +139,11 @@ public class BatchService extends IntentService {
                 if (photoId <= 0 || doOverwrite) {
                     updateProgress();
 //                    Log.d(LOG_TAG, "Generating image for " + mContact.toString() + ".");
-                    final Bitmap bitmap = ImageFactory.bitmapFrom(mContact, mScreenWidthPixels);
+                    final Bitmap bitmap = ImageFactory.bitmapFrom(
+                            getApplicationContext(),
+                            mContact,
+                            mScreenWidthPixels
+                    );
 
                     updateProgress();
 

@@ -24,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/image_back_batch"
+        android:gravity="center|top"
         android:orientation="vertical">
 
         <TextView
@@ -57,7 +58,7 @@
         <ProgressBar
             android:id="@+id/progress_batch"
             android:layout_width="wrap_content"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:indeterminateTint="@android:color/white"
             android:layout_height="wrap_content" />
 

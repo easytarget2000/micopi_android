@@ -16,13 +16,17 @@
 
 package com.easytarget.micopi.engine;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.Log;
@@ -63,6 +67,7 @@ public class Painter {
         mImageSizeHalf = mImageSize * 0.5f;
         mShadowRadius = mImageSize / 10f;
         mPaint = new Paint();
+
         mPaint.setAntiAlias(true);
 //        paint.setFilterBitmap(true);
     }
@@ -74,43 +79,43 @@ public class Painter {
         return mImageSize;
     }
 
-    private static float[][] sRandomMap;
-
     /** Adds paintGrain to the entire canvas */
     public void paintGrain() {
+        final Bitmap noise = ImageFactory.getGrainBitmap();
+        if (noise != null) {
+            mCanvas.drawBitmap(
+                    noise,
+                    null,
+                    new Rect(0, 0, mCanvas.getWidth(), mCanvas.getHeight()),
+                    null
+            );
+        }
+
+//        mCanvas.drawRGB(255, 0, 255);
+//
 //        Paint darkener = new Paint();
 //        darkener.setColor(Color.DKGRAY);
 //        darkener.setAlpha(23);
 //        Paint brightener = new Paint();
 //        brightener.setColor(Color.WHITE);
-//        brightener.setAlpha(15);
-//        final int xDensity = mImageSize / 4;
+//        brightener.setAlpha(18);
+//        final int xDensity = mImageSize / 3;
 //        float darkenerX, brightenerX;
 //
-//        if (sRandomMap == null) {
-//            Log.d("13", "Nu");
-//            sRandomMap = new float[mImageSize][xDensity];
-//            final Random random = new Random();
-//
-//            for (int y = 0; y < mImageSize; y += 2) {
-//                for (int i = 0; i < xDensity; i++) {
-//                    sRandomMap[y][i] = random.nextFloat();
-//                }
-//            }
-//        }
+//        final Random random = new Random();
 //
 //        for (int y = 0; y < mImageSize; y += 2) {
 //            // The density value is the x-step value.
 //
 //            for (int i = 0; i < xDensity; i++) {
 //                // Get a new x coordinate in the current row.
-//                darkenerX = sRandomMap[y][i] * mImageSize;
+//                darkenerX = random.nextFloat() * mImageSize;
 //                // Darken the random point.
 //                mCanvas.drawPoint(darkenerX, y, darkener);
 //                // Darken the same point at the other side of the image.
 //                mCanvas.drawPoint(mImageSize - darkenerX, y, darkener);
 //                // Get a new x coordinate in the same row.
-//                brightenerX = sRandomMap[y][i] * mImageSize;
+//                brightenerX = random.nextFloat() * mImageSize;
 //                // Brighten the random point.
 //                mCanvas.drawPoint(brightenerX, y, brightener);
 //                // Brighten the point below (y+1).
@@ -454,7 +459,7 @@ public class Painter {
         mPaint.setShadowLayer(0f, 0f, 0f, 0);
 
         // Typeface, size and alignment:
-        Typeface sansSerifLight = Typeface.create("sans-serif-light", Typeface.BOLD);
+        Typeface sansSerifLight = Typeface.create("sans-serif", Typeface.BOLD);
         mPaint.setTypeface(sansSerifLight);
 
 

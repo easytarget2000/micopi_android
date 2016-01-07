@@ -54,7 +54,7 @@ public class SquareMatrixGenerator {
 
         int md5Pos = 0;
         for (int y = 0; y < numOfSquares; y++) {
-            for (int x = 0; x < 3; x++) {
+            for (int x = 0; x < numOfSquares; x++) {
                 md5Pos++;
                 if (md5Pos >= md5Length) md5Pos = 0;
                 final char md5Char = md5String.charAt(md5Pos);
