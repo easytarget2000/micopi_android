@@ -463,7 +463,7 @@ public class Painter {
         mPaint.setTypeface(sansSerifLight);
 
 
-        mPaint.setTextSize(74f * mImageSize / 100f);
+        mPaint.setTextSize(70f * mImageSize / 100f);
         mPaint.setTextAlign(Paint.Align.CENTER);
 
         // Get the rectangle that the text fits into.
