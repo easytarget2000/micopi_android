@@ -44,7 +44,7 @@ public class Painter {
 
     private static final String LOG_TAG = Painter.class.getSimpleName();
 
-    private static final int SHADOW_COLOR = 0x44000033;
+    private static final int SHADOW_COLOR = 0xBB000000;
 
     private Canvas mCanvas;
 
@@ -65,7 +65,7 @@ public class Painter {
         mCanvas = canvas;
         mImageSize = canvas.getWidth();
         mImageSizeHalf = mImageSize * 0.5f;
-        mShadowRadius = mImageSize / 10f;
+        mShadowRadius = mImageSize / 25f;
         mPaint = new Paint();
 
         mPaint.setAntiAlias(true);
@@ -209,18 +209,13 @@ public class Painter {
         // Configure paint:
         mPaint.setColor(color);
         mPaint.setAlpha(alpha);
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
         mPaint.setStrokeWidth(strokeWidth);
 
         // All filled mode int have a value >= 10.
         if (paintMode >= MODE_CIRCLE_FILLED) mPaint.setStyle(Paint.Style.FILL);
         else mPaint.setStyle(Paint.Style.STROKE);
 
-        final float shadowRadius;
-//        if (((int) radius) % 2 == 0)
-        shadowRadius = mShadowRadius;
-//        else shadowRadius = 0;
-        mPaint.setShadowLayer(mShadowRadius, mShadowRadius / 2, mShadowRadius / 2, SHADOW_COLOR);
+        mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
 
         double angle;
         float x, y;

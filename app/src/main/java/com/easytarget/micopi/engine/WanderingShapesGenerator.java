@@ -39,7 +39,7 @@
             final int numOfEdges = contact.getNameWord(0).length();
             final String md5String = contact.getMD5EncryptedString();
 
-            float shapeWidth = (float) md5String.charAt(7) * 10f;
+            float shapeWidth = (float) md5String.charAt(7) * 20f;
 
             // Draw all the shapes.
             final int md5Length  = md5String.length();
@@ -73,14 +73,14 @@
                 if (md5Pos >= md5Length) md5Pos = 0;
 
                 // Move the coordinates around.
-                movementValue = md5String.charAt(md5Pos) + i;
+                movementValue = (int) (md5String.charAt(md5Pos) + i * 1.8);
                 switch (movementValue % 6) {
                     case 0:
                         x += movementValue;
-                        y -= movementValue;
+                        y -= movementValue * 2;
                         break;
                     case 1:
-                        x -= movementValue;
+                        x -= movementValue * 2;
                         y += movementValue;
                         break;
                     case 2:
@@ -116,7 +116,7 @@
                         y,
                         md5String.charAt(md5Pos) + md5String.charAt(2)
                 );
-                shapeWidth *= 0.9f;
+                shapeWidth *= 0.8f;
             }
         }
     }
