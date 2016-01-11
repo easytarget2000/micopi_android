@@ -5,8 +5,8 @@ Micopi allows you to assign an image to every person in your telephone's contact
 Micopi does not use a random number generator to create these images. It exclusively uses contact data such as the name, the telephone number or the e-mail address and turns these into geometric figures and colours. This way, all of your contacts have their unique image.
 This app has been thoroughly tested but we recommend making a backup of your most precious contact pictures, just in case.
 
-Google PlayStore:
-https://play.google.com/store/apps/details?id=com.easytarget.micopi
+[![Download](http://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.easytarget.micopi)
+[![Download](https://f-droid.org/wiki/images/0/06/F-Droid-button_get-it-on.png)](https://f-droid.org/repository/browse/?fdid=com.easytarget.micopi)
 
 ======
 
