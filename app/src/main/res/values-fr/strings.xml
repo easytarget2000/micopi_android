@@ -19,7 +19,7 @@
     <string name="all_contacts">Tous les contacts</string>
     <string name="assign_to_contact">Attribuer au contact</string>
     <string name="auto_mode">Mode automatique</string>
-    <string name="auto_experimental_long">Différentes versions d\'Android et certaines applications peuvent stocker les images différemment. Il est peu probable mais pas impossible que certaines images soient écrasées.</string>
+    <string name="auto_experimental_long">Différentes versions d\'Android et certaines applications peuvent stocker les images différemment.\n\nIl est peu probable mais pas impossible que certaines images soient écrasées.</string>
     <string name="confirm_all">Veuillez confirmer que vous voulez remplacer toutes les images de contact.</string>
     <string name="donate">Faire un don</string>
     <string name="error_assign">Une erreur est survenue lors de l\'attribution de l\'image.</string>
