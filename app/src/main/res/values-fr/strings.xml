@@ -19,15 +19,8 @@
     <string name="all_contacts">Tous les contacts</string>
     <string name="assign_to_contact">Attribuer au contact</string>
     <string name="auto_mode">Mode automatique</string>
-    <string name="auto_experimental_long">
-        Différentes versions d\'Android et certaines applications
-        peuvent stocker les images différemment.
-        Il est peu probable mais pas impossible que certaines images soient écrasées.
-        \n\nMicopi a été testé minutieusement
-        mais nous vous conseillons de faire une sauvegarde
-        de tes photos de profil le plus chères, au cas où.
-    </string>
-    <string name="confirm_all">Veuillez confirmer que vous souhaitez remplacer toutes les images de contact.</string>
+    <string name="auto_experimental_long">Différentes versions d\'Android et certaines applications peuvent stocker les images différemment.\n\nIl est peu probable mais pas impossible que certaines images soient écrasées.</string>
+    <string name="confirm_all">Veuillez confirmer que vous voulez remplacer toutes les images de contact.</string>
     <string name="donate">Faire un don</string>
     <string name="error_assign">Une erreur est survenue lors de l\'attribution de l\'image.</string>
     <string name="error_generating">Une erreur est survenue lors de la génération de l\'image.</string>
@@ -38,12 +31,12 @@
     <string name="missing_pictures">Images manquantes</string>
     <string name="next_image">Image suivante</string>    
     <string name="no_contact_selected">Aucun contact sélectionné</string>
-    <string name="overwrite_all_or_only">Voulez-vous remplacer toutes les images ou uniquement en générer pour les contacts sans image ?</string>
-    <string name="please_note">Évaluer</string>
-    <string name="pick_contact">Choisir un contact</string>    
-    <string name="picture_will_be_previewed">Après le choix, l\'image générée sera affichée avant de l\'attribuer au contact.</string>
+    <string name="overwrite_all_or_only">Voulez-vous remplacer toutes les images ou uniquement en générer pour les contacts sans image ?\n\nMicopi a été testé minutieusement mais au cas où, nous vous recommendons de faire une sauvegarde de vos images de contact les plus précieuses.</string>
+    <string name="please_note">Remarque</string>
+    <string name="pick_contact">Sélectionner un contact</string>    
+    <string name="picture_will_be_previewed">Après la sélection, l\'image générée sera affichée avant de l\'attribuer au contact.</string>
     <string name="previous_image">Image précédente</string>
-    <string name="report">Rapport</string>    
+    <string name="report">Rapport de bug</string>    
     <string name="save_image_file">Sauvegarder l\'image</string>
     <string name="saved_picture_as">Image sauvegardée comme %1$s.</string>
     <string name="skip">Ignorer</string>    
