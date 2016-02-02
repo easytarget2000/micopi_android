@@ -36,10 +36,10 @@
         public static void generate(Painter painter, final Contact contact) {
             // If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
             // there is a 2/3 chance that polygons will be painted instead of circles.
-            final int numOfEdges = contact.getNameWord(0).length();
             final String md5String = contact.getMD5EncryptedString();
 
-            float shapeWidth = (float) md5String.charAt(7) * 20f;
+
+            float shapeWidth = (float) (md5String.charAt(7) / painter.getImageSize()) * 120f;
 
             // Draw all the shapes.
             final int md5Length  = md5String.length();
@@ -59,8 +59,13 @@
 
             // Some pictures have polygon approximations instead of actual circles.
             final int paintMode;
-            if ((md5String.charAt(15) % 2 == 0 && numOfEdges > 2 && numOfEdges < 9)) {
+            int numOfEdges = contact.getNameWord(0).length();
+
+            if (md5String.charAt(15) % 2 == 0) {
                 paintMode = Painter.MODE_POLYGON;
+
+                if (numOfEdges < 3) numOfEdges = 3;
+                else if (numOfEdges > 10) numOfEdges = 10;
             } else {
                 paintMode = Painter.MODE_CIRCLE;
             }
@@ -73,7 +78,7 @@
                 if (md5Pos >= md5Length) md5Pos = 0;
 
                 // Move the coordinates around.
-                movementValue = (int) (md5String.charAt(md5Pos) + i * 1.8);
+                movementValue = md5String.charAt(md5Pos) + i * 3;
                 switch (movementValue % 6) {
                     case 0:
                         x += movementValue;
@@ -114,9 +119,9 @@
                         numOfEdges,
                         x,
                         y,
-                        md5String.charAt(md5Pos) + md5String.charAt(2)
+                        md5String.charAt(md5Pos) + md5String.charAt(2) * 2
                 );
-                shapeWidth *= 0.8f;
+                shapeWidth *= 1.5f;
             }
         }
     }

@@ -58,28 +58,30 @@ public class CircleMatrixGenerator {
         circleDistance = (imageSize / shapesPerRow);
 
         int md5Pos = 0;
-//        int color = ColorCollection.getColor(contact.getFullName().charAt(0));
+        int index;
+        float radius;
+        int color;
+        char md5Char;
         for (int y = 0; y < shapesPerRow; y++) {
             for (int x = 0; x < shapesPerRow; x++) {
 
                 md5Pos++;
                 if (md5Pos >= md5String.length()) md5Pos = 0;
-                final char md5Char = md5String.charAt(md5Pos);
+                md5Char = md5String.charAt(md5Pos);
 
-//                if (doGenerateColor)
-                final int color = ColorCollection.getColor(md5Char);
+//                final int color = ColorCollection.getColor(md5Char);
+                color = ColorCollection.generateColor(md5Char, firstNameLength, shapesPerRow);
 
-                final int index = y * shapesPerRow + x;
-                final float radius;
+                index = y * shapesPerRow + x;
                 if ((index & 1) == 0) radius = md5Char * 6f;
                 else radius = md5Char * 5f;
 
                 painter.paintShape(
                         Painter.MODE_CIRCLE_FILLED,
                         color,
-                        255,
-//                        255 - md5String.charAt(md5Pos),
-                        strokeWidth,        // Stroke width
+//                        255,
+                        255 - md5String.charAt(md5Pos),
+                        strokeWidth,
                         0,
                         x * circleDistance,
                         y * circleDistance,

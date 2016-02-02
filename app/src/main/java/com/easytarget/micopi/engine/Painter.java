@@ -189,7 +189,7 @@ public class Painter {
      * @param paintMode Determines the shape to draw
      * @param color Paint color
      * @param alpha Paint alpha value
-     * @param strokeWidth Paint stroke width
+     * @param extra1
      * @param numOfEdges Number of polygon edges
      * @param centerX X coordinate of the centre of the shape
      * @param centerY Y coordinate of the centre of the shape
@@ -199,7 +199,7 @@ public class Painter {
             final int paintMode,
             final int color,
             final int alpha,
-            final float strokeWidth,
+            final float extra1,
             final int numOfEdges,
             final float centerX,
             final float centerY,
@@ -209,11 +209,10 @@ public class Painter {
         // Configure paint:
         mPaint.setColor(color);
         mPaint.setAlpha(alpha);
-        mPaint.setStrokeWidth(strokeWidth);
+//        mPaint.setStrokeWidth(extra1);
 
         // All filled mode int have a value >= 10.
-        if (paintMode >= MODE_CIRCLE_FILLED) mPaint.setStyle(Paint.Style.FILL);
-        else mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStyle(Paint.Style.FILL);
 
         mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
 
@@ -221,21 +220,21 @@ public class Painter {
         float x, y;
 
         if (paintMode == MODE_POLYGON || paintMode == MODE_POLYGON_FILLED) {
-            if (numOfEdges == 4) {
-                mCanvas.drawRect(
-                        centerX - radius * 0.5f,
-                        centerY - radius * 0.5f,
-                        centerX + radius * 0.5f,
-                        centerY + radius * 0.5f,
-                        mPaint
-                );
-            } else {
+//            if (numOfEdges == 4) {
+//                mCanvas.drawRect(
+//                        centerX - radius * 0.5f,
+//                        centerY - radius * 0.5f,
+//                        centerX + radius * 0.5f,
+//                        centerY + radius * 0.5f,
+//                        mPaint
+//                );
+//            } else {
                 Path polygonPath = new Path();
                 // Use Path.moveTo() for first vertex.
                 boolean isFirstEdge = true;
 
                 for (int edge = 1; edge <= numOfEdges; edge++) {
-                    angle = TWO_PI * edge / numOfEdges;
+                    angle = (TWO_PI * edge / numOfEdges) + extra1;
                     x = (float) (centerX + radius * Math.cos(angle));
                     y = (float) (centerY + radius * Math.sin(angle));
 
@@ -250,7 +249,7 @@ public class Painter {
                 polygonPath.close();
 
                 mCanvas.drawPath(polygonPath, mPaint);
-            }
+//            }
         } else {
             mCanvas.drawCircle(centerX, centerY, radius, mPaint);
         }
