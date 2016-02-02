@@ -103,8 +103,8 @@ public class ColorCollection {
 
         switch (i1 % 5) {
             case 0:
-                final int harshIndex = i2 % (HARSH_PALETTE.length - 1);
-                color = HARSH_PALETTE[harshIndex];
+                final int harshIndex = i2 % (PALETTE.length - 1);
+                color = PALETTE[harshIndex];
                 break;
             case 1:
                 color = getColor(c1);

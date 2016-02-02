@@ -81,7 +81,7 @@ public class CircleMatrixGenerator {
                         color,
 //                        255,
                         255 - md5String.charAt(md5Pos),
-                        strokeWidth,
+                        0,
                         0,
                         x * circleDistance,
                         y * circleDistance,

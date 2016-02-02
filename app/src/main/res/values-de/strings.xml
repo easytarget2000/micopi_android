@@ -23,7 +23,10 @@
     <string name="generated_image">Errechnetes Kontaktbild</string>
     <string name="save_image_file">Bild als Datei abspeichern</string>
     <string name="assign_to_contact">Bild zuweisen</string>
-    <string name="want_to_assign">Möchtest du %1$s dieses Bild zuweisen?</string>
+    <string name="want_to_assign">
+        Möchtest du %1$s dieses Bild zuweisen?
+        \nVeränderungen an Kontaktbildern können nicht rückgänig gemacht werden.
+    </string>
     <string name="report">Bericht</string>
     <string name="got_new_picture">%1$s hat ein neues Profilbild.</string>
     <string name="saved_picture_as">Das Bild wurde als %1$s gespeichert.</string>
@@ -42,6 +45,7 @@
     <string name="overwrite_all_or_only">
         Möchtest du für alle Personen ein neues Bild generieren oder nur für Kontakte,
         die noch keines haben?
+        \nVeränderungen an Kontaktbildern können nicht rückgänig gemacht werden.
     </string>
     <string name="confirm_all">
         Bitte bestätige, dass alle Bilder überschrieben werden sollen.
@@ -55,6 +59,7 @@
         \n\nMicopi wurde ausführlich getestet.
         Wir empfehlen dennoch,
         vor der Benutzung ein Backup deiner wichtigsten Kontakte und ihrer Bilder zu machen.
+        Veränderungen an Kontaktbildern können nicht rückgänig gemacht werden.
     </string>
     <string name="auto_mode">Automatischer Modus</string>
     <string name="missing_pictures">Generiere fehlende</string>

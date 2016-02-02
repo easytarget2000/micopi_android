@@ -43,8 +43,8 @@
     <string name="overwrite_all_or_only">
         Would you like to overwrite all images or only generate pictures for contacts
         that currently do not have one?
-        \n\nMicopi has been thoroughly tested
-        but we recommend making a backup of your most precious contacts and pictures, just in case.
+        \n\nChanges made by Micopi cannot be undone.
+        We recommend making a backup of your most precious contacts and pictures, just in case.
     </string>
     <string name="please_note">Please Note</string>
     <string name="pick_contact">Pick a single contact</string>
@@ -57,6 +57,9 @@
     <string name="save_image_file">Save image as file</string>
     <string name="saved_picture_as">Saved contact picture as %1$s.</string>
     <string name="skip">Skip</string>
-    <string name="want_to_assign">Do you want to assign this contact photo to %1$s?</string>
+    <string name="want_to_assign">
+        Do you want to assign this contact photo to %1$s?
+        \n\nThis change cannot be undone.
+    </string>
 
 </resources>

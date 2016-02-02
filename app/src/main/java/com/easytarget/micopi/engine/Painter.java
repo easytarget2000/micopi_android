@@ -189,7 +189,7 @@ public class Painter {
      * @param paintMode Determines the shape to draw
      * @param color Paint color
      * @param alpha Paint alpha value
-     * @param extra1
+     * @param positionOffset
      * @param numOfEdges Number of polygon edges
      * @param centerX X coordinate of the centre of the shape
      * @param centerY Y coordinate of the centre of the shape
@@ -199,7 +199,7 @@ public class Painter {
             final int paintMode,
             final int color,
             final int alpha,
-            final float extra1,
+            float positionOffset,
             final int numOfEdges,
             final float centerX,
             final float centerY,
@@ -209,11 +209,9 @@ public class Painter {
         // Configure paint:
         mPaint.setColor(color);
         mPaint.setAlpha(alpha);
-//        mPaint.setStrokeWidth(extra1);
 
         // All filled mode int have a value >= 10.
         mPaint.setStyle(Paint.Style.FILL);
-
         mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
 
         double angle;
@@ -234,9 +232,9 @@ public class Painter {
                 boolean isFirstEdge = true;
 
                 for (int edge = 1; edge <= numOfEdges; edge++) {
-                    angle = (TWO_PI * edge / numOfEdges) + extra1;
-                    x = (float) (centerX + radius * Math.cos(angle));
-                    y = (float) (centerY + radius * Math.sin(angle));
+                    angle = TWO_PI * edge / numOfEdges;
+                    x = (float) (centerX + radius * Math.cos(angle)) + positionOffset;
+                    y = (float) (centerY + radius * Math.sin(angle)) + positionOffset;
 
                     if (isFirstEdge) {
                         polygonPath.moveTo(x, y);
