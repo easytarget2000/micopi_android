@@ -9,90 +9,108 @@
 <!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary">
 
-    <include
-        android:id="@+id/image_back_batch"
-        layout="@layout/include_back_button" />
-
-    <LinearLayout
-        android:layout_marginTop="4dp"
-        android:paddingLeft="@dimen/horizontal_padding_welcome"
-        android:paddingRight="@dimen/horizontal_padding_welcome"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/image_back_batch"
-        android:gravity="center|top"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_default"
-            android:text="@string/overwrite_all_or_only"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="@dimen/margin_default"
-            android:background="@android:color/white"
-            android:onClick="generateMissingPressed"
-            android:text="@string/missing_pictures"
-            android:textColor="@color/primary"
-            android:textSize="@dimen/text_size" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="@dimen/margin_default"
-            android:background="@android:color/white"
-            android:onClick="generateAllPressed"
-            android:text="@string/all_contacts"
-            android:textColor="@color/primary"
-            android:textSize="@dimen/text_size" />
-
-        <ProgressBar
-            android:id="@+id/progress_batch"
-            android:layout_width="wrap_content"
-            android:visibility="invisible"
-            android:indeterminateTint="@android:color/white"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/text_contact_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
-            android:id="@+id/layout_control"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/horizontal_padding_welcome"
+            android:paddingRight="@dimen/horizontal_padding_welcome">
+
+            <include layout="@layout/include_padding_pusher" />
+
+            <TextView
+                android:layout_marginTop="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:text="@string/overwrite_all_or_only"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size" />
 
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/abc_action_button_min_height_material"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_weight="1"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginBottom="@dimen/margin_default"
                 android:background="@android:color/white"
-                android:onClick="cancelPressed"
-                android:text="@android:string/cancel"
+                android:onClick="generateMissingPressed"
+                android:text="@string/missing_pictures"
                 android:textColor="@color/primary"
                 android:textSize="@dimen/text_size" />
 
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginBottom="@dimen/margin_default"
+                android:background="@android:color/white"
+                android:onClick="generateAllPressed"
+                android:text="@string/all_contacts"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size" />
+
+            <LinearLayout
+                android:id="@+id/group_batch_control"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/text_contact_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
+
+                <ProgressBar
+                    android:id="@+id/progress_batch"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_default"
+                    android:layout_marginBottom="8dp"
+                    android:foregroundTint="@android:color/white"
+                    android:indeterminate="false"
+                    android:progressTint="@android:color/white"
+                    tools:ignore="UnusedAttribute" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/abc_action_button_min_height_material"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:onClick="cancelPressed"
+                    android:text="@android:string/cancel"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <include layout="@layout/include_padding_pusher" />
+
+
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/include_success_arrow" />
+
+    <include
+        android:id="@+id/image_back_batch"
+        layout="@layout/include_back_button" />
 
 </RelativeLayout>

@@ -2,5 +2,6 @@
 <resources>
 
     <dimen name="back_button_top_margin">32dp</dimen>
-
+    <dimen name="margin_fab">@dimen/margin_small</dimen>
+    <dimen name="margin_system_bar_offset">24dp</dimen>
 </resources>

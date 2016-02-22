@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="36dp"
-    android:layout_height="36dp"
+    android:id="@+id/image_back"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
     android:layout_alignParentLeft="true"
     android:layout_alignParentTop="true"
-    android:layout_marginTop="@dimen/back_button_top_margin"
+    android:layout_marginLeft="@dimen/margin_left_back"
+    android:layout_marginTop="@dimen/margin_system_bar_offset"
     android:background="?attr/selectableItemBackground"
     android:onClick="onBackButtonClicked"
+    android:scaleType="centerInside"
     android:src="@drawable/ic_action_hardware_keyboard_arrow_left"
     tools:ignore="RtlHardcoded" />

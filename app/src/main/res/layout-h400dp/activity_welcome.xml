@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2015 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingBottom="@dimen/margin_default"
+    android:paddingLeft="@dimen/horizontal_padding_welcome"
+    android:paddingRight="@dimen/horizontal_padding_welcome"
+    android:paddingTop="@dimen/margin_default"
+    tools:ignore="RtlHardcoded">
+
+    <TextView
+        android:id="@+id/text_micopi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_top_logo"
+        android:gravity="center"
+        android:text="micopi"
+        android:textColor="@android:color/white"
+        android:textSize="44sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:textSize="33sp"
+        android:layout_marginTop="-16dp"
+        android:layout_below="@id/text_micopi"
+        android:layout_alignRight="@id/text_micopi"
+        android:text="pico"
+        android:layout_height="wrap_content"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:id="@+id/group_welcome_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- Contact Picker Button: -->
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:onClick="selectButtonPressed"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="2dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/pick_contact"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size" />
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Description Text: -->
+
+        <TextView
+            android:id="@+id/text_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@string/picture_will_be_previewed"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size" />
+
+        <!-- Batch Mode Button: -->
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:onClick="crawlButtonPressed"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardElevation="2dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/auto_mode"
+                android:textAllCaps="true"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size" />
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <!-- Donate Button: -->
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:onClick="settingsButtonPressed"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/primary_dark"
+        app:cardElevation="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/buy_upgrade"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size" />
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

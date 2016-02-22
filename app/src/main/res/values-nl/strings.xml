@@ -2,20 +2,29 @@
 
 <!--Copyright (C) 2014 Easy Target-->
 
-<!--Licensed under the Apache License, Version 2.0 (the "License");-->
-<!--you may not use this file except in compliance with the License.-->
-<!--You may obtain a copy of the License at-->
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
 
 <!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
 
-<!--Unless required by applicable law or agreed to in writing, software-->
-<!--distributed under the License is distributed on an "AS IS" BASIS,-->
-<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
-<!--See the License for the specific language governing permissions and-->
-<!--limitations under the License.-->
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
 
 <resources>
 
+    <string name="all_contacts">Alle contacten</string>
+    <string name="backup">Backup</string>
+    <string name="backup_not_activated">Go to the app settings to activate backups.</string>
+    <string name="buy_upgrade">Upgrade</string>
+    <string name="deep_search">Deep Search</string>
+    <string name="enable_backup">
+        Enable backups of existing profile pictures before overwriting them.
+    </string>
+    <string name="enable_deep_search">
+        If you have trouble finding certain contacts in Micopi, enable Deep Search.
+    </string>
+    <string name="first_name">Voornaam</string>
+    <string name="first_three">eerste drie namen</string>
+    <string name="initials_circle">Initials Circle</string>
+    <string name="none">zonder</string>
     <string name="picture_will_be_previewed">
         De gegenereerde Afbeelding wordt getoond na het toewijzen van een contact.
     </string>
@@ -26,21 +35,16 @@
     <string name="want_to_assign">Afbeelding toewijzen aan %s?</string>
     <string name="got_new_picture">%s heeft een nieuwe contact afbeelding.</string>
     <string name="saved_picture_as">Afbeelding opgeslagen als %s.</string>
-    <string name="error_generating">
-        Er is een fout opgetreden tijdens het genereren van de afbeelding.</string>
-    <string name="error_retrieving">
-        Er is een fout opgetreden tijdens het ophalen van contact gegevens.</string>
     <string name="error_saving">
         Er is een fout opgetreden tijdens het opslaan van de foto.
-        Controleer de gegevens en probeer het nog een keer.</string>
+        Controleer de gegevens en probeer het nog een keer.
+    </string>
     <string name="error_assign">
-        Er is een fout opgetreden tijdens het toewijzen van de afbeelding aan het contact.</string>
-    <string name="report">Report</string>
+        Er is een fout opgetreden tijdens het toewijzen van de afbeelding aan het contact.
+    </string>
 
     <string name="previous_image">Vorig beeld</string>
     <string name="next_image">Volgend beeld</string>
-
-    <string name="all_contacts">Alle contacten</string>
     <string name="auto_experimental_long">
         Verschillende versies van Android en sommige apps kunnen foto\'s
         op een unieke manier op te slaan.
@@ -56,10 +60,18 @@
     <string name="confirm_all">
         Bevestig dat u alle beelden te overschrijven.
     </string>
-
     <string name="missing_pictures">Ontbrekende foto\'s</string>
     <string name="pick_contact">Kies een contact</string>
-    <string name="skip">Overslaan</string>
-    <string name="donate">Doneren</string>
+    <string name="pixel_matrix">Pixel Matrix</string>
+    <string name="shrinking_plates">Shrinking Plates</string>
+    <string name="store_images">
+        This stores images from your contacts list in the Micopi Media Directory* on your device.
+        Please note that this is merely an experimental assistance.
+        It is recommended to backup your most precious contact pictures in an additional way.
+        \n\nPlease also note, the more images you replace with backups enabled,
+        the more memory storage Micopi is going to use.
+    </string>
+    <string name="structured_discs">Structured Discs</string>
+    <string name="styles">Styles</string>
 
 </resources>

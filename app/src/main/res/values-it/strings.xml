@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
+
+<resources>
+
+    <string name="all_contacts">Tutti i contatti</string>
+    <string name="assign_to_contact">Assegna a contatto</string>
+    <string name="auto_mode">Modalitá; automatica</string>
+    <string name="auto_experimental_long">
+        Versioni diverse di Android ed alcune app potrebbero memorizzare
+        immagini in maniera particolare.
+        \n\nPer quanto sia improabile, é;
+        comunque possibile che alcune immagini vengano sovrascritte.
+    </string>
+    <string name="backup">Backup</string>
+    <string name="backup_not_activated">
+        Vai alle impostazioni per attivare i backup.
+    </string>
+    <string name="buy_upgrade">Upgrade</string>
+    <string name="confirm_all">
+        Conferma che vuoi sovrascrivere le immagini di tutti i contatti.
+    </string>
+    <string name="deep_search">Ricerca Approfondita</string>
+    <string name="enable_backup">
+        Abilita il backup delle foto profilo esistenti prima di sovrascriverle.
+    </string>
+    <string name="enable_deep_search">
+        Se hai difficoltà a trovare alcuni contatti in Micopi, abilita la Ricerca Approfondita.
+    </string>
+    <string name="error_assign">
+        Si é; verificato un errore associando l\'immagine al profilo.
+    </string>
+    <string name="error_saving">
+        Si é; verificato un errore salvando l\'immagine come file nel tuo dispositivo.
+        Verifica che la tua unitá; non sia bloccata.
+    </string>
+    <string name="first_name">Nome</string>
+    <string name="first_three">Primi tre nomi</string>
+    <string name="generated_image">Immagine generata</string>
+    <string name="got_new_picture">%1$s ha una nuova immagine del profilo.</string>
+    <string name="initials_circle">Cerchio Iniziali</string>
+    <string name="missing_pictures">Immagini mancanti</string>
+    <string name="next_image">Immagine successiva</string>
+    <string name="no_contact_selected">Nessun contatto selezionato</string>
+    <string name="none">Nessuno</string>
+    <string name="overwrite_all_or_only">
+        Vuoi sovrascrivere tutte le foto o solamente generare
+        le immagini per i contatti che non ne hanno una?
+        \n\nLe modifiche apportate da Micopi sono irreversibili.
+        Ti raccomandiamo di fare un backup dei tuoi contatti e immagini piú;
+        importanti, non si sa mai.
+    </string>
+    <string name="please_note">Fai attenzione</string>
+    <string name="pick_contact">Seleziona un singolo contatto</string>
+    <string name="picture_will_be_previewed">
+        Dopo aver selezionato un contatto,
+        l\'immagine generata verrà mostrata in anteprima dell\'assegnazione a quella persona.
+    </string>
+    <string name="pixel_matrix">Pixel Matrix</string>
+    <string name="previous_image">Immagine precedente</string>
+    <string name="save_image_file">Salva immagine come file</string>
+    <string name="saved_picture_as">Immagine profilo salvata come %1$s.</string>
+    <string name="shrinking_plates">Shrinking Plates</string>
+    <string name="store_images">
+        Questo memorizza le immagini del tuo elenco contatti nella cartella Media di Micopi*
+        sul tuo dispositivo.
+        Tieni presente che questa assistenza è puramente sperimentale.
+        Ti raccomandiamo di fare un backup dei tuoi contatti e immagini più importanti
+        con un metodo aggiuntivo.
+        \n\nTieni anche presente che più immagini saranno sostituite con i backup attivati,
+        più memoria verrà utilizzata da Micopi.
+    </string>
+    <string name="structured_discs">Structured Discs</string>
+    <string name="styles">Stili</string>
+    <string name="want_to_assign">
+        Vuoi assegnare questa immagine a %1$s?
+        \n\nQuesta modifica é; irreversibile.
+    </string>
+
+</resources>

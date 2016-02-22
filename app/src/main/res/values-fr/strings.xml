@@ -13,7 +13,6 @@
 <!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
 <!--See the License for the specific language governing permissions and-->
 <!--limitations under the License.-->
-
 <resources>
 
     <string name="all_contacts">Tous les contacts</string>
@@ -22,31 +21,63 @@
     <string name="auto_experimental_long">
         Différentes versions d\'Android et certaines applications
         peuvent stocker les images différemment.
-        Il est peu probable mais pas impossible que certaines images soient écrasées.
-        \n\nMicopi a été testé minutieusement
-        mais nous vous conseillons de faire une sauvegarde
-        de tes photos de profil le plus chères, au cas où.
+        \n\nIl est peu probable mais pas impossible que certaines images soient écrasées.
     </string>
-    <string name="confirm_all">Veuillez confirmer que vous souhaitez remplacer toutes les images de contact.</string>
-    <string name="donate">Faire un don</string>
+    <string name="backup">Sauvegarder</string>
+    <string name="backup_not_activated">
+    </string>
+    <string name="buy_upgrade">Upgrade</string>
+    <string name="deep_search">Recherche approfondie</string>
+    <string name="enable_backup">
+        Activer les sauvegardes des images de profil existantes avant de les écraser.
+    </string>
+    <string name="enable_deep_search">
+        Si vous avez des difficultés à trouver certains contacts, activer Recherche approfondie.
+    </string>
+    <string name="confirm_all">
+        Veuillez confirmer que vous vouler remplacer toutes les images de contact.
+    </string>
     <string name="error_assign">Une erreur est survenue lors de l\'attribution de l\'image.</string>
-    <string name="error_generating">Une erreur est survenue lors de la génération de l\'image.</string>
-    <string name="error_retrieving">Une erreur est survenue lors de la récupération des informations de contact.</string>
-    <string name="error_saving">Une erreur est survenue lors de la sauvegarde de l\'image sur votre appareil. Veuillez vérifier que votre stockage ne soit pas verrouillé.</string>
+    <string name="error_saving">
+        Une erreur est survenue lors de la sauvegarde de l\'image sur votre appareil.
+        Veuillez vérifier que votre stockage ne soit pas verrouillé.
+    </string>
+    <string name="first_name">Prénom</string>
+    <string name="first_three">Prénoms et nom</string>
+    <string name="initials_circle">Initiales</string>
     <string name="generated_image">Image générée</string>
     <string name="got_new_picture">%s a obtenu une nouvelle image de contact.</string>
     <string name="missing_pictures">Images manquantes</string>
-    <string name="next_image">Image suivante</string>    
+    <string name="next_image">Image suivante</string>
     <string name="no_contact_selected">Aucun contact sélectionné</string>
-    <string name="overwrite_all_or_only">Voulez-vous remplacer toutes les images ou uniquement en générer pour les contacts sans image ?</string>
-    <string name="please_note">Évaluer</string>
-    <string name="pick_contact">Choisir un contact</string>    
-    <string name="picture_will_be_previewed">Après le choix, l\'image générée sera affichée avant de l\'attribuer au contact.</string>
+    <string name="none">Aucune</string>
+    <string name="overwrite_all_or_only">
+        Voulez-vous remplacer toutes les images ou uniquement
+        en générer pour les contacts sans image?
+        \n\nMicopi a été testé minutieusement mais au cas où,
+        nous vous recommendons de faire une sauvegarde de vos images de contact les plus précieuses.
+    </string>
+    <string name="please_note">Remarque</string>
+    <string name="pick_contact">Sélectionner un contact</string>
+    <string name="picture_will_be_previewed">
+        Après la sélection, l\'image générée sera affichée avant de l\'attribuer au contact.
+    </string>
+    <string name="pixel_matrix">Pixels</string>
     <string name="previous_image">Image précédente</string>
-    <string name="report">Rapport</string>    
     <string name="save_image_file">Sauvegarder l\'image</string>
     <string name="saved_picture_as">Image sauvegardée comme %1$s.</string>
-    <string name="skip">Ignorer</string>    
+    <string name="shrinking_plates">Plaques</string>
+    <string name="store_images">
+        Cela stocke les images à partir de votre liste de contacts dans le répertoire Micopi*
+        sur votre appareil.
+        Veuillez noter qu\'il s\'agit d\'une assistance expérimentale.
+        Il est recommandé de sauvegarder vos images de contacts
+        les plus précieuses d\'une manière supplémentaire.
+        \n\nVeuillez noter également que plus vous remplacez les images,
+        plus Micopi va utiliser le stockage de mémoire.
+    </string>
+    <string name="structured_discs">Disques</string>
+    <string name="styles">Styles</string>
     <string name="want_to_assign">Voulez-vous attribuer cette image à %1$s ?</string>
 
 </resources>

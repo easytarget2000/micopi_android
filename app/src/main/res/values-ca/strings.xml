@@ -16,22 +16,41 @@
 
 <resources>
 
+    <string name="backup">Backup</string>
+    <string name="backup_not_activated">Go to the app settings to activate backups.</string>
+    <string name="buy_upgrade">Upgrade</string>
+    <string name="deep_search">Deep Search</string>
+    <string name="enable_backup">
+        Enable backups of existing profile pictures before overwriting them.
+    </string>
+    <string name="enable_deep_search">
+        If you have trouble finding certain contacts in Micopi, enable Deep Search.
+    </string>
+    <string name="initials_circle">Initials Circle</string>
+    <string name="no_contact_selected">Fue seleccionado nadie</string>
+    <string name="none">None</string>
     <string name="picture_will_be_previewed">
         Tras seleccionar un nombre de la lista,
         se generará la imagen para que pueda aplicarla al contacto.</string>
-    <string name="no_contact_selected">Fue seleccionado nadie</string>
+    <string name="store_images">
+        This stores images from your contacts list in the Micopi Media Directory* on your device.
+        Please note that this is merely an experimental assistance.
+        It is recommended to backup your most precious contact pictures in an additional way.
+        \n\nPlease also note, the more images you replace with backups enabled,
+        the more memory storage Micopi is going to use.
+    </string>
+
+
     <string name="generated_image">Imagen generada</string>
     <string name="save_image_file">Guardar imagen en archivo</string>
     <string name="assign_to_contact">Aplicar imagen</string>
     <string name="want_to_assign">¿Desea asignar a %s esta imagen?</string>
-    <string name="report">Reportar</string>
     <string name="got_new_picture">%1$s tiene ahora una nueva imagen de contacto.</string>
     <string name="saved_picture_as">La imagen se guardó con el nombre %s</string>
-    <string name="error_generating">Ocurrió un error al generar la imagen.</string>
-    <string name="error_retrieving">Ocurrió un error obteniendo los datos de contacto.</string>
     <string name="error_saving">Ocurrió un error guardando la imagen.</string>
     <string name="error_assign">Ocurrió un error mientras se asignaba la imagen al contacto.</string>
-
+    <string name="first_name">First name</string>
+    <string name="first_three">First three names</string>
     <string name="previous_image">Imagen anterior</string>
     <string name="next_image">Siguiente imagen</string>
 
@@ -46,7 +65,7 @@
         de las fotos de sus contactos más importantes.
     </string>
     <string name="auto_mode">Mode automàtic</string>
-    <string name="donate">Donar</string>
+    <string name="pixel_matrix">Pixel Matrix</string>
     <string name="please_note">Tingui En Compte</string>
     <string name="overwrite_all_or_only">
         Would you like to overwrite all images or only generate pictures for contacts
@@ -56,6 +75,8 @@
 
     <string name="missing_pictures">Imatges que falta</string>
     <string name="pick_contact">Seleccionar un contacto</string>
-    <string name="skip">Skip</string>
+    <string name="shrinking_plates">Shrinking Plates</string>
+    <string name="structured_discs">Structured Discs</string>
+    <string name="styles">Styles</string>
 
 </resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_contacts">Всички номера</string>
+    <string name="assign_to_contact">Да се зададе на номер</string>
+    <string name="auto_mode">Автоматичен режим</string>
+    <string name="auto_experimental_long">
+        Различните версии на Android и някои приложения съхраняват по различен начин
+        снимките на контактите.
+        Има малка вероятност изображения на контакти да бъдат загубени или презаписани
+    </string>
+    <string name="backup">Създаване на резервно копие</string>
+    <string name="backup_not_activated">
+        Отидете в настройките, за да направите резервно копие
+    </string>
+    <string name="buy_upgrade">Upgrade</string>
+    <string name="confirm_all">Моля потвърдете презаписването на всички изображения на контакти.
+    </string>
+    <string name="deep_search">Deep Search</string>
+    <string name="enable_backup">
+        Включване на резервно копие на текущи снимки на контакти преди заменянето им.
+    </string>
+    <string name="enable_deep_search">
+        Ако имате проблем с намиране на някой контакт, включете Deep Search.
+    </string>
+    <string name="error_assign">
+        Възникна грешка при задаването на това изображение на контакта.
+    </string>
+    <string name="error_saving">
+        Възникна грешка при запаметяването на изображението като файл на телефон Ви.
+        Моля уверете се че паметта Ви не е заключена.
+    </string>
+    <string name="first_name">Собствено име</string>
+    <string name="first_three">Първите три имена</string>
+    <string name="generated_image">Получена картинка за номер</string>
+    <string name="got_new_picture">%1$s има нова картинка</string>
+    <string name="initials_circle">Кръгче с инициали</string>
+    <string name="missing_pictures">Липсващи картинки</string>
+    <string name="next_image">Следващо изображение</string>
+    <string name="no_contact_selected">Не са избрани номера</string>
+    <string name="none">Нито един</string>
+    <string name="overwrite_all_or_only">
+        Всички снимки ли искате да замените, или да се генерират нови само за тези без снимка?
+        \nПромените, направени от Micopi, не могат да бъдат отстранени.
+        Препоръчително е за всеки случай да си направите резервно
+        копие на текущите снимки на номерата Ви.
+    </string>
+    <string name="please_note">Моля имайте предвид</string>
+    <string name="pick_contact">Избиране на единичен номер</string>
+    <string name="picture_will_be_previewed">
+        След избирането на номер,
+        генерираната снимка ще може да бъде разгледана преди задаването ѝ.
+    </string>
+    <string name="pixel_matrix">Пикселова матрица</string>
+    <string name="previous_image">Предишно изображение</string>
+    <string name="save_image_file">Запазване на изображението като файл</string>
+    <string name="saved_picture_as">Изображението е запаметено като %1$s.</string>
+    <string name="shrinking_plates">Свиващи се плочи</string>
+    <string name="store_images">
+        Това ще запамети изображенията от списъка Ви с номера в медийната директория
+        на Micopi на телефона Ви.
+        Имайте предвид че това е все още експериментална функция.
+        Препоръчително е да направите резервните Ви копия и по някакъв друг начин.
+    Също така молим да имате предвид факта, че колкото повече снимки
+        с включена опция за резервно копие генерирате, толкова повече памет Micopi ще заема.
+    </string>
+    <string name="structured_discs">Структурирани дискове</string>
+    <string name="styles">Стилове</string>
+    <string name="want_to_assign">Искате ли да задедете това изображение на %1$s?</string>
+</resources>

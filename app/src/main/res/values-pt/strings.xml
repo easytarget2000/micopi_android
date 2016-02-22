@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
+
+<resources>
+
+    <string name="all_contacts">Todos os contatos</string>
+    <string name="assign_to_contact">Atribuir ao contato</string>
+    <string name="auto_mode">Modo Automático</string>
+    <string name="auto_experimental_long">
+		Diferentes versões do Android e alguns apps podem armazenar imagens de maneiras únicas.
+		\n\nÉ improvável, mas não impossível, que as imagens de perfil sejam substituídas.
+    </string>
+    <string name="backup">Cópia de segurança</string>
+    <string name="backup_not_activated">
+        Vá para as configuraçõres do app para ativar o Backup.
+    </string>
+    <string name="buy_upgrade">Upgrade</string>
+    <string name="confirm_all">
+        Por favor confirme que você deseja subtituir todas as imagens de contato.
+    </string>
+    <string name="deep_search">Pesquisa profunda</string>
+    <string name="enable_backup">
+        Ativa o backup das imagens de perfil existentes antes de substituí-las.
+    </string>
+    <string name="enable_deep_search">
+        Se você tem problemas em achar certos contatos no Micopi, ative o Deep Search.
+    </string>
+    <string name="error_assign">Ocorreu um erro ao atribuir essa imagem ao contato.</string>
+    <string name="error_saving">
+		Ocorreu um erro ao tentar salvar essa imagem como um arquivo no seu dispositivo.
+		Verifique se o seu armazenamento não está bloqueado.
+    </string>
+    <string name="first_name">Primeiro nome</string>
+    <string name="first_three">Primeiros três nomes</string>
+    <string name="generated_image">Imagem de contato gerada</string>
+    <string name="got_new_picture">%1$s tem uma nova imagem de contato.</string>
+    <string name="initials_circle">Cículo de iniciais</string>
+    <string name="missing_pictures">Imagens faltantes</string>
+    <string name="next_image">Próxima imagem</string>
+    <string name="no_contact_selected">Nenhum contato selecionado</string>
+    <string name="none">Nenhum</string>
+    <string name="overwrite_all_or_only">
+		Você deseja sobreescrever todas as imagens ou apenas gerar imagens para os contatos
+		que não atualmente possuem nenhuma?
+        \n\nAs mudanças feitas pelo Micopi não podem ser desfeitas.
+		Recomendamos que você faça um backup de seus contatos e imagens mais preciosos,
+        apenas por precaução.
+    </string>
+    <string name="please_note">Por favor, note que:</string>
+    <string name="pick_contact">Selecionar um contato</string>
+    <string name="picture_will_be_previewed">
+		Após selecionar um contato, a imagem gerada será exibida antes de
+		ser atribuída para o mesmo.
+    </string>
+    <string name="pixel_matrix">Matriz de pixels</string>
+    <string name="previous_image">Imagem anterior</string>
+    <string name="save_image_file">Salvar imagem como arquivo</string>
+    <string name="saved_picture_as">Imagem de contato salva como %1$s.</string>
+    <string name="shrinking_plates">Pratos encolhidos</string>
+    <string name="store_images">
+        Isso armazena as imagens da sua lista de contatos no diretódio de mída do Micopi*
+        no seu dispositivo.
+        Por favor, note que isso é apenas uma assistência experimental.
+        É recomendado que você faça o backup de suas imagens de contato
+        mais preciosas de outras formas também.
+        \n\nPor favor, note também que quanto mais imagens você substituir com o backup ativado,
+        maior será a quantidade de armazenamento que o Micopi irá usar.
+    </string>
+    <string name="structured_discs">Discos estruturados</string>
+    <string name="styles">Styles</string>
+    <string name="want_to_assign">
+		Você deseja atribuir essa foto de contato para %1$s?
+        \n\nEssa ação não pode ser desfeita.
+    </string>
+
+</resources>

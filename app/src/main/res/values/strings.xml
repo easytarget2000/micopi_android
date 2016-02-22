@@ -10,7 +10,7 @@
 
 <resources>
 
-    <string name="app_name" translatable="false">Micopi</string>
+    <string name="app_name" translatable="false">Micopi Pico</string>
 
     <string name="all_contacts">All contacts</string>
     <string name="assign_to_contact">Assign to contact</string>
@@ -19,27 +19,35 @@
         Different flavours of Android and some apps may store pictures in unique ways.
         \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
+    <string name="backup">Backup</string>
+    <string name="backup_not_activated">\nBackups are not available in the free version.</string>
+    <string name="buy_upgrade">Get Upgrade</string>
+    <string name="deep_search">Deep Search</string>
     <string name="confirm_all">
         Please confirm that you would like to overwrite all contact images.
     </string>
-    <string name="donate">Donate</string>
+    <string name="enable_backup">
+        Enable backups of existing profile pictures before overwriting them.
+    </string>
+    <string name="enable_deep_search">
+        If you have trouble finding certain contacts in Micopi, enable Deep Search.
+    </string>
     <string name="error_assign">
         An error occurred while assigning this picture to the contact.
-    </string>
-    <string name="error_generating">
-        An error occurred while generating the image.
-    </string>
-    <string name="error_retrieving">An error occurred while retrieving the contact\'s information.
     </string>
     <string name="error_saving">
         An error occurred while trying to save this image as a file on your device.
         Please make sure your storage is not locked.
     </string>
+    <string name="first_name">First name</string>
+    <string name="first_three">First three names</string>
     <string name="generated_image">Generated contact picture</string>
     <string name="got_new_picture">%1$s has got a new contact picture.</string>
+    <string name="initials_circle">Initials Circle</string>
     <string name="missing_pictures">Missing pictures</string>
     <string name="next_image">Next image</string>
     <string name="no_contact_selected">No contact selected</string>
+    <string name="none">None</string>
     <string name="overwrite_all_or_only">
         Would you like to overwrite all images or only generate pictures for contacts
         that currently do not have one?
@@ -52,11 +60,20 @@
         After selecting a contact, the generated picture will be previewed
         before assigning it to that person.
     </string>
+    <string name="pixel_matrix">Pixel Matrix</string>
     <string name="previous_image">Previous image</string>
-    <string name="report">Report</string>
     <string name="save_image_file">Save image as file</string>
     <string name="saved_picture_as">Saved contact picture as %1$s.</string>
-    <string name="skip">Skip</string>
+    <string name="shrinking_plates">Shrinking Plates</string>
+    <string name="store_images">
+        This stores images from your contacts list in the Micopi Media Directory* on your device.
+        Please note that this is merely an experimental assistance.
+        It is recommended to backup your most precious contact pictures in an additional way.
+        \n\nPlease also note, the more images you replace with backups enabled,
+        the more memory storage Micopi is going to use.
+    </string>
+    <string name="structured_discs">Structured Discs</string>
+    <string name="styles">Styles</string>
     <string name="want_to_assign">
         Do you want to assign this contact photo to %1$s?
         \n\nThis change cannot be undone.

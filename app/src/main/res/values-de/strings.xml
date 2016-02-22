@@ -16,10 +16,22 @@
 
 <resources>
 
-    <string name="picture_will_be_previewed">
-        Nachdem du einen Kontakt ausgewählt hast,
-        wird das generierte Bild angezeigt, bevor du es der Person zuweisen kannst.
+    <string name="all_contacts">Alle Kontakte</string>
+    <string name="backup">Backup</string>
+    <string name="backup_not_activated">
+        Backups sind in der Gratisversion nicht verfügbar.
     </string>
+    <string name="buy_upgrade">Upgrade Laden</string>
+    <string name="deep_search">Deep Search</string>
+    <string name="enable_backup">
+        Aktiviere Backup existierender Profilbilder vor dem Ersetzen
+    </string>
+    <string name="enable_deep_search">
+        Falls einige deiner Kontakte nicht in Micopi angezeigt werden, aktiviere Deep Search.
+    </string>
+
+    <string name="first_name">Erster Buchstabe des ersten Worts/Vornamen</string>
+    <string name="first_three">Initialen der ersten drei Namen/Wörter</string>
     <string name="generated_image">Errechnetes Kontaktbild</string>
     <string name="save_image_file">Bild als Datei abspeichern</string>
     <string name="assign_to_contact">Bild zuweisen</string>
@@ -27,21 +39,22 @@
         Möchtest du %1$s dieses Bild zuweisen?
         \nVeränderungen an Kontaktbildern können nicht rückgänig gemacht werden.
     </string>
-    <string name="report">Bericht</string>
     <string name="got_new_picture">%1$s hat ein neues Profilbild.</string>
     <string name="saved_picture_as">Das Bild wurde als %1$s gespeichert.</string>
-    <string name="error_generating">Ein Fehler trat beim Generieren des Bildes auf.</string>
-    <string name="error_retrieving">Ein Fehler trat beim Abrufen der Kontaktdaten auf.</string>
     <string name="error_saving">
         Ein Fehler trat beim Speichern des Bildes auf.
         Bitte stelle sicher, dass die Speicherkarte nicht gesperrt ist.
     </string>
     <string name="error_assign">Ein Fehler trat beim Zuweisen des Bildes auf.</string>
-
+    <string name="initials_circle">Initialenscheibe</string>
+    <string name="picture_will_be_previewed">
+        Nachdem du einen Kontakt ausgewählt hast,
+        wird das generierte Bild angezeigt, bevor du es der Person zuweisen kannst.
+    </string>
     <string name="previous_image">Vorheriges Bild</string>
     <string name="next_image">Nächstes Bild</string>
-
-    <string name="all_contacts">Alle Kontakte</string>
+    <string name="no_contact_selected">Keinen Kontakt ausgewählt</string>
+    <string name="none">Ohne</string>
     <string name="overwrite_all_or_only">
         Möchtest du für alle Personen ein neues Bild generieren oder nur für Kontakte,
         die noch keines haben?
@@ -50,8 +63,14 @@
     <string name="confirm_all">
         Bitte bestätige, dass alle Bilder überschrieben werden sollen.
     </string>
-    <string name="donate">Danke sagen</string>
-    <string name="no_contact_selected">Keinen Kontakt ausgewählt</string>
+    <string name="store_images">
+        Die Bilder werden im Micopi Media-Ordner* gespeichert.
+        Bitte beachte, dass es sich hierbei
+        lediglich um eine experimentelle Zusatzfunktion handelt.
+        Es ist weiterhin ratsam, deine wertvollsten Profilbilder auf einem anderen Weg zu sichern.
+        \n\nBitte beachte ausßerdem, dass Micopi umso mehr Speicher benötigt,
+        je mehr Bilder du mit eingeschaltetem Backup ersetzt.
+    </string>
     <string name="please_note">Bitte Beachte</string>
     <string name="auto_experimental_long">
         Verschiedene Versionen von Android und manche Apps speichern Bilder auf eigene Art.
@@ -64,6 +83,9 @@
     <string name="auto_mode">Automatischer Modus</string>
     <string name="missing_pictures">Generiere fehlende</string>
     <string name="pick_contact">Einen Kontakt auswählen</string>
-    <string name="skip">Weiter</string>
+    <string name="pixel_matrix">Pixelmatrix</string>
+    <string name="shrinking_plates">Teller</string>
+    <string name="structured_discs">Scheibenstruktur</string>
+    <string name="styles">Stile</string>
 
 </resources>

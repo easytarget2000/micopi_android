@@ -21,24 +21,12 @@
     android:paddingTop="@dimen/margin_default"
     tools:ignore="RtlHardcoded">
 
-    <TextView
-        android:id="@+id/text_micopi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/margin_default"
-        android:gravity="center"
-        android:paddingTop="@dimen/back_button_top_margin"
-        android:text="micopi"
-        android:textColor="@android:color/white"
-        android:textSize="44sp"
-        tools:ignore="HardcodedText" />
-
     <LinearLayout
         android:id="@+id/group_welcome_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -104,8 +92,9 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
+        android:visibility="visible"
         android:layout_alignParentBottom="true"
-        android:onClick="donateButtonPressed"
+        android:onClick="settingsButtonPressed"
         app:cardBackgroundColor="@color/primary_dark"
         app:cardElevation="2dp">
 
@@ -114,7 +103,7 @@
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="@string/donate"
+            android:text="@string/buy_upgrade"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size" />

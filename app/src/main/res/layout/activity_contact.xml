@@ -21,98 +21,100 @@
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:contentDescription="@string/generated_image"
-        android:src="@drawable/micopi_logo" />
+        android:minHeight="64dp" />
 
     <TextView
         android:id="@+id/text_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/image_contact"
-        android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginLeft="@dimen/margin_default"
         android:layout_marginRight="@dimen/margin_default"
-        android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="8dp"
         android:text="@string/generated_image"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/text_contact_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/text_description"
-        android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginLeft="@dimen/margin_default"
         android:layout_marginRight="@dimen/margin_default"
-        android:layout_marginStart="@dimen/margin_default"
         android:text="@string/no_contact_selected"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_large" />
+        android:textSize="@dimen/text_size_large"
+        tools:ignore="RtlHardcoded" />
 
     <LinearLayout
         android:id="@+id/group_contact_actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_small"
         android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_small"
+        tools:ignore="RtlHardcoded">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/button_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_fab"
             android:clickable="true"
+            android:contentDescription="@string/pick_contact"
             android:onClick="onButtonClicked"
             android:src="@drawable/ic_search_white_36dp"
             android:tint="@android:color/white"
             app:backgroundTint="@color/accent"
+            app:elevation="3dp"
             app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/button_prev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_fab"
             android:clickable="true"
+            android:contentDescription="@string/previous_image"
             android:onClick="onButtonClicked"
             android:src="@drawable/ic_arrow_back_white_36dp"
             android:tint="@android:color/white"
             app:backgroundTint="@color/accent"
-
+            app:elevation="3dp"
             app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/button_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_fab"
             android:clickable="true"
+            android:contentDescription="@string/next_image"
             android:onClick="onButtonClicked"
             android:src="@drawable/ic_arrow_forward_white_36dp"
             android:tint="@android:color/white"
             app:backgroundTint="@color/accent"
-
+            app:elevation="3dp"
             app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_fab"
             android:clickable="true"
+            android:contentDescription="@string/save_image_file"
             android:onClick="onButtonClicked"
             android:src="@drawable/ic_save_white_36dp"
             android:tint="@android:color/white"
             app:backgroundTint="@color/accent"
-
+            app:elevation="3dp"
             app:fabSize="mini" />
 
     </LinearLayout>
@@ -123,15 +125,36 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/group_contact_actions"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_margin="@dimen/margin_fab"
         android:clickable="true"
+        android:contentDescription="@string/assign_to_contact"
         android:onClick="onButtonClicked"
         android:src="@drawable/ic_done_white_36dp"
         android:tint="@android:color/white"
         app:backgroundTint="@color/accent"
+        app:elevation="3dp"
         tools:ignore="RtlHardcoded" />
 
+    <RelativeLayout
+        android:id="@+id/group_contact_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent_primary"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="@android:color/white"
+            tools:ignore="UnusedAttribute" />
+
+    </RelativeLayout>
+
     <include layout="@layout/include_back_button" />
+
+    <include layout="@layout/include_success_arrow" />
 
 </RelativeLayout>
 

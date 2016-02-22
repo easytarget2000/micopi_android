@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="horizontal_padding_welcome">80dp</dimen>
+    <dimen name="horizontal_padding_welcome">96dp</dimen>
+    <dimen name="margin_left_back">8dp</dimen>
 
 </resources>

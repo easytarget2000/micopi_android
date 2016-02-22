@@ -21,7 +21,17 @@
     <dimen name="margin_default">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="text_size">14sp</dimen>
+    <dimen name="text_size_mid_large">17sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
-    <dimen name="welcome_max_width">400dp</dimen>
     <dimen name="horizontal_padding_welcome">@dimen/margin_default</dimen>
+
+    <dimen name="margin_top_logo">8dp</dimen>
+    <dimen name="margin_fab">-6dp</dimen>
+    <dimen name="margin_left_back">0dp</dimen>
+
+    <dimen name="margin_system_bar_offset">0dp</dimen>
+
+    <dimen name="margin_top_pico">-16dp</dimen>
+
 </resources>
+

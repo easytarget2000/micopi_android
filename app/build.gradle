@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "com.easytarget.micopi"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 23
-        versionCode 26
-        versionName "3.4.5"
+        versionCode 29
+        versionName "3.6"
     }
     buildTypes {
         release {
@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }
