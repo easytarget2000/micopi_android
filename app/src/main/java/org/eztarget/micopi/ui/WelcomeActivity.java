@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import org.eztarget.micopi.R;
 
@@ -49,6 +50,26 @@ public class WelcomeActivity extends BaseActivity {
             Window window = this.getWindow();
             int statusBarColor = getResources().getColor(R.color.primary_dark);
             window.setStatusBarColor(statusBarColor);
+        }
+
+        final TextView upgradeTeaser = (TextView) findViewById(R.id.text_upgrade_teaser);
+        if (upgradeTeaser != null) {
+            switch ((int) (Math.random() * 5)) {
+                case 1:
+                    upgradeTeaser.setText(R.string.upgrade_teaser_2);
+                    break;
+                case 2:
+                    upgradeTeaser.setText(R.string.upgrade_teaser_3);
+                    break;
+                case 4:
+                    upgradeTeaser.setText(R.string.upgrade_teaser_4);
+                    break;
+                case 5:
+                    upgradeTeaser.setText(R.string.upgrade_teaser_5);
+                    break;
+                default:
+                    upgradeTeaser.setText(R.string.upgrade_teaser_1);
+            }
         }
     }
 

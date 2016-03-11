@@ -35,14 +35,14 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:textColor="@android:color/white"
         android:layout_width="wrap_content"
-        android:textSize="33sp"
-        android:layout_marginTop="-16dp"
-        android:layout_below="@id/text_micopi"
-        android:layout_alignRight="@id/text_micopi"
-        android:text="pico"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@id/text_micopi"
+        android:layout_below="@id/text_micopi"
+        android:layout_marginTop="-16dp"
+        android:text="pico"
+        android:textColor="@android:color/white"
+        android:textSize="33sp"
         tools:ignore="HardcodedText" />
 
     <LinearLayout
@@ -110,9 +110,10 @@
 
     </LinearLayout>
 
-    <!-- Donate Button: -->
+    <!-- Purchase Button: -->
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_button_upgrade"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
@@ -133,5 +134,17 @@
             android:textSize="@dimen/text_size" />
 
     </android.support.v7.widget.CardView>
+
+
+    <!-- Upgrade Teaser -->
+
+    <TextView
+        android:id="@+id/text_upgrade_teaser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/card_button_upgrade"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size" />
 
 </RelativeLayout>

@@ -15,14 +15,12 @@
  */
 package org.eztarget.micopi.engine;
 
-import android.graphics.Color;
-
 import org.eztarget.micopi.Contact;
 
 /**
  * Created by michel on 12/11/14.
- *
- * Image generator
+ * <p/>
+ * Fills a canvas with retro-styled squares
  */
 public class PixelGenerator {
 
@@ -30,63 +28,68 @@ public class PixelGenerator {
      * Number of squares per row (number of columns) and number of rows;
      * total number of painted squares is this value squared
      */
-    private static final int NUM_OF_SQUARES = 9;
 
-    /**
-     * Fills a canvas with retro-styled squares
-     *
-     * @param painter Paint the generated shape in this object
-     * @param contact Data from this Contact object will be used to generate the shapes and colors
-     */
-    public static void generate(Painter painter, final Contact contact) {
-        if (painter == null || contact == null) return;
+    private Painter mPainter;
 
-        final String md5String = contact.getMD5EncryptedString();
+    private Contact mContact;
+
+    public PixelGenerator(final Painter painter, final Contact contact) {
+        mPainter = painter;
+        mContact = contact;
+    }
+
+    public void paint() {
+
+        mPainter.disableShadows();
+
+        final String md5String = mContact.getMD5EncryptedString();
         final int md5Length = md5String.length();
 
         final int color1 = ColorCollection.getColor(md5String.charAt(16));
-        final int color2 = Color.WHITE;
-        final int color3 = ColorCollection.getColor(md5String.charAt(17));
+        final int color2 = ColorCollection.getColor(md5String.charAt(17));
 
-        int numOfSquares = NUM_OF_SQUARES;
-        if (contact.getNameWord(0).length() % 2 == 0) numOfSquares -= 1;
-        final float sideLength = painter.getImageSize() / numOfSquares;
+        int numberOfSquares = (md5String.charAt(15) % 10) + 15;
+//        if (numberOfSquares % 2 == 0) ++numberOfSquares;
 
-        int md5Pos = 0;
-        for (int y = 0; y < numOfSquares; y++) {
-            for (int x = 0; x < numOfSquares; x++) {
-                md5Pos++;
-                if (md5Pos >= md5Length) md5Pos = 0;
-                final char md5Char = md5String.charAt(md5Pos);
+        final float sideLength = mPainter.getImageSize() / numberOfSquares;
 
-                if (isOddParity(md5Char)) {
-                    painter.paintSquare(
-                            color1,
-                            255,        // Alpha
-                            x,
-                            y,
-                            sideLength
-                    );
-                    if (x == 0) {
-                        painter.paintSquare(
-                                color2,
-                                200 - md5Char,
-                                4,
-                                y,
+        final boolean leftAligned = md5String.charAt(14) % 2 == 0;
+        final boolean topAligned = md5String.charAt(13) % 2 == 0;
+
+        int md5Index = 0;
+        float x = 0f;
+        float y = 0f;
+        for (int i = 0; i < numberOfSquares; i++) {
+
+            for (int j = 0; j < numberOfSquares; j++) {
+
+                md5Index++;
+                if (md5Index >= md5Length) md5Index = 0;
+                final char md5Char = md5String.charAt(md5Index);
+
+                if (x > 0 && y > 0) {
+                    if (isOddParity(md5Char)) {
+                        mPainter.paintSquare(
+                                color1,
+                                255 - md5Char % 100,
+                                leftAligned ? (md5Char % y) : (numberOfSquares - (md5Char % y)),
+                                topAligned ? (md5Char % x) : (numberOfSquares - (md5Char % x)),
                                 sideLength
                         );
-                    }
-                    if (x % 2 == 1) {
-                        painter.paintSquare(
-                                color3,
-                                200 - md5Char,
-                                3,
-                                y,
+                    } else if (x % 2 == 0) {
+                        mPainter.paintSquare(
+                                color2,
+                                255 - md5Char % 100,
+                                leftAligned ? (md5Char % x) : (numberOfSquares - (md5Char % x)),
+                                topAligned ? (md5Char % y) : (numberOfSquares - (md5Char % y)),
                                 sideLength
                         );
                     }
                 }
+                ++y;
             }
+            ++x;
+            y = 0f;
         }
     }
 

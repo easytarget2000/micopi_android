@@ -10,10 +10,10 @@
 
 <resources>
 
-    <string name="all_contacts">Tutti i contatti</string>
+    <string name="button_all_contacts">Tutti i contatti</string>
     <string name="assign_to_contact">Assegna a contatto</string>
     <string name="auto_mode">Modalitá; automatica</string>
-    <string name="auto_experimental_long">
+    <string name="dialog_msg_missing">
         Versioni diverse di Android ed alcune app potrebbero memorizzare
         immagini in maniera particolare.
         \n\nPer quanto sia improabile, é;
@@ -23,8 +23,7 @@
     <string name="backup_not_activated">
         Vai alle impostazioni per attivare i backup.
     </string>
-    <string name="buy_upgrade">Upgrade</string>
-    <string name="confirm_all">
+    <string name="dialog_msg_all_contacts">
         Conferma che vuoi sovrascrivere le immagini di tutti i contatti.
     </string>
     <string name="deep_search">Ricerca Approfondita</string>
@@ -48,7 +47,6 @@
     <string name="initials_circle">Cerchio Iniziali</string>
     <string name="missing_pictures">Immagini mancanti</string>
     <string name="next_image">Immagine successiva</string>
-    <string name="no_contact_selected">Nessun contatto selezionato</string>
     <string name="none">Nessuno</string>
     <string name="overwrite_all_or_only">
         Vuoi sovrascrivere tutte le foto o solamente generare
@@ -57,7 +55,7 @@
         Ti raccomandiamo di fare un backup dei tuoi contatti e immagini piú;
         importanti, non si sa mai.
     </string>
-    <string name="please_note">Fai attenzione</string>
+    <string name="dialog_title_please_note">Fai attenzione</string>
     <string name="pick_contact">Seleziona un singolo contatto</string>
     <string name="picture_will_be_previewed">
         Dopo aver selezionato un contatto,
@@ -67,6 +65,7 @@
     <string name="previous_image">Immagine precedente</string>
     <string name="save_image_file">Salva immagine come file</string>
     <string name="saved_picture_as">Immagine profilo salvata come %1$s.</string>
+    <string name="buy_upgrade">Impostazioni</string>
     <string name="shrinking_plates">Shrinking Plates</string>
     <string name="store_images">
         Questo memorizza le immagini del tuo elenco contatti nella cartella Media di Micopi*

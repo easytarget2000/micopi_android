@@ -10,61 +10,63 @@
 
 <resources>
 
-    <string name="all_contacts">All Contacts</string>
-    <string name="auto_experimental_long">
-        Please note:\nDifferent flavours of Android and some apps may store pictures in unique ways.
-        \n\nIt is unlikely, but not impossible, that profile images get overwritten.
+    <string name="button_all_contacts">Wszystkie kontakty</string>
+    <string name="assign_to_contact">Przydziel obraz do kontaktu</string>
+    <string name="dialog_msg_missing">
+        Uwaga:\nNiektóre wersje systemu Android mogą przechowywać
+        zdjęcia kontaktów w unikalny sposób.
+        \n\nWtedy jest mało prawdopodobne, ale nie niemożliwe,
+        że zdjęcia profilowe będą nadpisywane.
     </string>
-    <string name="auto_mode">Automatic mode (experimental)</string>
-    <string name="backup">Dokładniejsze przeszukiwanie</string>
-    <string name="backup_not_activated">Go to the app settings to activate backups.</string>
-    <string name="buy_upgrade">Upgrade</string>
-    <string name="deep_search">Deep Search</string>
+    <string name="auto_mode">Tryb automatyczny (eksperymentalny)</string>
+    <string name="backup">Kopia zapasowa</string>
+    <string name="backup_not_activated">
+        Wejdź w ustawienia aplikacji, aby aktywować kopie zapasowe.
+    </string>
+    <string name="dialog_msg_all_contacts">
+        Potwierdź, czy chcesz nadpisać wszystkie obrazy kontaktów.
+    </string>
+    <string name="deep_search">Dokładniejsze przeszukiwanie</string>
     <string name="enable_backup">
-        Jeśli masz problemy ze znalezieniem niektórych kontaktów w Micopi,
-        aktywuj dokładniejsze przeszukiwanie.
+        Włącz tworzenie kopii zapasowych istniejących zdjęć kontaktów przed ich zastąpieniem.
     </string>
     <string name="enable_deep_search">
-        If you have trouble finding certain contacts in Micopi, enable Deep Search.
+        Jeśli masz problemy ze znalezieniem niektórych kontaktów w Micopi,
+		aktywuj dokładniejsze przeszukiwanie.
     </string>
-    <string name="first_name">First name</string>
-    <string name="first_three">First three names</string>
-    <string name="initials_circle">Initials Circle</string>
-    <string name="no_contact_selected">No contact selected</string>
-    <string name="generated_image">Obliczony obraz</string>
-    <string name="save_image_file">Zapisz obraz jako plik</string>
-    <string name="assign_to_contact">Przydziel obraz do kontaktu</string>
-    <string name="want_to_assign">Przydzielić obraz do kontaktu %s?</string>
-    <string name="got_new_picture">%s dostał/a nowy obraz w profilu.</string>
-    <string name="saved_picture_as">Obraz zapisany jako %s.</string>
     <string name="error_saving">Błąd przy zapisywaniu obrazu.</string>
     <string name="error_assign">Błąd w przydzielaniu obrazu.</string>
-    <string name="none">None</string>
-    <string name="previous_image">Poprzednie zdjęcie</string>
+    <string name="first_name">Imię</string>
+    <string name="first_three">Pierwsze trzy wyrazy</string>
+    <string name="generated_image">Wygenerowany obraz kontaktu</string>
+    <string name="got_new_picture">%s dostał/a nowy obraz kontaktu.</string>
+    <string name="initials_circle">Koło z inicjałami</string>
+    <string name="missing_pictures">Brakujące obrazy</string>
     <string name="next_image">Następne zdjęcie</string>
-
-    <string name="please_note">Auto mode is experimental!</string>
+    <string name="none">Żaden</string>
     <string name="overwrite_all_or_only">
-        Would you like to overwrite all images or only generate pictures for contacts
-        that currently do not have one?
+        Chcesz nadpisać wszystkie obrazy kontaktów wygenerowanymi grafikami,
+        czy przypisać nowe obrazy jedynie do tych,
+		które aktualnie nie mają zdjęcia?
     </string>
-    <string name="confirm_all">
-        Please confirm that you would like to overwrite all contact images.
-    </string>
-
-    <string name="missing_pictures">Missing pictures</string>
+    <string name="previous_image">Poprzednie zdjęcie</string>
     <string name="pick_contact">Wybierz kontakt</string>
     <string name="pixel_matrix">Pixel Matrix</string>
     <string name="picture_will_be_previewed">Wybierz kontakt do podglądu.</string>
+    <string name="dialog_title_please_note">Tryb automatyczny jest funkcją eksperymentalną!</string>
+    <string name="save_image_file">Zapisz obraz jaki plik</string>
+    <string name="saved_picture_as">Obraz zapisany jako %s.</string>
+    <string name="buy_upgrade">Upgrade</string>
     <string name="store_images">
-        This stores images from your contacts list in the Micopi Media Directory* on your device.
-        Please note that this is merely an experimental assistance.
-        It is recommended to backup your most precious contact pictures in an additional way.
-        \n\nPlease also note, the more images you replace with backups enabled,
-        the more memory storage Micopi is going to use.
+        Zapisuje obrazy z listy kontaktów w katalogu Micopi* na twoim urządzeniu.
+        Pamiętaj, że to funkcja eksperymentalna.
+        Zalecane jest stworzenie kopii zapasowej obrazów kontaktów w inny sposób.
+        \n\nNależy również pamiętać, że im więcej kontaktów zapiszesz,
+		tym więcej pamięci Micopi zostanie wykorzystane.
     </string>
     <string name="shrinking_plates">Shrinking Plates</string>
     <string name="structured_discs">Structured Discs</string>
-    <string name="styles">Styles</string>
+    <string name="styles">Styl generowania grafik</string>
+    <string name="want_to_assign">Przydzielić obraz do kontaktu %s?</string>
 
 </resources>

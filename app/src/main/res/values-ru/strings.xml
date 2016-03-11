@@ -10,28 +10,23 @@
 
 <resources>
 
-    <string name="all_contacts">Все контакты</string>
+    <string name="button_all_contacts">Все контакты</string>
     <string name="assign_to_contact">Присвоить контакту</string>
     <string name="auto_mode">Автоматический режим</string>
-    <string name="auto_experimental_long">
-        Различные версии Android и некоторые приложения
-        могут хранить фотографии по уникальному пути.
+    <string name="dialog_msg_missing">
+        Различные версии Android и некоторые приложения могут хранить фотографии по уникальному пути.
         \n\nСуществует небольшая вероятность, что изображение в профиле контакта перезапишется.
     </string>
     <string name="backup">Резервная копия</string>
-    <string name="backup_not_activated">
-        Перейдите в Настройки для активации резервного копирования.
-    </string>
-    <string name="buy_upgrade">Upgrade</string>
-    <string name="confirm_all">
+    <string name="backup_not_activated">Перейдите в Настройки для активации резервного копирования.</string>
+    <string name="dialog_msg_all_contacts">
         Пожалуйста, подтвердите, что вы хотите перезаписать все изображения контактов .
     </string>
     <string name="deep_search">Deep Search</string>
+    <string name="enable_deep_search"></string>
+    <string name="buy_upgrade">Upgrade</string>
     <string name="enable_backup">
         Включение резервного копирования существующего изображения контакта перед перезаписью.
-    </string>
-    <string name="enable_deep_search">
-        If you have trouble finding certain contacts in Micopi, enable Deep Search.
     </string>
     <string name="error_assign">
         Произошла ошибка во время присвоения данного изображения.
@@ -47,39 +42,38 @@
     <string name="initials_circle">Зациклить</string>
     <string name="missing_pictures">Контакты без фото</string>
     <string name="next_image">Следущее изображение</string>
-    <string name="no_contact_selected">Контакты не выбраны</string>
     <string name="none">Ничего</string>
     <string name="overwrite_all_or_only">
-        Вы хотите перезаписать ВСЕ изображения,
-        или генерировать изображения, только для контактов,
+        Вы хотите перезаписать ВСЕ изображения, или генерировать изображения, только для контактов,
         которые в настоящее время не имеют фото?
         \n\nИЗМЕНЕНИЯ, СДЕЛАННЫЕ Micopi НЕ МОГУТ БЫТЬ ОТМЕНЕНЫ..
-        Мы рекомендуем сделать резервную копию ваших самых ценных
-        контактов и фотографии, на всякий случай.
+        Мы рекомендуем сделать резервную копию ваших самых ценных контактов и фотографии, на всякий случай.
     </string>
-    <string name="please_note">Обратите внимание</string>
+    <string name="dialog_title_please_note">Обратите внимание</string>
     <string name="pick_contact">Выбрать один контакт</string>
     <string name="picture_will_be_previewed">
-        После выбора, созданный рисунок будет предложен для предпросмотра, 
+        После выбора, созданный рисунок будет предложен для предпросмотра,
         перед присвоением его данному контакту.</string>
-    <string name="pixel_matrix">Pixel Matrix</string>
     <string name="previous_image">Предыдущее изображение</string>
     <string name="save_image_file">Сохранить изображение в файл</string>
     <string name="saved_picture_as">Изображение контакта сохранено как %1$s.</string>
-    <string name="shrinking_plates">Сжатие</string>
     <string name="store_images">
         Сохранение изображений контактов в дирректории Micopi Media Directory* на Вашем устройстве.
         Пожалуйста, обратите внимание, что это экспериментальная функция.
-        Рекомендуется сделать резервное копирование Ваших самых
-        драгоценных фотографии контактов альтернативным способом.
+        Рекомендуется сделать резервное копирование Ваших самых драгоценных фотографии контактов альтернативным способом.
         \n\nПожалуйста, обратите внимание, что сохранение большого количества  изображений,
         увеличение объёма используемой Micopi памяти.
     </string>
-    <string name="structured_discs">Structured Discs</string>
-    <string name="styles">Стили</string>
     <string name="want_to_assign">
         Вы хотите назначить это фото контакту %1$s?
         \n\nЭТО ДЕЙСТВИЕ НЕ МОЖЕТ БЫТЬ ОТМЕНЕНО.
     </string>
+
+    <!-- Settings - Styles -->
+
+    <string name="styles">Стили</string>
+    <string name="shrinking_plates">Сжатие</string>
+    <string name="structured_discs">Structured Discs</string>
+    <string name="pixel_matrix">Pixel Matrix</string>
 
 </resources>

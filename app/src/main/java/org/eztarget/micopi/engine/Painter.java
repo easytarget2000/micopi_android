@@ -19,6 +19,7 @@ package org.eztarget.micopi.engine;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -93,6 +94,14 @@ public class Painter {
 
     }
 
+    public void enableShadows() {
+        mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
+    }
+
+    public void disableShadows() {
+        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+    }
+
     /**
      * Paints a styled square onto the canvas
      *
@@ -115,7 +124,8 @@ public class Painter {
 
         mPaint.setColor(color);
         mPaint.setAlpha(alpha);
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+
+//        Log.d("square", x + ", " + y);
 
         mCanvas.drawRect(offsetX, offsetY, offsetX + size, offsetY + size, mPaint);
     }
@@ -164,26 +174,20 @@ public class Painter {
 
         // Configure paint:
         mPaint.setColor(color);
-        mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
 
         double angle;
         float x, y;
 
-        Path polygonPath = new Path();
+        final Path polygonPath = new Path();
         // Use Path.moveTo() for first vertex.
-        boolean isFirstEdge = true;
 
         for (int edge = 1; edge <= numberOfEdges; edge++) {
             angle = TWO_PI * edge / numberOfEdges;
             x = (float) (centerX + radius * Math.cos(angle + angleOffset));
             y = (float) (centerY + radius * Math.sin(angle + angleOffset));
 
-            if (isFirstEdge) {
-                polygonPath.moveTo(x, y);
-                isFirstEdge = false;
-            } else {
-                polygonPath.lineTo(x, y);
-            }
+            if (edge == 1) polygonPath.moveTo(x, y);
+            else polygonPath.lineTo(x, y);
         }
 
         polygonPath.close();
@@ -198,7 +202,6 @@ public class Painter {
             float radius
     ) {
         mPaint.setColor(color);
-        mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
         mCanvas.drawCircle(centerX, centerY, radius, mPaint);
     }
 
@@ -210,7 +213,6 @@ public class Painter {
             final float width
     ) {
         mPaint.setColor(color);
-        mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
 
         final float cornerRadius = width / 5f;
 
@@ -223,6 +225,183 @@ public class Painter {
                 cornerRadius,
                 mPaint
         );
+    }
+
+    /**
+     * paintMicopiBeams() Paint Mode "Spiral"
+     */
+    public static final int BEAM_SPIRAL = 0;
+
+    /**
+     * paintMicopiBeams() Paint Mode "Solar"
+     */
+    public static final int BEAM_SOLAR = 1;
+
+    /**
+     * paintMicopiBeams() Paint Mode "Star"
+     */
+    public static final int BEAM_STAR = 2;
+
+    /**
+     * paintMicopiBeams() Paint Mode "Whirl"
+     */
+    public static final int BEAM_WHIRL = 3;
+
+    /**
+     * Paints many lines in beam-like ways
+     *
+     * @param color        Paint color
+     * @param alpha        Paint alpha value
+     * @param fPaintMode   Determines the shape to draw
+     * @param centerX      X coordinate of the centre of the shape
+     * @param centerY      Y coordinate of the centre of the shape
+     * @param fDensity     Density of the beams
+     * @param lineLength   Length of the beams
+     * @param angle        Angle between single beams
+     * @param fGroupAngle  Angle between beam groups
+     * @param fDoPaintWide Wide beam groups
+     */
+    public void paintMicopiBeams(
+            final int color,
+            final int alpha,
+            final int fPaintMode,
+            float centerX,
+            float centerY,
+            final int fDensity,
+            float lineLength,
+            double angle,
+            final boolean fGroupAngle,
+            final boolean fDoPaintWide
+    ) {
+        final float lengthUnit = (mCanvas.getWidth() / 200f);
+        lineLength *= lengthUnit;
+        angle *= lengthUnit;
+
+        // Define how the angle should change after every line.
+        float deltaAngle;
+        if (fGroupAngle) deltaAngle = 10f * lengthUnit;
+        else deltaAngle = lengthUnit;
+
+        // Configure paint:
+        mPaint.setColor(color);
+        mPaint.setAlpha(alpha);
+        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
+
+        // Set wide or thin strokes.
+        if (fDoPaintWide) mPaint.setStrokeWidth(24f);
+        else mPaint.setStrokeWidth(8f);
+        float lineStartX = centerX;
+        float lineStartY = centerY;
+        float lineEndX, lineEndY;
+
+        for (int i = 0; i < fDensity; i++) {
+            lineEndX = lineStartX + ((float) Math.cos(angle) * lineLength);
+            lineEndY = lineStartY + ((float) Math.sin(angle) * lineLength);
+
+            mCanvas.drawLine(lineStartX, lineStartY, lineEndX, lineEndY, mPaint);
+
+            angle += deltaAngle;
+            lineLength += lengthUnit;
+
+            switch (fPaintMode) {
+                case BEAM_SPIRAL:
+                    lineStartX = lineEndX;
+                    lineStartY = lineEndY;
+                    break;
+                case BEAM_SOLAR:
+                    lineStartX = centerX;
+                    lineStartY = centerY;
+                    break;
+                case BEAM_STAR:
+                    lineStartX = lineEndX;
+                    lineStartY = lineEndY;
+                    angle--;
+                    break;
+                default:
+                    centerX += 2;
+                    centerY -= 3;
+                    lineStartX = centerX;
+                    lineStartY = centerY;
+            }
+        }
+    }
+
+    /**
+     * Distance between circle steps
+     */
+    private static final float PI_STEP_SIZE = (float) Math.PI / 50f;
+
+    public void paintSpyro(
+            final int color1,
+            final int color2,
+            final int color3,
+            final int alpha,
+            final float fPoint1Factor,
+            final float fPoint2Factor,
+            final float fPoint3Factor,
+            final int revolutions
+    ) {
+
+        float innerRadius = mImageSizeHalf * 0.5f;
+        double outerRadius = (innerRadius * 0.5f) + 1;
+        double radiusSum = innerRadius + outerRadius;
+
+        final float point1 = (float) (fPoint1Factor * (mImageSize - radiusSum));
+        final float point2 = (float) (fPoint2Factor * (mImageSize - radiusSum));
+        final float point3 = (float) (fPoint3Factor * (mImageSize - radiusSum));
+
+        final Path pointPath1 = new Path();
+        final Path pointPath2 = new Path();
+        final Path pointPath3 = new Path();
+        boolean moveTo = true;
+
+        double t = 0;
+        float x, y, x2, y2, x3, y3;
+        do {
+            x = (float) (radiusSum * Math.cos(t) +
+                    point1 * Math.cos(radiusSum * t / outerRadius) + mImageSizeHalf);
+            y = (float) (radiusSum * Math.sin(t) +
+                    point1 * Math.sin(radiusSum * t / outerRadius) + mImageSizeHalf);
+            x2 = (float) (radiusSum * Math.cos(t) +
+                    point2 * Math.cos(radiusSum * t / outerRadius) + mImageSizeHalf);
+            y2 = (float) (radiusSum * Math.sin(t) +
+                    point2 * Math.sin(radiusSum * t / outerRadius) + mImageSizeHalf);
+            x3 = (float) (radiusSum * Math.cos(t) +
+                    point3 * Math.cos(radiusSum * t / outerRadius) + mImageSizeHalf);
+            y3 = (float) (radiusSum * Math.sin(t) +
+                    point3 * Math.sin(radiusSum * t / outerRadius) + mImageSizeHalf);
+
+            if (moveTo) {
+                pointPath1.moveTo(x, y);
+                pointPath2.moveTo(x2, y2);
+                pointPath3.moveTo(x3, y3);
+                moveTo = false;
+            } else {
+                pointPath1.lineTo(x, y);
+                pointPath2.lineTo(x2, y2);
+                pointPath3.lineTo(x3, y3);
+            }
+            t += PI_STEP_SIZE;
+        } while (t < TWO_PI * revolutions);
+
+        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+        mPaint.setStyle(Paint.Style.STROKE);
+
+        // Draw the first path.
+        mPaint.setColor(color1);
+        mPaint.setAlpha(alpha);
+        mCanvas.drawPath(pointPath1, mPaint);
+        // Draw the second path.
+        mPaint.setColor(color2);
+        mPaint.setAlpha(alpha);
+        mCanvas.drawPath(pointPath2, mPaint);
+        // Draw the third path.
+        mPaint.setColor(color3);
+        mPaint.setAlpha(alpha);
+        mPaint.setStrokeWidth(20 / revolutions);
+        mCanvas.drawPath(pointPath3, mPaint);
     }
 
     /**
@@ -286,15 +465,30 @@ public class Painter {
      * @param color Paint color
      * @param alpha Paint alpha value
      */
-    public void paintCentralCircle(int color, int alpha) {
-        mPaint.setColor(color);
-        mPaint.setAlpha(alpha);
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+    public void paintCentralCircle(final int color, final int alpha, final boolean inverted) {
         mPaint.setStyle(Paint.Style.FILL);
 
-        final float imageCenter = mImageSize * 0.5f;
-        final float radius = imageCenter * CIRCLE_SIZE;
+        final float radius = mImageSizeHalf * CIRCLE_SIZE;
+        mPaint.setColor(color);
 
-        mCanvas.drawCircle(imageCenter, imageCenter, radius, mPaint);
+        // TODO: Implement Inverted Mode.
+
+        if (!inverted) {
+            enableShadows();
+            mPaint.setAlpha(alpha);
+            mCanvas.drawCircle(mImageSizeHalf, mImageSizeHalf, radius, mPaint);
+        } else {
+            disableShadows();
+            mCanvas.save();
+            mCanvas.drawRect(new Rect(0, 0, mImageSize, mImageSize), mPaint);
+
+            mPaint.setColor(Color.TRANSPARENT);
+            // A out B http://en.wikipedia.org/wiki/File:Alpha_compositing.svg
+            mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+            mCanvas.drawCircle(mImageSizeHalf, mImageSizeHalf, radius, mPaint);
+            mCanvas.restore();
+
+        }
+
     }
 }

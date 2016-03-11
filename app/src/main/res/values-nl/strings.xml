@@ -10,10 +10,9 @@
 
 <resources>
 
-    <string name="all_contacts">Alle contacten</string>
+    <string name="button_all_contacts">Alle contacten</string>
     <string name="backup">Backup</string>
     <string name="backup_not_activated">Go to the app settings to activate backups.</string>
-    <string name="buy_upgrade">Upgrade</string>
     <string name="deep_search">Deep Search</string>
     <string name="enable_backup">
         Enable backups of existing profile pictures before overwriting them.
@@ -28,7 +27,6 @@
     <string name="picture_will_be_previewed">
         De gegenereerde Afbeelding wordt getoond na het toewijzen van een contact.
     </string>
-    <string name="no_contact_selected">Kies een contact</string>
     <string name="generated_image">Gegenereerde contact afbeelding</string>
     <string name="save_image_file">Afbeelding opslaan</string>
     <string name="assign_to_contact">Wijs toe aan contact</string>
@@ -45,7 +43,7 @@
 
     <string name="previous_image">Vorig beeld</string>
     <string name="next_image">Volgend beeld</string>
-    <string name="auto_experimental_long">
+    <string name="dialog_msg_missing">
         Verschillende versies van Android en sommige apps kunnen foto\'s
         op een unieke manier op te slaan.
         Het is onwaarschijnlijk, maar niet onmogelijk, dat sommige beelden worden overschreven.
@@ -53,16 +51,17 @@
         raden wij het gebruikers toch aan om een backup te maken van de contact fotos.
     </string>
     <string name="auto_mode">Batch-modus (experimenteel)</string>
-    <string name="please_note">Batch-modus is experimenteel.</string>
+    <string name="dialog_title_please_note">Batch-modus is experimenteel.</string>
     <string name="overwrite_all_or_only">
         Wilt u alle afbeeldingen overschrijven?
     </string>
-    <string name="confirm_all">
+    <string name="dialog_msg_all_contacts">
         Bevestig dat u alle beelden te overschrijven.
     </string>
     <string name="missing_pictures">Ontbrekende foto\'s</string>
     <string name="pick_contact">Kies een contact</string>
     <string name="pixel_matrix">Pixel Matrix</string>
+    <string name="buy_upgrade">Upgrade</string>
     <string name="shrinking_plates">Shrinking Plates</string>
     <string name="store_images">
         This stores images from your contacts list in the Micopi Media Directory* on your device.

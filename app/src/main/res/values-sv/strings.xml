@@ -10,8 +10,8 @@
 
 <resources>
 
-    <string name="all_contacts">All Contacts</string>
-    <string name="auto_experimental_long">
+    <string name="button_all_contacts">All Contacts</string>
+    <string name="dialog_msg_missing">
         Appen har testats noggrant,
         men vi rekommenderar ändå att du gör en sökerhetskopia på dina käraste bilder,
         för säkerhets skull.
@@ -20,8 +20,7 @@
     <string name="assign_to_contact">Tilldela kontakten</string>
     <string name="backup">Backup</string>
     <string name="backup_not_activated">Go to the app settings to activate backups.</string>
-    <string name="buy_upgrade">Upgrade</string>
-    <string name="confirm_all">
+    <string name="dialog_msg_all_contacts">
         Please confirm that you would like to overwrite all contact images.
     </string>
     <string name="deep_search">Deep Search</string>
@@ -42,7 +41,6 @@
     <string name="initials_circle">Initials Circle</string>
     <string name="missing_pictures">Missing pictures</string>
     <string name="next_image">Nästa bild</string>
-    <string name="no_contact_selected">No contact selected</string>
     <string name="none">None</string>
     <string name="overwrite_all_or_only">
         Would you like to overwrite all images or only generate pictures for contacts
@@ -54,10 +52,11 @@
         till kontakten.
     </string>
     <string name="pixel_matrix">Pixel Matrix</string>
-    <string name="please_note">Please Note</string>
+    <string name="dialog_title_please_note">Please Note</string>
     <string name="previous_image">Föregående bild</string>
     <string name="save_image_file">Spara bilden som fil</string>
     <string name="saved_picture_as">Kontaktbild sparad som %s.</string>
+    <string name="buy_upgrade">Upgrade</string>
     <string name="shrinking_plates">Shrinking Plates</string>
     <string name="store_images">
         This stores images from your contacts list in the Micopi Media Directory* on your device.

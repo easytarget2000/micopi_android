@@ -49,8 +49,6 @@ public class ImageFactory {
 
     private static Bitmap sGrainBitmap;
 
-    private int mInitialsSettings = 1;
-
     /**
      * @param contact   Data from this Contact object will be used to generate the shapes and colors
      * @param imageSize Width of device screen in pixels; height in landscape mode
@@ -146,7 +144,7 @@ public class ImageFactory {
                 DiscsGenerator.generate(painter, mContact);
                 break;
             case 2:
-                PixelGenerator.generate(painter, mContact);
+                new PixelGenerator(painter, mContact).paint();
         }
 
         if (BENCHMARK) {
@@ -166,7 +164,7 @@ public class ImageFactory {
          */
 
         // Paint the first letter of the first word in the name.
-        painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)));
+        painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)), false);
         painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
 
 

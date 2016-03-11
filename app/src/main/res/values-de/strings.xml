@@ -16,12 +16,11 @@
 
 <resources>
 
-    <string name="all_contacts">Alle Kontakte</string>
+    <string name="button_all_contacts">Alle Kontakte</string>
     <string name="backup">Backup</string>
     <string name="backup_not_activated">
-        Backups sind in der Gratisversion nicht verfügbar.
+        Gehe zu den App-Einstellungen, um Backups anzulegen.
     </string>
-    <string name="buy_upgrade">Upgrade Laden</string>
     <string name="deep_search">Deep Search</string>
     <string name="enable_backup">
         Aktiviere Backup existierender Profilbilder vor dem Ersetzen
@@ -53,16 +52,16 @@
     </string>
     <string name="previous_image">Vorheriges Bild</string>
     <string name="next_image">Nächstes Bild</string>
-    <string name="no_contact_selected">Keinen Kontakt ausgewählt</string>
     <string name="none">Ohne</string>
     <string name="overwrite_all_or_only">
         Möchtest du für alle Personen ein neues Bild generieren oder nur für Kontakte,
         die noch keines haben?
         \nVeränderungen an Kontaktbildern können nicht rückgänig gemacht werden.
     </string>
-    <string name="confirm_all">
+    <string name="dialog_msg_all_contacts">
         Bitte bestätige, dass alle Bilder überschrieben werden sollen.
     </string>
+    <string name="buy_upgrade">Vollversion kaufen</string>
     <string name="store_images">
         Die Bilder werden im Micopi Media-Ordner* gespeichert.
         Bitte beachte, dass es sich hierbei
@@ -71,8 +70,8 @@
         \n\nBitte beachte ausßerdem, dass Micopi umso mehr Speicher benötigt,
         je mehr Bilder du mit eingeschaltetem Backup ersetzt.
     </string>
-    <string name="please_note">Bitte Beachte</string>
-    <string name="auto_experimental_long">
+    <string name="dialog_title_please_note">Bitte Beachte</string>
+    <string name="dialog_msg_missing">
         Verschiedene Versionen von Android und manche Apps speichern Bilder auf eigene Art.
         Es ist unwahrscheinlich, aber nicht unmöglich, dass Bilder überschrieben werden.
         \n\nMicopi wurde ausführlich getestet.

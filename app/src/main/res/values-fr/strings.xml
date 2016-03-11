@@ -15,18 +15,18 @@
 <!--limitations under the License.-->
 <resources>
 
-    <string name="all_contacts">Tous les contacts</string>
+    <string name="button_all_contacts">Tous les contacts</string>
     <string name="assign_to_contact">Attribuer au contact</string>
     <string name="auto_mode">Mode automatique</string>
-    <string name="auto_experimental_long">
+    <string name="dialog_msg_missing">
         Différentes versions d\'Android et certaines applications
         peuvent stocker les images différemment.
         \n\nIl est peu probable mais pas impossible que certaines images soient écrasées.
     </string>
     <string name="backup">Sauvegarder</string>
     <string name="backup_not_activated">
+        Aller dans les paramètres pour activer les sauvegardes.
     </string>
-    <string name="buy_upgrade">Upgrade</string>
     <string name="deep_search">Recherche approfondie</string>
     <string name="enable_backup">
         Activer les sauvegardes des images de profil existantes avant de les écraser.
@@ -34,7 +34,7 @@
     <string name="enable_deep_search">
         Si vous avez des difficultés à trouver certains contacts, activer Recherche approfondie.
     </string>
-    <string name="confirm_all">
+    <string name="dialog_msg_all_contacts">
         Veuillez confirmer que vous vouler remplacer toutes les images de contact.
     </string>
     <string name="error_assign">Une erreur est survenue lors de l\'attribution de l\'image.</string>
@@ -49,7 +49,6 @@
     <string name="got_new_picture">%s a obtenu une nouvelle image de contact.</string>
     <string name="missing_pictures">Images manquantes</string>
     <string name="next_image">Image suivante</string>
-    <string name="no_contact_selected">Aucun contact sélectionné</string>
     <string name="none">Aucune</string>
     <string name="overwrite_all_or_only">
         Voulez-vous remplacer toutes les images ou uniquement
@@ -57,7 +56,7 @@
         \n\nMicopi a été testé minutieusement mais au cas où,
         nous vous recommendons de faire une sauvegarde de vos images de contact les plus précieuses.
     </string>
-    <string name="please_note">Remarque</string>
+    <string name="dialog_title_please_note">Remarque</string>
     <string name="pick_contact">Sélectionner un contact</string>
     <string name="picture_will_be_previewed">
         Après la sélection, l\'image générée sera affichée avant de l\'attribuer au contact.
@@ -66,6 +65,7 @@
     <string name="previous_image">Image précédente</string>
     <string name="save_image_file">Sauvegarder l\'image</string>
     <string name="saved_picture_as">Image sauvegardée comme %1$s.</string>
+    <string name="buy_upgrade">Upgrade</string>
     <string name="shrinking_plates">Plaques</string>
     <string name="store_images">
         Cela stocke les images à partir de votre liste de contacts dans le répertoire Micopi*
