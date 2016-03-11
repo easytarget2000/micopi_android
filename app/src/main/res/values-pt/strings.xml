@@ -10,10 +10,10 @@
 
 <resources>
 
-    <string name="all_contacts">Todos os contatos</string>
+    <string name="button_all_contacts">Todos os contatos</string>
     <string name="assign_to_contact">Atribuir ao contato</string>
     <string name="auto_mode">Modo Automático</string>
-    <string name="auto_experimental_long">
+    <string name="dialog_msg_missing">
 		Diferentes versões do Android e alguns apps podem armazenar imagens de maneiras únicas.
 		\n\nÉ improvável, mas não impossível, que as imagens de perfil sejam substituídas.
     </string>
@@ -22,7 +22,7 @@
         Vá para as configuraçõres do app para ativar o Backup.
     </string>
     <string name="buy_upgrade">Upgrade</string>
-    <string name="confirm_all">
+    <string name="dialog_msg_all_contacts">
         Por favor confirme que você deseja subtituir todas as imagens de contato.
     </string>
     <string name="deep_search">Pesquisa profunda</string>
@@ -53,7 +53,7 @@
 		Recomendamos que você faça um backup de seus contatos e imagens mais preciosos,
         apenas por precaução.
     </string>
-    <string name="please_note">Por favor, note que:</string>
+    <string name="dialog_title_please_note">Por favor, note que:</string>
     <string name="pick_contact">Selecionar um contato</string>
     <string name="picture_will_be_previewed">
 		Após selecionar um contato, a imagem gerada será exibida antes de

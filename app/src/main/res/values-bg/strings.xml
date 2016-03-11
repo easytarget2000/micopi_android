@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="all_contacts">Всички номера</string>
+    <string name="button_all_contacts">Всички номера</string>
     <string name="assign_to_contact">Да се зададе на номер</string>
     <string name="auto_mode">Автоматичен режим</string>
-    <string name="auto_experimental_long">
+    <string name="dialog_msg_missing">
         Различните версии на Android и някои приложения съхраняват по различен начин
         снимките на контактите.
         Има малка вероятност изображения на контакти да бъдат загубени или презаписани
@@ -13,7 +13,7 @@
         Отидете в настройките, за да направите резервно копие
     </string>
     <string name="buy_upgrade">Upgrade</string>
-    <string name="confirm_all">Моля потвърдете презаписването на всички изображения на контакти.
+    <string name="dialog_msg_all_contacts">Моля потвърдете презаписването на всички изображения на контакти.
     </string>
     <string name="deep_search">Deep Search</string>
     <string name="enable_backup">
@@ -44,7 +44,7 @@
         Препоръчително е за всеки случай да си направите резервно
         копие на текущите снимки на номерата Ви.
     </string>
-    <string name="please_note">Моля имайте предвид</string>
+    <string name="dialog_title_please_note">Моля имайте предвид</string>
     <string name="pick_contact">Избиране на единичен номер</string>
     <string name="picture_will_be_previewed">
         След избирането на номер,
@@ -66,4 +66,12 @@
     <string name="structured_discs">Структурирани дискове</string>
     <string name="styles">Стилове</string>
     <string name="want_to_assign">Искате ли да задедете това изображение на %1$s?</string>
+
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">Want backups?</string>
+    <string name="upgrade_teaser_2">Want style settings?</string>
+    <string name="upgrade_teaser_3">Want new features sooner?</string>
+    <string name="upgrade_teaser_4">Want improvements sooner?</string>
+    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
+
 </resources>

@@ -172,10 +172,10 @@ public class BatchActivity extends TaskActivity {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
         if (mode == ImageService.CrawlMode.All) {
-            dialog.setMessage(R.string.confirm_all);
+            dialog.setMessage(R.string.dialog_msg_all_contacts);
         } else {
-            dialog.setTitle(R.string.please_note);
-            dialog.setMessage(R.string.auto_experimental_long);
+            dialog.setTitle(R.string.dialog_title_please_note);
+            dialog.setMessage(R.string.dialog_msg_missing);
         }
 
         // Alternatively react on pressing the OK button.

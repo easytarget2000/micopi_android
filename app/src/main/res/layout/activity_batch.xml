@@ -54,7 +54,7 @@
                 android:layout_marginBottom="@dimen/margin_default"
                 android:background="@android:color/white"
                 android:onClick="generateAllPressed"
-                android:text="@string/all_contacts"
+                android:text="@string/button_all_contacts"
                 android:textColor="@color/primary"
                 android:textSize="@dimen/text_size" />
 

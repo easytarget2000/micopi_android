@@ -26,12 +26,13 @@
     <string name="enable_deep_search">
         If you have trouble finding certain contacts in Micopi, enable Deep Search.
     </string>
+    <string name="first_name">First name</string>
+    <string name="first_three">First three names</string>
     <string name="initials_circle">Initials Circle</string>
-    <string name="no_contact_selected">Fue seleccionado nadie</string>
-    <string name="none">None</string>
     <string name="picture_will_be_previewed">
         Tras seleccionar un nombre de la lista,
         se generará la imagen para que pueda aplicarla al contacto.</string>
+    <string name="no_contact_selected">Fue seleccionado nadie</string>
     <string name="store_images">
         This stores images from your contacts list in the Micopi Media Directory* on your device.
         Please note that this is merely an experimental assistance.
@@ -39,23 +40,20 @@
         \n\nPlease also note, the more images you replace with backups enabled,
         the more memory storage Micopi is going to use.
     </string>
-
+    <string name="none">None</string>
 
     <string name="generated_image">Imagen generada</string>
     <string name="save_image_file">Guardar imagen en archivo</string>
     <string name="assign_to_contact">Aplicar imagen</string>
-    <string name="want_to_assign">¿Desea asignar a %s esta imagen?</string>
+    <string name="want_to_assign">¿Desea asignar a %1$s esta imagen?</string>
     <string name="got_new_picture">%1$s tiene ahora una nueva imagen de contacto.</string>
     <string name="saved_picture_as">La imagen se guardó con el nombre %s</string>
-    <string name="error_saving">Ocurrió un error guardando la imagen.</string>
-    <string name="error_assign">Ocurrió un error mientras se asignaba la imagen al contacto.</string>
-    <string name="first_name">First name</string>
-    <string name="first_three">First three names</string>
+
     <string name="previous_image">Imagen anterior</string>
     <string name="next_image">Siguiente imagen</string>
 
-    <string name="all_contacts">Tots els contactes</string>
-    <string name="auto_experimental_long">
+    <string name="button_all_contacts">Todos los contactos</string>
+    <string name="dialog_msg_missing">
         Las diferentes versiones de Android y algunas aplicaciones
         pueden almacenar imágenes en una forma única.
         Es poco probable, pero no imposible,
@@ -64,20 +62,25 @@
         Sin embargo recomendamos hacer una copia de seguridad
         de las fotos de sus contactos más importantes.
     </string>
-    <string name="auto_mode">Mode automàtic</string>
-    <string name="pixel_matrix">Pixel Matrix</string>
-    <string name="please_note">Tingui En Compte</string>
-    <string name="overwrite_all_or_only">
-        Would you like to overwrite all images or only generate pictures for contacts
-        that currently do not have one?
+    <string name="auto_mode">Modo automático</string>
+    <string name="error_assign">
+        Ocurrió un error mientras se asignaba la imagen al contacto.
     </string>
-    <string name="confirm_all">Confirmeu que voleu sobreescriure totes les imatges.</string>
+    <string name="error_saving">Ocurrió un error guardando la imagen.</string>
+    <string name="dialog_title_please_note">Tenga En Cuenta</string>
+    <string name="overwrite_all_or_only">
+       ¿Quieres sobrescribir todas las imágenes o solamente para generar contactos sin una imagen?
+    </string>
+    <string name="dialog_msg_all_contacts">
+        Por favor, confirme que desea sobrescribir todas las imágenes.
+    </string>
 
-    <string name="missing_pictures">Imatges que falta</string>
+    <string name="missing_pictures">Imágenes que falta</string>
     <string name="pick_contact">Seleccionar un contacto</string>
+    <string name="pixel_matrix">Pixel Matrix</string>
     <string name="shrinking_plates">Shrinking Plates</string>
-    <string name="structured_discs">Structured Discs</string>
     <string name="styles">Styles</string>
+    <string name="structured_discs">Structured Discs</string>
 
     <!-- Upgrade Teaser -->
     <string name="upgrade_teaser_1">Du willst Backups?</string>

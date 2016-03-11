@@ -60,7 +60,6 @@
     </string>
     <string name="button_all_contacts">All contacts</string>
     <string name="missing_pictures">Missing pictures</string>
-    <string name="button_redo_micopi">Redo Micopi pictures</string>
 
     <!-- Batch Mode - Dialogs -->
     <string name="dialog_msg_all_contacts">
@@ -71,12 +70,6 @@
         \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
     <string name="dialog_title_please_note">Please Note</string>
-    <string name="dialog_msg_redo_micopi">
-        This mode is only able to find Micopi images
-        that have been created with the current version of the app.
-        Older pictures will not be replaced.
-    </string>
-
 
     <!-- Settings - Styles -->
     <string name="styles">Styles</string>
