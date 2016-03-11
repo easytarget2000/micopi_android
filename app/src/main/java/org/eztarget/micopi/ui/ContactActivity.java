@@ -31,9 +31,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.InterstitialAd;
-
 import org.eztarget.micopi.Contact;
 import org.eztarget.micopi.R;
 import org.eztarget.micopi.engine.ColorUtilities;
@@ -88,20 +85,6 @@ public class ContactActivity extends TaskActivity {
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_CONTACT)) {
             setContact((Contact) savedInstanceState.getParcelable(KEY_CONTACT));
         }
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3919756936405773/6882928244");
-
-        mInterstitialAd.setAdListener(
-                new AdListener() {
-                    @Override
-                    public void onAdClosed() {
-                        requestNewInterstitial();
-                    }
-                }
-        );
-
-        requestNewInterstitial();
 
         // Immediately show the contact picker if no contact has been selected, yet.
         if (mContact == null) pickContact();
@@ -231,7 +214,6 @@ public class ContactActivity extends TaskActivity {
             descriptionView.setVisibility(View.VISIBLE);
         }
 
-        showInterstitialDelayed();
         generateImage();
     }
 
@@ -361,7 +343,6 @@ public class ContactActivity extends TaskActivity {
                     ),
                     Toast.LENGTH_SHORT
             ).show();
-            showInterstitialDelayed();
         } else {
             Toast.makeText(
                     ContactActivity.this,

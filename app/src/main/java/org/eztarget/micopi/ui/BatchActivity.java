@@ -16,9 +16,6 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.InterstitialAd;
-
 import org.eztarget.micopi.ImageService;
 import org.eztarget.micopi.R;
 import org.eztarget.micopi.helper.DeviceHelper;
@@ -50,18 +47,6 @@ public class BatchActivity extends TaskActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_batch);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3919756936405773/8359661442");
-
-        mInterstitialAd.setAdListener(
-                new AdListener() {
-                    @Override
-                    public void onAdClosed() {
-                        requestNewInterstitial();
-                    }
-                }
-        );
 
         // Set the status bar colour of this window on Android >= 5.0.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -115,7 +100,6 @@ public class BatchActivity extends TaskActivity {
     protected void showSuccess() {
         super.showSuccess();
         hideControl();
-        showInterstitialDelayed();
     }
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {

@@ -3,15 +3,11 @@ package org.eztarget.micopi.ui;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 
 import org.eztarget.micopi.R;
 
@@ -21,8 +17,6 @@ import org.eztarget.micopi.R;
  * Super class for Activities in which images are being generated
  */
 public class TaskActivity extends BaseActivity {
-
-    protected InterstitialAd mInterstitialAd;
 
     @Override
     protected void onResume() {
@@ -100,26 +94,6 @@ public class TaskActivity extends BaseActivity {
                 }
         );
         view.startAnimation(fadeOut);
-    }
-
-    /*
-    Ads
-     */
-
-    protected void requestNewInterstitial() {
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-    }
-
-    protected void showInterstitialDelayed() {
-        new Handler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mInterstitialAd.isLoaded()) mInterstitialAd.show();
-                    }
-                },
-                1000L
-        );
     }
 
 }
