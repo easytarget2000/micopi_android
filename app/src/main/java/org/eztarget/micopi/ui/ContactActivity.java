@@ -221,7 +221,7 @@ public class ContactActivity extends TaskActivity {
 
         if (mContact == null) {
             Log.e("generateImageTask", "ERROR: Contact is null.");
-            nameView.setText(R.string.no_contact_selected);
+            nameView.setText("");
             descriptionView.setVisibility(View.GONE);
             onBackPressed();
             return;

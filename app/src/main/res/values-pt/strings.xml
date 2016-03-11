@@ -44,7 +44,6 @@
     <string name="initials_circle">Cículo de iniciais</string>
     <string name="missing_pictures">Imagens faltantes</string>
     <string name="next_image">Próxima imagem</string>
-    <string name="no_contact_selected">Nenhum contato selecionado</string>
     <string name="none">Nenhum</string>
     <string name="overwrite_all_or_only">
 		Você deseja sobreescrever todas as imagens ou apenas gerar imagens para os contatos

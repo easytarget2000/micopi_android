@@ -36,7 +36,6 @@
     <string name="initials_circle">Кръгче с инициали</string>
     <string name="missing_pictures">Липсващи картинки</string>
     <string name="next_image">Следващо изображение</string>
-    <string name="no_contact_selected">Не са избрани номера</string>
     <string name="none">Нито един</string>
     <string name="overwrite_all_or_only">
         Всички снимки ли искате да замените, или да се генерират нови само за тези без снимка?

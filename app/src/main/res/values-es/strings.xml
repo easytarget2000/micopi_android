@@ -32,7 +32,6 @@
     <string name="picture_will_be_previewed">
         Tras seleccionar un nombre de la lista,
         se generará la imagen para que pueda aplicarla al contacto.</string>
-    <string name="no_contact_selected">Fue seleccionado nadie</string>
     <string name="store_images">
         This stores images from your contacts list in the Micopi Media Directory* on your device.
         Please note that this is merely an experimental assistance.

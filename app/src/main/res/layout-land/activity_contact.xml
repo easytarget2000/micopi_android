@@ -36,7 +36,6 @@
         android:layout_marginRight="@dimen/margin_small"
         android:layout_toEndOf="@id/image_contact"
         android:layout_toRightOf="@id/image_contact"
-        android:text="@string/no_contact_selected"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_large"
