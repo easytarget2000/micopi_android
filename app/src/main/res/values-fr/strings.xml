@@ -80,4 +80,11 @@
     <string name="styles">Styles</string>
     <string name="want_to_assign">Voulez-vous attribuer cette image à %1$s ?</string>
 
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">Du willst Backups?</string>
+    <string name="upgrade_teaser_2">Du willst Bildeinstellungen?</string>
+    <string name="upgrade_teaser_3">Du willst neue Features früher erhalten?</string>
+    <string name="upgrade_teaser_4">Du willst Verbesserungen früher erhalten?</string>
+    <string name="upgrade_teaser_5">Du willst keine Werbeeinblendungen mehr sehen?</string>
+
 </resources>

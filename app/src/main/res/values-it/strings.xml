@@ -83,4 +83,11 @@
         \n\nQuesta modifica é; irreversibile.
     </string>
 
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">Du willst Backups?</string>
+    <string name="upgrade_teaser_2">Du willst Bildeinstellungen?</string>
+    <string name="upgrade_teaser_3">Du willst neue Features früher erhalten?</string>
+    <string name="upgrade_teaser_4">Du willst Verbesserungen früher erhalten?</string>
+    <string name="upgrade_teaser_5">Du willst keine Werbeeinblendungen mehr sehen?</string>
+
 </resources>

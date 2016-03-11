@@ -78,6 +78,7 @@
         <!-- Description Text: -->
 
         <TextView
+            android:gravity="center"
             android:id="@+id/text_intro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,6 +140,7 @@
     <!-- Upgrade Teaser -->
 
     <TextView
+        android:gravity="center"
         android:id="@+id/text_upgrade_teaser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
