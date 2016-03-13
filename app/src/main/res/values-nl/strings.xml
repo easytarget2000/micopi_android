@@ -12,43 +12,43 @@
 
     <string name="button_all_contacts">Alle contacten</string>
     <string name="backup">Backup</string>
-    <string name="backup_not_activated">Go to the app settings to activate backups.</string>
-    <string name="deep_search">Deep Search</string>
+    <string name="backup_not_activated">Ga naar de app-instellingen om backups in te schakelen.</string>
+    <string name="deep_search">Dieper zoeken</string>
     <string name="enable_backup">
-        Enable backups of existing profile pictures before overwriting them.
+        Maak backups van bestaande contactafbeeldingen alvorens ze te overschrijven.
     </string>
     <string name="enable_deep_search">
-        If you have trouble finding certain contacts in Micopi, enable Deep Search.
+        Als u problemen hebt met het vinden van bepaalde contacten in Micopi, schakel dan Dieper zoeken in.
     </string>
     <string name="first_name">Voornaam</string>
-    <string name="first_three">eerste drie namen</string>
-    <string name="initials_circle">Initials Circle</string>
-    <string name="none">zonder</string>
+    <string name="first_three">Eerste drie namen</string>
+    <string name="initials_circle">Initialen Cirkel</string>
+    <string name="none">Geen</string>
     <string name="picture_will_be_previewed">
         De gegenereerde Afbeelding wordt getoond na het toewijzen van een contact.
     </string>
-    <string name="generated_image">Gegenereerde contact afbeelding</string>
+    <string name="generated_image">Gegenereerde contactafbeelding</string>
     <string name="save_image_file">Afbeelding opslaan</string>
     <string name="assign_to_contact">Wijs toe aan contact</string>
     <string name="want_to_assign">Afbeelding toewijzen aan %s?</string>
-    <string name="got_new_picture">%s heeft een nieuwe contact afbeelding.</string>
+    <string name="got_new_picture">%s heeft een nieuwe contactafbeelding.</string>
     <string name="saved_picture_as">Afbeelding opgeslagen als %s.</string>
     <string name="error_saving">
-        Er is een fout opgetreden tijdens het opslaan van de foto.
+        Er is een fout opgetreden bij het opslaan van de afbeelding.
         Controleer de gegevens en probeer het nog een keer.
     </string>
     <string name="error_assign">
-        Er is een fout opgetreden tijdens het toewijzen van de afbeelding aan het contact.
+        Er is een fout opgetreden bij het toewijzen van de afbeelding aan het contact.
     </string>
 
-    <string name="previous_image">Vorig beeld</string>
-    <string name="next_image">Volgend beeld</string>
+    <string name="previous_image">Vorige afbeelding</string>
+    <string name="next_image">Volgende afbeelding</string>
     <string name="dialog_msg_missing">
         Verschillende versies van Android en sommige apps kunnen foto\'s
-        op een unieke manier op te slaan.
+        op een unieke manier opslaan.
         Het is onwaarschijnlijk, maar niet onmogelijk, dat sommige beelden worden overschreven.
         \n\nOndanks dat wij grote moeite hebben gedaan om deze app te testen,
-        raden wij het gebruikers toch aan om een backup te maken van de contact fotos.
+        raden wij het gebruikers toch aan om een backup te maken van de contactafbeeldingen.
     </string>
     <string name="auto_mode">Batch-modus (experimenteel)</string>
     <string name="dialog_title_please_note">Batch-modus is experimenteel.</string>
@@ -56,28 +56,55 @@
         Wilt u alle afbeeldingen overschrijven?
     </string>
     <string name="dialog_msg_all_contacts">
-        Bevestig dat u alle beelden te overschrijven.
+        Bevestig dat u alle afbeeldingen wilt overschrijven.
     </string>
     <string name="missing_pictures">Ontbrekende foto\'s</string>
     <string name="pick_contact">Kies een contact</string>
     <string name="pixel_matrix">Pixel Matrix</string>
     <string name="buy_upgrade">Upgrade</string>
-    <string name="shrinking_plates">Shrinking Plates</string>
+    <string name="shrinking_plates">Krimpende borden</string>
     <string name="store_images">
-        This stores images from your contacts list in the Micopi Media Directory* on your device.
-        Please note that this is merely an experimental assistance.
-        It is recommended to backup your most precious contact pictures in an additional way.
-        \n\nPlease also note, the more images you replace with backups enabled,
-        the more memory storage Micopi is going to use.
+        Dit bewaart afbeeldingen van uw contacten in de Micopi Media Directory* op uw apparaat.
+        Denk eraan dat dit een experimentele ondersteuning is.
+        We adviseren u de belangrijkste contactafbeeldingen op een andere manier te backuppen.
+        \n\nDenk er ook aan dat hoe meer afbeeldingen u laat vervangen met ingeschakelde backups,
+        hoe meer geheugen Micopi zal innemen.
     </string>
-    <string name="structured_discs">Structured Discs</string>
-    <string name="styles">Styles</string>
+    <string name="structured_discs">Gestructureerde schijven</string>
+    <string name="styles">Stijlen</string>
+
+    <string name="button_reset_images">Afbeeldingen resetten</string>
+
+    <string name="button_redo_micopi">Micopi afbeeldingen nogmaals toepassen</string>
+
+    <string name="dialog_msg_redo_micopi">
+        Deze optie kan alleen Micopi afbeeldingen vinden
+        die zijn gemaakt met de huidige versie van de app.
+        Oudere afbeeldingen worden niet vervangen.
+    </string>
+
+    <string name="button_delete_backup">
+        Backup-map legen
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Bevestig dat u alle afbeeldingsbackups wilt verwijderen die door Micopi zijn gemaakt.
+    </string>
+
+    <string name="msg_reset">
+        Wilt u een enkele afbeelding resetten of alle contactafbeeldingen tegelijk?
+    </string>
+    <string name="dialog_msg_reset_all_contacts">
+        Bevestig dat u ALLE contactafbeeldingen wilt resetten.
+    </string>
+    <string name="dialog_check_delete">
+        Verwijder afbeeldingen waarvan geen backup is gemaakt!
+    </string>
 
     <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Want backups?</string>
-    <string name="upgrade_teaser_2">Want style settings?</string>
-    <string name="upgrade_teaser_3">Want new features sooner?</string>
-    <string name="upgrade_teaser_4">Want improvements sooner?</string>
-    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
+    <string name="upgrade_teaser_1">Wilt u backups?</string>
+    <string name="upgrade_teaser_2">Wilt u stijlen instellen?</string>
+    <string name="upgrade_teaser_3">Wilt u sneller nieuwe functies?</string>
+    <string name="upgrade_teaser_4">Wilt u verbeteringen sneller?</string>
+    <string name="upgrade_teaser_5">Wilt u advertenties verwijderen?</string>
 
 </resources>
