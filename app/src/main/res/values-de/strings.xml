@@ -23,7 +23,7 @@
     </string>
     <string name="deep_search">Deep Search</string>
     <string name="enable_backup">
-        Aktiviere Backup existierender Profilbilder vor dem Ersetzen
+        Aktiviere Backups existierender Profilbilder vor dem Ersetzen
     </string>
     <string name="enable_deep_search">
         Falls einige deiner Kontakte nicht in Micopi angezeigt werden, aktiviere Deep Search.
@@ -61,7 +61,7 @@
     <string name="dialog_msg_all_contacts">
         Bitte bestätige, dass alle Bilder überschrieben werden sollen.
     </string>
-    <string name="buy_upgrade">Vollversion kaufen</string>
+    <string name="settings">Einstellungen</string>
     <string name="store_images">
         Die Bilder werden im Micopi Media-Ordner* gespeichert.
         Bitte beachte, dass es sich hierbei
@@ -87,11 +87,44 @@
     <string name="structured_discs">Scheibenstruktur</string>
     <string name="styles">Stile</string>
 
+    <!-- Welcome -->
+    <string name="button_buy_full">Vollversion Kaufen</string>
+    <string name="button_reset_images">Bilder Zurücksetzen</string>
+
+    <!-- Batch Mode -->
+    <string name="button_redo_micopi">Micopi-Kontakte</string>
+
+    <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_redo_micopi">
+        Dieser Modus ersetzt nur Bilder,
+        die mit der aktuellen Version von Micopi erzeugt worden sind.
+    </string>
+
     <!-- Upgrade Teaser -->
     <string name="upgrade_teaser_1">Du willst Backups?</string>
     <string name="upgrade_teaser_2">Du willst Bildeinstellungen?</string>
     <string name="upgrade_teaser_3">Du willst neue Features früher erhalten?</string>
     <string name="upgrade_teaser_4">Du willst Verbesserungen früher erhalten?</string>
-    <string name="upgrade_teaser_5">Du willst keine Werbeeinblendungen mehr sehen?</string>
+    <string name="upgrade_teaser_5">Du willst keine Werbung mehr?</string>
+
+    <!-- Settings - Backup -->
+    <string name="button_delete_backup">
+        Backup Löschen
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Bitte bestätige, dass du sämtliche Backups, die Micopi von alten Profilfotos erstellt hat,
+        löschen möchtest.
+    </string>
+
+    <!-- Image Reset -->
+    <string name="msg_reset">
+        Möchtest du ein Bild zurücksetzen oder alle?
+    </string>
+    <string name="dialog_msg_reset_all_contacts">
+        Bitte bestätige, dass du ALLE Bilder zurücksetzen willst.
+    </string>
+    <string name="dialog_check_delete">
+        Lösche Fotos, zu denen es kein passendes Backup gibt.
+    </string>
 
 </resources>

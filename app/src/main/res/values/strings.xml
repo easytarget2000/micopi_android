@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--Copyright (C) 2014 Easy Target-->
+<!--Copyright (C) 2016 Easy Target-->
 
 <!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
 
@@ -10,7 +10,7 @@
 
 <resources>
 
-    <string name="app_name" translatable="false">Micopi Pico</string>
+    <string name="app_name" translatable="false">Micopi+</string>
 
     <!-- Welcome -->
     <string name="pick_contact">Pick a single contact</string>
@@ -19,7 +19,9 @@
         before assigning it to that person.
     </string>
     <string name="auto_mode">Automatic mode</string>
-    <string name="buy_upgrade">Buy the full version</string>
+    <string name="button_reset_images">Reset Images</string>
+    <string name="settings">Settings</string>
+    <string name="button_buy_full">Buy the full version</string>
 
     <!-- Upgrade Teaser -->
     <string name="upgrade_teaser_1">Want backups?</string>
@@ -60,6 +62,7 @@
     </string>
     <string name="button_all_contacts">All contacts</string>
     <string name="missing_pictures">Missing pictures</string>
+    <string name="button_redo_micopi">Redo Micopi pictures</string>
 
     <!-- Batch Mode - Dialogs -->
     <string name="dialog_msg_all_contacts">
@@ -70,6 +73,27 @@
         \n\nIt is unlikely, but not impossible, that profile images get overwritten.
     </string>
     <string name="dialog_title_please_note">Please Note</string>
+    <string name="dialog_msg_redo_micopi">
+        This mode is only able to find Micopi images
+        that have been created with the current version of the app.
+        Older pictures will not be replaced.
+    </string>
+    <!--<string name="dialog_msg_redo_micopi">-->
+        <!--This mode is only able to find Micopi images-->
+        <!--that have been created with version 4.4 (released in March 2016) or higher.-->
+        <!--Older pictures will not be replaced.-->
+    <!--</string>-->
+
+    <!-- Image Reset -->
+     <string name="msg_reset">
+         Would you like to reset a single image or all contact images at once?
+     </string>
+     <string name="dialog_msg_reset_all_contacts">
+         Please confirm that you would like to reset ALL contact images.
+     </string>
+     <string name="dialog_check_delete">
+         Delete images that do not have a backup!
+     </string>
 
     <!-- Settings - Styles -->
     <string name="styles">Styles</string>
@@ -94,6 +118,12 @@
         It is recommended to backup your most precious contact pictures in an additional way.
         \n\nPlease also note, the more images you replace with backups enabled,
         the more memory storage Micopi is going to use.
+    </string>
+    <string name="button_delete_backup">
+        Delete Backup Folder
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Please confirm that you would like to delete all image backups made by Micopi.
     </string>
 
     <!-- Settings - Deep Search -->

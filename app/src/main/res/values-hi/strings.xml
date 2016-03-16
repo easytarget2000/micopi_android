@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
+
+<resources>
+
+    <!-- Welcome -->
+    <string name="pick_contact">कोई संपर्क चुनें</string>
+    <string name="picture_will_be_previewed">
+        संपर्क चुनने के बाद, उत्पन्न किया हुआ चित्र उस व्यक्ति को नियुक्त करने से पहले दिखाया जाएगा।
+    </string>
+    <string name="auto_mode">स्वचालित मोड</string>
+    <string name="button_reset_images">चित्रों को रीसेट करें</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="button_buy_full">पूर्ण संस्करण को खरीदें</string>
+
+    <!-- Single Contact -->
+    <string name="generated_image">उत्पन्न किया संपर्क चित्र</string>
+    <string name="assign_to_contact"> संपर्क को नियुक्त करें</string>
+    <string name="next_image">अगला चित्र</string>
+    <string name="previous_image">पिछला चित्र</string>
+
+    <!-- Single Contact - Dialog & Toasts-->
+    <string name="save_image_file">चित्र को सेव करें</string>
+    <string name="want_to_assign">
+        क्या आप यह चित्र %1$s को नियुक्त करना चाहते हैं?
+        \n\nयह परिवर्तन पूर्ववत नहीं किया जा सकता है।
+    </string>
+    <string name="backup_not_activated">एैप सेटिंग्स में बैकअप सक्रिय करें।</string>
+    <string name="got_new_picture">%1$s को एक नया संपर्क चित्र मिल गया है।</string>
+    <string name="error_assign">
+        संपर्क का चित्र नियुक्त करते हुए एक त्रुटि हो गई।
+    </string>
+    <string name="saved_picture_as">चित्र को %1$s के नाम से सेव किया गया।</string>
+    <string name="error_saving">
+        इस चित्र को फ़ाइल में सेव करते हुए एक त्रुटि हो गई।
+        कृपया यह सुनिश्चित करें कि आपका स्टोरेज लाक नहीं है।
+    </string>
+
+    <!-- Batch Mode -->
+    <string name="overwrite_all_or_only">
+        क्या आप सारे चित्रों को अधिलेखित करना चाहते हैं या केवल उन संपर्कों के चित्र उत्पन्न करना चाहते हैं जिनका अभी कोई चित्र नहीं है?
+        \n\nMicopi द्वारा किए गए परिवर्तनों को पूर्ववत नहीं किया जा सकता है।
+        हमारी सलाह है कि अपने बहुमूल्य संपर्कों और चित्रों का एक बैकअप ले लें।
+    </string>
+    <string name="button_all_contacts"> सभी संपर्क</string>
+    <string name="missing_pictures">अनुपस्थित चित्र</string>
+    <string name="button_redo_micopi">Micopi के चित्रों को पुनः नियुक्त करें</string>
+
+    <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_all_contacts">
+        कृपया पुष्टि करें कि आप सारे संपर्क चित्रों का अधिलेखन करना चाहते हैं।
+    </string>
+    <string name="dialog_msg_missing">
+        एंड्रॉयड के विभिन्न संस्करण और विभिन्न एैप्स चित्रों को अनूठे तरीके से सेव कर सकते हैं।
+        \n\nइसकी संभावना है कि संपर्क चित्र अधिलेखित हो जाएँ।
+    </string>
+    <string name="dialog_title_please_note">कृपया नोट करें</string>
+    <string name="dialog_msg_redo_micopi">
+        यह मोड केवल उन Micopi छवियों को खोजने में सक्षम है
+        जिन्हें एैप के वर्तमान संस्करण के साथ बनाया गया है।
+        पुराने चित्रों को रिप्लेस नहीं किया जाएगा।
+    </string>
+
+    <!-- Image Reset -->
+    <string name="msg_reset">
+        क्या आप एक ही चित्र या एक बार में सभी संपर्क चित्रों को रीसेट करना चाहेंगे?
+    </string>
+    <string name="dialog_msg_reset_all_contacts">
+        कृपया पुष्टि करें कि आप सभी संपर्क चित्रों को रीसेट करना चाहते हैं।
+    </string>
+    <string name="dialog_check_delete">
+        उन चित्रों को मिटाएँ जिनका कोई बैकअप नहीं है!
+    </string>
+
+    <!-- Settings - Styles -->
+    <string name="styles">स्टाइल्स</string>
+    <string name="shrinking_plates">सिकुड़ती प्लेटें</string>
+    <string name="structured_discs">संरचित डिस्क</string>
+    <string name="pixel_matrix">पिक्सेल मैट्रिक्स</string>
+
+    <!-- Settings - Initials Circle -->
+    <string name="initials_circle">आद्याक्षर चक्र</string>
+    <string name="none">कुछ नहीं</string>
+    <string name="first_name">पहला नाम</string>
+    <string name="first_three">पहले तीन नाम</string>
+
+    <!-- Settings - Backup -->
+    <string name="backup">बैकअप</string>
+    <string name="enable_backup">
+        अपने मौजूदा संपर्क चित्रों का अधिलेखन करने से पहले बैकअप सक्षम करें।
+    </string>
+    <string name="store_images">
+        यह अापके डिवाइस पर Micopi Media Directory* में आपकी संपर्क सूची से छवियों को संग्रहीत करता है।
+        कृपया ध्यान दें कि यह केवल एक प्रयोगात्मक सहायता है।
+        हमारी सलाह है कि अपने बहुमूल्य संपर्क चित्रों का एक अतिरिक्त बैकअप ले लें।
+        \n\nकृपया यह भी ध्यान दें कि अाप बैकअप के साथ जितनी अधिक छवियां बदलेंगे,
+        Micopi उतनी अधिक मेमोरी का उपयोग करेगा।
+    </string>
+    <string name="button_delete_backup">
+        बैकअप फोल्डर मिटाएँ
+    </string>
+    <string name="dialog_msg_delete_backup">
+        कृपया पुष्टि करें कि आप Micopi द्वारा बनाए गए सारे बैकअप को नष्ट करना चाहते हैं।
+    </string>
+
+    <!-- Settings - Deep Search -->
+    <string name="deep_search">गहन खोज</string>
+    <string name="enable_deep_search">
+        यदि आपको Micopi में किसी संपर्क को खोजने में मुश्किल हो रही हो तो गहन खोज को सक्षम करें।
+    </string>
+
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">बैकअप की सुविधा चाहिए?</string>
+    <string name="upgrade_teaser_2">स्टाइल सेटिंग्स चाहिए?</string>
+    <string name="upgrade_teaser_3">नई विशेषताएँ जल्दी चाहिए?</string>
+    <string name="upgrade_teaser_4">सुधार जल्दी चाहिए?</string>
+    <string name="upgrade_teaser_5">विज्ञापनों से छुटकारा चाहिए?</string>
+
+</resources>

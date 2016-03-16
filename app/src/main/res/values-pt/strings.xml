@@ -21,7 +21,6 @@
     <string name="backup_not_activated">
         Vá para as configuraçõres do app para ativar o Backup.
     </string>
-    <string name="buy_upgrade">Upgrade</string>
     <string name="dialog_msg_all_contacts">
         Por favor confirme que você deseja subtituir todas as imagens de contato.
     </string>
@@ -62,6 +61,7 @@
     <string name="previous_image">Imagem anterior</string>
     <string name="save_image_file">Salvar imagem como arquivo</string>
     <string name="saved_picture_as">Imagem de contato salva como %1$s.</string>
+    <string name="settings">Configurações</string>
     <string name="shrinking_plates">Pratos encolhidos</string>
     <string name="store_images">
         Isso armazena as imagens da sua lista de contatos no diretódio de mída do Micopi*
@@ -79,11 +79,44 @@
         \n\nEssa ação não pode ser desfeita.
     </string>
 
+    <!-- Welcome -->
+    <string name="button_reset_images">Redefinir imagens</string>
+    <string name="button_buy_full">Comprar a versão completa</string>
+
+    <!-- Batch Mode -->
+    <string name="button_redo_micopi">Redefinir imagens do Micopi</string>
+
+    <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_redo_micopi">
+        Esse modo somente encontra imagens do Micopi
+        que foram criadas com a versão atual.
+        Imagens antigas não serão substituídas.
+    </string>
+
+    <!-- Image Reset-->
+    <string name="msg_reset">
+        Você deseja redefinir uma imagem ou todas as imagens de contato de uma vez só?
+    </string>
+    <string name="dialog_msg_reset_all_contacts">
+        Por favor, confirme que você deseja redefinir TODAS as imagens de contato.
+    </string>
+    <string name="dialog_check_delete">
+        Apagar imagens que não tenham um backup!
+    </string>
+
+    <!-- Settings - Backup -->
+    <string name="button_delete_backup">
+        Apagar pasta de backup
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Por favor, confirme que você deseja apagar todas as imagens de backup feitas pelo Micopi.
+    </string>
+
     <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Du willst Backups?</string>
-    <string name="upgrade_teaser_2">Du willst Bildeinstellungen?</string>
-    <string name="upgrade_teaser_3">Du willst neue Features früher erhalten?</string>
-    <string name="upgrade_teaser_4">Du willst Verbesserungen früher erhalten?</string>
-    <string name="upgrade_teaser_5">Du willst keine Werbeeinblendungen mehr sehen?</string>
+    <string name="upgrade_teaser_1">Você quer backups?</string>
+    <string name="upgrade_teaser_2">Você quer configurações de estilo?</string>
+    <string name="upgrade_teaser_3">Você quer novas funcionalidades mais cedo?</string>
+    <string name="upgrade_teaser_4">Você quer aprimoramentos mais cedo?</string>
+    <string name="upgrade_teaser_5">Você quer se livrar dos anúncios?</string>
 
 </resources>
