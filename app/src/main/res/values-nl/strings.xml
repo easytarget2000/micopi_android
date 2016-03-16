@@ -61,8 +61,8 @@
     <string name="missing_pictures">Ontbrekende foto\'s</string>
     <string name="pick_contact">Kies een contact</string>
     <string name="pixel_matrix">Pixel Matrix</string>
-    <string name="buy_upgrade">Upgrade</string>
-    <string name="shrinking_plates">Krimpende borden</string>
+    <string name="settings">Upgrade</string>
+    <string name="shrinking_plates">Schoteltjes</string>
     <string name="store_images">
         Dit bewaart afbeeldingen van uw contacten in de Micopi Media Directory* op uw apparaat.
         Denk eraan dat dit een experimentele ondersteuning is.
@@ -70,19 +70,31 @@
         \n\nDenk er ook aan dat hoe meer afbeeldingen u laat vervangen met ingeschakelde backups,
         hoe meer geheugen Micopi zal innemen.
     </string>
-    <string name="structured_discs">Gestructureerde schijven</string>
+    <string name="structured_discs">Schijvenstructuur</string>
     <string name="styles">Stijlen</string>
 
+    <!-- Welcome-->
     <string name="button_reset_images">Afbeeldingen resetten</string>
+    <string name="button_buy_full">Buy the full version</string>
 
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">Wilt u backups?</string>
+    <string name="upgrade_teaser_2">Wilt u stijlen instellen?</string>
+    <string name="upgrade_teaser_3">Wilt u sneller nieuwe functies?</string>
+    <string name="upgrade_teaser_4">Wilt u sneller verbeteringen?</string>
+    <string name="upgrade_teaser_5">Wilt u de advertenties verwijderen?</string>
+
+    <!-- Batch Mode -->
     <string name="button_redo_micopi">Micopi afbeeldingen nogmaals toepassen</string>
 
+    <!-- Batch Mode - Dialogs -->
     <string name="dialog_msg_redo_micopi">
         Deze optie kan alleen Micopi afbeeldingen vinden
         die zijn gemaakt met de huidige versie van de app.
         Oudere afbeeldingen worden niet vervangen.
     </string>
 
+    <!-- Settings - Backup -->
     <string name="button_delete_backup">
         Backup-map legen
     </string>
@@ -90,6 +102,7 @@
         Bevestig dat u alle afbeeldingsbackups wilt verwijderen die door Micopi zijn gemaakt.
     </string>
 
+    <!-- Image Reset -->
     <string name="msg_reset">
         Wilt u een enkele afbeelding resetten of alle contactafbeeldingen tegelijk?
     </string>
@@ -99,12 +112,5 @@
     <string name="dialog_check_delete">
         Verwijder afbeeldingen waarvan geen backup is gemaakt!
     </string>
-
-    <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Wilt u backups?</string>
-    <string name="upgrade_teaser_2">Wilt u stijlen instellen?</string>
-    <string name="upgrade_teaser_3">Wilt u sneller nieuwe functies?</string>
-    <string name="upgrade_teaser_4">Wilt u verbeteringen sneller?</string>
-    <string name="upgrade_teaser_5">Wilt u advertenties verwijderen?</string>
 
 </resources>

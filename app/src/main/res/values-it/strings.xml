@@ -12,11 +12,11 @@
 
     <string name="button_all_contacts">Tutti i contatti</string>
     <string name="assign_to_contact">Assegna a contatto</string>
-    <string name="auto_mode">Modalitá; automatica</string>
+    <string name="auto_mode">Modalitá automatica</string>
     <string name="dialog_msg_missing">
         Versioni diverse di Android ed alcune app potrebbero memorizzare
         immagini in maniera particolare.
-        \n\nPer quanto sia improabile, é;
+        \n\nPer quanto sia improabile, é
         comunque possibile che alcune immagini vengano sovrascritte.
     </string>
     <string name="backup">Backup</string>
@@ -34,11 +34,11 @@
         Se hai difficoltà a trovare alcuni contatti in Micopi, abilita la Ricerca Approfondita.
     </string>
     <string name="error_assign">
-        Si é; verificato un errore associando l\'immagine al profilo.
+        Si é verificato un errore associando l\'immagine al profilo.
     </string>
     <string name="error_saving">
-        Si é; verificato un errore salvando l\'immagine come file nel tuo dispositivo.
-        Verifica che la tua unitá; non sia bloccata.
+        Si é verificato un errore salvando l\'immagine come file nel tuo dispositivo.
+        Verifica che la tua unitá non sia bloccata.
     </string>
     <string name="first_name">Nome</string>
     <string name="first_three">Primi tre nomi</string>
@@ -52,7 +52,7 @@
         Vuoi sovrascrivere tutte le foto o solamente generare
         le immagini per i contatti che non ne hanno una?
         \n\nLe modifiche apportate da Micopi sono irreversibili.
-        Ti raccomandiamo di fare un backup dei tuoi contatti e immagini piú;
+        Ti raccomandiamo di fare un backup dei tuoi contatti e immagini piú
         importanti, non si sa mai.
     </string>
     <string name="dialog_title_please_note">Fai attenzione</string>
@@ -65,7 +65,7 @@
     <string name="previous_image">Immagine precedente</string>
     <string name="save_image_file">Salva immagine come file</string>
     <string name="saved_picture_as">Immagine profilo salvata come %1$s.</string>
-    <string name="buy_upgrade">Impostazioni</string>
+    <string name="settings">Impostazioni</string>
     <string name="shrinking_plates">Shrinking Plates</string>
     <string name="store_images">
         Questo memorizza le immagini del tuo elenco contatti nella cartella Media di Micopi*
@@ -80,14 +80,47 @@
     <string name="styles">Stili</string>
     <string name="want_to_assign">
         Vuoi assegnare questa immagine a %1$s?
-        \n\nQuesta modifica é; irreversibile.
+        \n\nQuesta modifica é irreversibile.
     </string>
 
+    <!-- Welcome -->
+    <string name="button_reset_images">Reset Immagini</string>
+    <string name="button_buy_full">Upgrade</string>
+
     <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Want backups?</string>
-    <string name="upgrade_teaser_2">Want style settings?</string>
-    <string name="upgrade_teaser_3">Want new features sooner?</string>
-    <string name="upgrade_teaser_4">Want improvements sooner?</string>
-    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
+    <string name="upgrade_teaser_1">Vuoi i backup?</string>
+    <string name="upgrade_teaser_2">Vuoi stili personalizzabili?</string>
+    <string name="upgrade_teaser_3">Vuoi nuove funzionalità prima?</string>
+    <string name="upgrade_teaser_4">Vuoi miglioramenti in tempi più brevi?</string>
+    <string name="upgrade_teaser_5">Vuoi eliminare la pubblcità?</string>
+
+    <!-- Batch Mode -->
+    <string name="button_redo_micopi">Rigenera Immagini Micopi</string>
+
+    <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_redo_micopi">
+        Questa modalità riesce a trovare esclusivamente immagini
+        che sono state generate con la versione attuale di Micopi.
+        Immagini realizzate con versioni precedenti non verranno sostituite.
+    </string>
+
+    <!-- Settings - Backup -->
+    <string name="button_delete_backup">
+        Cancella la cartella di backup
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Conferma che vuoi cancellare tutti i backup di immagini creati da Micopi.
+    </string>
+
+    <!-- Image Reset -->
+    <string name="msg_reset">
+        Vuoi resettare l\'immagine generata di un solo contatto o di tutti?
+    </string>
+    <string name="dialog_msg_reset_all_contacts">
+        Conferma che vuoi resettare le immagini generate di TUTTI i contatti.
+    </string>
+    <string name="dialog_check_delete">
+        Cancella immagini che non hanno un backup!
+    </string>
 
 </resources>
