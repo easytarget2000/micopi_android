@@ -164,7 +164,7 @@ public class ImageFactory {
          */
 
         // Paint the first letter of the first word in the name.
-        painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)), false);
+        painter.paintCentralCircle(bgColor, (255 - md5String.charAt(29)), false);
         painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
 
 
