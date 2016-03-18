@@ -29,6 +29,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.util.Log;
 
+import org.eztarget.micopi.engine.ImageFactory;
+
 /**
  * Utility class containing the actual paint methods for generating a contact picture;
  * stores the Canvas and other often-used attributes;
@@ -98,8 +100,16 @@ public class Painter {
         mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
     }
 
+    public void setShadowOffset(final float offsetFactorX, final float offsetFactorY) {
+        mPaint.setShadowLayer(
+                mShadowRadius,
+                mShadowRadius / offsetFactorX,
+                mShadowRadius / offsetFactorY, SHADOW_COLOR
+        );
+    }
+
     public void disableShadows() {
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+        mPaint.clearShadowLayer();
     }
 
     /**
@@ -187,7 +197,7 @@ public class Painter {
             y = (float) (centerY + radius * Math.sin(angle + angleOffset));
 
             if (edge == 1) polygonPath.moveTo(x, y);
-            else polygonPath.lineTo(x, y);
+            else  polygonPath.lineTo(x, y);
         }
 
         polygonPath.close();
@@ -474,11 +484,9 @@ public class Painter {
         // TODO: Implement Inverted Mode.
 
         if (!inverted) {
-            enableShadows();
             mPaint.setAlpha(alpha);
             mCanvas.drawCircle(mImageSizeHalf, mImageSizeHalf, radius, mPaint);
         } else {
-            disableShadows();
             mCanvas.save();
             mCanvas.drawRect(new Rect(0, 0, mImageSize, mImageSize), mPaint);
 

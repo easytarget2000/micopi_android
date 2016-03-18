@@ -36,6 +36,7 @@ public class ColorCollection {
             0xFFCDDC39,
             0xFFFFA000,
             0xFFFFAB40,
+            0xFF9F9F9F,
             0xFF7C4DFF,
             0xFF0288D1,
             0xFFD32F2F,
@@ -51,6 +52,7 @@ public class ColorCollection {
             0xFFC2185B,
             0xFFF57C00,
             0xFF4CAF50,
+            0xFFD3D3D3,
             0xFF303F9F,
             0xFF3F51B5,
             0xFF03A9F4,
@@ -90,6 +92,8 @@ public class ColorCollection {
 
         final int index = c % (PALETTE.length - 1);
 
+        if (c % 3 == 0) return ColorUtilities.getDarkenedColor(PALETTE[index]);
+
         return PALETTE[index];
     }
 
@@ -117,3 +121,4 @@ public class ColorCollection {
         return color | 0xff000000;
     }
 }
+

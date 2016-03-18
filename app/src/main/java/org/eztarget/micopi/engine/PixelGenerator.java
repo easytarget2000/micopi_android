@@ -15,11 +15,12 @@
  */
 package org.eztarget.micopi.engine;
 
+
 import org.eztarget.micopi.Contact;
 
 /**
  * Created by michel on 12/11/14.
- * <p/>
+ *
  * Fills a canvas with retro-styled squares
  */
 public class PixelGenerator {
@@ -67,7 +68,7 @@ public class PixelGenerator {
                 if (md5Index >= md5Length) md5Index = 0;
                 final char md5Char = md5String.charAt(md5Index);
 
-                if (x > 0 && y > 0) {
+                if (x> 0 && y > 0) {
                     if (isOddParity(md5Char)) {
                         mPainter.paintSquare(
                                 color1,
@@ -76,7 +77,7 @@ public class PixelGenerator {
                                 topAligned ? (md5Char % x) : (numberOfSquares - (md5Char % x)),
                                 sideLength
                         );
-                    } else if (x % 2 == 0) {
+                    } else if (x % 2 == 0){
                         mPainter.paintSquare(
                                 color2,
                                 255 - md5Char % 100,

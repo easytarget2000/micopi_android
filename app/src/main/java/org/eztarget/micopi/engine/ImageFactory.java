@@ -39,7 +39,7 @@ public class ImageFactory {
 
     private static final String TAG = ImageFactory.class.getSimpleName();
 
-    private static final String LOG_TAG_BM = TAG + ": Benchmark";
+    private static final String TAG_BENCHMARK = TAG + ": Benchmark";
 
     private static final boolean BENCHMARK = false;
 
@@ -48,6 +48,8 @@ public class ImageFactory {
     private int mImageSize;
 
     private static Bitmap sGrainBitmap;
+
+    private int mInitialsSettings = 1;
 
     /**
      * @param contact   Data from this Contact object will be used to generate the shapes and colors
@@ -114,7 +116,8 @@ public class ImageFactory {
         canvas.drawColor(bgColor);
 
         if (BENCHMARK) {
-            Log.d(LOG_TAG_BM, "10: " + (System.currentTimeMillis() - startTime));
+            Log.d(TAG_BENCHMARK, "ImageSize: " + mImageSize);
+            Log.d(TAG_BENCHMARK, "10: " + (System.currentTimeMillis() - startTime));
             startTime = System.currentTimeMillis();
         }
 
@@ -127,35 +130,34 @@ public class ImageFactory {
 
         final Painter painter = new Painter(canvas);
 
-        // Other styles have a higher weight if Pixels are enabled.
-
-        final int style = md5String.charAt(5) % 4;
+        final int style = md5String.charAt(4) % 4;
         if (BENCHMARK) {
-            Log.d(LOG_TAG_BM, "11: " + (System.currentTimeMillis() - startTime) + ", " + style);
-            Log.d(LOG_TAG_BM, "Mode: " + style);
+            Log.d(TAG_BENCHMARK, "11: " + (System.currentTimeMillis() - startTime) + ", " + style);
+            Log.d(TAG_BENCHMARK, "Mode: " + style);
             startTime = System.currentTimeMillis();
         }
 
         switch (style) {
             default:
-                PlatesGenerator.generate(painter, mContact);
+                new PlatesGenerator(painter, mContact).paint();
                 break;
             case 1:
-                DiscsGenerator.generate(painter, mContact);
+                new PixelGenerator(painter, mContact).paint();
                 break;
             case 2:
-                new PixelGenerator(painter, mContact).paint();
+                new DiscsGenerator(painter, mContact).paint();
         }
 
         if (BENCHMARK) {
-            Log.d(LOG_TAG_BM, "12: " + (System.currentTimeMillis() - startTime));
+            Log.d(TAG_BENCHMARK, "12: " + (System.currentTimeMillis() - startTime));
             startTime = System.currentTimeMillis();
         }
 
+        painter.disableShadows();
         painter.paintGrain();
 
         if (BENCHMARK) {
-            Log.d(LOG_TAG_BM, "13: " + (System.currentTimeMillis() - startTime));
+            Log.d(TAG_BENCHMARK, "13: " + (System.currentTimeMillis() - startTime));
             startTime = System.currentTimeMillis();
         }
 
@@ -163,12 +165,17 @@ public class ImageFactory {
         INITIAL LETTER ON CIRCLE
          */
 
+
+        painter.paintCentralCircle(
+                bgColor,
+                (220 - md5String.charAt(29)),
+                false
+        );
+
         // Paint the first letter of the first word in the name.
-        painter.paintCentralCircle(bgColor, (220 - md5String.charAt(29)), false);
         painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
 
-
-        if (BENCHMARK) Log.d(LOG_TAG_BM, "15: " + (System.currentTimeMillis() - startTime));
+        if (BENCHMARK) Log.d(TAG_BENCHMARK, "15: " + (System.currentTimeMillis() - startTime));
         return bitmap;
     }
 

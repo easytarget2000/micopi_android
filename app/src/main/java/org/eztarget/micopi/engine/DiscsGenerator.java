@@ -21,23 +21,26 @@ import org.eztarget.micopi.Contact;
  * Created by michel on 12/11/14.
  *
  * Image generator
+ * Fills the Canvas in the Painter with circles in a grid
  */
 public class DiscsGenerator {
 
-    /**
-     * Fills the Canvas in the Painter with circles in a grid
-     *
-     * @param painter Paint the generated shape in this object
-     * @param contact Data from this Contact object will be used to generate the shapes and colors
-     */
-    public static void generate(final Painter painter, final Contact contact) {
-        if (painter == null || contact == null) return;
+    private Painter mPainter;
+
+    private Contact mContact;
+
+    public DiscsGenerator(final Painter painter, final Contact contact) {
+        mPainter = painter;
+        mContact = contact;
+    }
+
+    public void paint() {
 
         // Prepare painting values based on image size and contact data.
-        final String md5String = contact.getMD5EncryptedString();
+        final String md5String = mContact.getMD5EncryptedString();
 
         // Use the length of the first name to determine the number of shapes per row and column.
-        final int firstNameLength = contact.getNameWord(0).length();
+        final int firstNameLength = mContact.getNameWord(0).length();
 
         final int shapesPerRow;
         if (firstNameLength < 3) {
@@ -48,7 +51,8 @@ public class DiscsGenerator {
             shapesPerRow = firstNameLength;
         }
 
-        final int imageSize = painter.getImageSize();
+        final int imageSize = mPainter.getImageSize();
+        mPainter.enableShadows();
         float circleDistance;
         circleDistance = (imageSize / shapesPerRow);
 
@@ -70,7 +74,7 @@ public class DiscsGenerator {
                 if ((index & 1) == 0) radius = md5Char * 6f;
                 else radius = md5Char * 5f;
 
-                painter.paintCircle(
+                mPainter.paintCircle(
                         color,
                         x * circleDistance,
                         y * circleDistance,

@@ -16,123 +16,129 @@
 package org.eztarget.micopi.engine;
 
 import android.os.Build;
+import android.util.Log;
 
 import org.eztarget.micopi.Contact;
 
+
 /**
  * Created by michel on 12/11/14.
- * <p/>
+ *
  * Image generator
+ * Fills the Canvas in the Painter with a lot of colourful circles
+ * or polygon approximations of circles
  */
 public class PlatesGenerator {
 
     private static final String TAG = PlatesGenerator.class.getSimpleName();
 
-    /**
-     * Fills the Canvas in the Painter with a lot of colourful circles
-     * or polygon approximations of circles
-     *
-     * @param painter Paint the generated shape in this object
-     * @param contact Data from this Contact object will be used to generate the shapes and colors
-     */
-    public static void generate(final Painter painter, final Contact contact) {
+    private Painter mPainter;
+
+    private Contact mContact;
+
+    public PlatesGenerator(final Painter painter, final Contact contact) {
+        mPainter = painter;
+        mContact = contact;
+    }
+
+    public void paint() {
         // If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
         // there is a 2/3 chance that polygons will be painted instead of circles.
-        final String md5String = contact.getMD5EncryptedString();
+        final String md5String = mContact.getMD5EncryptedString();
 
-
-        final int imageSize = painter.getImageSize();
+        final int imageSize = mPainter.getImageSize();
         float angleOffset = 0;
+        final float factor = (float) md5String.charAt(7) / (float) md5String.charAt(19);
         float width;
-        width = ((md5String.charAt(7) * md5String.charAt(19)) / imageSize) * (imageSize * 1.2f);
+        width = (factor * imageSize);
 
-        final float smallestRadius = (imageSize / 300) * md5String.charAt(22);
+        final float minWidth = (imageSize / 300) * md5String.charAt(22);
 
-        // Draw all the shapes.
+
         final int md5Length = md5String.length();
-        int md5Pos = 0;
-        float x = painter.getImageSize() * 0.5f;
+        float x = imageSize * 0.5f;
         float y = x;
 
-        // The amount of double shapes that will be painted:
-        int numOfShapes = contact.getNumberOfLetters();
-        if (numOfShapes < 3) {
-            numOfShapes = 3;
-        } else if (numOfShapes > 9) {
-            numOfShapes = 10;
-        } else {
-            numOfShapes = contact.getNumberOfLetters();
-        }
+        final int numberOfPlates = (md5String.charAt(28) % 6) + 2;
+
+        Log.d(TAG, "width: " + width + " smallest: " + minWidth + " number: " + numberOfPlates);
 
         // Some pictures have polygon approximations instead of actual circles.
         final boolean paintPolygon;
-        boolean paintRoundedSquare = false;
+        boolean paintRoundedSquares = false;
 
-        int numOfEdges = contact.getNameWord(0).length();
-        if (md5String.charAt(15) % 4 != 0) {
+        int numberOfEdges = mContact.getNameWord(0).length();
+        if (md5String.charAt(27) % 5 != 0) {
             paintPolygon = true;
 
-            if (numOfEdges < 3) {
-                numOfEdges = 3;
-            }  else if (numOfEdges > 10) {
-                numOfEdges = 10;
-            } else if (numOfEdges == 4 && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
-                paintRoundedSquare = true;
+            if (numberOfEdges < 3) {
+                numberOfEdges = 3;
+            }  else if (numberOfEdges > 10) {
+                numberOfEdges = 10;
+            } else if (numberOfEdges == 4 &&
+                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
+                paintRoundedSquares = true;
             }
         } else {
             paintPolygon = false;
         }
 
         float extraDividend = md5String.charAt(23);
-        int movementValue;
+        int movement;
+        int md5Pos = 0;
 
-        for (int i = 0; i < numOfShapes; i++) {
+        mPainter.enableShadows();
+
+        for (int i = 0; i < numberOfPlates; i++) {
             // Get the next character from the MD5 String.
             md5Pos++;
             if (md5Pos >= md5Length) md5Pos = 0;
 
             // Move the coordinates around.
-            movementValue = md5String.charAt(md5Pos) + i * 3;
-            switch (movementValue % 6) {
+            movement = md5String.charAt(md5Pos) + i * 3;
+
+            switch (movement % 6) {
                 case 0:
-                    x += movementValue;
-                    y -= movementValue * 2;
+                    x += movement;
+                    y -= movement * 2;
                     break;
                 case 1:
-                    x -= movementValue * 2;
-                    y += movementValue;
+                    x -= movement * 2;
+                    y += movement;
                     break;
                 case 2:
-                    x += movementValue * 2;
+                    x += movement * 2;
+                    mPainter.setShadowOffset(movement, i + 1);
                     break;
                 case 3:
-                    y += movementValue * 3;
+                    y += movement * 3;
                     break;
                 case 4:
-                    x -= movementValue * 2;
-                    y -= movementValue;
+                    x -= movement * 2;
+                    y -= movement;
+                    mPainter.setShadowOffset(i + 1, movement);
                     break;
                 default:
-                    x -= movementValue;
-                    y -= movementValue * 2;
+                    x -= movement;
+                    y -= movement * 2;
                     break;
             }
 
             if (paintPolygon) {
-                if (paintRoundedSquare && (movementValue % 3 == 0)) {
-                    painter.paintRoundedSquare(
+                if (paintRoundedSquares && (movement % 3 == 0)) {
+                    mPainter.paintRoundedSquare(
                             ColorCollection.getColor(md5String.charAt(md5Pos)),
                             x,
                             y,
                             width
                     );
                 } else {
-                    angleOffset += extraDividend / movementValue;
+                    angleOffset += extraDividend / movement;
 
-                    painter.paintPolygon(
+                    mPainter.paintPolygon(
                             ColorCollection.getColor(md5String.charAt(md5Pos)),
                             angleOffset,
-                            numOfEdges,
+                            numberOfEdges,
                             x,
                             y,
                             width
@@ -140,7 +146,7 @@ public class PlatesGenerator {
                 }
 
             } else {
-                painter.paintCircle(
+                mPainter.paintCircle(
                         ColorCollection.getColor(md5String.charAt(md5Pos)),
                         x,
                         y,
@@ -148,7 +154,7 @@ public class PlatesGenerator {
                 );
             }
 
-            if (width < smallestRadius) width *= 3.1f;
+            if (width < minWidth) width *= 3.1f;
             else width *= 0.6f;
         }
     }
