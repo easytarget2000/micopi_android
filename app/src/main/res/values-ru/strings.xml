@@ -84,7 +84,7 @@
 
     <!-- Welcome -->
     <string name="button_reset_images">Сброс изображений</string>
-    <string name="button_buy_full">Buy the full version</string>
+    <string name="button_buy_full">полная версия</string>
 
     <!-- Upgrade Teaser -->
     <string name="upgrade_teaser_1">Необходимы резервные копии?</string>
