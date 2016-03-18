@@ -16,30 +16,33 @@
 
 <resources>
 
-    <string name="backup">Backup</string>
-    <string name="backup_not_activated">Go to the app settings to activate backups.</string>
-    <string name="buy_upgrade">Upgrade</string>
-    <string name="deep_search">Deep Search</string>
+    <string name="backup">Respaldo</string>
+    <string name="backup_not_activated">
+        Ve a las opciones de la app para activar los respaldos.
+    </string>
+    <string name="deep_search">Búsqueda Profunda</string>
     <string name="enable_backup">
-        Enable backups of existing profile pictures before overwriting them.
+        Activar el respaldo de las fotos de perfil existentes antes de sobreescribirlas.
     </string>
     <string name="enable_deep_search">
-        If you have trouble finding certain contacts in Micopi, enable Deep Search.
+        Si encuentras problemas encontrando algún contacto en Micopi, activa la Búsqueda Profunda.
     </string>
-    <string name="first_name">First name</string>
-    <string name="first_three">First three names</string>
-    <string name="initials_circle">Initials Circle</string>
+    <string name="first_name">Primer nombre</string>
+    <string name="first_three">Primeros tres nombres</string>
+    <string name="initials_circle">Iniciales en el Circulo</string>
     <string name="picture_will_be_previewed">
         Tras seleccionar un nombre de la lista,
         se generará la imagen para que pueda aplicarla al contacto.</string>
     <string name="store_images">
-        This stores images from your contacts list in the Micopi Media Directory* on your device.
-        Please note that this is merely an experimental assistance.
-        It is recommended to backup your most precious contact pictures in an additional way.
-        \n\nPlease also note, the more images you replace with backups enabled,
-        the more memory storage Micopi is going to use.
+        Esto almacena las imágenes de la lista de contactos
+        en el Directorio de Medios de Micopi en el dispositivo.
+        Por favor ten en cuenta que esto es meramente una asistencia experimental.
+        Recomendamos respaldar los contactos y fotos mas importantes de manera adicional.
+        \n\nPor favor también tener en cuenta que,
+        entre más imágenes reemplaces con el respaldo activado,
+        Micopi utilizará más espacio de almacenamiento.
     </string>
-    <string name="none">None</string>
+    <string name="none">Ninguna</string>
 
     <string name="generated_image">Imagen generada</string>
     <string name="save_image_file">Guardar imagen en archivo</string>
@@ -62,6 +65,7 @@
         de las fotos de sus contactos más importantes.
     </string>
     <string name="auto_mode">Modo automático</string>
+    <string name="settings">Opciones</string>
     <string name="error_assign">
         Ocurrió un error mientras se asignaba la imagen al contacto.
     </string>
@@ -76,16 +80,49 @@
 
     <string name="missing_pictures">Imágenes que falta</string>
     <string name="pick_contact">Seleccionar un contacto</string>
-    <string name="pixel_matrix">Pixel Matrix</string>
-    <string name="shrinking_plates">Shrinking Plates</string>
-    <string name="styles">Styles</string>
-    <string name="structured_discs">Structured Discs</string>
+    <string name="pixel_matrix">Matriz de pixeles</string>
+    <string name="shrinking_plates">Platos que se encogen</string>
+    <string name="styles">Estilos</string>
+    <string name="structured_discs">Discos estructurados</string>
+
+    <!-- Welcome -->
+    <string name="button_reset_images">Reestablecer Imágenes</string>
+    <string name="button_buy_full">Compra la version completa</string>
+
+    <!-- Batch Mode -->
+    <string name="button_redo_micopi">Rehacer las imágenes de Micopi</string>
+
+    <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_redo_micopi">
+        Este modo solo puede encontrar imágenes de Micopi
+        que fueron creadas con esta versión de la aplicación.
+        Imágenes mas antiguas no serán respaldadas.
+    </string>
+
+    <!-- Settings - Backup -->
+    <string name="button_delete_backup">
+        Eliminar carpeta de respaldo.
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Por favor confirma que quieres eliminar todos los respaldos hechos por Micopi.
+    </string>
+
+    <!-- Image Reset -->
+    <string name="msg_reset">
+        ¿Quieres reestablecer una sola imagen o todas a la vez?
+    </string>
+    <string name="dialog_msg_reset_all_contacts">
+        Por favor confirma que quieres reestablecer TODAS las imágenes de contactos.
+    </string>
+    <string name="dialog_check_delete">
+        Elimina las imágenes que no tienen un respaldo.
+    </string>
 
     <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Want backups?</string>
-    <string name="upgrade_teaser_2">Want style settings?</string>
-    <string name="upgrade_teaser_3">Want new features sooner?</string>
-    <string name="upgrade_teaser_4">Want improvements sooner?</string>
-    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
+    <string name="upgrade_teaser_1">¿Quieres respaldos?</string>
+    <string name="upgrade_teaser_2">¿Quieres configuraciones de estilo?</string>
+    <string name="upgrade_teaser_3">¿Quieres nuevas caracteristicas más rápido?</string>
+    <string name="upgrade_teaser_4">¿Quieres mejoras más rápido?</string>
+    <string name="upgrade_teaser_5">¿Quieres deshacerte de los anuncios?</string>
 
 </resources>

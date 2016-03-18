@@ -441,7 +441,7 @@ public class Painter {
 
         final int length = string.length();
         if (length == 1) {
-            mPaint.setTextSize(70f * mImageSize / 100f);
+            mPaint.setTextSize(65f * mImageSize / 100f);
         } else {
             mPaint.setTextSize(100f / string.length() * mImageSize / 100f);
         }

@@ -14,20 +14,16 @@
     <string name="assign_to_contact">Присвоить контакту</string>
     <string name="auto_mode">Автоматический режим</string>
     <string name="dialog_msg_missing">
-        Различные версии Android и некоторые
-        приложения могут хранить фотографии по уникальному пути.
-        \n\nСуществует небольшая вероятность,
-        что уже имеющиеся в профиле контактов изображения  перезапишутся.
+        Различные версии Android и некоторые приложения могут хранить фотографии по уникальному пути.
+        \n\nСуществует небольшая вероятность, что изображение в профиле контакта перезапишется.
     </string>
-    <string name="backup">Резервное копирование</string>
-    <string name="backup_not_activated">
-        Перейдите в Настройки для активации резервного копирования.
-    </string>
+    <string name="backup">Резервная копия</string>
+    <string name="backup_not_activated">Перейдите в Настройки для активации резервного копирования.</string>
     <string name="dialog_msg_all_contacts">
-        Пожалуйста, подтвердите, что вы хотите перезаписать изображения всех контактов.
-		\n\nЕсли в Настройках включено резервное копирование, то имеющиеся копии также,
-        перезапишутся.
+        Пожалуйста, подтвердите, что вы хотите перезаписать все изображения контактов .
     </string>
+    <string name="deep_search">Deep Search</string>
+    <string name="enable_deep_search"></string>
     <string name="settings">Настройки</string>
     <string name="enable_backup">
         Включение резервного копирования существующего изображения контакта перед перезаписью.
@@ -35,25 +31,18 @@
     <string name="error_assign">
         Произошла ошибка во время присвоения данного изображения.
     </string>
-    <!--<string name="error_generating">-->
-        <!--Произошла ошибка при генерации изображения.-->
-    <!--</string>-->
-    <!--<string name="error_retrieving">-->
-        <!--Произошла ошибка при получении сведений о контакте(контактах).-->
-    <!--</string>-->
     <string name="error_saving">
         Произошла ошибка при попытке сохранить изображение как файл на вашем устройстве.
         Пожалуйста, убедитесь, что путь сохранения не заблокирован.
     </string>
     <string name="first_name">Имя</string>
-    <string name="first_three">Имя, Фамилия, Отчество</string>
-    <string name="generated_image">Создание фотографии для контакта</string>
-    <string name="got_new_picture">Контакту %1$s присвоено новое фото.</string>
-    <string name="initials_circle">Монограмма контакта</string>
+    <string name="first_three">First three names</string>
+    <string name="generated_image">Созданные фотографии контакта</string>
+    <string name="got_new_picture">%1$s новых фотографий контактов.</string>
+    <string name="initials_circle">Зациклить</string>
     <string name="missing_pictures">Контакты без фото</string>
     <string name="next_image">Следущее изображение</string>
-    <!--<string name="no_contact_selected">Контакты не выбраны</string>-->
-    <string name="none">Без монограммы</string>
+    <string name="none">Ничего</string>
     <string name="overwrite_all_or_only">
         Вы хотите перезаписать ВСЕ изображения, или генерировать изображения, только для контактов,
         которые в настоящее время не имеют фото?
@@ -66,72 +55,64 @@
         После выбора, созданный рисунок будет предложен для предпросмотра,
         перед присвоением его данному контакту.</string>
     <string name="previous_image">Предыдущее изображение</string>
-    <!--<string name="report">Отчёт</string>-->
     <string name="save_image_file">Сохранить изображение в файл</string>
     <string name="saved_picture_as">Изображение контакта сохранено как %1$s.</string>
     <string name="store_images">
-        Сохранение изображений контактов в директории Micopi Media Directory* на Вашем устройстве.
+        Сохранение изображений контактов в дирректории Micopi Media Directory* на Вашем устройстве.
         Пожалуйста, обратите внимание, что это экспериментальная функция.
-        Рекомендуется сделать резервное копирование Ваших самых драгоценных фотографий контактов альтернативным способом.
+        Рекомендуется сделать резервное копирование Ваших самых драгоценных фотографии контактов альтернативным способом.
         \n\nПожалуйста, обратите внимание, что сохранение большого количества  изображений,
-        увеличит объём используемой Micopi памяти.
+        увеличение объёма используемой Micopi памяти.
     </string>
-    <!--<string name="skip">Пропустить</string>-->
     <string name="want_to_assign">
-        Вы хотите назначить данное фото контакту %1$s?
+        Вы хотите назначить это фото контакту %1$s?
         \n\nЭТО ДЕЙСТВИЕ НЕ МОЖЕТ БЫТЬ ОТМЕНЕНО.
     </string>
 
     <!-- Welcome -->
-    <string name="button_reset_images">Сброс изображений</string>
+    <string name="button_reset_images">Reset Images</string>
     <string name="button_buy_full">Buy the full version</string>
 
     <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Необходимы резервные копии?</string>
-    <string name="upgrade_teaser_2">Интересуют различные стили генерации изображения?</string>
-    <string name="upgrade_teaser_3">Хотите раньше других узнавать о новых возможностях?</string>
-    <string name="upgrade_teaser_4">И улучшениях программы?</string>
-    <string name="upgrade_teaser_5">Раздражает реклама?</string>
+    <string name="upgrade_teaser_1">Want backups?</string>
+    <string name="upgrade_teaser_2">Want style settings?</string>
+    <string name="upgrade_teaser_3">Want new features sooner?</string>
+    <string name="upgrade_teaser_4">Want improvements sooner?</string>
+    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
 
     <!-- Batch Mode -->
-    <string name="button_redo_micopi">Повторить Micopi фотографии</string>
+    <string name="button_redo_micopi">Redo Micopi pictures</string>
 
     <!-- Batch Mode - Dialogs -->
     <string name="dialog_msg_redo_micopi">
-        Этот режим обнаруживает Micopi изображения
-        И применяется только в текущей версии приложения.
-        Старые фотографии не будут заменены.
+        This mode is only able to find Micopi images
+        that have been created with the current version of the app.
+        Older pictures will not be replaced.
     </string>
 
     <!-- Settings - Styles -->
     <string name="styles">Стили</string>
     <string name="shrinking_plates">Сжатие</string>
-    <string name="structured_discs">Окружности</string>
-    <string name="pixel_matrix">Пиксели</string>
+    <string name="structured_discs">Structured Discs</string>
+    <string name="pixel_matrix">Pixel Matrix</string>
 
     <!-- Settings - Backup -->
     <string name="button_delete_backup">
-        Удаление папки с резервными копиями
+        Delete Backup Folder
     </string>
     <string name="dialog_msg_delete_backup">
-        Пожалуйста, подтвердите, удаление всех резервных копий, сделанных Micopi.
-    </string>
-
-    <!-- Settings - Deep Search-->
-    <string name="deep_search">Глубокий поиск</string>
-    <string name="enable_deep_search">
-        Если у вас есть проблемы с поиском определенных контактов в Micopi, включите этот пункт.
+        Please confirm that you would like to delete all image backups made by Micopi.
     </string>
 
     <!-- Image Reset -->
     <string name="msg_reset">
-        Вы намерены сбросить один или все изображения контактов за один раз?
+        Would you like to reset a single image or all contact images at once?
     </string>
     <string name="dialog_msg_reset_all_contacts">
-        Пожалуйста, подтвердите, сброс изображений всех контактов.
+        Please confirm that you would like to reset ALL contact images.
     </string>
     <string name="dialog_check_delete">
-        Удалятся изображения, которые не имеют резервной копии!
+        Delete images that do not have a backup!
     </string>
 
 </resources>

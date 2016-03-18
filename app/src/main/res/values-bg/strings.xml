@@ -12,10 +12,10 @@
     <string name="backup_not_activated">
         Отидете в настройките, за да направите резервно копие
     </string>
-    <string name="buy_upgrade">Upgrade</string>
     <string name="dialog_msg_all_contacts">Моля потвърдете презаписването на всички изображения на контакти.
     </string>
     <string name="deep_search">Deep Search</string>
+    <string name="settings">Настройки</string>
     <string name="enable_backup">
         Включване на резервно копие на текущи снимки на контакти преди заменянето им.
     </string>
@@ -66,11 +66,43 @@
     <string name="styles">Стилове</string>
     <string name="want_to_assign">Искате ли да задедете това изображение на %1$s?</string>
 
+    <!-- Welcome -->
+    <string name="button_reset_images">Нулиране на изображения</string>
+    <string name="button_buy_full">Buy the full version</string>
+
     <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Want backups?</string>
-    <string name="upgrade_teaser_2">Want style settings?</string>
-    <string name="upgrade_teaser_3">Want new features sooner?</string>
-    <string name="upgrade_teaser_4">Want improvements sooner?</string>
-    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
+    <string name="upgrade_teaser_1">Искате ли резервни копия?</string>
+    <string name="upgrade_teaser_2">Искате ли настройки на стила?</string>
+    <string name="upgrade_teaser_3">Искате ли да получавате нови функции по-рано?</string>
+    <string name="upgrade_teaser_4">Искате ли да получавате обновления по-бързо?</string>
+    <string name="upgrade_teaser_5">Искате ли да махнете рекламите?</string>
+
+    <!-- Batch Mode -->
+    <string name="button_redo_micopi">Сменяне на сегашните Micopi картинки</string>
+
+    <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_redo_micopi">
+        Този режим може да открива само изображения, създадени от текущата версия на Micopi.
+        По-стари снимки няма за бъдат заменяни.
+    </string>
+
+    <!-- Image Reset -->
+    <string name="msg_reset">
+        Желаете ли да нулирате една снимка, или всички снимки наведнъж?
+    </string>
+    <string name="dialog_msg_reset_all_contacts">
+        Моля потвърдете нулирането на ВСИЧКИ снимки на контакти.
+    </string>
+    <string name="dialog_check_delete">
+        Изтрий снимки които нямат резервно копие!
+    </string>
+
+    <!-- Settings - Backup -->
+    <string name="button_delete_backup">
+        Изтриване на папката за резервни копия
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Моля потвърдете изтриването на всички резервни копия, правени от Micopi.
+    </string>
 
 </resources>

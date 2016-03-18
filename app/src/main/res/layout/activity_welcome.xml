@@ -103,7 +103,7 @@
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="@string/buy_upgrade"
+            android:text="@string/button_buy_full"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size" />
