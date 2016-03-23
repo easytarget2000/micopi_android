@@ -16,8 +16,6 @@
 
 package org.eztarget.micopi.engine;
 
-import android.graphics.Color;
-
 /**
  * Created by michel on 27/10/14.
  * <p/>
@@ -66,16 +64,6 @@ public class ColorCollection {
             0xFF80CBC4,
             0xFFFF5252,
             0xFF1976D2
-    };
-
-    /**
-     * Additional high-contrast colours and black & white
-     */
-    public static final int HARSH_PALETTE[] = {
-            Color.WHITE,
-            Color.RED,
-            0xFF212121,
-            0xFF009688,
     };
 
     /**

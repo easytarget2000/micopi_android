@@ -1,124 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--Copyright (C) 2014 Easy Target-->
+<!--Copyright (C) 2016 Easy Target-->
 
-<!--Licensed under the Apache License, Version 2.0 (the "License");-->
-<!--you may not use this file except in compliance with the License.-->
-<!--You may obtain a copy of the License at-->
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
 
 <!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
 
-<!--Unless required by applicable law or agreed to in writing, software-->
-<!--distributed under the License is distributed on an "AS IS" BASIS,-->
-<!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.-->
-<!--See the License for the specific language governing permissions and-->
-<!--limitations under the License.-->
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
+
 <resources>
 
-    <string name="button_all_contacts">Tous les contacts</string>
-    <string name="assign_to_contact">Attribuer au contact</string>
-    <string name="auto_mode">Mode automatique</string>
-    <string name="dialog_msg_missing">
-        Différentes versions d\'Android et certaines applications
-        peuvent stocker les images différemment.
-        \n\nIl est peu probable mais pas impossible que certaines images soient écrasées.
-    </string>
-    <string name="backup">Sauvegarder</string>
-    <string name="backup_not_activated">
-        Aller dans les paramètres pour activer les sauvegardes.
-    </string>
-    <string name="deep_search">Recherche approfondie</string>
-    <string name="enable_backup">
-        Activer les sauvegardes des images de profil existantes avant de les écraser.
-    </string>
-    <string name="enable_deep_search">
-        Si vous avez des difficultés à trouver certains contacts, activer Recherche approfondie.
-    </string>
-    <string name="dialog_msg_all_contacts">
-        Veuillez confirmer que vous vouler remplacer toutes les images de contact.
-    </string>
-    <string name="error_assign">Une erreur est survenue lors de l\'attribution de l\'image.</string>
-    <string name="error_saving">
-        Une erreur est survenue lors de la sauvegarde de l\'image sur votre appareil.
-        Veuillez vérifier que votre stockage ne soit pas verrouillé.
-    </string>
-    <string name="first_name">Prénom</string>
-    <string name="first_three">Prénoms et nom</string>
-    <string name="initials_circle">Initiales</string>
-    <string name="generated_image">Image générée</string>
-    <string name="got_new_picture">%s a obtenu une nouvelle image de contact.</string>
-    <string name="missing_pictures">Images manquantes</string>
-    <string name="next_image">Image suivante</string>
-    <string name="none">Aucune</string>
-    <string name="overwrite_all_or_only">
-        Voulez-vous remplacer toutes les images ou uniquement
-        en générer pour les contacts sans image?
-        \n\nMicopi a été testé minutieusement mais au cas où,
-        nous vous recommendons de faire une sauvegarde de vos images de contact les plus précieuses.
-    </string>
-    <string name="dialog_title_please_note">Remarque</string>
-    <string name="pick_contact">Sélectionner un contact</string>
-    <string name="picture_will_be_previewed">
-        Après la sélection, l\'image générée sera affichée avant de l\'attribuer au contact.
-    </string>
-    <string name="pixel_matrix">Pixels</string>
-    <string name="previous_image">Image précédente</string>
-    <string name="save_image_file">Sauvegarder l\'image</string>
-    <string name="saved_picture_as">Image sauvegardée comme %1$s.</string>
-    <string name="settings">Paramètres</string>
-    <string name="shrinking_plates">Plaques</string>
-    <string name="store_images">
-        Cela stocke les images à partir de votre liste de contacts dans le répertoire Micopi*
-        sur votre appareil.
-        Veuillez noter qu\'il s\'agit d\'une assistance expérimentale.
-        Il est recommandé de sauvegarder vos images de contacts
-        les plus précieuses d\'une manière supplémentaire.
-        \n\nVeuillez noter également que plus vous remplacez les images,
-        plus Micopi va utiliser le stockage de mémoire.
-    </string>
-    <string name="structured_discs">Disques</string>
-    <string name="styles">Styles</string>
-    <string name="want_to_assign">Voulez-vous attribuer cette image à %1$s ?</string>
-
     <!-- Welcome -->
-    <string name="button_reset_images">Reset Images</string>
-    <string name="button_buy_full">Buy the full version</string>
+    <string name="pick_contact">Choisissez un unique contact</string>
+    <string name="picture_will_be_previewed">
+        Après avoir sélectionné un contact, l\'image générée sera prévisualisée
+        avant d\'être assignée à cette personne.
+    </string>
+    <string name="auto_mode">Mode automatique</string>
+    <string name="button_reset_images">Réinitialiser images</string>
+    <string name="settings">Paramètres</string>
+    <string name="button_buy_full">Acheter la version complète</string>
 
     <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Want backups?</string>
-    <string name="upgrade_teaser_2">Want style settings?</string>
-    <string name="upgrade_teaser_3">Want new features sooner?</string>
-    <string name="upgrade_teaser_4">Want improvements sooner?</string>
-    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
+    <string name="upgrade_teaser_1">Voulez-vous des sauvegardes ?</string>
+    <string name="upgrade_teaser_2">Voulez-vous des paramètres de style ?</string>
+    <string name="upgrade_teaser_3">Voulez-vous de nouvelles fonctionnalités plus tôt ?</string>
+    <string name="upgrade_teaser_4">Voulez-vous des améliorations plus tôt ?</string>
+    <string name="upgrade_teaser_5">Voulez-vous vous débarasser des pubs ?</string>
+
+    <!-- Single Contact -->
+    <string name="generated_image">Image contact générée</string>
+    <string name="assign_to_contact">Assigner au contact</string>
+    <string name="next_image">Image suivante</string>
+    <string name="previous_image">Image précédente</string>
+
+    <!-- Single Contact - Dialog & Toasts-->
+    <string name="save_image_file">Sauvegarder l\'image en fichier</string>
+    <string name="want_to_assign">
+        Voulez-vous assigner cette image de contact à %1$s ?
+        \n\nCe changement ne peut pas être annulé.
+    </string>
+    <string name="backup_not_activated">
+        Allez dans les paramètres de l\'application pour activer les sauvegardes.
+    </string>
+    <string name="got_new_picture">%1$s a une nouvelle image de contact.</string>
+    <string name="error_assign">
+        Une erreur s\'est produite lors de l\'affectation de cette image au contact.
+    </string>
+    <string name="saved_picture_as">Image de contact sauvegardée en %1$s.</string>
+    <string name="error_saving">
+        Une erreur s\'est produite lors de la sauvegarde
+        de cette image en fichier sur votre appareil.
+        Veuillez vous assurer que votre stockage n\'est pas verrouillé.
+    </string>
 
     <!-- Batch Mode -->
-    <string name="button_redo_micopi">Redo Micopi pictures</string>
+    <string name="overwrite_all_or_only">
+        Souhaitez-vous remplacer toutes les images ou uniquement en générer pour les contacts
+        n\'en n\'ayant pas déjà ?
+        \n\nLes modifications faites par Micopi ne peuvent pas être annulés.
+        Nous vous recommandons de faire une sauvegarde de vos images et contacts les plus précieux,
+        au cas où.
+    </string>
+    <string name="button_all_contacts">Tous les contacts</string>
+    <string name="missing_pictures">Images manquantes</string>
+    <string name="button_redo_micopi">Refaire les images Micopi</string>
 
     <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_all_contacts">
+        Veuillez confirmer que vous souhaitez remplacer toutes les images de contact.
+    </string>
+    <string name="dialog_msg_missing">
+        Différentes versions d\'Android et certaines applications peuvent enregistrer
+        des images de leur propre façon.
+        \n\nIl est peu probable, mais pas impossible, que les images de profils soient écrasées.
+    </string>
+    <string name="dialog_title_please_note">Veuiller Noter</string>
     <string name="dialog_msg_redo_micopi">
-        This mode is only able to find Micopi images
-        that have been created with the current version of the app.
-        Older pictures will not be replaced.
+        Ce mode est seulement capable de trouver des images Micopi
+        ayant été créées avec la version actuelle de l\'app.
+        Les images plus anciennes ne seront pas remplacées.
     </string>
-
-    <!-- Settings - Backup -->
-    <string name="button_delete_backup">
-        Delete Backup Folder
-    </string>
-    <string name="dialog_msg_delete_backup">
-        Please confirm that you would like to delete all image backups made by Micopi.
-    </string>
+    <!--<string name="dialog_msg_redo_micopi">-->
+    <!--Ce mode est seulement capable de trouver des images Micopi-->
+    <!--ayant été créées avec la version 4.4 (publiée en mars 2016) ou supérieure.-->
+    <!--Les images plus anciennes ne seront pas remplacées.-->
+    <!--</string>-->
 
     <!-- Image Reset -->
-    <string name="msg_reset">
-        Would you like to reset a single image or all contact images at once?
+     <string name="msg_reset">
+         Souhaitez-vous réinitialiser une seule image ou toutes les images de contact d\'un coup?
+     </string>
+     <string name="dialog_msg_reset_all_contacts">
+         Veuillez confirmer que vous souhaitez réinitialiser TOUTES les images de contact.
+     </string>
+     <string name="dialog_check_delete">
+         Supprimer les images qui n\'ont pas de sauvegarde!
+     </string>
+
+    <!-- Settings - Styles -->
+    <string name="styles">Styles</string>
+    <string name="shrinking_plates">Plats Rétrécissants</string>
+    <string name="structured_discs">Disques Structurés</string>
+    <string name="pixel_matrix">Matrice de Pixels</string>
+
+    <!-- Settings - Initials Circle -->
+    <string name="initials_circle">Cercles Initiaux</string>
+    <string name="none">Aucun</string>
+    <string name="first_name">Prénom</string>
+    <string name="first_three">Trois premiers noms</string>
+
+    <!-- Settings - Backup -->
+    <string name="backup">Sauvegarde</string>
+    <string name="enable_backup">
+        Activer les sauvegardes des images de profil existantes avant de les replacer.
     </string>
-    <string name="dialog_msg_reset_all_contacts">
-        Please confirm that you would like to reset ALL contact images.
+    <string name="store_images">
+        Cela enregistre les images de votre liste de contacts
+        dans le dossier Micopi Media* sur votre appareil.
+        Veuiller noter qu\'il s\'agit seulement d\'une fonctionnalité expérimentale.
+        Il est recommandé de faire une sauvegarde additionnelle
+        de vos images de contact les plus précieuses.
+        \n\nVeuillez également noter que, plus vous remplacez
+        d\'images lorsque les sauvegardes sont activées,
+        plus Micopi utilisera d\'espace de stockage.
     </string>
-    <string name="dialog_check_delete">
-        Delete images that do not have a backup!
+    <string name="button_delete_backup">
+        Supprimer le Dossier de Sauvegarde
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Veuillez confirmer que vous souhaitez supprimer
+        toutes les sauvegardes d\'images faites par Micopi.
     </string>
 
+    <!-- Settings - Deep Search -->
+    <string name="deep_search">Recherche Profonde</string>
+    <string name="enable_deep_search">
+        Si vous avez des difficultés à trouver certains contacts dans Micopi,
+        activez la Recherche Profonde.
+    </string>
 
 </resources>
