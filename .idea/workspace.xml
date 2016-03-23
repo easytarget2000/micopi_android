@@ -25,8 +25,7 @@
   <component name="ChangeListManager">
     <list default="true" id="592c6458-f2eb-409d-8d14-851200a1fd40" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorCollection.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorCollection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorUtilities.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorUtilities.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="micopi_android.iws" />
@@ -51,8 +50,8 @@
       <file leaf-file-name="ColorCollection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorCollection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.777778">
-              <caret line="66" column="6" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="72" column="22" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -61,8 +60,8 @@
       <file leaf-file-name="ColorUtilities.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorUtilities.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16160627">
-              <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.601145">
+              <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -105,16 +104,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PixelGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/PixelGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -1413,7 +1402,7 @@
       <map>
         <entry key="$USER_HOME$/Downloads/SlidingTabsBasic" value="4254430866000" />
         <entry key="$PROJECT_DIR$/../MicopiAndroidStudioProject" value="1405891091000" />
-        <entry key="$PROJECT_DIR$" value="4370653807000" />
+        <entry key="$PROJECT_DIR$" value="4371094346000" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1802,7 +1791,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values-pl/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-it/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-nl/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorUtilities.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/Painter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/PlatesGenerator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/PixelGenerator.java" />
@@ -1814,6 +1802,7 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ImageFactory.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorCollection.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorUtilities.java" />
       </list>
     </option>
   </component>
@@ -2274,13 +2263,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-bg/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values-es/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2652,18 +2634,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../_Allgemeines/androidsdk/sources/android-23/android/graphics/Color.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34182173">
+          <caret line="345" column="23" selection-start-line="345" selection-start-column="23" selection-end-line="345" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.777778">
-          <caret line="66" column="6" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="72" column="22" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/org/eztarget/micopi/engine/ColorUtilities.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16160627">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.601145">
+          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
           <folding />
         </state>
       </provider>

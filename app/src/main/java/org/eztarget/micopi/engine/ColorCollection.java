@@ -30,7 +30,9 @@ public class ColorCollection {
      */
     public static final int PALETTE[] = {
             0xFF00E676,
+            0xFF81C784,
             0xFFFF9800,
+            0xFFBBBBBB,
             0xFFCDDC39,
             0xFFFFA000,
             0xFFFFAB40,
@@ -49,6 +51,8 @@ public class ColorCollection {
             0xFF536DFE,
             0xFFC2185B,
             0xFFF57C00,
+            0xFF26A69A,
+            0xFFBA68C8,
             0xFF4CAF50,
             0xFFD3D3D3,
             0xFF303F9F,
@@ -62,7 +66,14 @@ public class ColorCollection {
             0xFF009688,
             0xFFBBDEFB,
             0xFF80CBC4,
+            0xFF26C6DA,
+            0xFF4527A0,
+            0xFFAA00FF,
+            0xFF757575,
+            0xFF795548,
+            0xFF607D8B,
             0xFFFF5252,
+            0xFF004D40,
             0xFF1976D2
     };
 
