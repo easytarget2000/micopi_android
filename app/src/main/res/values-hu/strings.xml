@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Copyright (C) 2014 Easy Target-->
+
+<!--Licensed under the Apache License, Version 2.0 (the "License");--><!--you may not use this file except in compliance with the License.--><!--You may obtain a copy of the License at-->
+
+<!--http://www.apache.org/licenses/LICENSE-2.0.txt-->
+
+<!--Unless required by applicable law or agreed to in writing, software--><!--distributed under the License is distributed on an "AS IS" BASIS,--><!--WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.--><!--See the License for the specific language governing permissions and--><!--limitations under the License.-->
+
+<resources>
+
+    <!-- Welcome -->
+    <string name="pick_contact">Válassz ki egy névjegyet</string>
+    <string name="picture_will_be_previewed">
+        A névjegy kiválasztása után megtekintheted generált képet,
+        mielőtt azt hozzárendelnéd a névjegyhez.
+    </string>
+    <string name="auto_mode">Automatikus mód</string>
+    <string name="settings">Beállítások</string>
+
+    <!-- Single Contact -->
+    <string name="generated_image">Névjegyhez generált kép</string>
+    <string name="assign_to_contact">Hozzárendelés a névjegyhez</string>
+    <string name="next_image">Következő kép</string>
+    <string name="previous_image">Előző kép</string>
+
+    <!-- Single Contact - Dialog & Toasts-->
+    <string name="save_image_file">Kép mentése fájlba</string>
+    <string name="want_to_assign">
+        Szeretnéd ezt a profilképet hozzárendelni a következőhöz: %1$s?
+        \n\nEzt a módosítást nem lehet visszavonni.
+    </string>
+    <string name="backup_not_activated">
+        Menj be az alkalmazás beállításaiba a biztonsági mentés aktiválásához.
+    </string>
+    <string name="got_new_picture">%1$s új profilképet kapott.</string>
+    <string name="error_assign">
+        Hiba történt a kép névjegyhez való hozzárendelésekor.
+    </string>
+    <string name="saved_picture_as">A kép elmentésre került a következőként: %1$s.</string>
+    <string name="error_saving">
+        Hiba történt a kép eszközre való mentésekor.
+        Kérlek bizonyosodj meg arról, hogy a tárhely nincs zárolva.
+    </string>
+
+    <!-- Batch Mode -->
+    <string name="overwrite_all_or_only">
+        Minden képet szeretnél felülírni, vagy csak a kép nélküli
+        névjegyekhez szeretnél képeket generálni?
+        \n\nA Micopi által végzett módosításokat nem lehet visszavonni.
+        Javasoljuk, hogy készíts biztonsági mentést a legértékesebb névjegyeidről és képeidről;
+        csak a biztonság kedvéért.
+    </string>
+    <string name="button_all_contacts">Minden névjegy</string>
+    <string name="missing_pictures">Hiányzó képek</string>
+    <string name="button_redo_micopi">Micopi képek visszaállítása</string>
+
+    <!-- Batch Mode - Dialogs -->
+    <string name="dialog_msg_all_contacts">
+        Kérlek, erősítsd meg, hogy az összes képet szeretnéd felülírni.
+    </string>
+    <string name="dialog_msg_missing">
+        Az Android különböző változatai és néhány alkalmazás egyedi módokon tárolhatják a képeket.
+        \n\nNem valószínű, de nem is lehetetlen, hogy a profilképek felülíródnak.
+    </string>
+    <string name="dialog_title_please_note">Kérlek Vedd Figyelembe</string>
+    <string name="dialog_msg_redo_micopi">
+        Ez a mód csak azokat a Micopi képeket képes megtalálni,
+        amelyek az alkalmazás jelenlegi verziójával készültek.
+        A régebbi képek nem kerülnek visszaállításra.
+    </string>
+    <!--<string name="dialog_msg_redo_micopi">-->
+    <!--Ez a mód csak azokat a Micopi képeket képes megtalálni,-->
+    <!--amelyek a 4.4-es (2016 márciusában megjelent) verzióval vagy régebbivel készültek.-->
+    <!--A régebbi képek nem kerülnek visszaállításra.-->
+    <!--</string>-->
+
+    <!-- Settings - Styles -->
+    <string name="styles">Stílusok</string>
+    <string name="shrinking_plates">Zsugorodó Lapok</string>
+    <string name="structured_discs">Szerkesztett Lemezek</string>
+    <string name="pixel_matrix">Pixel Mátrix</string>
+
+    <!-- Settings - Initials Circle -->
+    <string name="initials_circle">Kezdőbetűs Kör</string>
+    <string name="none">Nincs</string>
+    <string name="first_name">Keresztnév</string>
+    <string name="first_three">Első három név</string>
+
+    <!-- Settings - Backup -->
+    <string name="backup">Biztonsági mentés</string>
+    <string name="enable_backup">
+        Engedélyezi a meglévő profilképekről való biztonsági
+        mentés készítését azok lecserélése előtt.
+    </string>
+    <string name="store_images">
+        Ez eltárolja a képeket a névjegyzékedből a Micopi Média Könyvtárban* az eszközödön.
+        Kérlek, vedd figyelembe, hogy ez csak egy kísérleti funkció.
+        Javasoljuk, hogy egy további módon is készíts biztonsági mentést
+        a legértékesebb névjegyeidről és képeidről.
+        \n\nKérlek azt is tartsd szem előtt, hogy minél több képet cserélsz ki úgy,
+        hogy a biztonsági mentés be van kapcsolva,
+        a Micopi annál több tárhelyet fog felhasználni.
+    </string>
+
+    <!-- Settings - Deep Search -->
+    <string name="deep_search">Mély Keresés</string>
+    <string name="enable_deep_search">
+        Ha nehéz megtalálni bizonyos névjegyeket a Micopi alkalmazásban, engedélyezd a Mély Keresést.
+    </string>
+
+</resources>
