@@ -98,6 +98,7 @@
 
     <!-- Settings - Styles -->
     <string name="styles">Styles</string>
+    <!-- Note for translators: These are just names. Be creative with these, not literal. -->
     <string name="shrinking_plates">Shrinking Plates</string>
     <string name="structured_discs">Structured Discs</string>
     <string name="pixel_matrix">Pixel Matrix</string>

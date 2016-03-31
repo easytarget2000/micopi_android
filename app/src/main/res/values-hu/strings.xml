@@ -107,7 +107,8 @@
     <!-- Settings - Deep Search -->
     <string name="deep_search">Mély Keresés</string>
     <string name="enable_deep_search">
-        Ha nehéz megtalálni bizonyos névjegyeket a Micopi alkalmazásban, engedélyezd a Mély Keresést.
+        Ha nehéz megtalálni bizonyos névjegyeket a Micopi alkalmazásban,
+        engedélyezd a Mély Keresést.
     </string>
 
 </resources>

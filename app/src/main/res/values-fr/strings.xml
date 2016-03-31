@@ -100,7 +100,7 @@
 
     <!-- Settings - Styles -->
     <string name="styles">Styles</string>
-    <string name="shrinking_plates">Plats Rétrécissants</string>
+    <string name="shrinking_plates">Tuiles Rétrécissantes</string>
     <string name="structured_discs">Disques Structurés</string>
     <string name="pixel_matrix">Matrice de Pixels</string>
 
@@ -134,7 +134,7 @@
     </string>
 
     <!-- Settings - Deep Search -->
-    <string name="deep_search">Recherche Profonde</string>
+    <string name="deep_search">Recherche Approfondie</string>
     <string name="enable_deep_search">
         Si vous avez des difficultés à trouver certains contacts dans Micopi,
         activez la Recherche Profonde.

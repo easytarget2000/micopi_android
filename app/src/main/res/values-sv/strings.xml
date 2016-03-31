@@ -10,103 +10,99 @@
 
 <resources>
 
-    <string name="button_all_contacts">All Contacts</string>
-    <string name="dialog_msg_missing">
-        Appen har testats noggrant,
-        men vi rekommenderar ändå att du gör en sökerhetskopia på dina käraste bilder,
-        för säkerhets skull.
-    </string>
-    <string name="auto_mode">Automatic mode (experimental)</string>
-    <string name="assign_to_contact">Tilldela kontakten</string>
-    <string name="backup">Backup</string>
-    <string name="backup_not_activated">Go to the app settings to activate backups.</string>
-    <string name="dialog_msg_all_contacts">
-        Please confirm that you would like to overwrite all contact images.
-    </string>
-    <string name="deep_search">Deep Search</string>
-    <string name="enable_backup">
-        Enable backups of existing profile pictures before overwriting them.
-    </string>
-    <string name="enable_deep_search">
-        If you have trouble finding certain contacts in Micopi, enable Deep Search.
-    </string>
-    <string name="error_saving">
-        Ett fel uppstod när bilden sparades på din enhet.
-        Vänligen kontrollera att lagringsutrymmet inte är låst.</string>
-    <string name="error_assign">Ett fel uppstod när bilden tilldelades kontakten.</string>
-    <string name="first_name">First name</string>
-    <string name="first_three">First three names</string>
-    <string name="generated_image">Genererad kontaktbild</string>
-    <string name="got_new_picture">%s fick en ny kontaktbild.</string>
-    <string name="initials_circle">Initials Circle</string>
-    <string name="missing_pictures">Missing pictures</string>
-    <string name="next_image">Nästa bild</string>
-    <string name="none">None</string>
-    <string name="overwrite_all_or_only">
-        Would you like to overwrite all images or only generate pictures for contacts
-        that currently do not have one?
-    </string>
-    <string name="pick_contact">Välj en kontakt</string>
-    <string name="picture_will_be_previewed">
-        När du valt en kontakt kan du färhandsgranska den genererade bilden innan du tilldelar den
-        till kontakten.
-    </string>
-    <string name="pixel_matrix">Pixel Matrix</string>
-    <string name="dialog_title_please_note">Please Note</string>
-    <string name="previous_image">Föregående bild</string>
-    <string name="save_image_file">Spara bilden som fil</string>
-    <string name="saved_picture_as">Kontaktbild sparad som %s.</string>
-    <string name="settings">Inställningare (eng.)</string>
-    <string name="shrinking_plates">Shrinking Plates</string>
-    <string name="store_images">
-        This stores images from your contacts list in the Micopi Media Directory* on your device.
-        Please note that this is merely an experimental assistance.
-        It is recommended to backup your most precious contact pictures in an additional way.
-        \n\nPlease also note, the more images you replace with backups enabled,
-        the more memory storage Micopi is going to use.
-    </string>
-    <string name="structured_discs">Structured Discs</string>
-    <string name="styles">Styles</string>
-    <string name="want_to_assign">Vill du använda kontaktbilden fär %s?</string>
-
     <!-- Welcome -->
-    <string name="button_reset_images">Reset Images</string>
-    <string name="button_buy_full">Buy the full version</string>
+    <string name="pick_contact">Välj ut en kontakt</string>
+    <string name="picture_will_be_previewed">
+        När du har valt en kontakt kommer den genererade bilden att
+        förhandsvisas innan den tillämpas på kontakten.
+    </string>
+    <string name="auto_mode">Automatiskt läge</string>
+    <string name="settings">Inställningar</string>
 
-    <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">Want backups?</string>
-    <string name="upgrade_teaser_2">Want style settings?</string>
-    <string name="upgrade_teaser_3">Want new features sooner?</string>
-    <string name="upgrade_teaser_4">Want improvements sooner?</string>
-    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
+    <!-- Single Contact -->
+    <string name="generated_image">Genererad kontaktbild</string>
+    <string name="assign_to_contact">Tillämpa på kontakt</string>
+    <string name="next_image">Nästa bild</string>
+    <string name="previous_image">Föregående bild</string>
+
+    <!-- Single Contact - Dialog & Toasts-->
+    <string name="save_image_file">Spara bild som fil</string>
+    <string name="want_to_assign">
+        Vill du använda denna bild som kontaktbild för %1$s?
+        \n\nDenna ändring kan inte ångras.
+    </string>
+    <string name="backup_not_activated">Gå till appens inställningar.</string>
+    <string name="got_new_picture">%1$s har fått en ny kontaktbild.</string>
+    <string name="error_assign">
+        Ett fel uppstod när bilden skulle tillämpas på kontakten.
+    </string>
+    <string name="saved_picture_as">Kontaktbilden sparades som %1$s.</string>
+    <string name="error_saving">
+        Ett fel uppstod när bilden skulle sparas som en fil på din enhet.
+        Var god och kontrollera att din lagring inte är låst.
+    </string>
 
     <!-- Batch Mode -->
-    <string name="button_redo_micopi">Redo Micopi pictures</string>
+    <string name="overwrite_all_or_only">
+        Vill du ersätta alla bilder eller enbart generera bilder åt kontakter som
+        för närvarande inte har någon?
+        \n\nÄndringar gjorde av Micopi kan inte ångras.
+        För att vara på den säkra sidan rekommenderar vi att ni säkerhetskopierar
+        era mest värdefulla kontakter och bilder.
+    </string>
+    <string name="button_all_contacts">Alla kontakter</string>
+    <string name="missing_pictures">Utan bilder</string>
+    <string name="button_redo_micopi">Gör om Micopi-bilderna</string>
 
     <!-- Batch Mode - Dialogs -->
-    <string name="dialog_msg_redo_micopi">
-        This mode is only able to find Micopi images
-        that have been created with the current version of the app.
-        Older pictures will not be replaced.
+    <string name="dialog_msg_all_contacts">
+        Var god och bekräfta att du vill ersätta alla kontaktbilder.
     </string>
+    <string name="dialog_msg_missing">
+        Olika versioner av Android och vissa appar kan lagra bilder på unika sätt.
+        \n\nDet är osannolikt, men inte omöjligt, att kontaktbilder ersätts.
+    </string>
+    <string name="dialog_title_please_note">Vänligen notera</string>
+    <string name="dialog_msg_redo_micopi">
+        Detta läge kan enbart hitta Micopi-bilder som
+        har skapats i den aktuella versionen av appen.
+        Äldre bilder kommer inte att ersättas.
+    </string>
+    <!--<string name="dialog_msg_redo_micopi">-->
+    <!--This mode is only able to find Micopi images-->
+    <!--that have been created with version 4.4 (released in March 2016) or higher.-->
+    <!--Older pictures will not be replaced.-->
+    <!--</string>-->
+
+    <!-- Settings - Styles -->
+    <string name="styles">Stilar</string>
+    <string name="shrinking_plates">Krympande Plattor</string>
+    <string name="structured_discs">Strukturerade Skivor</string>
+    <string name="pixel_matrix">Pixel Matrix</string>
+
+    <!-- Settings - Initials Circle -->
+    <string name="initials_circle">Initials Cirkel</string>
+    <string name="none">Ingen</string>
+    <string name="first_name">Första namnet</string>
+    <string name="first_three">Första tre namnen</string>
 
     <!-- Settings - Backup -->
-    <string name="button_delete_backup">
-        Delete Backup Folder
+    <string name="backup">Backup</string>
+    <string name="enable_backup">
+        Aktivera säkerhetskopiering av befintliga kontaktbilder innan de ersätts.
     </string>
-    <string name="dialog_msg_delete_backup">
-        Please confirm that you would like to delete all image backups made by Micopi.
+    <string name="store_images">
+        Detta lagrar bilder från din kontaktlista i Micopis mediekatalog på din enhet.
+        Vänligen notera att denna funktion enbart är experimentell.
+        Det är rekommenderat att säkerhetskopiera dina mest värdefulla kontaktbilder på ett ytterligare sätt.
+        \n\nNotera även att ju mer bilder du ersätter med säkerhetskopiering
+        aktiverad, desto mer lagringsminne kommer Micopi att använda.
     </string>
 
-    <!-- Image Reset -->
-    <string name="msg_reset">
-        Would you like to reset a single image or all contact images at once?
-    </string>
-    <string name="dialog_msg_reset_all_contacts">
-        Please confirm that you would like to reset ALL contact images.
-    </string>
-    <string name="dialog_check_delete">
-        Delete images that do not have a backup!
+    <!-- Settings - Deep Search -->
+    <string name="deep_search">Djupsökning</string>
+    <string name="enable_deep_search">
+        Om du har problem med att hitta vissa kontakter i Micopi, aktivera  Djupsökning.
     </string>
 
 </resources>
