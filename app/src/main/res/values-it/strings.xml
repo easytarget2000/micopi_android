@@ -85,7 +85,7 @@
 
     <!-- Welcome -->
     <string name="button_reset_images">Reset Immagini</string>
-    <string name="button_buy_full">Acquista la versione completa</string>
+    <string name="button_buy_full">Upgrade</string>
 
     <!-- Upgrade Teaser -->
     <string name="upgrade_teaser_1">Vuoi i backup?</string>

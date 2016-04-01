@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.easytarget.micopi"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 35
-        versionName "3.6.4"
+        versionCode 36
+        versionName "3.6.6"
     }
     buildTypes {
         release {

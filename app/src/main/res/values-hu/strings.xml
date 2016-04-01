@@ -18,6 +18,14 @@
     </string>
     <string name="auto_mode">Automatikus mód</string>
     <string name="settings">Beállítások</string>
+    <string name="button_buy_full">Vedd meg a teljes verziót</string>
+
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">Szeretnél biztonsági mentéseket?</string>
+    <string name="upgrade_teaser_2">Szeretnél új stílusbeállításokat?</string>
+    <string name="upgrade_teaser_3">Hamarabb akarsz hozzájutni az új funkciókhoz?</string>
+    <string name="upgrade_teaser_4">Hamarabb akarod a javításokat?</string>
+    <string name="upgrade_teaser_5">Szeretnél megszabadulni a hirdetésektől?</string>
 
     <!-- Single Contact -->
     <string name="generated_image">Névjegyhez generált kép</string>
@@ -110,5 +118,25 @@
         Ha nehéz megtalálni bizonyos névjegyeket a Micopi alkalmazásban,
         engedélyezd a Mély Keresést.
     </string>
+
+    <string name="button_reset_images">Képek Visszaállítása</string>
+
+
+<string name="button_delete_backup">
+    Visszaállítási Mappa Törlése
+</string>
+<string name="dialog_msg_delete_backup">
+    Kérlek, erősítsd meg, hogy az összes Micopi által biztonsági mentett képet törölni kívánod.
+</string>
+
+<string name="msg_reset">
+    Csak egy névjegyképet szeretnél visszaállítani, vagy az összeset egyszerre?
+</string>
+<string name="dialog_msg_reset_all_contacts">
+    Kérlek, erősítsd meg, hogy az ÖSSZES névjegyképet kívánod visszaállítani.
+</string>
+<string name="dialog_check_delete">
+    Biztonsági mentés nélküli képek törlése!
+</string>
 
 </resources>

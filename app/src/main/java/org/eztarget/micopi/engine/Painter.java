@@ -17,7 +17,11 @@
 package org.eztarget.micopi.engine;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -25,11 +29,13 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.Log;
 
-import org.eztarget.micopi.engine.ImageFactory;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Utility class containing the actual paint methods for generating a contact picture;
@@ -40,7 +46,7 @@ import org.eztarget.micopi.engine.ImageFactory;
  */
 public class Painter {
 
-    private static final String LOG_TAG = Painter.class.getSimpleName();
+    private static final String TAG = Painter.class.getSimpleName();
 
     private static final int SHADOW_COLOR = 0xBB000000;
 
@@ -54,23 +60,64 @@ public class Painter {
 
     private Paint mPaint;
 
+    private Bitmap mGrainTextureBitmap;
+
+    private Bitmap mTowelTextureBitmap;
+
+    private Bitmap mMarbleTexture;
+
     /**
      * Constructor
      */
-    public Painter(Canvas canvas) {
+    public Painter(final Canvas canvas, final Context context) {
         if (canvas == null) {
-            Log.e(LOG_TAG, "Null canvas.");
+            Log.e(TAG, "Null canvas.");
             return;
         }
         mCanvas = canvas;
         mImageSize = canvas.getWidth();
         mImageSizeHalf = mImageSize * 0.5f;
-        mShadowRadius = mImageSize / 25f;
+        mShadowRadius = mImageSize * 0.1f;
         mPaint = new Paint();
         mPaint.setAlpha(255);
         mPaint.setStyle(Paint.Style.FILL);
 
         mPaint.setAntiAlias(true);
+
+        final AssetManager assetManager = context.getAssets();
+
+        if (mGrainTextureBitmap == null) {
+            final InputStream inputStream;
+            try {
+                inputStream = assetManager.open("texture_noise.png");
+                mGrainTextureBitmap = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+            }
+        }
+
+        if (mTowelTextureBitmap == null) {
+            final InputStream inputStream;
+            try {
+                inputStream = assetManager.open("texture_towel.png");
+                mTowelTextureBitmap = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+            }
+        }
+
+        if (mMarbleTexture == null) {
+            final InputStream inputStream;
+            try {
+                inputStream = assetManager.open("texture_marble.png");
+                mMarbleTexture = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+            }
+        }
     }
 
     /**
@@ -80,50 +127,83 @@ public class Painter {
         return mImageSize;
     }
 
-    /**
-     * Adds paintGrain to the entire canvas
+    /*
+    Textures
      */
-    public void paintGrain() {
-        final Bitmap noise = ImageFactory.getGrainBitmap();
-        if (noise != null) {
-            mCanvas.drawBitmap(
-                    noise,
-                    null,
-                    new Rect(0, 0, mCanvas.getWidth(), mCanvas.getHeight()),
-                    null
-            );
-        }
 
+    public enum Texture {
+        NONE,
+        GRAIN,
+        TOWEL,
+        MARBLE
+    }
+
+    private void setShader(final Texture texture) {
+        disableShadows();
+        switch (texture) {
+            case GRAIN:
+                mPaint.setShader(
+                        new BitmapShader(
+                                mGrainTextureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR
+                        )
+                );
+                break;
+            case TOWEL:
+                mPaint.setShader(
+                        new BitmapShader(
+                                mTowelTextureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR
+                        )
+                );
+                break;
+            case MARBLE:
+                mPaint.setShader(
+                        new BitmapShader(
+                                mMarbleTexture, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR
+                        )
+                );
+                break;
+            default:
+                clearShader();
+        }
+    }
+
+    private void clearShader() {
+        mPaint.setShader(null);
     }
 
     public void enableShadows() {
         mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
     }
 
-    public void setShadowOffset(final float offsetFactorX, final float offsetFactorY) {
+    private boolean mHasShadows = false;
+
+    public void setShadowLayer(
+            final float radiusScale,
+            final float offsetFactorX,
+            final float offsetFactorY
+    ) {
         mPaint.setShadowLayer(
-                mShadowRadius,
-                mShadowRadius / offsetFactorX,
-                mShadowRadius / offsetFactorY, SHADOW_COLOR
+                mShadowRadius * radiusScale,
+                mShadowRadius * (((offsetFactorX % 20) / 40f)),
+                mShadowRadius * (((offsetFactorY % 20) / 40f)),
+                SHADOW_COLOR
         );
+        mHasShadows = true;
     }
 
     public void disableShadows() {
-        mPaint.clearShadowLayer();
+        if (mHasShadows) {
+            mPaint.clearShadowLayer();
+            mHasShadows = false;
+        }
     }
 
     /**
      * Paints a styled square onto the canvas
-     *
-     * @param doPaintFilled Filled or stroked painting
-     * @param color         Paint color
-     * @param alpha         Paint alpha value
-     * @param x             X-coordinate of square centre
-     * @param y             Y-coordinate of square centre
-     * @param size          Side length
      */
     public void paintSquare(
             final int color,
+            final Texture texture,
             final int alpha,
             final float x,
             final float y,
@@ -138,6 +218,11 @@ public class Painter {
 //        Log.d("square", x + ", " + y);
 
         mCanvas.drawRect(offsetX, offsetY, offsetX + size, offsetY + size, mPaint);
+        if (texture != Texture.NONE) {
+            setShader(texture);
+            mCanvas.drawRect(offsetX, offsetY, offsetX + size, offsetY + size, mPaint);
+            clearShader();
+        }
     }
 
     /**
@@ -175,15 +260,13 @@ public class Painter {
      */
     public void paintPolygon(
             final int color,
+            final Texture texture,
             float angleOffset,
             final int numberOfEdges,
             final float centerX,
             final float centerY,
             float radius
     ) {
-
-        // Configure paint:
-        mPaint.setColor(color);
 
         double angle;
         float x, y;
@@ -202,22 +285,39 @@ public class Painter {
 
         polygonPath.close();
 
+        mPaint.setColor(color);
+
         mCanvas.drawPath(polygonPath, mPaint);
+
+        if (texture != Texture.NONE) {
+            setShader(texture);
+            mCanvas.drawPath(polygonPath, mPaint);
+            clearShader();
+        }
     }
 
     public void paintCircle(
             final int color,
+            final Texture texture,
             float centerX,
             float centerY,
             float radius
     ) {
         mPaint.setColor(color);
         mCanvas.drawCircle(centerX, centerY, radius, mPaint);
+
+        if (texture != Texture.NONE) {
+            setShader(texture);
+            mCanvas.drawCircle(centerX, centerY, radius, mPaint);
+            clearShader();
+        }
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void paintRoundedSquare(
             final int color,
+            final Texture texture,
             final float centerX,
             final float centerY,
             final float width
@@ -235,6 +335,21 @@ public class Painter {
                 cornerRadius,
                 mPaint
         );
+
+        if (texture != Texture.NONE) {
+            setShader(texture);
+            mCanvas.drawRoundRect(
+                    centerX - width,
+                    centerY - width,
+                    centerX + width,
+                    centerY + width,
+                    cornerRadius,
+                    cornerRadius,
+                    mPaint
+            );
+            clearShader();
+        }
+
     }
 
     /**
@@ -295,7 +410,7 @@ public class Painter {
         // Configure paint:
         mPaint.setColor(color);
         mPaint.setAlpha(alpha);
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+        mPaint.clearShadowLayer();
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
 
@@ -396,7 +511,7 @@ public class Painter {
             t += PI_STEP_SIZE;
         } while (t < TWO_PI * revolutions);
 
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+        mPaint.clearShadowLayer();
         mPaint.setStyle(Paint.Style.STROKE);
 
         // Draw the first path.
@@ -419,12 +534,6 @@ public class Painter {
      */
     private static final char CHAR_ALPHA = 255;
 
-    /**
-     * Paints letters on top of the centre of a canvas - GMail style
-     *
-     * @param chars Characters to draw
-     * @param color Paint color
-     */
     public void paintChars(final String string, int color) {
         int count = string.length();
         if (count == 0) return;
@@ -432,18 +541,17 @@ public class Painter {
 
         mPaint.setColor(color);
         mPaint.setAlpha(CHAR_ALPHA);
-        mPaint.setShadowLayer(0f, 0f, 0f, 0);
+        mPaint.clearShadowLayer();
 
         // Typeface, size and alignment:
-        Typeface sansSerifLight = Typeface.create("sans-serif", Typeface.BOLD);
+        Typeface sansSerifLight = Typeface.create("sans-serif-light", Typeface.NORMAL);
         mPaint.setTypeface(sansSerifLight);
-
 
         final int length = string.length();
         if (length == 1) {
-            mPaint.setTextSize(65f * mImageSize / 100f);
+            mPaint.setTextSize(55f * mImageSize / 100f);
         } else {
-            mPaint.setTextSize(100f / string.length() * mImageSize / 100f);
+            mPaint.setTextSize(75f / string.length() * mImageSize / 100f);
         }
         mPaint.setTextAlign(Paint.Align.CENTER);
 
@@ -467,7 +575,7 @@ public class Painter {
     /**
      * How much of the canvas the central circle is going to occupy
      */
-    private static final float CIRCLE_SIZE = 0.8f;
+    private static final float CIRCLE_SIZE = 0.66f;
 
     /**
      * Paints a circle in the middle of the image to enhance the visibility of the initial letter

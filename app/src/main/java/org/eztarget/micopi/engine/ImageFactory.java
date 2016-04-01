@@ -128,24 +128,16 @@ public class ImageFactory {
         MAIN PATTERN
         */
 
-        final Painter painter = new Painter(canvas);
+        final Painter painter = new Painter(canvas, context);
 
-        final int style = md5String.charAt(4) % 4;
-        if (BENCHMARK) {
-            Log.d(TAG_BENCHMARK, "11: " + (System.currentTimeMillis() - startTime) + ", " + style);
-            Log.d(TAG_BENCHMARK, "Mode: " + style);
-            startTime = System.currentTimeMillis();
-        }
+        final int style = md5String.charAt(3) % 3;
 
-        switch (style) {
+        switch (md5String.charAt(3) % 3) {
             default:
                 new PlatesGenerator(painter, mContact).paint();
                 break;
             case 1:
                 new PixelGenerator(painter, mContact).paint();
-                break;
-            case 2:
-                new DiscsGenerator(painter, mContact).paint();
         }
 
         if (BENCHMARK) {
@@ -154,7 +146,6 @@ public class ImageFactory {
         }
 
         painter.disableShadows();
-        painter.paintGrain();
 
         if (BENCHMARK) {
             Log.d(TAG_BENCHMARK, "13: " + (System.currentTimeMillis() - startTime));
@@ -165,14 +156,12 @@ public class ImageFactory {
         INITIAL LETTER ON CIRCLE
          */
 
-
         painter.paintCentralCircle(
                 bgColor,
-                (220 - md5String.charAt(29)),
+                (180 - md5String.charAt(29)),
                 false
         );
 
-        // Paint the first letter of the first word in the name.
         painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
 
         if (BENCHMARK) Log.d(TAG_BENCHMARK, "15: " + (System.currentTimeMillis() - startTime));

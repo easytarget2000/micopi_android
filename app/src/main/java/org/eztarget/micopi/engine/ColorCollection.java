@@ -16,6 +16,8 @@
 
 package org.eztarget.micopi.engine;
 
+import android.graphics.Color;
+
 /**
  * Created by michel on 27/10/14.
  * <p/>
@@ -30,18 +32,15 @@ public class ColorCollection {
      */
     public static final int PALETTE[] = {
             0xFF00E676,
-            0xFF81C784,
             0xFFFF9800,
-            0xFFFDD835,
-            0xFF00E5FF,
-            0xFF7986CB,
-            0xFFBBBBBB,
-            0xFFC5E1A5,
+            0xFFe6c484,
             0xFFCDDC39,
+            0xFFf4c4ba,
             0xFFFFA000,
             0xFFFFAB40,
             0xFF9F9F9F,
             0xFF7C4DFF,
+            0xFF3f3c37,
             0xFF0288D1,
             0xFFD32F2F,
             0xFF29B6F6,
@@ -49,17 +48,18 @@ public class ColorCollection {
             0xFFFFC107,
             0xFF7C4DFF,
             0xFFF44336,
+            0xFFe6c484,
+            0xFF141414,
             0xFFFFEB3B,
             0xFF2196F3,
             0xFFFF4081,
             0xFF536DFE,
             0xFFC2185B,
             0xFFF57C00,
-            0xFF26A69A,
-            0xFFBA68C8,
             0xFF4CAF50,
             0xFFD3D3D3,
             0xFF303F9F,
+            0xFFf0ebe5,
             0xFF3F51B5,
             0xFF03A9F4,
             0xFFAD1457,
@@ -70,15 +70,20 @@ public class ColorCollection {
             0xFF009688,
             0xFFBBDEFB,
             0xFF80CBC4,
-            0xFF26C6DA,
-            0xFF4527A0,
-            0xFFAA00FF,
-            0xFF757575,
-            0xFF795548,
-            0xFF607D8B,
+            0xFF524942,
+            0xFF437478,
             0xFFFF5252,
-            0xFF004D40,
             0xFF1976D2
+    };
+
+    /**
+     * Additional high-contrast colours and black & white
+     */
+    public static final int HARSH_PALETTE[] = {
+            Color.WHITE,
+            Color.RED,
+            0xFF212121,
+            0xFF009688,
     };
 
     /**

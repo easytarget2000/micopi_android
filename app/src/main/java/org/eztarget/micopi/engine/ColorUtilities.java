@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class ColorUtilities {
 
-    private static final int STEP_SIZE_PIXEL = 8;
+    private static final int STEP_SIZE_PIXEL = 6;
 
     /**
      * @param bitmap Bitmap that will be processed
@@ -57,6 +57,7 @@ public class ColorUtilities {
                 blueBucket += Color.blue(c);
                 pixelCount++;
             }
+            redBucket += Color.red(c);
         }
 
         return Color.rgb(
@@ -66,15 +67,10 @@ public class ColorUtilities {
         );
     }
 
-    /**
-     *
-     * @param color
-     * @return
-     */
     public static int getDarkenedColor(int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.6f;
+        hsv[2] *= 0.8f;
         return Color.HSVToColor(hsv);
     }
 }

@@ -54,7 +54,6 @@ public class PlatesGenerator {
 
         final float minWidth = (imageSize / 300) * md5String.charAt(22);
 
-
         final int md5Length = md5String.length();
         float x = imageSize * 0.5f;
         float y = x;
@@ -84,59 +83,70 @@ public class PlatesGenerator {
         }
 
         float extraDividend = md5String.charAt(23);
-        int movement;
         int md5Pos = 0;
 
         mPainter.enableShadows();
 
         for (int i = 0; i < numberOfPlates; i++) {
+
             // Get the next character from the MD5 String.
             md5Pos++;
             if (md5Pos >= md5Length) md5Pos = 0;
 
             // Move the coordinates around.
-            movement = md5String.charAt(md5Pos) + i * 3;
+            final int md5Char = md5String.charAt(md5Pos) + i * 3;
+            final Painter.Texture texture;
 
-            switch (movement % 6) {
+            switch (md5Char % 6) {
                 case 0:
-                    x += movement;
-                    y -= movement * 2;
+                    x += md5Char;
+                    y -= md5Char * 2;
+                    mPainter.setShadowLayer((((md5Char % 15) / 15f) + 0.7f), 2f, 2f);
+                    texture = Painter.Texture.MARBLE;
                     break;
                 case 1:
-                    x -= movement * 2;
-                    y += movement;
+                    x -= md5Char * 2;
+                    y += md5Char;
+                    texture = Painter.Texture.NONE;
                     break;
                 case 2:
-                    x += movement * 2;
-                    mPainter.setShadowOffset(movement, i + 1);
+                    x += md5Char * 2;
+                    texture = Painter.Texture.GRAIN;
                     break;
                 case 3:
-                    y += movement * 3;
+                    y += md5Char * 3;
+                    texture = Painter.Texture.TOWEL;
                     break;
                 case 4:
-                    x -= movement * 2;
-                    y -= movement;
-                    mPainter.setShadowOffset(i + 1, movement);
+                    x -= md5Char * 2;
+                    y -= md5Char;
+                    mPainter.setShadowLayer((((md5Char % 15) / 15f) + 1f), i + 1f, md5Char);
+                    texture = Painter.Texture.GRAIN;
                     break;
                 default:
-                    x -= movement;
-                    y -= movement * 2;
+                    x -= md5Char;
+                    y -= md5Char * 2;
+                    mPainter.setShadowLayer((((md5Char % 15) / 15) + 1.5f), 1f, 1f);
+                    texture = Painter.Texture.NONE;
                     break;
             }
 
+
             if (paintPolygon) {
-                if (paintRoundedSquares && (movement % 3 == 0)) {
+                if (paintRoundedSquares && (md5Char % 3 == 0)) {
                     mPainter.paintRoundedSquare(
                             ColorCollection.getColor(md5String.charAt(md5Pos)),
+                            texture,
                             x,
                             y,
                             width
                     );
                 } else {
-                    angleOffset += extraDividend / movement;
+                    angleOffset += extraDividend / md5Char;
 
                     mPainter.paintPolygon(
                             ColorCollection.getColor(md5String.charAt(md5Pos)),
+                            texture,
                             angleOffset,
                             numberOfEdges,
                             x,
@@ -148,6 +158,7 @@ public class PlatesGenerator {
             } else {
                 mPainter.paintCircle(
                         ColorCollection.getColor(md5String.charAt(md5Pos)),
+                        texture,
                         x,
                         y,
                         width
@@ -157,5 +168,6 @@ public class PlatesGenerator {
             if (width < minWidth) width *= 3.1f;
             else width *= 0.6f;
         }
+
     }
 }

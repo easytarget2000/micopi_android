@@ -25,6 +25,8 @@ import org.eztarget.micopi.Contact;
  */
 public class PixelGenerator {
 
+    private static final String TAG = PixelGenerator.class.getSimpleName();
+
     /**
      * Number of squares per row (number of columns) and number of rows;
      * total number of painted squares is this value squared
@@ -50,9 +52,9 @@ public class PixelGenerator {
         final int color2 = ColorCollection.getColor(md5String.charAt(17));
 
         int numberOfSquares = (md5String.charAt(15) % 10) + 15;
-//        if (numberOfSquares % 2 == 0) ++numberOfSquares;
+        final int textureShift = md5String.charAt(25);
 
-        final float sideLength = mPainter.getImageSize() / numberOfSquares;
+        final float sideLength = (float) mPainter.getImageSize() / numberOfSquares;
 
         final boolean leftAligned = md5String.charAt(14) % 2 == 0;
         final boolean topAligned = md5String.charAt(13) % 2 == 0;
@@ -68,10 +70,26 @@ public class PixelGenerator {
                 if (md5Index >= md5Length) md5Index = 0;
                 final char md5Char = md5String.charAt(md5Index);
 
+                final Painter.Texture texture;
+                switch ((i * j + textureShift) % 7) {
+                    case 1:
+                        texture = Painter.Texture.GRAIN;
+                        break;
+                    case 2:
+                        texture = Painter.Texture.TOWEL;
+                        break;
+                    case 3:
+                        texture = Painter.Texture.MARBLE;
+                        break;
+                    default:
+                        texture = Painter.Texture.NONE;
+                }
+
                 if (x> 0 && y > 0) {
                     if (isOddParity(md5Char)) {
                         mPainter.paintSquare(
                                 color1,
+                                texture,
                                 255 - md5Char % 100,
                                 leftAligned ? (md5Char % y) : (numberOfSquares - (md5Char % y)),
                                 topAligned ? (md5Char % x) : (numberOfSquares - (md5Char % x)),
@@ -80,6 +98,7 @@ public class PixelGenerator {
                     } else if (x % 2 == 0){
                         mPainter.paintSquare(
                                 color2,
+                                texture,
                                 255 - md5Char % 100,
                                 leftAligned ? (md5Char % x) : (numberOfSquares - (md5Char % x)),
                                 topAligned ? (md5Char % y) : (numberOfSquares - (md5Char % y)),

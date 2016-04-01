@@ -17,7 +17,16 @@
         förhandsvisas innan den tillämpas på kontakten.
     </string>
     <string name="auto_mode">Automatiskt läge</string>
+    <string name="button_reset_images">Reset Images</string>
     <string name="settings">Inställningar</string>
+    <string name="button_buy_full">Upgrade</string>
+
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">Want backups?</string>
+    <string name="upgrade_teaser_2">Want style settings?</string>
+    <string name="upgrade_teaser_3">Want new features sooner?</string>
+    <string name="upgrade_teaser_4">Want improvements sooner?</string>
+    <string name="upgrade_teaser_5">Want to get rid of ads?</string>
 
     <!-- Single Contact -->
     <string name="generated_image">Genererad kontaktbild</string>
@@ -74,6 +83,17 @@
     <!--Older pictures will not be replaced.-->
     <!--</string>-->
 
+    <!-- Image Reset -->
+     <string name="msg_reset">
+         Would you like to reset a single image or all contact images at once?
+     </string>
+     <string name="dialog_msg_reset_all_contacts">
+         Please confirm that you would like to reset ALL contact images.
+     </string>
+     <string name="dialog_check_delete">
+         Delete images that do not have a backup!
+     </string>
+
     <!-- Settings - Styles -->
     <string name="styles">Stilar</string>
     <string name="shrinking_plates">Krympande Plattor</string>
@@ -97,6 +117,12 @@
         Det är rekommenderat att säkerhetskopiera dina mest värdefulla kontaktbilder på ett ytterligare sätt.
         \n\nNotera även att ju mer bilder du ersätter med säkerhetskopiering
         aktiverad, desto mer lagringsminne kommer Micopi att använda.
+    </string>
+    <string name="button_delete_backup">
+        Delete Backup Folder
+    </string>
+    <string name="dialog_msg_delete_backup">
+        Please confirm that you would like to delete all image backups made by Micopi.
     </string>
 
     <!-- Settings - Deep Search -->

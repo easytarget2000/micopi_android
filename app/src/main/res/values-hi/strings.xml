@@ -20,13 +20,6 @@
     <string name="settings">सेटिंग्स</string>
     <string name="button_buy_full">पूर्ण संस्करण को खरीदें</string>
 
-    <!-- Upgrade Teaser -->
-    <string name="upgrade_teaser_1">बैकअप की सुविधा चाहिए?</string>
-    <string name="upgrade_teaser_2">स्टाइल सेटिंग्स चाहिए?</string>
-    <string name="upgrade_teaser_3">नई विशेषताएँ जल्दी चाहिए?</string>
-    <string name="upgrade_teaser_4">सुधार जल्दी चाहिए?</string>
-    <string name="upgrade_teaser_5">विज्ञापनों से छुटकारा चाहिए?</string>
-
     <!-- Single Contact -->
     <string name="generated_image">उत्पन्न किया संपर्क चित्र</string>
     <string name="assign_to_contact"> संपर्क को नियुक्त करें</string>
@@ -122,5 +115,12 @@
     <string name="enable_deep_search">
         यदि आपको Micopi में किसी संपर्क को खोजने में मुश्किल हो रही हो तो गहन खोज को सक्षम करें।
     </string>
+
+    <!-- Upgrade Teaser -->
+    <string name="upgrade_teaser_1">बैकअप की सुविधा चाहिए?</string>
+    <string name="upgrade_teaser_2">स्टाइल सेटिंग्स चाहिए?</string>
+    <string name="upgrade_teaser_3">नई विशेषताएँ जल्दी चाहिए?</string>
+    <string name="upgrade_teaser_4">सुधार जल्दी चाहिए?</string>
+    <string name="upgrade_teaser_5">विज्ञापनों से छुटकारा चाहिए?</string>
 
 </resources>
