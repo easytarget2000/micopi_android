@@ -544,15 +544,10 @@ public class Painter {
         mPaint.clearShadowLayer();
 
         // Typeface, size and alignment:
-        Typeface sansSerifLight = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        Typeface sansSerifLight = Typeface.create("sans-serif", Typeface.NORMAL);
         mPaint.setTypeface(sansSerifLight);
 
-        final int length = string.length();
-        if (length == 1) {
-            mPaint.setTextSize(75f * mImageSize / 100f);
-        } else {
-            mPaint.setTextSize(90f / string.length() * mImageSize / 100f);
-        }
+        mPaint.setTextSize((66f / string.length()) * (mImageSize / 100f));
         mPaint.setTextAlign(Paint.Align.CENTER);
 
         // Get the rectangle that the text fits into.
