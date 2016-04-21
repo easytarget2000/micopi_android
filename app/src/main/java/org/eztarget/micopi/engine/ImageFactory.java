@@ -156,11 +156,11 @@ public class ImageFactory {
         INITIAL LETTER ON CIRCLE
          */
 
-        painter.paintCentralCircle(
-                bgColor,
-                (180 - md5String.charAt(29)),
-                false
-        );
+//        painter.paintCentralCircle(
+//                bgColor,
+//                (180 - md5String.charAt(29)),
+//                false
+//        );
 
         painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
 

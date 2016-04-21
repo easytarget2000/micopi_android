@@ -549,9 +549,9 @@ public class Painter {
 
         final int length = string.length();
         if (length == 1) {
-            mPaint.setTextSize(55f * mImageSize / 100f);
+            mPaint.setTextSize(75f * mImageSize / 100f);
         } else {
-            mPaint.setTextSize(75f / string.length() * mImageSize / 100f);
+            mPaint.setTextSize(90f / string.length() * mImageSize / 100f);
         }
         mPaint.setTextAlign(Paint.Align.CENTER);
 

@@ -10,8 +10,7 @@
 
 <resources>
 
-    <string name="app_name" translatable="false">Micopi Pico
-    </string>
+    <string name="app_name" translatable="false">Micopi Pico</string>
 
     <!-- Welcome -->
     <string name="pick_contact">Pick a single contact</string>
