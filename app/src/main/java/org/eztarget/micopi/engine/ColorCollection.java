@@ -16,8 +16,6 @@
 
 package org.eztarget.micopi.engine;
 
-import android.graphics.Color;
-
 /**
  * Created by michel on 27/10/14.
  * <p/>
@@ -39,6 +37,7 @@ public class ColorCollection {
             0xFFFFA000,
             0xFFFFAB40,
             0xFF9F9F9F,
+            0xFF555555,
             0xFF7C4DFF,
             0xFF3f3c37,
             0xFF0288D1,
@@ -52,6 +51,7 @@ public class ColorCollection {
             0xFF141414,
             0xFFFFEB3B,
             0xFF2196F3,
+            0xFF777777,
             0xFFFF4081,
             0xFF536DFE,
             0xFFC2185B,
@@ -72,18 +72,9 @@ public class ColorCollection {
             0xFF80CBC4,
             0xFF524942,
             0xFF437478,
+            0xFF009688,
             0xFFFF5252,
             0xFF1976D2
-    };
-
-    /**
-     * Additional high-contrast colours and black & white
-     */
-    public static final int HARSH_PALETTE[] = {
-            Color.WHITE,
-            Color.RED,
-            0xFF212121,
-            0xFF009688,
     };
 
     /**
@@ -100,33 +91,11 @@ public class ColorCollection {
 
         final int index = c % (PALETTE.length - 1);
 
-        if (c % 3 == 0) return ColorUtilities.getDarkenedColor(PALETTE[index]);
+        if (c % 3 == 0) {
+            return ColorUtilities.getDarkenedColor(PALETTE[index]);
+        }
 
         return PALETTE[index];
     }
 
-    /**
-     * Takes a color from the candy or harsh palette and, in some cases, modifies its value
-     *
-     * @return A color with alpha = 255
-     */
-    public static int generateColor(char c1, int i1, int i2) {
-        int color;
-
-        switch (i1 % 5) {
-            case 0:
-                final int harshIndex = i2 % (PALETTE.length - 1);
-                color = PALETTE[harshIndex];
-                break;
-            case 1:
-                color = getColor(c1);
-                color = ColorUtilities.getDarkenedColor(color);
-                break;
-            default:
-                color = getColor(c1);
-        }
-
-        return color | 0xff000000;
-    }
 }
-

@@ -10,7 +10,7 @@
 
 <resources>
 
-    <string name="app_name" translatable="false">Micopi Pico</string>
+    <string name="app_name" translatable="false">Micopi+</string>
 
     <!-- Welcome -->
     <string name="pick_contact">Pick a single contact</string>
@@ -26,8 +26,8 @@
     <!-- Upgrade Teaser -->
     <string name="upgrade_teaser_1">Want backups?</string>
     <string name="upgrade_teaser_2">Want style settings?</string>
-    <string name="upgrade_teaser_3">Want new features earlier?</string>
-    <string name="upgrade_teaser_4">Want improvements earlier?</string>
+    <string name="upgrade_teaser_3">Want new features sooner?</string>
+    <string name="upgrade_teaser_4">Want improvements sooner?</string>
     <string name="upgrade_teaser_5">Want to get rid of ads?</string>
 
     <!-- Single Contact -->
@@ -79,9 +79,9 @@
         Older pictures will not be replaced.
     </string>
     <!--<string name="dialog_msg_redo_micopi">-->
-        <!--This mode is only able to find Micopi images-->
-        <!--that have been created with version 4.4 (released in March 2016) or higher.-->
-        <!--Older pictures will not be replaced.-->
+    <!--This mode is only able to find Micopi images-->
+    <!--that have been created with version 4.4 (released in March 2016) or higher.-->
+    <!--Older pictures will not be replaced.-->
     <!--</string>-->
 
     <!-- Image Reset -->
@@ -97,16 +97,20 @@
 
     <!-- Settings - Styles -->
     <string name="styles">Styles</string>
-    <!-- Note for translators: These are just names. Be creative with these, not literal. -->
-    <string name="shrinking_plates">Shrinking Plates</string>
+    <string name="shrinking_plates">Material Plates</string>
     <string name="structured_discs">Structured Discs</string>
     <string name="pixel_matrix">Pixel Matrix</string>
 
     <!-- Settings - Initials Circle -->
-    <string name="initials_circle">Initials Circle</string>
+    <string name="initials_circle">Initials</string>
     <string name="none">None</string>
     <string name="first_name">First name</string>
     <string name="first_three">First three names</string>
+
+    <!--&lt;!&ndash; Settings - Initials Font &ndash;&gt;-->
+    <!--<string name="header_initials_font">Font</string>-->
+    <!--<string name="button_initials_thin_font">Thin</string>-->
+    <!--<string name="button_initials_normal_font">Default</string>-->
 
     <!-- Settings - Backup -->
     <string name="backup">Backup</string>

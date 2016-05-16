@@ -48,44 +48,50 @@ public class PlatesGenerator {
 
         final int imageSize = mPainter.getImageSize();
         float angleOffset = 0;
-        final float factor = (float) md5String.charAt(7) / (float) md5String.charAt(19);
         float width;
-        width = (factor * imageSize);
+        width = ((float) md5String.charAt(7) + (float) md5String.charAt(19)) + imageSize * 0.67f;
 
-        final float minWidth = (imageSize / 300) * md5String.charAt(22);
+        final float minWidth = width * 0.37f;
 
         final int md5Length = md5String.length();
         float x = imageSize * 0.5f;
         float y = x;
 
-        final int numberOfPlates = (md5String.charAt(28) % 6) + 2;
+        final int numberOfPlates = (md5String.charAt(28) % 3) + 3;
 
-        Log.d(TAG, "width: " + width + " smallest: " + minWidth + " number: " + numberOfPlates);
+//        Log.d(TAG, "width: " + width + " smallest: " + minWidth + " number: " + numberOfPlates);
 
         // Some pictures have polygon approximations instead of actual circles.
-        final boolean paintPolygon;
         boolean paintRoundedSquares = false;
 
         int numberOfEdges = mContact.getNameWord(0).length();
-        if (md5String.charAt(27) % 5 != 0) {
-            paintPolygon = true;
 
-            if (numberOfEdges < 3) {
-                numberOfEdges = 3;
-            }  else if (numberOfEdges > 10) {
-                numberOfEdges = 10;
-            } else if (numberOfEdges == 4 &&
-                    (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
-                paintRoundedSquares = true;
-            }
-        } else {
-            paintPolygon = false;
+        if (numberOfEdges < 3) {
+            numberOfEdges = 3;
+        }  else if (numberOfEdges > 10) {
+            numberOfEdges = 10;
+        } else if (numberOfEdges == 4 &&
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)) {
+            paintRoundedSquares = true;
         }
 
         float extraDividend = md5String.charAt(23);
         int md5Pos = 0;
 
         mPainter.enableShadows();
+
+        final int shadowChar = md5String.charAt(7);
+        switch (shadowChar % 6) {
+            case 0:
+                mPainter.setShadowLayer((((shadowChar % 15) / 15f) + 0.7f), 2f, 2f);
+                break;
+            case 1:
+                mPainter.setShadowLayer((((shadowChar % 15) / 15f) + 1f), 3f, 3f);
+                break;
+            default:
+                mPainter.setShadowLayer((((shadowChar % 15) / 15) + 1.5f), 1f, 1f);
+                break;
+        }
 
         for (int i = 0; i < numberOfPlates; i++) {
 
@@ -101,7 +107,6 @@ public class PlatesGenerator {
                 case 0:
                     x += md5Char;
                     y -= md5Char * 2;
-                    mPainter.setShadowLayer((((md5Char % 15) / 15f) + 0.7f), 2f, 2f);
                     texture = Painter.Texture.MARBLE;
                     break;
                 case 1:
@@ -120,19 +125,17 @@ public class PlatesGenerator {
                 case 4:
                     x -= md5Char * 2;
                     y -= md5Char;
-                    mPainter.setShadowLayer((((md5Char % 15) / 15f) + 1f), i + 1f, md5Char);
                     texture = Painter.Texture.GRAIN;
                     break;
                 default:
                     x -= md5Char;
                     y -= md5Char * 2;
-                    mPainter.setShadowLayer((((md5Char % 15) / 15) + 1.5f), 1f, 1f);
                     texture = Painter.Texture.NONE;
                     break;
             }
 
 
-            if (paintPolygon) {
+            if (md5Char % 4 != 0) {
                 if (paintRoundedSquares && (md5Char % 3 == 0)) {
                     mPainter.paintRoundedSquare(
                             ColorCollection.getColor(md5String.charAt(md5Pos)),
@@ -149,6 +152,7 @@ public class PlatesGenerator {
                             texture,
                             angleOffset,
                             numberOfEdges,
+                            md5Char % 3 == 0,
                             x,
                             y,
                             width
@@ -161,13 +165,15 @@ public class PlatesGenerator {
                         texture,
                         x,
                         y,
-                        width
+                        width * 0.5f
                 );
             }
 
-            if (width < minWidth) width *= 3.1f;
-            else width *= 0.6f;
+            if (width < minWidth) width *= 3.5f;
+            else width *= 0.67f;
         }
+
+        mPainter.disableShadows();
 
     }
 }

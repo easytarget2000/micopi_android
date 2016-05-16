@@ -130,9 +130,7 @@ public class ImageFactory {
 
         final Painter painter = new Painter(canvas, context);
 
-        final int style = md5String.charAt(3) % 3;
-
-        switch (md5String.charAt(3) % 3) {
+        switch (md5String.charAt(3) % 4) {
             default:
                 new PlatesGenerator(painter, mContact).paint();
                 break;
@@ -155,12 +153,6 @@ public class ImageFactory {
         /*
         INITIAL LETTER ON CIRCLE
          */
-
-//        painter.paintCentralCircle(
-//                bgColor,
-//                (180 - md5String.charAt(29)),
-//                false
-//        );
 
         painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
 
