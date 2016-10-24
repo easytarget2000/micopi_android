@@ -67,7 +67,7 @@ public class ColorUtilities {
         );
     }
 
-    public static int getDarkenedColor(int color) {
+    static int getDarkenedColor(int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] *= 0.8f;

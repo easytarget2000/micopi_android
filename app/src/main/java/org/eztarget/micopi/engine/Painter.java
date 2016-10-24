@@ -23,6 +23,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -41,41 +43,32 @@ import java.io.InputStream;
  * <p/>
  * Created by Michel on 23.01.14.
  */
-public class Painter {
+class Painter {
 
     private static final String TAG = Painter.class.getSimpleName();
 
-    private static final int SHADOW_COLOR = 0xDD000000;
-
-    private static final int SHADOW_COLOR_LIGHT = 0x77000000;
+    private static final int SHADOW_COLOR = 0xEE000000;
 
     private Canvas mCanvas;
 
     private int mImageSize;
 
-    private float mImageSizeHalf;
-
     private float mShadowRadius;
 
     private Paint mPaint;
 
-    private Bitmap mGrainTextureBitmap;
-
-    private Bitmap mTowelTextureBitmap;
-
-    private Bitmap mMarbleTexture;
+    private AssetManager mAssetMan;
 
     /**
      * Constructor
      */
-    public Painter(final Canvas canvas, final Context context) {
+    Painter(final Canvas canvas, final Context context) {
         if (canvas == null) {
             Log.e(TAG, "Null canvas.");
             return;
         }
         mCanvas = canvas;
         mImageSize = canvas.getWidth();
-        mImageSizeHalf = mImageSize * 0.5f;
         mShadowRadius = mImageSize * 0.05f;
         mPaint = new Paint();
         mPaint.setAlpha(255);
@@ -83,40 +76,19 @@ public class Painter {
 
         mPaint.setAntiAlias(true);
 
-        final AssetManager assetManager = context.getAssets();
+        mAssetMan = context.getAssets();
 
-        if (mGrainTextureBitmap == null) {
-            final InputStream inputStream;
-            try {
-                inputStream = assetManager.open("texture_noise.png");
-                mGrainTextureBitmap = BitmapFactory.decodeStream(inputStream);
-                inputStream.close();
-            } catch (IOException e) {
-                Log.e(TAG, e.toString());
-            }
-        }
+//        if (mGrainTextureBitmap == null) {
+//            final InputStream inputStream;
+//            try {
+//                inputStream = assetManager.open("texture_noise.png");
+//                mGrainTextureBitmap = BitmapFactory.decodeStream(inputStream);
+//                inputStream.close();
+//            } catch (IOException e) {
+//                Log.e(TAG, e.toString());
+//            }
+//        }
 
-        if (mTowelTextureBitmap == null) {
-            final InputStream inputStream;
-            try {
-                inputStream = assetManager.open("texture_towel.png");
-                mTowelTextureBitmap = BitmapFactory.decodeStream(inputStream);
-                inputStream.close();
-            } catch (IOException e) {
-                Log.e(TAG, e.toString());
-            }
-        }
-
-        if (mMarbleTexture == null) {
-            final InputStream inputStream;
-            try {
-                inputStream = assetManager.open("texture_marble.png");
-                mMarbleTexture = BitmapFactory.decodeStream(inputStream);
-                inputStream.close();
-            } catch (IOException e) {
-                Log.e(TAG, e.toString());
-            }
-        }
     }
 
     /**
@@ -130,53 +102,54 @@ public class Painter {
     Textures
      */
 
-    public enum Texture {
-        NONE,
-        GRAIN,
-        TOWEL,
-        MARBLE
-    }
+    private static final int NUMBER_OF_TEXTURE_FILES = 2;
 
-    private void setShader(final Texture texture) {
-        switch (texture) {
-            case GRAIN:
-                mPaint.setShader(
-                        new BitmapShader(
-                                mGrainTextureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR
-                        )
-                );
-                break;
-            case TOWEL:
-                mPaint.setShader(
-                        new BitmapShader(
-                                mTowelTextureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR
-                        )
-                );
-                break;
-            case MARBLE:
-                mPaint.setShader(
-                        new BitmapShader(
-                                mMarbleTexture, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR
-                        )
-                );
-                break;
-            default:
-                clearShader();
+    private void setShader(final int fileId, final int color) {
+
+        final ColorFilter filter = new LightingColorFilter(0xFF444444 , color);
+        mPaint.setColorFilter(filter);
+
+        if (fileId < 1) {
+            clearShader();
+            return;
         }
+
+        disableShadows();
+
+        final String fileName = "texture_" + ((fileId % NUMBER_OF_TEXTURE_FILES) + 1) + ".bmp";
+
+        Bitmap textureBitmap = null;
+        final InputStream inputStream;
+        try {
+            inputStream = mAssetMan.open(fileName);
+            textureBitmap = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+        } catch (IOException e) {
+            Log.e(TAG, e.toString());
+        }
+
+        if (textureBitmap == null) {
+            return;
+        }
+
+        Log.d(TAG, "Loaded " + fileName + ".");
+        mPaint.setShader(
+                new BitmapShader(textureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR)
+        );
     }
 
     private void clearShader() {
         mPaint.setShader(null);
     }
 
-    public void enableShadows() {
+    void enableShadows() {
         mPaint.setShadowLayer(mShadowRadius, 0, 0, SHADOW_COLOR);
         mHasShadows = true;
     }
 
     private boolean mHasShadows = false;
 
-    public void setShadowLayer(
+    void setShadowLayer(
             final float radiusScale,
             final float offsetFactorX,
             final float offsetFactorY
@@ -190,20 +163,20 @@ public class Painter {
         mHasShadows = true;
     }
 
-    public void disableShadows() {
+    void disableShadows() {
         if (mHasShadows) {
             mPaint.clearShadowLayer();
             mHasShadows = false;
         }
+        clearShader();
     }
 
     /**
      * Paints a styled square onto the canvas
      */
-    public void paintSquare(
+    void paintSquare(
             final int color,
-            final Texture texture,
-            final int alpha,
+            final int textureId,
             final float x,
             final float y,
             final float size
@@ -211,20 +184,18 @@ public class Painter {
         final float offsetX = x * size;
         final float offsetY = y * size;
 
-        mPaint.setColor(color);
-        mPaint.setAlpha(alpha);
-
-//        Log.d("square", x + ", " + y);
-
-        mCanvas.drawRect(offsetX, offsetY, offsetX + size, offsetY + size, mPaint);
-        if (texture != Texture.NONE) {
-            setShader(texture);
+        if (textureId > 0) {
+            setShader(textureId, color);
             mCanvas.drawRect(offsetX, offsetY, offsetX + size, offsetY + size, mPaint);
             clearShader();
+        } else {
+            mPaint.setColor(color);
+            mCanvas.drawRect(offsetX, offsetY, offsetX + size, offsetY + size, mPaint);
         }
+
     }
 
-    public static final float TWO_PI = 2f * (float) Math.PI;
+    private static final float TWO_PI = 2f * (float) Math.PI;
 
     /**
      * Paints two shapes on top of each other with slightly different alpha,
@@ -237,18 +208,16 @@ public class Painter {
      * @param centerY       Y coordinate of the centre of the shape
      * @param radius        Also determines size of polygon approximations
      */
-    public void paintPolygon(
+    void paintPolygon(
             final int color,
-            final Texture texture,
+            final int textureId,
             float angleOffset,
             final int numberOfEdges,
-            final boolean hasCurvedEdge,
             final float centerX,
             final float centerY,
             float radius
     ) {
-        float lastX = 0f;
-        float lastY = 0f;
+        enableShadows();
 
         final Path polygonPath = new Path();
 
@@ -259,18 +228,6 @@ public class Painter {
 
             if (edge == 1) {
                 polygonPath.moveTo(x, y);
-                if (hasCurvedEdge) {
-                    lastX = x;
-                    lastY = y;
-                }
-
-            } else if (hasCurvedEdge && edge == 2) {
-                polygonPath.quadTo(
-                        ((x * 2f) + lastX + centerX) / 4f,
-                        ((y * 2f) + lastY + centerY) / 4f,
-                        x,
-                        y
-                );
             } else {
                 polygonPath.lineTo(x, y);
             }
@@ -279,59 +236,64 @@ public class Painter {
 
         polygonPath.close();
 
-        mPaint.setColor(color);
-
-        mCanvas.drawPath(polygonPath, mPaint);
-
-        if (texture != Texture.NONE) {
-            setShader(texture);
+        if (textureId > 0) {
+            mCanvas.drawPath(polygonPath, mPaint);
+            setShader(textureId, color);
+            disableShadows();
             mCanvas.drawPath(polygonPath, mPaint);
             clearShader();
+        } else {
+            mPaint.setColor(color);
+            mCanvas.drawPath(polygonPath, mPaint);
         }
+
     }
 
-    public void paintCircle(
+    void paintCircle(
             final int color,
-            final Texture texture,
+            final int textureId,
             float centerX,
             float centerY,
             float radius
     ) {
-        mPaint.setColor(color);
-        mCanvas.drawCircle(centerX, centerY, radius, mPaint);
-
-        if (texture != Texture.NONE) {
-            setShader(texture);
+        enableShadows();
+        if (textureId > 0) {
+            mCanvas.drawCircle(centerX, centerY, radius, mPaint);
+            setShader(textureId, color);
             mCanvas.drawCircle(centerX, centerY, radius, mPaint);
             clearShader();
+        } else {
+            mPaint.setColor(color);
+            mCanvas.drawCircle(centerX, centerY, radius, mPaint);
         }
 
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void paintRoundedSquare(
+    void paintRoundedSquare(
             final int color,
-            final Texture texture,
+            final int textureId,
             final float centerX,
             final float centerY,
             final float width
     ) {
-        mPaint.setColor(color);
+
+        enableShadows();
 
         final float cornerRadius = width / 5f;
 
-        mCanvas.drawRoundRect(
-                centerX - width,
-                centerY - width,
-                centerX + width,
-                centerY + width,
-                cornerRadius,
-                cornerRadius,
-                mPaint
-        );
+        if (textureId > 0) {
 
-        if (texture != Texture.NONE) {
-            setShader(texture);
+            mCanvas.drawRoundRect(
+                    centerX - width,
+                    centerY - width,
+                    centerX + width,
+                    centerY + width,
+                    cornerRadius,
+                    cornerRadius,
+                    mPaint
+            );
+            setShader(textureId, color);
             mCanvas.drawRoundRect(
                     centerX - width,
                     centerY - width,
@@ -342,22 +304,35 @@ public class Painter {
                     mPaint
             );
             clearShader();
+
+        } else {
+            mPaint.setColor(color);
+            mCanvas.drawRoundRect(
+                    centerX - width,
+                    centerY - width,
+                    centerX + width,
+                    centerY + width,
+                    cornerRadius,
+                    cornerRadius,
+                    mPaint
+            );
         }
 
     }
 
-    /**
-     * Alpha value of character that will be drawn on top of the picture
-     */
-    private static final char CHAR_ALPHA = 255;
 
-    public void paintChars(final String string, int color) {
+    void paintChars(final String string, int color) {
         int count = string.length();
-        if (count == 0) return;
-        else if (count > 4) count = 4;
+        if (count == 0) {
+            return;
+        }
+        else if (count > 4) {
+            count = 4;
+        }
 
+        disableShadows();
+        clearShader();
         mPaint.setColor(color);
-        mPaint.setAlpha(CHAR_ALPHA);
 
         // Typeface, size and alignment:
 

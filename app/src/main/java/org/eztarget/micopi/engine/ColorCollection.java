@@ -84,10 +84,12 @@ public class ColorCollection {
      * @param c ASCII integer value of this character will be used as array index
      * @return Color from the candy palette
      */
-    public static int getColor(char c) {
+    public static int getColor(int c) {
         // If the given character is between lower case a and z,
         // subtract the index difference to the upper case characters.
-        if (c >= 'a' && c <= 'z') c -= 32;
+        if (c >= 'a' && c <= 'z') {
+            c -= 32;
+        }
 
         final int index = c % (PALETTE.length - 1);
 

@@ -111,11 +111,17 @@ public class TaskActivity extends BaseActivity {
     }
 
     protected void showInterstitialDelayed() {
+        if (true) {
+            return;
+        }
+
         new Handler().postDelayed(
                 new Runnable() {
                     @Override
                     public void run() {
-                        if (mInterstitialAd.isLoaded()) mInterstitialAd.show();
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show();
+                        }
                     }
                 },
                 1000L

@@ -41,7 +41,7 @@ public class ImageFactory {
 
     private static final String TAG_BENCHMARK = TAG + ": Benchmark";
 
-    private static final boolean BENCHMARK = false;
+    private static final boolean BENCHMARK = true;
 
     private Contact mContact;
 
@@ -83,14 +83,10 @@ public class ImageFactory {
         return factory.generateBitmap(context);
     }
 
-    public static Bitmap getGrainBitmap() {
-        return sGrainBitmap;
-    }
-
     /**
      * @return The completed, generated image as a bitmap to be used by the GUI and contact handler.
      */
-    public Bitmap generateBitmap(final Context context) {
+    private Bitmap generateBitmap(final Context context) {
         if (mContact == null) {
             Log.e(TAG, "ERROR: Contact object is null. Returning null image.");
             return null;
@@ -103,7 +99,9 @@ public class ImageFactory {
 
         long startTime;
 
-        if (BENCHMARK) startTime = System.currentTimeMillis();
+        if (BENCHMARK) {
+            startTime = System.currentTimeMillis();
+        }
 
         // Set up the bitmap and the canvas.
         final Bitmap bitmap = Bitmap.createBitmap(mImageSize, mImageSize, Bitmap.Config.ARGB_8888);
@@ -121,22 +119,13 @@ public class ImageFactory {
             startTime = System.currentTimeMillis();
         }
 
-        // The contact's current MD5 encoded string will be referenced a lot.
-        final String md5String = mContact.getMD5EncryptedString();
-
         /*
         MAIN PATTERN
         */
 
         final Painter painter = new Painter(canvas, context);
 
-        switch (md5String.charAt(3) % 4) {
-            default:
-                new PlatesGenerator(painter, mContact).paint();
-                break;
-            case 1:
-                new PixelGenerator(painter, mContact).paint();
-        }
+        new MaterialGenerator(painter, mContact).paint();
 
         if (BENCHMARK) {
             Log.d(TAG_BENCHMARK, "12: " + (System.currentTimeMillis() - startTime));
@@ -145,18 +134,15 @@ public class ImageFactory {
 
         painter.disableShadows();
 
-        if (BENCHMARK) {
-            Log.d(TAG_BENCHMARK, "13: " + (System.currentTimeMillis() - startTime));
-            startTime = System.currentTimeMillis();
-        }
-
         /*
         INITIAL LETTER ON CIRCLE
          */
 
         painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
 
-        if (BENCHMARK) Log.d(TAG_BENCHMARK, "15: " + (System.currentTimeMillis() - startTime));
+        if (BENCHMARK) {
+            Log.d(TAG_BENCHMARK, "15: " + (System.currentTimeMillis() - startTime));
+        }
         return bitmap;
     }
 

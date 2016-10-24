@@ -384,10 +384,7 @@ public class ContactActivity extends TaskActivity {
         } else {
             Toast.makeText(
                     ContactActivity.this,
-                    String.format(
-                            getResources().getString(R.string.error_saving),
-                            fileName
-                    ),
+                    getResources().getString(R.string.error_saving),
                     Toast.LENGTH_LONG
             ).show();
         }

@@ -91,8 +91,11 @@ public class BatchActivity extends TaskActivity {
         filter.addAction(ACTION_UPDATE_PROGRESS);
         registerReceiver(mReceiver, filter);
 
-        if (ImageService.isRunning()) showControl();
-        else setProgress(null, 0f);
+        if (ImageService.isRunning()) {
+            showControl();
+        } else {
+            setProgress(null, 0f);
+        }
     }
 
     @Override
