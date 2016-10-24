@@ -12,7 +12,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-        android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
     android:paddingBottom="@dimen/margin_default"
@@ -32,17 +32,6 @@
         android:text="micopi"
         android:textColor="@android:color/white"
         android:textSize="44sp"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@id/text_micopi"
-        android:layout_below="@id/text_micopi"
-        android:layout_marginTop="-16dp"
-        android:text="pico"
-        android:textColor="@android:color/white"
-        android:textSize="33sp"
         tools:ignore="HardcodedText" />
 
     <LinearLayout
@@ -78,11 +67,11 @@
         <!-- Description Text: -->
 
         <TextView
-            android:gravity="center"
             android:id="@+id/text_intro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_default"
+            android:gravity="center"
             android:text="@string/picture_will_be_previewed"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size" />
@@ -135,16 +124,16 @@
             android:textSize="@dimen/text_size" />
 
     </android.support.v7.widget.CardView>
-    
+
     <!-- Upgrade Teaser -->
 
     <TextView
-        android:gravity="center"
         android:id="@+id/text_upgrade_teaser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/card_button_upgrade"
         android:layout_marginBottom="@dimen/margin_small"
+        android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size" />
 

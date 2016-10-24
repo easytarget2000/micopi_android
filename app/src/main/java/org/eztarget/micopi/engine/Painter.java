@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
@@ -106,14 +107,14 @@ class Painter {
 
     private void setShader(final int fileId, final int color) {
 
-        final ColorFilter filter = new LightingColorFilter(0xFF444444 , color);
-        mPaint.setColorFilter(filter);
-
         if (fileId < 1) {
+            mPaint.setColor(color);
             clearShader();
             return;
         }
 
+        final ColorFilter filter = new LightingColorFilter(color, Color.GRAY);
+        mPaint.setColorFilter(filter);
         disableShadows();
 
         final String fileName = "texture_" + ((fileId % NUMBER_OF_TEXTURE_FILES) + 1) + ".bmp";
@@ -139,6 +140,7 @@ class Painter {
     }
 
     private void clearShader() {
+        mPaint.setColorFilter(null);
         mPaint.setShader(null);
     }
 
