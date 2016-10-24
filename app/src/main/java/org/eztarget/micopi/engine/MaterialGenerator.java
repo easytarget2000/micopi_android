@@ -80,20 +80,27 @@ class MaterialGenerator {
 
             Log.d(TAG, "i: " + i + ", md5: " + md5Char + ", pos: " + md5Pos);
 
-            final float widthUnits = ((md5Char * i) % (9 - i)) + (md5Char / 49f);
+            final float widthUnits = ((md5Char * i) % (11 - i)) + (md5Char / 49f);
             Log.d(TAG, "Width rel: " + widthUnits);
 
             final float gridXPos = ((md5Char % 5) * 2f) + (md5Char / 51f);
             final float gridYPos = -1f + ((i % 5) * 2f) + (md5Char / 52f);
-            Log.d(TAG, "x: " + gridXPos);
-            Log.d(TAG, "y: " + gridYPos);
+//            Log.d(TAG, "x: " + gridXPos);
+//            Log.d(TAG, "y: " + gridYPos);
+
+            final int color;
+            if ((md5Char + md5Pos) % 3 == 0) {
+                color = Painter.COLOR_UNCHANGED;
+            } else {
+                color = ColorCollection.getColor(md5String.charAt(md5Pos));
+            }
 
             final int shape = (((md5Char * i) * md5Char) % 7) - i;
-            Log.d(TAG, "Shape: " + shape);
+//            Log.d(TAG, "Shape: " + shape);
 
             if (shape == 0) {
                 mPainter.paintCircle(
-                        ColorCollection.getColor(md5String.charAt(md5Pos)),
+                        color,
                         1,
                         gridSize * gridXPos,
                         gridSize * gridYPos,
@@ -103,7 +110,7 @@ class MaterialGenerator {
             } else if (shape < 5) {
 
                 mPainter.paintPolygon(
-                        ColorCollection.getColor(md5String.charAt(md5Pos)),
+                        color,
                         2,
                         md5Char / (i + 1f),
                         (md5Char + i + shape) % 5 + 3,
@@ -114,7 +121,7 @@ class MaterialGenerator {
             } else {
                 if (paintRoundedSquares && shape == 2) {
                     mPainter.paintRoundedSquare(
-                            ColorCollection.getColor(md5Char),
+                            color,
                             1,
                             gridSize * gridXPos,
                             gridSize * gridYPos,

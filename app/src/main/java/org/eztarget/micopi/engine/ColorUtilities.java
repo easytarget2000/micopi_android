@@ -18,7 +18,6 @@ package org.eztarget.micopi.engine;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.util.Log;
 
 /**
  * Functional class containing utility methods for dialogs and saving files.
@@ -34,10 +33,6 @@ public class ColorUtilities {
      * @return The average color of the input bitmap
      */
     public static int getAverageColor(Bitmap bitmap) {
-        if (bitmap == null) {
-            Log.e("getAverageColor()", "ERROR: No bitmap generated to get average colour from.");
-            return Color.BLACK;
-        }
 
         int redBucket = 0;
         int greenBucket = 0;

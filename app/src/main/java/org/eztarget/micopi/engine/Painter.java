@@ -103,9 +103,13 @@ class Painter {
     Textures
      */
 
-    private static final int NUMBER_OF_TEXTURE_FILES = 2;
+    static final int COLOR_UNCHANGED = -1;
 
-    private void setShader(final int fileId, final int color) {
+    private static final int NUMBER_OF_TEXTURE_FILES = 17;
+
+    private void setShader(int fileId, final int color) {
+
+        fileId = fileId % NUMBER_OF_TEXTURE_FILES;
 
         if (fileId < 1) {
             mPaint.setColor(color);
@@ -113,11 +117,9 @@ class Painter {
             return;
         }
 
-        final ColorFilter filter = new LightingColorFilter(color, Color.GRAY);
-        mPaint.setColorFilter(filter);
         disableShadows();
 
-        final String fileName = "texture_" + ((fileId % NUMBER_OF_TEXTURE_FILES) + 1) + ".bmp";
+        final String fileName = "texture_" + (fileId + 1) + ".bmp";
 
         Bitmap textureBitmap = null;
         final InputStream inputStream;
@@ -130,6 +132,8 @@ class Painter {
         }
 
         if (textureBitmap == null) {
+            mPaint.setColor(color);
+            clearShader();
             return;
         }
 
@@ -137,6 +141,12 @@ class Painter {
         mPaint.setShader(
                 new BitmapShader(textureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR)
         );
+
+        if (color != COLOR_UNCHANGED) {
+            final ColorFilter filter = new LightingColorFilter(Color.GRAY, color);
+            mPaint.setColorFilter(filter);
+        }
+
     }
 
     private void clearShader() {
@@ -239,9 +249,8 @@ class Painter {
         polygonPath.close();
 
         if (textureId > 0) {
-            mCanvas.drawPath(polygonPath, mPaint);
+//            mCanvas.drawPath(polygonPath, mPaint);
             setShader(textureId, color);
-            disableShadows();
             mCanvas.drawPath(polygonPath, mPaint);
             clearShader();
         } else {
