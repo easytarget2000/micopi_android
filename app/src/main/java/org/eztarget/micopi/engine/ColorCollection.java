@@ -62,11 +62,93 @@ class ColorCollection {
                     0xFF4A3E3C,
                     0xFF664037,
                     0xFF88736F,
+            },
+            {
+                    0xFFECD078,
+                    0xFFD95B43,
+                    0xFFC02942,
+                    0xFF542437,
+                    0xFF53777B
+            },
+            {
+                    0xFF490A3D,
+                    0xFFBD1550,
+                    0xFFE97F02,
+                    0xFFF8CA00,
+                    0xFF8A9B0F
+            },
+            {
+                    0xFFFFFFFF,
+                    0xFFCBE86B,
+                    0xFFF2E9E1,
+                    0xFF1C140D,
+                    0xFFCBE86B
+            },
+            {
+                    0xFFFFFFFF,
+                    0xFF111111,
+                    0xFF999999,
+                    0xFFFFD700
+            },
+            {
+                    0xFF413E4A,
+                    0xFF73626E,
+                    0xFFB38184,
+                    0xFFF0B49E,
+                    0xFFF7E4BE
+            },
+            {
+                    0xFF343838,
+                    0xFF005F6B,
+                    0xFF008C9E,
+                    0xFF99B4CC,
+                    0xFF00DFFC
+            },
+            {
+                    0xFFFAD089,
+                    0xFFFF9C5B,
+                    0xFFF5634A,
+                    0xFFED303C,
+                    0xFF3B8183
+            },
+            {
+                    0xFFFF4242,
+                    0xFFF4FAD2,
+                    0xFFD4EE5E,
+                    0xFFE1EDB9,
+                    0xFFF0F2EB
+            },
+            {
+                    0xFFD1E751,
+                    0xFFFFFFFF,
+                    0xFF000000,
+                    0xFF4DBCE9,
+                    0xFF26ADE4
+            },
+            {
+                    0xFF3E4147,
+                    0xFFFFFEDF,
+                    0xFFDFBA69,
+                    0xFF5A2E2E,
+                    0xFF2A2C31
+            },
+            {
+                    0xFF1C0113,
+                    0xFF6B0103,
+                    0xFFA30006,
+                    0xFFC21A01,
+                    0xFFF03C02
+            },
+            {
+                    0xFFEDF6EE,
+                    0xFFD1C089,
+                    0xFFB3204D,
+                    0xFF412E28,
+                    0xFF151101
             }
     };
 
     static int getColor(int paletteId, int colorIndex) {
-//        final int index = c % (PALETTES.length - 1);
         final int[] palette = PALETTES[paletteId % PALETTES.length];
         return palette[colorIndex % (palette.length - 1)];
     }

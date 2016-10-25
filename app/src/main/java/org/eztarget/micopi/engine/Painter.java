@@ -23,7 +23,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
@@ -48,7 +47,7 @@ class Painter {
 
     private static final String TAG = Painter.class.getSimpleName();
 
-    private static final int SHADOW_COLOR = 0xEE000000;
+    private static final int SHADOW_COLOR = 0xFF000000;
 
     private Canvas mCanvas;
 
@@ -70,7 +69,7 @@ class Painter {
         }
         mCanvas = canvas;
         mImageSize = canvas.getWidth();
-        mShadowRadius = mImageSize * 0.05f;
+        mShadowRadius = mImageSize * 0.025f;
         mPaint = new Paint();
         mPaint.setAlpha(255);
         mPaint.setStyle(Paint.Style.FILL);
@@ -79,23 +78,12 @@ class Painter {
 
         mAssetMan = context.getAssets();
 
-//        if (mGrainTextureBitmap == null) {
-//            final InputStream inputStream;
-//            try {
-//                inputStream = assetManager.open("texture_noise.png");
-//                mGrainTextureBitmap = BitmapFactory.decodeStream(inputStream);
-//                inputStream.close();
-//            } catch (IOException e) {
-//                Log.e(TAG, e.toString());
-//            }
-//        }
-
     }
 
     /**
      * @return Side length of the square canvas
      */
-    public int getImageSize() {
+   int getImageSize() {
         return mImageSize;
     }
 
@@ -140,14 +128,15 @@ class Painter {
                 new BitmapShader(textureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR)
         );
 
-        final ColorFilter filter = new LightingColorFilter(Color.GRAY, color);
+        final ColorFilter filter = new LightingColorFilter(color, color);
         mPaint.setColorFilter(filter);
-
+        mPaint.setAlpha(160);
     }
 
     private void clearShader() {
         mPaint.setColorFilter(null);
         mPaint.setShader(null);
+        mPaint.setAlpha(255);
     }
 
     void enableShadows() {
@@ -245,7 +234,8 @@ class Painter {
         polygonPath.close();
 
         if (textureId > 0) {
-//            mCanvas.drawPath(polygonPath, mPaint);
+            mPaint.setColor(color);
+            mCanvas.drawPath(polygonPath, mPaint);
             setShader(textureId, color);
             mCanvas.drawPath(polygonPath, mPaint);
             clearShader();

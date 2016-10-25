@@ -22,7 +22,7 @@ import org.eztarget.micopi.Contact;
 
 /**
  * Created by michel on 12/11/14.
- *
+ * <p>
  * Image generator
  * Fills the Canvas in the Painter with a lot of colourful circles
  * or polygon approximations of circles
@@ -44,7 +44,7 @@ class MaterialGenerator {
 
         final int md5Length = md5String.length();
 
-        final int numberOfElements = (md5String.charAt(0) % 3) + 2;
+        final int numberOfElements = (md5String.charAt(0) % 3) + 3;
 
 //        final boolean paintRoundedSquares = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
         final boolean paintRoundedSquares = false;
@@ -62,6 +62,8 @@ class MaterialGenerator {
                 break;
         }
 
+        final float angleOffset = md5String.charAt(15);
+
         for (int i = 1; i <= numberOfElements; i++) {
 
             // Get the next character from the MD5 String.
@@ -72,20 +74,21 @@ class MaterialGenerator {
 
             Log.d(TAG, "i: " + i + ", md5: " + md5Char + ", pos: " + md5Pos);
 
-            final float widthUnits = ((md5Char * i) % (11 - i)) + (md5Char / 49f);
+            final float widthUnits = (i * md5Char / 49f) * (numberOfElements / i);
             Log.d(TAG, "Width rel: " + widthUnits);
 
             final float gridXPos = ((md5Char % 5) * 2f) + (md5Char / 51f);
-            final float gridYPos = -1f + ((i % 5) * 2f) + (md5Char / 52f);
+            final float gridYPos = ((i % 5) * 2f) + (md5Char / 52f);
 //            Log.d(TAG, "x: " + gridXPos);
 //            Log.d(TAG, "y: " + gridYPos);
 
             final int color = ColorCollection.getColor(paletteId, md5Char);
 
-            final int textureId = (int) Math.pow(md5Char, i);
+            final int textureId = md5Char * md5Char * i;
+            Log.d(TAG, "Texture ID: " + textureId);
 
             final int shape = (((md5Char * i) * md5Char) % 7) - i;
-//            Log.d(TAG, "Shape: " + shape);
+            Log.d(TAG, "Shape: " + shape);
 
             if (shape == 0) {
                 painter.paintCircle(
@@ -93,38 +96,28 @@ class MaterialGenerator {
                         color * i,
                         gridSize * gridXPos,
                         gridSize * gridYPos,
-                        gridSize * widthUnits
+                        gridSize * widthUnits * 0.5f
                 );
 
-            } else if (shape < 5) {
+            } else if (shape < 3) {
 
                 painter.paintPolygon(
                         color,
                         textureId,
-                        md5Char / (i + 1f),
-                        (md5Char + i + shape) % 5 + 3,
+                        angleOffset,
+                        (md5Char + i + shape) % 3 + 3,
                         gridSize * gridXPos,
                         gridSize * gridYPos,
                         gridSize * widthUnits
                 );
             } else {
-                if (paintRoundedSquares && shape == 2) {
-                    painter.paintRoundedSquare(
-                            color,
-                            textureId,
-                            gridSize * gridXPos,
-                            gridSize * gridYPos,
-                            gridSize * widthUnits
-                    );
-                } else {
-                    painter.paintSquare(
-                            color,
-                            textureId,
-                            gridSize * gridXPos,
-                            gridSize * gridYPos,
-                            gridSize * widthUnits
-                    );
-                }
+                painter.paintSquare(
+                        color,
+                        textureId,
+                        gridSize * gridXPos,
+                        gridSize * gridYPos,
+                        gridSize * widthUnits
+                );
             }
 
         }
