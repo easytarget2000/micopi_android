@@ -86,40 +86,47 @@ class MaterialGenerator {
             final int textureId = md5Char * md5Char * i;
 //            Log.d(TAG, "Texture ID: " + textureId);
 
-            final int shape = (((md5Char * i) * md5Char) % 7) - i;
+            final int shape = (((md5Char * i) * md5Char) % 10) - i;
 //            Log.d(TAG, "Shape: " + shape);
 
-            painter.paintBrokenCorner(color, textureId, md5Char * md5Pos, widthUnits * gridSize);
 
-//            if (shape == 0) {
-//                painter.paintCircle(
-//                        color,
-//                        textureId,
-//                        gridSize * gridXPos,
-//                        gridSize * gridYPos,
-//                        gridSize * widthUnits * 0.5f
-//                );
-//
-//            } else if (shape < 3) {
-//
-//                painter.paintPolygon(
-//                        color,
-//                        textureId,
-//                        angleOffset,
-//                        (md5Char + i + shape) % 3 + 3,
-//                        gridSize * gridXPos,
-//                        gridSize * gridYPos,
-//                        gridSize * widthUnits
-//                );
-//            } else {
-//                painter.paintSquare(
-//                        color,
-//                        textureId,
-//                        gridSize * gridXPos,
-//                        gridSize * gridYPos,
-//                        gridSize * widthUnits
-//                );
-//            }
+            if (shape == 0) {
+                painter.paintCircle(
+                        color,
+                        textureId,
+                        gridSize * gridXPos,
+                        gridSize * gridYPos,
+                        gridSize * widthUnits * 0.5f
+                );
+
+            } else if (shape < 3) {
+
+                painter.paintPolygon(
+                        color,
+                        textureId,
+                        angleOffset,
+                        (md5Char + i + shape) % 3 + 3,
+                        gridSize * gridXPos,
+                        gridSize * gridYPos,
+                        gridSize * widthUnits
+                );
+            } else if (shape < 7) {
+                painter.paintBrokenCorner(
+                        color,
+                        textureId,
+                        md5Char + numberOfElements,
+                        widthUnits * gridSize
+                );
+
+            } else {
+                painter.paintSquare(
+                        color,
+                        textureId,
+                        gridSize * gridXPos,
+                        gridSize * gridYPos,
+                        gridSize * widthUnits
+                );
+            }
 
         }
 
