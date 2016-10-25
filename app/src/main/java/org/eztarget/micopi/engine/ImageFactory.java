@@ -110,7 +110,8 @@ public class ImageFactory {
         // and fill the background with the color for this contact's first letter.
         final Canvas canvas = new Canvas(bitmap);
         final char firstChar = mContact.getFullName().charAt(0);
-        final int bgColor = ColorCollection.getColor(firstChar);
+        final int paletteId = firstChar;
+        final int bgColor = ColorCollection.getColor(paletteId, 0);
         canvas.drawColor(bgColor);
 
         if (BENCHMARK) {
@@ -125,7 +126,7 @@ public class ImageFactory {
 
         final Painter painter = new Painter(canvas, context);
 
-        new MaterialGenerator(painter, mContact).paint();
+        MaterialGenerator.paint(painter, mContact, paletteId);
 
         if (BENCHMARK) {
             Log.d(TAG_BENCHMARK, "12: " + (System.currentTimeMillis() - startTime));

@@ -103,9 +103,7 @@ class Painter {
     Textures
      */
 
-    static final int COLOR_UNCHANGED = -1;
-
-    private static final int NUMBER_OF_TEXTURE_FILES = 17;
+    private static final int NUMBER_OF_TEXTURE_FILES = 23;
 
     private void setShader(int fileId, final int color) {
 
@@ -142,10 +140,8 @@ class Painter {
                 new BitmapShader(textureBitmap, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR)
         );
 
-        if (color != COLOR_UNCHANGED) {
-            final ColorFilter filter = new LightingColorFilter(Color.GRAY, color);
-            mPaint.setColorFilter(filter);
-        }
+        final ColorFilter filter = new LightingColorFilter(Color.GRAY, color);
+        mPaint.setColorFilter(filter);
 
     }
 
@@ -336,8 +332,7 @@ class Painter {
         int count = string.length();
         if (count == 0) {
             return;
-        }
-        else if (count > 4) {
+        } else if (count > 4) {
             count = 4;
         }
 

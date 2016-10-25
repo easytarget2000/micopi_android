@@ -31,24 +31,16 @@ class MaterialGenerator {
 
     private static final String TAG = MaterialGenerator.class.getSimpleName();
 
-    private Painter mPainter;
 
-    private Contact mContact;
+    static void paint(final Painter painter, final Contact contact, final int paletteId) {
 
-    MaterialGenerator(final Painter painter, final Contact contact) {
-        mPainter = painter;
-        mContact = contact;
-    }
-
-    void paint() {
-
-        mPainter.enableShadows();
+        painter.enableShadows();
 
         // If the first name has at least 3 (triangle) and no more than 6 (hexagon) letters,
         // there is a 2/3 chance that polygons will be painted instead of circles.
-        final String md5String = mContact.getMD5EncryptedString();
+        final String md5String = contact.getMD5EncryptedString();
 
-        final float gridSize = mPainter.getImageSize() / 10f;
+        final float gridSize = painter.getImageSize() / 10f;
 
         final int md5Length = md5String.length();
 
@@ -60,13 +52,13 @@ class MaterialGenerator {
         final int shadowChar = md5String.charAt(2);
         switch (shadowChar % 6) {
             case 0:
-                mPainter.setShadowLayer((((shadowChar % 15) / 15f) + 0.7f), 2f, 2f);
+                painter.setShadowLayer((((shadowChar % 15) / 15f) + 0.7f), 2f, 2f);
                 break;
             case 1:
-                mPainter.setShadowLayer((((shadowChar % 15) / 15f) + 1f), 3f, 3f);
+                painter.setShadowLayer((((shadowChar % 15) / 15f) + 1f), 3f, 3f);
                 break;
             default:
-                mPainter.setShadowLayer((((shadowChar % 15) / 15) + 1.5f), 1f, 1f);
+                painter.setShadowLayer((((shadowChar % 15) / 15) + 1.5f), 1f, 1f);
                 break;
         }
 
@@ -88,20 +80,17 @@ class MaterialGenerator {
 //            Log.d(TAG, "x: " + gridXPos);
 //            Log.d(TAG, "y: " + gridYPos);
 
-            final int color;
-            if ((md5Char + md5Pos) % 3 == 0) {
-                color = Painter.COLOR_UNCHANGED;
-            } else {
-                color = ColorCollection.getColor(md5String.charAt(md5Pos));
-            }
+            final int color = ColorCollection.getColor(paletteId, md5Char);
+
+            final int textureId = (int) Math.pow(md5Char, i);
 
             final int shape = (((md5Char * i) * md5Char) % 7) - i;
 //            Log.d(TAG, "Shape: " + shape);
 
             if (shape == 0) {
-                mPainter.paintCircle(
+                painter.paintCircle(
                         color,
-                        1,
+                        color * i,
                         gridSize * gridXPos,
                         gridSize * gridYPos,
                         gridSize * widthUnits
@@ -109,9 +98,9 @@ class MaterialGenerator {
 
             } else if (shape < 5) {
 
-                mPainter.paintPolygon(
+                painter.paintPolygon(
                         color,
-                        2,
+                        textureId,
                         md5Char / (i + 1f),
                         (md5Char + i + shape) % 5 + 3,
                         gridSize * gridXPos,
@@ -120,17 +109,17 @@ class MaterialGenerator {
                 );
             } else {
                 if (paintRoundedSquares && shape == 2) {
-                    mPainter.paintRoundedSquare(
+                    painter.paintRoundedSquare(
                             color,
-                            1,
+                            textureId,
                             gridSize * gridXPos,
                             gridSize * gridYPos,
                             gridSize * widthUnits
                     );
                 } else {
-                    mPainter.paintSquare(
-                            ColorCollection.getColor(md5Char),
-                            2,
+                    painter.paintSquare(
+                            color,
+                            textureId,
                             gridSize * gridXPos,
                             gridSize * gridYPos,
                             gridSize * widthUnits
@@ -140,6 +129,6 @@ class MaterialGenerator {
 
         }
 
-        mPainter.disableShadows();
+        painter.disableShadows();
     }
 }

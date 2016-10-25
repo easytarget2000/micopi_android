@@ -21,83 +21,54 @@ package org.eztarget.micopi.engine;
  * <p/>
  * Contains the color definitions and getter-generators that will be used by ImageFactory
  */
-public class ColorCollection {
+class ColorCollection {
 
     /**
      * Based on colour palette from google.com/design/spec/style/color.html
      * Excuse the colour names.
      * These are just used to make sure that colours "next to each other" are not too similar.
      */
-    public static final int PALETTE[] = {
-            0xFF00E676,
-            0xFFFF9800,
-            0xFFe6c484,
-            0xFFCDDC39,
-            0xFFf4c4ba,
-            0xFFFFA000,
-            0xFFFFAB40,
-            0xFF9F9F9F,
-            0xFF555555,
-            0xFF7C4DFF,
-            0xFF3f3c37,
-            0xFF0288D1,
-            0xFFD32F2F,
-            0xFF29B6F6,
-            0xFFFFF59D,
-            0xFFFFC107,
-            0xFF7C4DFF,
-            0xFFF44336,
-            0xFFe6c484,
-            0xFF141414,
-            0xFFFFEB3B,
-            0xFF2196F3,
-            0xFF777777,
-            0xFFFF4081,
-            0xFF536DFE,
-            0xFFC2185B,
-            0xFFF57C00,
-            0xFF4CAF50,
-            0xFFD3D3D3,
-            0xFF303F9F,
-            0xFFf0ebe5,
-            0xFF3F51B5,
-            0xFF03A9F4,
-            0xFFAD1457,
-            0xFFE64A19,
-            0xFFFFF9C4,
-            0xFFFF5722,
-            0xFF00796B,
-            0xFF009688,
-            0xFFBBDEFB,
-            0xFF80CBC4,
-            0xFF524942,
-            0xFF437478,
-            0xFF009688,
-            0xFFFF5252,
-            0xFF1976D2
+    private static final int PALETTES[][] = {
+            {
+                    0xFF211C00,
+                    0xFF574515,
+                    0xFF6F5920,
+                    0xFF8E8536,
+                    0xFF8C8B48
+            },
+            {
+                    0xFFC7CEB2,
+                    0xFFFED5C1,
+                    0xFFAA7155,
+                    0xFF8D5138,
+                    0xFF291615
+            },
+            {
+                    0xFFFFFFFF,
+                    0xFF912891,
+                    0xFF858585,
+                    0xFF232323,
+                    0xFF7F2A83
+            },
+            {
+                    0xFF0F2A25,
+                    0xFF274640,
+                    0xFF133942,
+                    0xFF237085,
+                    0xFF9DDADE
+            },
+            {
+                    0xFF70803C,
+                    0xFF4A3E3C,
+                    0xFF664037,
+                    0xFF88736F,
+            }
     };
 
-    /**
-     * Goes through the candy palette c amount of times.
-     * Capital and lower case letters get the same colours.
-     *
-     * @param c ASCII integer value of this character will be used as array index
-     * @return Color from the candy palette
-     */
-    public static int getColor(int c) {
-        // If the given character is between lower case a and z,
-        // subtract the index difference to the upper case characters.
-        if (c >= 'a' && c <= 'z') {
-            c -= 32;
-        }
-
-        final int index = c % (PALETTE.length - 1);
-
-        if (c % 3 == 0) {
-            return ColorUtilities.getDarkenedColor(PALETTE[index]);
-        }
-
-        return PALETTE[index];
+    static int getColor(int paletteId, int colorIndex) {
+//        final int index = c % (PALETTES.length - 1);
+        final int[] palette = PALETTES[paletteId % PALETTES.length];
+        return palette[colorIndex % (palette.length - 1)];
     }
 
 }
