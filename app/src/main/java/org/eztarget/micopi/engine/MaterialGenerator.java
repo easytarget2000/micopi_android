@@ -15,8 +15,6 @@
  */
 package org.eztarget.micopi.engine;
 
-import android.util.Log;
-
 import org.eztarget.micopi.Contact;
 
 
@@ -45,9 +43,10 @@ class MaterialGenerator {
         final int md5Length = md5String.length();
 
         final int numberOfElements = (md5String.charAt(0) % 3) + 3;
+//        final int numberOfElements = 1;
+
 
 //        final boolean paintRoundedSquares = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-        final boolean paintRoundedSquares = false;
 
         final int shadowChar = md5String.charAt(2);
         switch (shadowChar % 6) {
@@ -72,10 +71,10 @@ class MaterialGenerator {
             // Move the coordinates around.
             final int md5Char = md5String.charAt(md5Pos) + (i % 3) * 4;
 
-            Log.d(TAG, "i: " + i + ", md5: " + md5Char + ", pos: " + md5Pos);
+//            Log.d(TAG, "i: " + i + ", md5: " + md5Char + ", pos: " + md5Pos);
 
             final float widthUnits = (i * md5Char / 49f) * (numberOfElements / i);
-            Log.d(TAG, "Width rel: " + widthUnits);
+//            Log.d(TAG, "Width rel: " + widthUnits);
 
             final float gridXPos = ((md5Char % 5) * 2f) + (md5Char / 51f);
             final float gridYPos = ((i % 5) * 2f) + (md5Char / 52f);
@@ -85,40 +84,42 @@ class MaterialGenerator {
             final int color = ColorCollection.getColor(paletteId, md5Char);
 
             final int textureId = md5Char * md5Char * i;
-            Log.d(TAG, "Texture ID: " + textureId);
+//            Log.d(TAG, "Texture ID: " + textureId);
 
             final int shape = (((md5Char * i) * md5Char) % 7) - i;
-            Log.d(TAG, "Shape: " + shape);
+//            Log.d(TAG, "Shape: " + shape);
 
-            if (shape == 0) {
-                painter.paintCircle(
-                        color,
-                        color * i,
-                        gridSize * gridXPos,
-                        gridSize * gridYPos,
-                        gridSize * widthUnits * 0.5f
-                );
+            painter.paintBrokenCorner(color, textureId, md5Char * md5Pos, widthUnits * gridSize);
 
-            } else if (shape < 3) {
-
-                painter.paintPolygon(
-                        color,
-                        textureId,
-                        angleOffset,
-                        (md5Char + i + shape) % 3 + 3,
-                        gridSize * gridXPos,
-                        gridSize * gridYPos,
-                        gridSize * widthUnits
-                );
-            } else {
-                painter.paintSquare(
-                        color,
-                        textureId,
-                        gridSize * gridXPos,
-                        gridSize * gridYPos,
-                        gridSize * widthUnits
-                );
-            }
+//            if (shape == 0) {
+//                painter.paintCircle(
+//                        color,
+//                        textureId,
+//                        gridSize * gridXPos,
+//                        gridSize * gridYPos,
+//                        gridSize * widthUnits * 0.5f
+//                );
+//
+//            } else if (shape < 3) {
+//
+//                painter.paintPolygon(
+//                        color,
+//                        textureId,
+//                        angleOffset,
+//                        (md5Char + i + shape) % 3 + 3,
+//                        gridSize * gridXPos,
+//                        gridSize * gridYPos,
+//                        gridSize * widthUnits
+//                );
+//            } else {
+//                painter.paintSquare(
+//                        color,
+//                        textureId,
+//                        gridSize * gridXPos,
+//                        gridSize * gridYPos,
+//                        gridSize * widthUnits
+//                );
+//            }
 
         }
 

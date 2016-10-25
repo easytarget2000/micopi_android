@@ -21,7 +21,6 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.Log;
 
 import org.eztarget.micopi.Contact;
@@ -110,8 +109,8 @@ public class ImageFactory {
         // and fill the background with the color for this contact's first letter.
         final Canvas canvas = new Canvas(bitmap);
         final char firstChar = mContact.getFullName().charAt(0);
-        final int paletteId = firstChar;
-        final int bgColor = ColorCollection.getColor(paletteId, 0);
+        Log.d(TAG, "Palette ID: " + firstChar);
+        final int bgColor = ColorCollection.getColor(firstChar, 0);
         canvas.drawColor(bgColor);
 
         if (BENCHMARK) {
@@ -126,7 +125,7 @@ public class ImageFactory {
 
         final Painter painter = new Painter(canvas, context);
 
-        MaterialGenerator.paint(painter, mContact, paletteId);
+        MaterialGenerator.paint(painter, mContact, firstChar);
 
         if (BENCHMARK) {
             Log.d(TAG_BENCHMARK, "12: " + (System.currentTimeMillis() - startTime));
@@ -139,7 +138,10 @@ public class ImageFactory {
         INITIAL LETTER ON CIRCLE
          */
 
-        painter.paintChars(String.valueOf(firstChar).toUpperCase(), Color.WHITE);
+        painter.paintChars(
+                String.valueOf(firstChar).toUpperCase(),
+                ColorCollection.getColor(mContact.getMD5EncryptedString().charAt(6), 1)
+        );
 
         if (BENCHMARK) {
             Log.d(TAG_BENCHMARK, "15: " + (System.currentTimeMillis() - startTime));

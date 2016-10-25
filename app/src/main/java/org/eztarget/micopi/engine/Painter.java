@@ -214,7 +214,6 @@ class Painter {
             final float centerY,
             float radius
     ) {
-        enableShadows();
 
         final Path polygonPath = new Path();
 
@@ -233,17 +232,21 @@ class Painter {
 
         polygonPath.close();
 
+        paintPolygon(color, textureId, polygonPath);
+    }
+
+    private void paintPolygon(final int color, final int textureId, final Path polygonPath) {
+        enableShadows();
         if (textureId > 0) {
             mPaint.setColor(color);
             mCanvas.drawPath(polygonPath, mPaint);
-            setShader(textureId, color);
-            mCanvas.drawPath(polygonPath, mPaint);
+//            setShader(textureId, color);
+//            mCanvas.drawPath(polygonPath, mPaint);
             clearShader();
         } else {
             mPaint.setColor(color);
             mCanvas.drawPath(polygonPath, mPaint);
         }
-
     }
 
     void paintCircle(
@@ -317,6 +320,44 @@ class Painter {
 
     }
 
+    void paintBrokenCorner(final int color, final int textureId, int corner, final float width) {
+
+        final Path polygonPath = new Path();
+
+        final float imageBoundary = mImageSize * 1.1f;
+
+        corner = corner % 4;
+        Log.d(TAG, "Broken corner: " + corner);
+        final boolean yIsGrowing = corner == 1 || corner == 2;
+
+        final float initialY = yIsGrowing ? 0f : imageBoundary;
+        final float yDirectionSign = yIsGrowing ? 1f : -1f;
+//        final float maxY = (corner % 2 == 0) ? imageBoundary : 0f;
+
+        float x = 0f;
+        float y = initialY;
+
+        final float stepSize = width * 0.05f;
+
+        while (x < imageBoundary) {
+//            Log.d(TAG, "x: " + x + " y: " + y + " / " + initialY);
+
+            if (x == 0f) {
+                polygonPath.moveTo(x, y);
+            } else {
+                polygonPath.lineTo(x, y);
+            }
+
+            y += Math.random() * stepSize * yDirectionSign;
+            x += Math.random() * stepSize * 0.3f;
+        }
+
+//        Log.d(TAG, "end x: " + x + " y: " + y + " / " + initialY);
+        polygonPath.lineTo(imageBoundary, initialY);
+        polygonPath.close();
+
+        paintPolygon(color, textureId, polygonPath);
+    }
 
     void paintChars(final String string, int color) {
         int count = string.length();

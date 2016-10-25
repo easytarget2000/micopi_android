@@ -214,7 +214,9 @@ public class Contact implements Parcelable {
      */
     public String getMD5EncryptedString() {
         // If no other contact attribute changed, don't re-calculate the MD5 value.
-        if (mMd5String != null) return mMd5String;
+        if (mMd5String != null) {
+            return mMd5String;
+        }
 
         final String combinedInfo;
         combinedInfo = mFullName + mEmailAddress + mPhoneNumber + mBirthday + mRetryFactor;
