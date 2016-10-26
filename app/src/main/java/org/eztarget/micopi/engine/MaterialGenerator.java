@@ -15,6 +15,8 @@
  */
 package org.eztarget.micopi.engine;
 
+import android.util.Log;
+
 import org.eztarget.micopi.Contact;
 
 
@@ -87,8 +89,8 @@ class MaterialGenerator {
 //            Log.d(TAG, "Texture ID: " + textureId);
 
             final int shape = (((md5Char * i) * md5Char) % 10) - i;
-//            Log.d(TAG, "Shape: " + shape);
 
+            Log.d(TAG, "Painting shape " + shape + ".");
 
             if (shape == 0) {
                 painter.paintCircle(

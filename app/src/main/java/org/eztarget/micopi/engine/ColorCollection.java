@@ -44,6 +44,26 @@ class ColorCollection {
                     0xFF291615
             },
             {
+                    0xFFBF2A23,
+                    0xFFA6AD3C,
+                    0xFFF0CE4E,
+                    0xFFCF872E,
+                    0xFF8A211D
+            },
+            {
+                    0xFFCCCCCC,
+                    0xFFDBCAD5,
+                    0xFFE3D8E0,
+                    0xFFE5E5E5,
+                    0xFFFAFAFA
+            },
+            {
+                    0xFFF4F4F4,
+                    0xFF9BA657,
+                    0xFFA68C78,
+                    0xFF594433
+            },
+            {
                     0xFFFFFFFF,
                     0xFF912891,
                     0xFF858585,
@@ -145,6 +165,20 @@ class ColorCollection {
                     0xFFB3204D,
                     0xFF412E28,
                     0xFF151101
+            },
+            {
+                    0xFFF1F0CD,
+                    0xFFB6C59B,
+                    0xFFC59948,
+                    0xFFC82D5F,
+                    0xFF22124A
+            },
+            {
+                    0xFFFC580C,
+                    0xFFFC6B0A,
+                    0xFFF8872E,
+                    0xFFFFA927,
+                    0xFFFDCA49
             }
     };
 
