@@ -330,7 +330,7 @@ class Painter {
 
         float x = 0f;
         float y;
-        final float stepSize = mImageSize / 64f;
+        final float stepSize = mImageSize / 128f;
         final float xStepSize = stepSize;
         final float yStepSize;
         if (corner == 1 || corner == 2) {

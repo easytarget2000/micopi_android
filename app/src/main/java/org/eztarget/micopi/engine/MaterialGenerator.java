@@ -131,8 +131,6 @@ class MaterialGenerator {
 
         }
 
-        painter.paintBrokenCorner(0xFFFF00FF, 0, 3, 500);
-
         painter.disableShadows();
     }
 }
