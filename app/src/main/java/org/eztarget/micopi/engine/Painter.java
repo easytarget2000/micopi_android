@@ -83,7 +83,7 @@ class Painter {
     /**
      * @return Side length of the square canvas
      */
-   int getImageSize() {
+    int getImageSize() {
         return mImageSize;
     }
 
@@ -91,7 +91,7 @@ class Painter {
     Textures
      */
 
-    private static final int NUMBER_OF_TEXTURE_FILES = 23;
+    private static final int NUMBER_OF_TEXTURE_FILES = 26;
 
     private void setShader(int fileId, final int color) {
 
@@ -240,8 +240,8 @@ class Painter {
         if (textureId > 0) {
             mPaint.setColor(color);
             mCanvas.drawPath(polygonPath, mPaint);
-//            setShader(textureId, color);
-//            mCanvas.drawPath(polygonPath, mPaint);
+            setShader(textureId, color);
+            mCanvas.drawPath(polygonPath, mPaint);
             clearShader();
         } else {
             mPaint.setColor(color);
@@ -327,33 +327,54 @@ class Painter {
         final float imageBoundary = mImageSize * 1.1f;
 
         corner = corner % 4;
-        Log.d(TAG, "Broken corner: " + corner);
-        final boolean yIsGrowing = corner == 1 || corner == 2;
-
-        final float initialY = yIsGrowing ? 0f : imageBoundary;
-        final float yDirectionSign = yIsGrowing ? 1f : -1f;
-//        final float maxY = (corner % 2 == 0) ? imageBoundary : 0f;
 
         float x = 0f;
-        float y = initialY;
-
-        final float stepSize = width * 0.05f;
-
-        while (x < imageBoundary) {
-//            Log.d(TAG, "x: " + x + " y: " + y + " / " + initialY);
-
-            if (x == 0f) {
-                polygonPath.moveTo(x, y);
-            } else {
-                polygonPath.lineTo(x, y);
-            }
-
-            y += Math.random() * stepSize * yDirectionSign;
-            x += Math.random() * stepSize * 0.3f;
+        float y;
+        final float stepSize = mImageSize / 64f;
+        final float xStepSize = stepSize;
+        final float yStepSize;
+        if (corner == 1 || corner == 2) {
+            y = 0f;
+            yStepSize = stepSize;
+        } else {
+            y = imageBoundary;
+            yStepSize = -stepSize;
         }
 
-//        Log.d(TAG, "end x: " + x + " y: " + y + " / " + initialY);
-        polygonPath.lineTo(imageBoundary, initialY);
+
+
+        Log.d(TAG, "Broken corner: " + corner + ", Start: x: " + x + " y: " + y);
+
+        polygonPath.moveTo(x, y);
+
+        while (x <= imageBoundary && y <= imageBoundary && y >= 0f) {
+
+            x += Math.random() * xStepSize;
+            y += Math.random() * yStepSize;
+
+            polygonPath.lineTo(x, y);
+
+        }
+
+        Log.d(TAG, "Broken corner: Before finish: x: " + x + " y: " + y);
+
+
+        final float lastX;
+        if (corner == 0 || corner == 2) {
+            lastX = 0f;
+        } else {
+            lastX = imageBoundary;
+        }
+
+        final float lastY;
+        if (corner == 0 || corner == 1) {
+            lastY = 0f;
+        } else {
+            lastY = imageBoundary;
+        }
+        Log.d(TAG, "Broken corner: Finish: x: " + lastX + " y: " + lastY);
+
+        polygonPath.lineTo(lastX, lastY);
         polygonPath.close();
 
         paintPolygon(color, textureId, polygonPath);

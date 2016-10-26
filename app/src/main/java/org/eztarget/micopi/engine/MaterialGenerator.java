@@ -86,7 +86,6 @@ class MaterialGenerator {
             final int color = ColorCollection.getColor(paletteId, md5Char);
 
             final int textureId = md5Char * md5Char * i;
-//            Log.d(TAG, "Texture ID: " + textureId);
 
             final int shape = (((md5Char * i) * md5Char) % 10) - i;
 
@@ -131,6 +130,8 @@ class MaterialGenerator {
             }
 
         }
+
+        painter.paintBrokenCorner(0xFFFF00FF, 0, 3, 500);
 
         painter.disableShadows();
     }
