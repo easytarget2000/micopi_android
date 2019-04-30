@@ -1,6 +1,7 @@
 # Micopi
 
 NOTE: As of September 2016, this project moved to a private repository. Further changes are not merged to the GitHub repo.
+
 <a href="https://github.com/easytargetmixel/micopi_ios" target="_blank">iOS Port</a>
 
 Micopi allows you to assign an image to every person in your telephone's contact list. So if you do not happen to have a (decent) photo of them, you can use the app to simply generate one.
