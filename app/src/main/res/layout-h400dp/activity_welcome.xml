@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_default"
             android:text="@string/picture_will_be_previewed"
-            android:textColor="@android:color/white"
+            android:textColor="#3C3C3C"
             android:textSize="@dimen/text_size" />
 
         <!-- Batch Mode Button: -->
