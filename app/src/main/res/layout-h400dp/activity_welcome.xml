@@ -30,7 +30,7 @@
         android:layout_marginTop="@dimen/margin_top_logo"
         android:gravity="center"
         android:text="micopi"
-        android:textColor="@android:color/white"
+        android:textColor="#3C3C3C"
         android:textSize="44sp"
         tools:ignore="HardcodedText" />
 
@@ -41,7 +41,7 @@
         android:layout_below="@id/text_micopi"
         android:layout_marginTop="-16dp"
         android:text="pico"
-        android:textColor="@android:color/white"
+        android:textColor="#3C3C3C"
         android:textSize="33sp"
         tools:ignore="HardcodedText" />
 
